@@ -26,11 +26,32 @@
                         <h:outputText value="#{klientController.selected.cdate}" title="#{bundle.ViewKlientTitle_cdate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        <h:outputText value="#{bundle.ViewKlientGrupy}"/>
+                         <p:dataTable id="datalist" value="#{klientController.selected.grupyTreningoweCollection}" var="item"
+                                 selectionMode="single"                                
+                                 paginator="true"
+                                 rowKey="#{item.nazwa}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20">
+                            <p:column>
+                           
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ViewGrupyTreningoweTitle_nazwa}"/>
+                            </f:facet>
+                                <h:outputText value="#{item.nazwa}"/>                            
+                        </p:column>
+                      </p:dataTable>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="KlientViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
+        
+           test
+          
+        
+        
     </ui:composition>
 </html>
