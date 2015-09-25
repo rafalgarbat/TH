@@ -1,0 +1,13 @@
+CREATE TABLE klient
+(
+  id serial NOT NULL  PRIMARY KEY,
+  imie text,
+  nazwisko text,
+  email text,
+  login text,
+  cdate date DEFAULT now()
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE klient OWNER TO postgres;
