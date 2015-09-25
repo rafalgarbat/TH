@@ -11,3 +11,14 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE klient OWNER TO postgres;
+
+
+
+
+
+create table grupy_treningowe(
+id serial NOT NULL  PRIMARY KEY,
+owner_id integer REFERENCES klient (id),
+nazwa text,
+cdate date default now()
+);
