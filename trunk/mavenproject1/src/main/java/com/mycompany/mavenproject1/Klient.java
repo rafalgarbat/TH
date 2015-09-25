@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,11 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Klient.findByLogin", query = "SELECT k FROM Klient k WHERE k.login = :login"),
     @NamedQuery(name = "Klient.findByCdate", query = "SELECT k FROM Klient k WHERE k.cdate = :cdate")})
 public class Klient implements Serializable {
+    @OneToMany(mappedBy = "ownerId")
+    private Collection<GrupyTreningowe> grupyTreningoweCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -138,6 +143,15 @@ public class Klient implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.mavenproject1.Klient[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<GrupyTreningowe> getGrupyTreningoweCollection() {
+        return grupyTreningoweCollection;
+    }
+
+    public void setGrupyTreningoweCollection(Collection<GrupyTreningowe> grupyTreningoweCollection) {
+        this.grupyTreningoweCollection = grupyTreningoweCollection;
     }
     
 }
