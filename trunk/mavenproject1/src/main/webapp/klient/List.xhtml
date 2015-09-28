@@ -24,6 +24,9 @@
                     </h:panelGrid>  
                 </p:panel>
             </h:form>
+              
+              <ui:include src="Schedule.xhtml"/>
+              
         </ui:define> 
         <ui:define name="body">
             <h:form id="KlientListForm">
@@ -36,7 +39,7 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :klientDetail:klientDetails "/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :klientDetail:klientDetails"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                     
                         
