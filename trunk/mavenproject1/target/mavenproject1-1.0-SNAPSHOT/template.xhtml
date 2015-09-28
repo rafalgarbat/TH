@@ -22,7 +22,6 @@
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Klient" outcome="/klient/List.xhtml" />
-                             <p:menuitem value="Schedule" outcome="/klient/Schedule.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>
@@ -35,12 +34,11 @@
             <p:layoutUnit position="center">
                 <ui:insert name="body"/>
             </p:layoutUnit>
-
-            <p:layoutUnit position="east">
+            
+             <p:layoutUnit position="east" size="500">
                 <ui:insert name="eastbody"/>
             </p:layoutUnit>
 
-            
         </p:layout>
 
     </h:body>
