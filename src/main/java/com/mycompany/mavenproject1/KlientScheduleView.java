@@ -14,11 +14,13 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -30,14 +32,17 @@ import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
  
 @ManagedBean
-@ViewScoped
+@Named("klientScheduleView")
+@SessionScoped
 public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
      
     private ScheduleModel lazyEventModel;
  
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    private ScheduleEvent event =  new DefaultScheduleEvent();
+    
+  // private Event test = new Event();
  
     @PostConstruct
     public void init() {
@@ -46,7 +51,10 @@ public class KlientScheduleView implements Serializable {
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-         
+        
+        //eventModel.addEvent(new Event());
+        
+        
         lazyEventModel = new LazyScheduleModel() {
              
             @Override

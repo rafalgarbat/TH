@@ -30,7 +30,7 @@ public class KlientController implements Serializable {
     }
 
     public Klient getSelected() {
-        return selected;
+        return selected; 
     }
 
     public void setSelected(Klient selected) {

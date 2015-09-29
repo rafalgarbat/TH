@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class GrupyTreningoweFacade extends AbstractFacade<GrupyTreningowe> {
+    
     @PersistenceContext(unitName = "com.mycompany_mavenproject1_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
