@@ -40,9 +40,9 @@ public class KlientScheduleView implements Serializable {
      
     private ScheduleModel lazyEventModel;
  
-    private ScheduleEvent event =  new DefaultScheduleEvent();
-    
-  // private Event test = new Event();
+    //private ScheduleEvent event =  new DefaultScheduleEvent();
+    private Event event =  new Event();
+       
  
     @PostConstruct
     public void init() {
@@ -172,7 +172,7 @@ public class KlientScheduleView implements Serializable {
         return event;
     }
  
-    public void setEvent(ScheduleEvent event) {
+    public void setEvent(Event event) {
         this.event = event;
     }
      
@@ -182,15 +182,16 @@ public class KlientScheduleView implements Serializable {
         else
             eventModel.updateEvent(event);
          
-        event = new DefaultScheduleEvent();
+        event = new Event();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (ScheduleEvent) selectEvent.getObject();
+        event = (Event)selectEvent.getObject();
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+         event = (Event) new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
