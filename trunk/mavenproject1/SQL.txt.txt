@@ -12,13 +12,31 @@ WITH (
 );
 ALTER TABLE klient OWNER TO postgres;
 
-
-
-
-
 create table grupy_treningowe(
 id serial NOT NULL  PRIMARY KEY,
 owner_id integer REFERENCES klient (id),
 nazwa text,
 cdate date default now()
+);
+
+
+CREATE TABLE event
+(
+  id serial unique NOT NULL,
+  klient_id integer,
+  tytul text,
+  czycalydzien boolean default false,
+  czypubliczne boolean default true,
+  dataod date,
+  datado date,
+  przesuniecie text,
+  typ_przesuniecia integer,
+  cdate date DEFAULT now(),
+  mdate date DEFAULT now(),
+  CONSTRAINT event_pkey PRIMARY KEY (id),
+  CONSTRAINT eventklient_id_fkey FOREIGN KEY (klient_id) REFERENCES klient (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
 );

@@ -40,6 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Klient.findByLogin", query = "SELECT k FROM Klient k WHERE k.login = :login"),
     @NamedQuery(name = "Klient.findByCdate", query = "SELECT k FROM Klient k WHERE k.cdate = :cdate")})
 public class Klient implements Serializable {
+    @OneToMany(mappedBy = "klientId")
+    private Collection<Event> eventCollection;
     @OneToMany(mappedBy = "ownerId")
     private Collection<GrupyTreningowe> grupyTreningoweCollection;
     private static final long serialVersionUID = 1L;
@@ -152,6 +154,15 @@ public class Klient implements Serializable {
 
     public void setGrupyTreningoweCollection(Collection<GrupyTreningowe> grupyTreningoweCollection) {
         this.grupyTreningoweCollection = grupyTreningoweCollection;
+    }
+
+    @XmlTransient
+    public Collection<Event> getEventCollection() {
+        return eventCollection;
+    }
+
+    public void setEventCollection(Collection<Event> eventCollection) {
+        this.eventCollection = eventCollection;
     }
     
 }
