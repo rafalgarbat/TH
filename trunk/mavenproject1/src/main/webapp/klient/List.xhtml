@@ -37,11 +37,13 @@
                                  rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 sortMode="multiple"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :klientDetail:klientDetails"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                    
+                   
+             
                         
                         <p:column>
                             <f:facet name="header">
@@ -49,13 +51,13 @@
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.imie}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKlientTitle_imie}"/>
                             </f:facet>
                             <h:outputText value="#{item.imie}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.nazwisko}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKlientTitle_nazwisko}"/>
                             </f:facet>
