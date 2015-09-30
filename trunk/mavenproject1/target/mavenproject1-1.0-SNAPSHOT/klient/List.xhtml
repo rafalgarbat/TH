@@ -12,8 +12,7 @@
         <ui:define name="title">
             <h:outputText value="#{bundle.ListKlientTitle}"></h:outputText>
         </ui:define>
-        
- 
+                        
           <ui:define name="eastbody">            
             <h:form id="klientDetail">
                 <p:panel header="Naglowek">
@@ -31,8 +30,13 @@
         <ui:define name="body">
             <h:form id="KlientListForm">
                 <p:panel header="#{bundle.ListKlientTitle}">
-                    <p:dataTable id="datalist" value="#{klientController.items}" var="item"
-                                 selectionMode="single" selection="#{klientController.selected}"
+                    <p:dataTable id="datalist" 
+                                 widgetVar="klientsTable"
+                                 value="#{klientController.items}" var="item"
+                                 filteredValue="#{klientController.filteredItems}"
+                                 emptyMessage="No users found with given criteria"
+                                 selectionMode="single" 
+                                 selection="#{klientController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -43,7 +47,12 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :klientDetail:klientDetails"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                    
-             
+              <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('klientsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
                         
                         <p:column>
                             <f:facet name="header">
@@ -51,13 +60,13 @@
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
-                        <p:column sortBy="#{item.imie}">
+                        <p:column sortBy="#{item.imie}" filterBy="#{item.imie}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKlientTitle_imie}"/>
                             </f:facet>
                             <h:outputText value="#{item.imie}"/>
                         </p:column>
-                        <p:column sortBy="#{item.nazwisko}">
+                        <p:column sortBy="#{item.nazwisko}"  filterBy="#{item.nazwisko}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKlientTitle_nazwisko}"/>
                             </f:facet>
