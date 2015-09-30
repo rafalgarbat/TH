@@ -24,6 +24,9 @@ public class KlientController implements Serializable {
     @EJB
     private com.mycompany.mavenproject1.KlientFacade ejbFacade;
     private List<Klient> items = null;
+    private List<Klient> filteredItems = null;
+    
+    
     private Klient selected;
 
     public KlientController() {
@@ -79,6 +82,14 @@ public class KlientController implements Serializable {
         return items;
     }
 
+     public List<Klient> getFilteredItems() {
+        return filteredItems;
+    }
+ 
+    public void setFilteredItems(List<Klient> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

@@ -56,10 +56,10 @@ public class KlientScheduleView implements Serializable {
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
        
         
-        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
-       for(Event eve :listOfAllEvents){
-             eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul()+"xxx", eve.getDataod(), eve.getDatado()));
-        }
+      //  listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+     //  for(Event eve :listOfAllEvents){
+      //       eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul()+"xxx", eve.getDataod(), eve.getDatado()));
+      //  }
         
         lazyEventModel = new LazyScheduleModel() {
              
