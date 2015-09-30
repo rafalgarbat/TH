@@ -1,4 +1,5 @@
 com\mycompany\mavenproject1\KlientController.class
+com\mycompany\mavenproject1\Event_.class
 com\mycompany\mavenproject1\AbstractFacade.class
 com\mycompany\mavenproject1\Klient.class
 com\mycompany\mavenproject1\util\JsfUtil$PersistAction.class

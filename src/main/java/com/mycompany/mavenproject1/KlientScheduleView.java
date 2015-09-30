@@ -11,8 +11,10 @@ package com.mycompany.mavenproject1;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -21,6 +23,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -37,23 +41,23 @@ import org.primefaces.model.ScheduleModel;
 public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
-     
     private ScheduleModel lazyEventModel;
- 
-    //private ScheduleEvent event =  new DefaultScheduleEvent();
-    private Event event =  new Event();
-       
+    private ScheduleEvent event =  new DefaultScheduleEvent();
+    
+    @PersistenceContext(unitName = "com.mycompany_mavenproject1_war_1.0-SNAPSHOTPU")
+    EntityManager em;
+    List<Event> listOfAllEvents = new ArrayList<Event>();   
  
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
-        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
+       
         
-        //eventModel.addEvent(new Event());
-        
+        listOfAllEvents = em.createNamedQuery("Event.findAll").getResultList();
+        for(Event eve :listOfAllEvents){
+             eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado()));
+        }
         
         lazyEventModel = new LazyScheduleModel() {
              
@@ -182,16 +186,15 @@ public class KlientScheduleView implements Serializable {
         else
             eventModel.updateEvent(event);
          
-        event = new Event();
+        event = new DefaultScheduleEvent();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (Event)selectEvent.getObject();
+        event = (DefaultScheduleEvent)selectEvent.getObject();
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-         event = (Event) new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());       
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
