@@ -35,6 +35,10 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
  
 @ManagedBean
 @Named("klientScheduleView")
@@ -44,7 +48,9 @@ public class KlientScheduleView implements Serializable {
     private ScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
     private ScheduleEvent event =  new DefaultScheduleEvent();
- 
+    private MapModel simpleModel;
+    
+    
     @EJB
     private KlientFacade klientFacade;
     
@@ -55,6 +61,21 @@ public class KlientScheduleView implements Serializable {
         eventModel = new DefaultScheduleModel();
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
        
+        
+         simpleModel = new DefaultMapModel();
+          
+        //przeniesc na odczyt z bazy
+        LatLng coord1 = new LatLng(36.879466, 30.667648);
+        LatLng coord2 = new LatLng(36.883707, 30.689216);
+        LatLng coord3 = new LatLng(36.879703, 30.706707);
+        LatLng coord4 = new LatLng(36.885233, 30.702323);
+          
+        //..i powiazac z eventami
+        simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
+        simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
+        simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
+        simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
+        
         
       //  listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
      //  for(Event eve :listOfAllEvents){
@@ -81,7 +102,11 @@ public class KlientScheduleView implements Serializable {
          
         return date.getTime();
     }
-     
+   
+    public MapModel getSimpleModel() {
+        return simpleModel;
+    }
+    
     public Date getInitialDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
