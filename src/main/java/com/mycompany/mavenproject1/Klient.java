@@ -63,6 +63,8 @@ public class Klient implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "login")
     private String login;
+    @Column(name = "password")
+    private String password;
     @Column(name = "cdate")
     @Temporal(TemporalType.DATE)
     private Date cdate;
@@ -113,7 +115,14 @@ public class Klient implements Serializable {
     public void setLogin(String login) {
         this.login = login;
     }
+    
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPasswprd(String password) {
+        this.password = password;
+    }
     public Date getCdate() {
         return cdate;
     }
