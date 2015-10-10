@@ -18,6 +18,10 @@ import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 /**
  *
@@ -27,7 +31,8 @@ import org.primefaces.model.DefaultDashboardModel;
 @ViewScoped
 public class DashboardController implements Serializable{
     private DashboardModel model;
-     
+    private BarChartModel barModel;
+    
     @PostConstruct
     public void init() {
         model = new DefaultDashboardModel();
@@ -46,8 +51,43 @@ public class DashboardController implements Serializable{
         model.addColumn(column1);
         model.addColumn(column2);
         model.addColumn(column3);
+        
+        createBarModel();
     }
-     
+   private BarChartModel initBarModel() {
+        BarChartModel model = new BarChartModel();
+ 
+        ChartSeries run = new ChartSeries();
+        run.setLabel("Run");
+        run.set("2004", 120);
+        model.addSeries(run);
+        
+        ChartSeries bike = new ChartSeries();
+        bike.setLabel("Bike");
+        bike.set("opis", 100);
+        
+        model.addSeries(bike);
+         
+        return model;
+    }
+    private void createBarModel() {
+        barModel = initBarModel();
+                 
+        barModel.setLegendPosition("ne");
+         
+        Axis xAxis = barModel.getAxis(AxisType.X);
+        xAxis.setLabel("yyy");
+         
+        Axis yAxis = barModel.getAxis(AxisType.Y);
+        yAxis.setLabel("xxx");
+        yAxis.setMin(0);
+        yAxis.setMax(200);
+    }
+    
+    public BarChartModel getBarModel() {
+        return barModel;
+    }
+    
     public void handleReorder(DashboardReorderEvent event) {
         FacesMessage message = new FacesMessage();
         message.setSeverity(FacesMessage.SEVERITY_INFO);
