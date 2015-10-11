@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -58,12 +59,9 @@ public class KlientScheduleView implements Serializable {
  
     @PostConstruct
     public void init() {
-        eventModel = new DefaultScheduleModel();
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-       
         
-         simpleModel = new DefaultMapModel();
-          
+        
+        simpleModel = new DefaultMapModel();          
         //przeniesc na odczyt z bazy
         LatLng coord1 = new LatLng(36.879466, 30.667648);
         LatLng coord2 = new LatLng(36.883707, 30.689216);
@@ -75,22 +73,20 @@ public class KlientScheduleView implements Serializable {
         simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
         simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
         simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
-        
-        
-      //  listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
-     //  for(Event eve :listOfAllEvents){
-      //       eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul()+"xxx", eve.getDataod(), eve.getDatado()));
-      //  }
-        
+
         lazyEventModel = new LazyScheduleModel() {
              
             @Override
             public void loadEvents(Date start, Date end) {
+            
                 Date random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
-                 
-                random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
+                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));                 
+                listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+                for (Iterator<Event> it = listOfAllEvents.iterator(); it.hasNext();) {
+                        ScheduleEvent eve = it.next();
+                        //eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul()+"xxx", eve.getDataod(), eve.getDatado()));
+                        addEvent(new DefaultScheduleEvent("Lazy Event 1"+eve.getTitle(), random, random));                            
+                }          
             }   
         };
     }
@@ -114,7 +110,7 @@ public class KlientScheduleView implements Serializable {
         return calendar.getTime();
     }
     
-    private KlientFacade getFacade() {
+    public KlientFacade getFacade() {
         return klientFacade;
     }
     
