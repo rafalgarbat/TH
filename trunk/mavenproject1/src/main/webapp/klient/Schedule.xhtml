@@ -13,7 +13,7 @@
  
     <h:panelGrid columnClasses="value">
         <h3 style="margin-top: 0">Editable Schedule</h3>
-        <p:schedule id="schedule" value="#{klientScheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+        <p:schedule id="schedule" value="#{klientScheduleView.lazyEventModel}" widgetVar="myschedule" timeZone="GMT+2">
             <p:ajax event="dateSelect" listener="#{klientScheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update=":klientSchedule:eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventMove" listener="#{klientScheduleView.onEventMove}" update=":klientSchedule:messages" />

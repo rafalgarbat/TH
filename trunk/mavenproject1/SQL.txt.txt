@@ -42,3 +42,22 @@ WITH (
 );
 
 ALTER TABLE klient ADD COLUMN "password" text;
+
+
+create table workouts(
+id serial unique not null,
+title text,
+date_from date,
+date_to date,
+date_shift text,
+shit_type text,
+gmap_cords text,
+is_allday boolean default false,
+is_public boolean default false,
+keywords  text,
+is_toremind boolean default false,
+cuser integer,
+cdate date default now(),
+mdate date default now(),
+CONSTRAINT workouts_pkey PRIMARY KEY (id)
+)

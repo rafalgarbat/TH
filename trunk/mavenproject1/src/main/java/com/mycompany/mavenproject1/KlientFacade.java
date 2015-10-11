@@ -22,7 +22,7 @@ public class KlientFacade extends AbstractFacade<Klient> {
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 
