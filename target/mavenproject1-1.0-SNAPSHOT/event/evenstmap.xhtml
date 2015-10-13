@@ -11,16 +11,54 @@
     
 
     
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/calendartemplate.xhtml">
 
 
-              <ui:define name="title">
+        <ui:define name="title">
             <h:outputText value="xxxxxxxxxxxxxx"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-           
-            <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:100%;height:400px" model="#{klientScheduleView.simpleModel}" />
+       
+           <h:form id="test">
+                <p>aaaz</p>
+                <p>#{klientScheduleView.event.title}</p>
+            </h:form>
+        
+                 
+            
+        <h:form id="someSchedule">
+            <p:growl id="messages" showDetail="true" />
+            
+            <p:schedule id="schedule" style="width:800px;height:100px" value="#{klientScheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+                <p:ajax event="dateSelect" listener="#{klientScheduleView.onDateSelect}" update=":someSchedule:eventDetails" oncomplete="PF('eventDialog').show();" />
+                <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update=":test"/>
+                <p:ajax event="eventMove" listener="#{klientScheduleView.onEventMove}" update=":someSchedule:messages" />
+                <p:ajax event="eventResize" listener="#{klientScheduleView.onEventResize}" update=":someSchedule:messages" /> 
+            </p:schedule>                                        
+    
+        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{klientScheduleView.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="From:" />
+            <p:calendar id="from" value="#{klientScheduleView.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="To:" />
+            <p:calendar id="to" value="#{klientScheduleView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="allDay" value="All Day:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{klientScheduleView.event.allDay}" />
+ 
+            <p:commandButton type="reset" value="Reset" />
+            <p:commandButton id="addButton" value="Save" actionListener="#{klientScheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+        </h:panelGrid>
+        </p:dialog>
+        
+        </h:form>     
+      
+            
            
         </ui:define>
         
