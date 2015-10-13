@@ -33,7 +33,6 @@ import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.map.DefaultMapModel;
@@ -47,7 +46,6 @@ import org.primefaces.model.map.Marker;
 public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
-    private ScheduleModel lazyEventModel;
     private ScheduleEvent event =  new DefaultScheduleEvent();
     private MapModel simpleModel;
     
@@ -74,21 +72,13 @@ public class KlientScheduleView implements Serializable {
         simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
         simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
 
-        lazyEventModel = new LazyScheduleModel() {
-             
-            @Override
-            public void loadEvents(Date start, Date end) {
-            
-                Date random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));                 
-                listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
-                for (Iterator<Event> it = listOfAllEvents.iterator(); it.hasNext();) {
-                        ScheduleEvent eve = it.next();
-                        //eventModel.addEvent(new DefaultScheduleEvent(eve.getTytul()+"xxx", eve.getDataod(), eve.getDatado()));
-                        addEvent(new DefaultScheduleEvent("Lazy Event 1"+eve.getTitle(), random, random));                            
-                }          
-            }   
-        };
+        eventModel = new DefaultScheduleModel();        
+        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+        for (Event eve : listOfAllEvents) {         
+            eventModel.addEvent(new DefaultScheduleEvent("Event xx"+eve.getTytul(), eve.getDataod() ,eve.getDatado()));
+        }          
+         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
+        
     }
      
     public Date getRandomDate(Date base) {
@@ -118,9 +108,7 @@ public class KlientScheduleView implements Serializable {
         return eventModel;
     }
      
-    public ScheduleModel getLazyEventModel() {
-        return lazyEventModel;
-    }
+  
  
     private Calendar today() {
         Calendar calendar = Calendar.getInstance();
