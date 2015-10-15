@@ -58,8 +58,7 @@ public class Event{
     private Integer id;
     @Size(max = 2147483647)
     @Column(name = "tytul")
-    private String tytul;
-    
+    private String tytul;    
     @Column(name = "event_id")
     private String event_id;    
     @Column(name = "czycalydzien")
@@ -97,9 +96,7 @@ public class Event{
     public void setEvent_id(String event_id) {
         this.event_id = event_id;
     }
-    
-
-    
+        
     public Event(Integer id) {
         this.id = id;
     }

@@ -46,7 +46,7 @@ import org.primefaces.model.map.Marker;
 public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
-    private ScheduleEvent event =  new MyEvent();
+    private ScheduleEvent event =  new DefaultScheduleEvent();
     private Event ejbEvent;
     private MapModel simpleModel;
     
@@ -69,24 +69,32 @@ public class KlientScheduleView implements Serializable {
           
         //..i powiazac z eventami
         simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
-        simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
-        simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
-        simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
+        
 
         eventModel = new DefaultScheduleModel();        
         listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
         Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
             Event eve = (Event)pIt.next();
-            MyEvent def=new MyEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado());                 
-            def.setId(eve.getId());
+            DefaultScheduleEvent def=new DefaultScheduleEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
                   
                 
         
     }
-     
+    
+    public void refreshModel(){
+    eventModel.clear();
+    listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+    Iterator pIt = listOfAllEvents.iterator();
+        while(pIt.hasNext()){
+            Event eve = (Event)pIt.next();
+            DefaultScheduleEvent def=new DefaultScheduleEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado(), eve);                             
+            eventModel.addEvent(def);            
+        }
+    }
+    
     public Date getRandomDate(Date base) {
         Calendar date = Calendar.getInstance();
         date.setTime(base);
@@ -201,27 +209,32 @@ public class KlientScheduleView implements Serializable {
         return event;
     }
  
-    public void setEvent(MyEvent event) {
+    public void setEvent(DefaultScheduleEvent event) {
         this.event = event;
     }
      
+    
     public void addEvent(ActionEvent actionEvent) {
         if(event.getId() == null)
             eventModel.addEvent(event);
         else
             eventModel.updateEvent(event);
         
-        getFacade().saveScheduleModel(eventModel);
-        event = new MyEvent();
+        getFacade().saveScheduleModel(eventModel);        
+        refreshModel();
+        
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (MyEvent)selectEvent.getObject();
-        ejbEvent = getFacade().readEvent(event.getId());
+        event = (DefaultScheduleEvent)selectEvent.getObject();
+        refreshModel();
+        if (event != null){
+        ejbEvent = getFacade().readEvent(event.getData());        
+        }
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new MyEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());       
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());       
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -236,6 +249,7 @@ public class KlientScheduleView implements Serializable {
         addMessage(message);
     }
      
+    
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }

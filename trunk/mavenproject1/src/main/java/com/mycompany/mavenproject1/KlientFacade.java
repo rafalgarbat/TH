@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
@@ -34,33 +35,38 @@ public class KlientFacade extends AbstractFacade<Klient> {
         super(Klient.class);
     }
 
-    public Event readEvent(String aEventId){
+    public Event readEvent(Object aObject){
+        Event pEve = (Event)aObject;
         List<Event> listOfEvents = new ArrayList<>();  
-        listOfEvents = em.createNamedQuery("Event.findByEvent_Id").setParameter("event_id", aEventId).getResultList();
-        return listOfEvents.get(0);
+        listOfEvents = em.createNamedQuery("Event.findById").setParameter("id", pEve.getId()).getResultList();
+        int x=0;
+       return listOfEvents.get(0);
     }
     
     public void saveScheduleModel(ScheduleModel aModel){        
         Event myEvent;
         List<Event> listOfEvents = new ArrayList<Event>();  
         for (ScheduleEvent eve : aModel.getEvents()) {                        
-            
-            listOfEvents = em.createNamedQuery("Event.findByEvent_Id").setParameter("event_id", eve.getId()).getResultList();
-            if (listOfEvents.size()>0){
+            Event e = (Event)eve.getData();
+            if (e ==null){
+                //dodanie nowego
+                myEvent = new Event();
+                myEvent.setEvent_id(eve.getId());
+                myEvent.setTytul(eve.getTitle());
+                myEvent.setDatado(eve.getEndDate());
+                myEvent.setDataod(eve.getStartDate());
+                em.persist(myEvent);  
+            }else{
+                listOfEvents = em.createNamedQuery("Event.findById").setParameter("id", e.getId()).getResultList();
                 myEvent = listOfEvents.get(0);
                 myEvent.setEvent_id(eve.getId());
                 myEvent.setTytul(eve.getTitle());
                 myEvent.setDatado(eve.getEndDate());
                 myEvent.setDataod(eve.getStartDate()); 
                 getEntityManager().merge(myEvent);
-            }else{
-                myEvent = new Event();
-                myEvent.setEvent_id(eve.getId());
-                myEvent.setTytul(eve.getTitle());
-                myEvent.setDatado(eve.getEndDate());
-                myEvent.setDataod(eve.getStartDate());
-                em.persist(myEvent);            
-            }            
+            }
+            
+            
         }    
     }
     
