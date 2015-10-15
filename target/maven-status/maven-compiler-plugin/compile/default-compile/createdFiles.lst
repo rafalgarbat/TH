@@ -8,6 +8,7 @@ com\mycompany\mavenproject1\auth\Util.class
 com\mycompany\mavenproject1\Klient_.class
 com\mycompany\mavenproject1\KlientScheduleView.class
 com\mycompany\mavenproject1\GrupyTreningowe.class
+com\mycompany\mavenproject1\MyEvent.class
 com\mycompany\mavenproject1\WorkoutsController$WorkoutsControllerConverter.class
 com\mycompany\mavenproject1\GrupyTreningowe_.class
 com\mycompany\mavenproject1\KlientController$KlientControllerConverter.class
