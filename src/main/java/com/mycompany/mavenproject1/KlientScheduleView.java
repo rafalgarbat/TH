@@ -46,7 +46,8 @@ import org.primefaces.model.map.Marker;
 public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
-    private ScheduleEvent event =  new DefaultScheduleEvent();
+    private ScheduleEvent event =  new MyEvent();
+    private Event ejbEvent;
     private MapModel simpleModel;
     
     
@@ -74,10 +75,15 @@ public class KlientScheduleView implements Serializable {
 
         eventModel = new DefaultScheduleModel();        
         listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
-        for (Event eve : listOfAllEvents) {         
-            eventModel.addEvent(new DefaultScheduleEvent("Event "+eve.getTytul(), eve.getDataod() ,eve.getDatado()));
-        }          
-         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
+        Iterator pIt = listOfAllEvents.iterator();
+        while(pIt.hasNext()){
+            Event eve = (Event)pIt.next();
+            MyEvent def=new MyEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado());                 
+            def.setId(eve.getId());
+            eventModel.addEvent(def);            
+        }
+                  
+                
         
     }
      
@@ -102,6 +108,10 @@ public class KlientScheduleView implements Serializable {
     
     public KlientFacade getFacade() {
         return klientFacade;
+    }
+
+    public Event getEjbEvent() {
+        return ejbEvent;
     }
     
     public ScheduleModel getEventModel() {
@@ -191,7 +201,7 @@ public class KlientScheduleView implements Serializable {
         return event;
     }
  
-    public void setEvent(DefaultScheduleEvent event) {
+    public void setEvent(MyEvent event) {
         this.event = event;
     }
      
@@ -202,15 +212,16 @@ public class KlientScheduleView implements Serializable {
             eventModel.updateEvent(event);
         
         getFacade().saveScheduleModel(eventModel);
-        event = new DefaultScheduleEvent();
+        event = new MyEvent();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (DefaultScheduleEvent)selectEvent.getObject();
+        event = (MyEvent)selectEvent.getObject();
+        ejbEvent = getFacade().readEvent(event.getId());
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());       
+        event = new MyEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());       
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
