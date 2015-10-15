@@ -34,6 +34,12 @@ public class KlientFacade extends AbstractFacade<Klient> {
         super(Klient.class);
     }
 
+    public Event readEvent(String aEventId){
+        List<Event> listOfEvents = new ArrayList<>();  
+        listOfEvents = em.createNamedQuery("Event.findByEvent_Id").setParameter("event_id", aEventId).getResultList();
+        return listOfEvents.get(0);
+    }
+    
     public void saveScheduleModel(ScheduleModel aModel){        
         Event myEvent;
         List<Event> listOfEvents = new ArrayList<Event>();  
