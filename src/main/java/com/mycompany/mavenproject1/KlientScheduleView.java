@@ -75,7 +75,7 @@ public class KlientScheduleView implements Serializable {
         eventModel = new DefaultScheduleModel();        
         listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
         for (Event eve : listOfAllEvents) {         
-            eventModel.addEvent(new DefaultScheduleEvent("Event xx"+eve.getTytul(), eve.getDataod() ,eve.getDatado()));
+            eventModel.addEvent(new DefaultScheduleEvent("Event "+eve.getTytul(), eve.getDataod() ,eve.getDatado()));
         }          
          eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         
@@ -191,7 +191,7 @@ public class KlientScheduleView implements Serializable {
         return event;
     }
  
-    public void setEvent(Event event) {
+    public void setEvent(DefaultScheduleEvent event) {
         this.event = event;
     }
      
@@ -200,7 +200,8 @@ public class KlientScheduleView implements Serializable {
             eventModel.addEvent(event);
         else
             eventModel.updateEvent(event);
-         
+        
+        getFacade().saveScheduleModel(eventModel);
         event = new DefaultScheduleEvent();
     }
      
