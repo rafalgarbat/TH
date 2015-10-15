@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +34,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
+    @NamedQuery(name = "Event.findByEvent_Id", query = "SELECT e FROM Event e WHERE e.event_id = :event_id"),    
     @NamedQuery(name = "Event.findById", query = "SELECT e FROM Event e WHERE e.id = :id"),
     @NamedQuery(name = "Event.findByTytul", query = "SELECT e FROM Event e WHERE e.tytul = :tytul"),
     @NamedQuery(name = "Event.findByCzycalydzien", query = "SELECT e FROM Event e WHERE e.czycalydzien = :czycalydzien"),
@@ -43,16 +45,23 @@ import org.primefaces.model.DefaultScheduleEvent;
     @NamedQuery(name = "Event.findByTypPrzesuniecia", query = "SELECT e FROM Event e WHERE e.typPrzesuniecia = :typPrzesuniecia"),
     @NamedQuery(name = "Event.findByCdate", query = "SELECT e FROM Event e WHERE e.cdate = :cdate"),
     @NamedQuery(name = "Event.findByMdate", query = "SELECT e FROM Event e WHERE e.mdate = :mdate")})
-public class Event extends DefaultScheduleEvent  {
+public class Event{
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="event_id_seq")
+	@SequenceGenerator(
+		name="event_id_seq",
+		sequenceName="event_id_seq",
+		allocationSize=1
+	)
     @Column(name = "id")
     private Integer id;
     @Size(max = 2147483647)
     @Column(name = "tytul")
     private String tytul;
+    
+    @Column(name = "event_id")
+    private String event_id;    
     @Column(name = "czycalydzien")
     private Boolean czycalydzien;
     @Column(name = "czypubliczne")
@@ -80,14 +89,21 @@ public class Event extends DefaultScheduleEvent  {
 
     public Event() {
     }
+
+    public String getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
     
 
     
     public Event(Integer id) {
         this.id = id;
     }
-
-    @Override
+    
     public String getId() {
         return id.toString();
     }
@@ -176,14 +192,12 @@ public class Event extends DefaultScheduleEvent  {
         this.klientId = klientId;
     }
 
-    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
-    @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Event)) {
@@ -196,7 +210,6 @@ public class Event extends DefaultScheduleEvent  {
         return true;
     }
 
-    @Override
     public String toString() {
         return "com.mycompany.mavenproject1.Event[ id=" + id + " ]";
     }

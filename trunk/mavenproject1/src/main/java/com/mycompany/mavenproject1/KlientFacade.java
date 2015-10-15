@@ -6,10 +6,14 @@
 package com.mycompany.mavenproject1;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 
 /**
  *
@@ -30,6 +34,30 @@ public class KlientFacade extends AbstractFacade<Klient> {
         super(Klient.class);
     }
 
+    public void saveScheduleModel(ScheduleModel aModel){        
+        Event myEvent;
+        List<Event> listOfEvents = new ArrayList<Event>();  
+        for (ScheduleEvent eve : aModel.getEvents()) {                        
+            
+            listOfEvents = em.createNamedQuery("Event.findByEvent_Id").setParameter("event_id", eve.getId()).getResultList();
+            if (listOfEvents.size()>0){
+                myEvent = listOfEvents.get(0);
+                myEvent.setEvent_id(eve.getId());
+                myEvent.setTytul(eve.getTitle());
+                myEvent.setDatado(eve.getEndDate());
+                myEvent.setDataod(eve.getStartDate()); 
+                getEntityManager().merge(myEvent);
+            }else{
+                myEvent = new Event();
+                myEvent.setEvent_id(eve.getId());
+                myEvent.setTytul(eve.getTitle());
+                myEvent.setDatado(eve.getEndDate());
+                myEvent.setDataod(eve.getStartDate());
+                em.persist(myEvent);            
+            }            
+        }    
+    }
+    
     public boolean login(String user, String password) {
 
         /*zmienić to - poki co tylko testowo*/    
