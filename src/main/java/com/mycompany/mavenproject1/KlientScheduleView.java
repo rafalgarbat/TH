@@ -76,7 +76,7 @@ public class KlientScheduleView implements Serializable {
         Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
             Event eve = (Event)pIt.next();
-            DefaultScheduleEvent def=new DefaultScheduleEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado(), eve);                             
+            DefaultScheduleEvent def=new DefaultScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
                   
@@ -90,7 +90,7 @@ public class KlientScheduleView implements Serializable {
     Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
             Event eve = (Event)pIt.next();
-            DefaultScheduleEvent def=new DefaultScheduleEvent("Event "+eve.getTytul()+"-"+eve.getId(), eve.getDataod() ,eve.getDatado(), eve);                             
+            DefaultScheduleEvent def=new DefaultScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
     }
@@ -125,9 +125,8 @@ public class KlientScheduleView implements Serializable {
     public ScheduleModel getEventModel() {
         return eventModel;
     }
-     
-  
  
+    
     private Calendar today() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
@@ -215,10 +214,19 @@ public class KlientScheduleView implements Serializable {
      
     
     public void addEvent(ActionEvent actionEvent) {
+        if(event.getId()!=null){
+            /*konieczne aby zadziala updateEvent*/
+            ((Event)event.getData()).setTytul(event.getTitle());
+            ((Event)event.getData()).setPrzesuniecie("55");
+        }
+        
+        
         if(event.getId() == null)
             eventModel.addEvent(event);
-        else
-            eventModel.updateEvent(event);
+        else{
+            eventModel.deleteEvent(event);
+            eventModel.addEvent(event);
+        }
         
         getFacade().saveScheduleModel(eventModel);        
         refreshModel();
@@ -239,7 +247,8 @@ public class KlientScheduleView implements Serializable {
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
+        getFacade().saveScheduleModel(eventModel);        
+        refreshModel(); 
         addMessage(message);
     }
      
