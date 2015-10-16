@@ -59,13 +59,10 @@ public class KlientScheduleView implements Serializable {
     @PostConstruct
     public void init() {
         
-        
         simpleModel = new DefaultMapModel();          
         //przeniesc na odczyt z bazy
         LatLng coord1 = new LatLng(36.879466, 30.667648);
         LatLng coord2 = new LatLng(36.883707, 30.689216);
-        LatLng coord3 = new LatLng(36.879703, 30.706707);
-        LatLng coord4 = new LatLng(36.885233, 30.702323);
           
         //..i powiazac z eventami
         simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
