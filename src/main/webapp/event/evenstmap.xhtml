@@ -20,43 +20,38 @@
 
         <ui:define name="body">
        
-           <h:form id="test">
-                <p>tytul</p>
-                <p>#{klientScheduleView.ejbEvent.tytul}</p>
-                <p>typPrzesuniecia</p>
-                <p>#{klientScheduleView.ejbEvent.typPrzesuniecia}</p>
-                <p>id</p>
-                <p>#{klientScheduleView.event.id}</p>
+            <h:form id="test">
+                
             </h:form>
         
                  
             
         <h:form id="someSchedule">
             <p:growl id="messages" showDetail="true" />
+            <p:commandButton id="addButton2" value="Zapisz" actionListener="#{userScheduleBean.zapiszModel}" />
             
-            <p:schedule id="schedule" style="width:800px;height:100px" value="#{klientScheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
-                <p:ajax event="dateSelect" listener="#{klientScheduleView.onDateSelect}" update=":someSchedule:eventDetails" oncomplete="PF('eventDialog').show();" />
-                <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update=":someSchedule:eventDetails" oncomplete="PF('eventDialog').show();"/>
-                <p:ajax event="eventMove" listener="#{klientScheduleView.onEventMove}" update=":someSchedule:messages" />
-                <p:ajax event="eventResize" listener="#{klientScheduleView.onEventResize}" update=":someSchedule:messages" /> 
+            <p:schedule id="schedule" style="width:800px;height:100px" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+                <p:ajax event="dateSelect" listener="#{userScheduleBean.onDateSelect}" update=":someSchedule:eventDetails" oncomplete="PF('eventDialog').show();" />
+                <p:ajax event="eventSelect" listener="#{userScheduleBean.onEventSelect}" update=":someSchedule:eventDetails" oncomplete="PF('eventDialog').show();"/>                                
             </p:schedule>                                        
     
         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
         <h:panelGrid id="eventDetails" columns="2">
             <p:outputLabel for="title" value="Titles:" />
-            <p:inputText id="title" value="#{klientScheduleView.event.title}" required="true" />
+            <p:inputText id="title" value="#{userScheduleBean.event.title}" required="true" />
  
             <p:outputLabel for="from" value="From:" />
-            <p:calendar id="from" value="#{klientScheduleView.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="from" value="#{userScheduleBean.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
  
             <p:outputLabel for="to" value="To:" />
-            <p:calendar id="to" value="#{klientScheduleView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="to" value="#{userScheduleBean.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
  
             <p:outputLabel for="allDay" value="All Day:" />
-            <h:selectBooleanCheckbox id="allDay" value="#{klientScheduleView.event.allDay}" />
+            <h:selectBooleanCheckbox id="allDay" value="#{userScheduleBean.event.allDay}" />
  
-            <p:commandButton type="reset" value="Reset" />
-            <p:commandButton id="addButton" value="Save" actionListener="#{klientScheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+            <p:commandButton id="reset" value="Cancel"  oncomplete="PF('eventDialog').hide();"/>
+            <p:commandButton id="addButton" value="Save" actionListener="#{userScheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+            <p:commandButton id="delButton" value="Delete" actionListener="#{userScheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
         </h:panelGrid>
         </p:dialog>
         
