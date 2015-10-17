@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,8 @@ public class KlientFacade extends AbstractFacade<Klient> {
                 myEvent.setTytul(eve.getTitle());
                 myEvent.setDatado(eve.getEndDate());
                 myEvent.setDataod(eve.getStartDate());
+                myEvent.setGmap_cords(((UserScheduleEvent)eve).getGmap_cords());    
+                myEvent.setKeywords(((UserScheduleEvent)eve).getKeywords());    
                 em.persist(myEvent);  
             }else{
                 listOfEvents = em.createNamedQuery("Event.findById").setParameter("id", e.getId()).getResultList();
@@ -63,6 +66,8 @@ public class KlientFacade extends AbstractFacade<Klient> {
                 myEvent.setTytul(eve.getTitle());
                 myEvent.setDatado(eve.getEndDate());
                 myEvent.setDataod(eve.getStartDate()); 
+                myEvent.setGmap_cords(((UserScheduleEvent)eve).getGmap_cords());
+                myEvent.setKeywords(((UserScheduleEvent)eve).getKeywords());    
                 getEntityManager().merge(myEvent);
             }
             
