@@ -116,4 +116,12 @@ public class UserScheduleBean implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    public String getDataEventId(){
+        if (event.getData() != null){
+           return ((Event)event.getData()).getEvent_id();
+        }
+        return "";
+    }
+    
 }
