@@ -23,6 +23,8 @@
             <h:form id="test">
                 <p>#{userScheduleBean.event.title}</p>
                 <p>#{userScheduleBean.getDataEventId()}</p>
+                <p>#{userScheduleBean.getDataKeywords()}</p>
+                <p>#{userScheduleBean.getDataGmapCords()}</p>
             </h:form>
         
                  
@@ -44,6 +46,7 @@
                 </p:column>
                 <p:column colspan="2">
                     <p:inputText id="title" value="#{userScheduleBean.event.title}" required="true" />
+                    <p:watermark for="title" value="Tytuł:" id="watermark" />
                 </p:column>
             </p:row>
             <p:row>
@@ -67,6 +70,15 @@
                 <p:column colspan="3">
                      <p:outputLabel for="allDay" value="Opis: " />
                      <p:inputTextarea  id="opis" value ="#{userScheduleBean.event.description}" rows="6" cols="72" />
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2">
+                     <p:outputLabel for="keywords" value="Keywords: " />
+                     <p:inputTextarea  id="keywords" value ="#{userScheduleBean.event.keywords}" rows="6" cols="72" />
+                </p:column>
+                <p:column>
+                    <p:inputText id="gmap_cords" value="#{userScheduleBean.event.gmap_cords}"/>
                 </p:column>
             </p:row>
             <p:row>

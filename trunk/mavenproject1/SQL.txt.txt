@@ -20,26 +20,33 @@ cdate date default now()
 );
 
 
+
 CREATE TABLE event
 (
-  id serial unique NOT NULL,
+  id serial NOT NULL,
   klient_id integer,
   tytul text,
-  czycalydzien boolean default false,
-  czypubliczne boolean default true,
+  czycalydzien boolean DEFAULT false,
+  czypubliczne boolean DEFAULT true,
   dataod date,
   datado date,
   przesuniecie text,
   typ_przesuniecia integer,
   cdate date DEFAULT now(),
   mdate date DEFAULT now(),
+  event_id text,
+  gmap_cords text,
+  keywords text,
   CONSTRAINT event_pkey PRIMARY KEY (id),
-  CONSTRAINT eventklient_id_fkey FOREIGN KEY (klient_id) REFERENCES klient (id) MATCH SIMPLE
+  CONSTRAINT eventklient_id_fkey FOREIGN KEY (klient_id)
+      REFERENCES klient (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
+ALTER TABLE event OWNER TO postgres;
+
 
 ALTER TABLE klient ADD COLUMN "password" text;
 

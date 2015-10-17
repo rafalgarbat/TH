@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,8 +36,7 @@ import org.primefaces.model.ScheduleModel;
 public class UserScheduleBean implements Serializable {
  
     private ScheduleModel eventModel;
-    
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    private UserScheduleEvent event = new UserScheduleEvent();
  
     @EJB
     private KlientFacade klientFacade;
@@ -50,7 +50,7 @@ public class UserScheduleBean implements Serializable {
         Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
             Event eve = (Event)pIt.next();
-            DefaultScheduleEvent def=new DefaultScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
+            UserScheduleEvent def=new UserScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
     }
@@ -72,11 +72,11 @@ public class UserScheduleBean implements Serializable {
     }
        
      
-    public ScheduleEvent getEvent() {
+    public UserScheduleEvent getEvent() {
         return event;
     }
  
-    public void setEvent(ScheduleEvent event) {
+    public void setEvent(UserScheduleEvent event) {
         this.event = event;
     }
     
@@ -90,20 +90,19 @@ public class UserScheduleBean implements Serializable {
         else
             eventModel.updateEvent(event);
          
-        event = new DefaultScheduleEvent();
+        event = new UserScheduleEvent();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (ScheduleEvent) selectEvent.getObject();
+        event = (UserScheduleEvent) selectEvent.getObject();
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        event = new UserScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());         
         addMessage(message);
     }
      
@@ -123,5 +122,20 @@ public class UserScheduleBean implements Serializable {
         }
         return "";
     }
+   
+    public String getDataKeywords(){
+        if (event.getData() != null){
+           return ((Event)event.getData()).getKeywords();
+        }
+        return "";
+    }
+   
+    public String getDataGmapCords(){
+        if (event.getData() != null){
+           return ((Event)event.getData()).getGmap_cords();
+        }
+        return "";
+    }
+   
     
 }

@@ -82,6 +82,15 @@ public class Event{
     @Column(name = "mdate")
     @Temporal(TemporalType.DATE)
     private Date mdate;
+    
+    @Column(name = "gmap_cords")
+    private String gmap_cords;
+    
+    
+    @Column(name = "keywords")
+    private String keywords;
+    
+    
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
     @ManyToOne
     private Klient klientId;
@@ -89,6 +98,22 @@ public class Event{
     public Event() {
     }
 
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }    
+    
+    public String getGmap_cords() {
+        return gmap_cords;
+    }
+
+    public void setGmap_cords(String gmap_cords) {
+        this.gmap_cords = gmap_cords;
+    }    
+    
     public String getEvent_id() {
         return event_id;
     }
