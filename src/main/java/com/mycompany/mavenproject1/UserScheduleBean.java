@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -50,7 +51,8 @@ public class UserScheduleBean implements Serializable {
         Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
             Event eve = (Event)pIt.next();
-            UserScheduleEvent def=new UserScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
+            UserScheduleEvent def=new UserScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);   
+            //def.setStyleClass("public-event");
             eventModel.addEvent(def);            
         }
     }
@@ -92,11 +94,20 @@ public class UserScheduleBean implements Serializable {
          
         event = new UserScheduleEvent();
     }
-     
+    
+    public void deleteEvent(ActionEvent actionEvent){
+        eventModel.deleteEvent(event);
+        
+    }
+    
     public void onEventSelect(SelectEvent selectEvent) {
         event = (UserScheduleEvent) selectEvent.getObject();
     }
-     
+    
+    public void onAddEvent(SelectEvent selectEvent) {
+        event = new UserScheduleEvent("", (Date) today1Pm(), today1Pm());
+    }
+    
     public void onDateSelect(SelectEvent selectEvent) {
         event = new UserScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
@@ -122,7 +133,21 @@ public class UserScheduleBean implements Serializable {
         }
         return "";
     }
-   
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+ 
+        return calendar;
+    }
+    private Date today1Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 1);
+         
+        return t.getTime();
+    }
+     
+    
     public String getDataKeywords(){
         if (event.getData() != null){
            return ((Event)event.getData()).getKeywords();
