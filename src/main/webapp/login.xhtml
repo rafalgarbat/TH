@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>login</title>
+</h:head>
+    <style type="text/css">
+        .loginFormStyle {
+ position : absolute;    
+    width    : 300px;
+    height   : 300px;
+    left     : 40%;
+    top      : 40%;
+    border:  3px solid #8AC007;
+    padding: 10px;
+    margin-left : -100px; /* half of the width  */
+    margin-top  : -100px; /* half of the height */
+}
+    </style>
+<h:body>
+    <h:form class="loginFormStyle">   
+        <h3>Logowanie do serwisu</h3>
+        <h:inputText id="username" value="#{login.user}"></h:inputText>
+        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+        <h:message for="username"></h:message>
+        <br /><br />
+         
+        
+        <h:inputSecret id="password" value="#{login.pwd}"></h:inputSecret>
+        <p:watermark for="password" value="Hasło" id="password_watermark" />
+        <h:message for="password"></h:message>
+        <br /><br />
+         
+        <h:commandButton action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
+        <p>Kliknij xxx jeśli zapomniałeś hasła lub nie masz konta </p>
+        <p>lub zaloguj się z </p>
+        <h:commandButton action="#{login.validateUsernamePassword}" value="Facebook"></h:commandButton>
+    </h:form>
+    
+       
+</h:body>
+</html>

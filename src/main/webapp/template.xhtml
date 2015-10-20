@@ -28,7 +28,8 @@
                         <p:menuitem value="Moje grupy" outcome="/workouts/myWorkouts.xhtml" icon="ui-icon-tag" />
                         <p:menuitem value="Dashboard" outcome="/event/dashboard.xhtml" icon="ui-icon-tag" />
                          
-                        <f:facet name="options">                           
+                        <f:facet name="options">   
+                            <p>Welcome #{login.user}</p>
                             <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />                            
                         </f:facet>
                     </p:menubar>
