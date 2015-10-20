@@ -7,17 +7,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        
+
+    <p:growl id="messages" showDetail="true" />  
+            
 <h:form id="klientSchedule">
-    <p:growl id="messages" showDetail="true" />
- 
     <h:panelGrid columnClasses="value">
         <h3 style="margin-top: 0">Editable Schedule</h3>
-        <p:schedule id="schedule" value="#{klientScheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
-            <p:ajax event="dateSelect" listener="#{klientScheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update=":klientSchedule:eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventMove" listener="#{klientScheduleView.onEventMove}" update=":klientSchedule:messages" />
-            <p:ajax event="eventResize" listener="#{klientScheduleView.onEventResize}" update=":klientSchedule:messages" /> 
+        <p:schedule id="schedule" value="#{klientScheduleView.eventModel}" draggable="false" widgetVar="myschedule" timeZone="GMT+2" >
+            <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />               
         </p:schedule>
  
        
@@ -25,23 +22,9 @@
  
     <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
         <h:panelGrid id="eventDetails" columns="2">
-                        
-          
+            <p:outputLabel  value="Tytu: #{klientScheduleView.event.title}" />
             
-            <p:outputLabel for="title" value="Titles:" />
-            <p:inputText id="title" value="#{klientScheduleView.event.title}" required="true" />
- 
-            <p:outputLabel for="from" value="From:" />
-            <p:calendar id="from" value="#{klientScheduleView.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
- 
-            <p:outputLabel for="to" value="To:" />
-            <p:calendar id="to" value="#{klientScheduleView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
- 
-            <p:outputLabel for="allDay" value="All Day:" />
-            <h:selectBooleanCheckbox id="allDay" value="#{klientScheduleView.event.allDay}" />
- 
-            <p:commandButton type="reset" value="Reset" />
-            <p:commandButton id="addButton" value="Save" actionListener="#{klientScheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+            <h:selectBooleanCheckbox id="allDay" value="#{klientScheduleView.event.allDay}" />            
         </h:panelGrid>
     </p:dialog>    
 </h:form>

@@ -75,15 +75,4 @@ public class KlientFacade extends AbstractFacade<Klient> {
         }    
     }
     
-    public boolean login(String user, String password) {
-
-        /*zmienić to - poki co tylko testowo*/    
-        Query pQuery = em.createQuery("select user, pass from userinfo where user= ?1 and pass= ?2 ").setParameter(1, user).setParameter(2, password);
-
-        if (pQuery.getResultList().isEmpty()) {
-            return false;
-        }
-
-        return true;
-    }
 }
