@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>login</title>
+</h:head>
+    <style type="text/css">
+        .loginFormStyle {
+ position : absolute;    
+    width    : 355px;
+    height   : 350px;
+    left     : 40%;
+    top      : 40%;
+    border:  3px solid #8AC007;
+    padding: 10px;
+    margin-left : -100px; /* half of the width  */
+    margin-top  : -100px; /* half of the height */
+}
+.inputTextStyle{
+    width: 347px; 
+    height: 30px;
+}
+    </style>
+<h:body>
+    <h:form class="loginFormStyle">          
+        <h:inputText class="inputTextStyle"  id="imieinazwisko" value="#{login.user}"></h:inputText>
+        <p:watermark for="imieinazwisko" value="Imię i naziwsko" id="imieinazwisko_watermark" />
+        <h:message for="imieinazwisko"></h:message>
+        <br /><br />
+        <h:inputText class="inputTextStyle"  id="username" value="#{login.user}"></h:inputText>
+        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+        <h:message for="username"></h:message>
+        <br /><br /> 
+        <h:inputText class="inputTextStyle"  id="email" value="#{login.user}"></h:inputText>
+        <p:watermark for="email" value="Adres email" id="email_watermark" />
+        <h:message for="email"></h:message>
+        <br /><br /> 
+        <h:inputSecret class="inputTextStyle" id="password" value="#{login.pwd}"></h:inputSecret>
+        <p:watermark for="password" value="Hasło" id="password_watermark" />
+        <h:message for="password"></h:message>
+        <br /><br />
+        <h:inputSecret class="inputTextStyle" id="repassword" value="#{login.pwd}"></h:inputSecret>
+        <p:watermark for="repassword" value="Powtórz hasło" id="repassword_watermark" />
+        <h:message for="repassword"></h:message>
+        <br /><br /> 
+        <h:commandButton class="inputTextStyle" action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
+              
+    </h:form>
+    
+       
+</h:body>
+</html>
