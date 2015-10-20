@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.auth;
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -27,6 +28,8 @@ public class Login implements Serializable {
     private String pwd;
     private String msg;
     private String user;
+    private String regURL;
+    
  
     public String getPwd() {
         return pwd;
@@ -56,6 +59,26 @@ public class Login implements Serializable {
         return loginFacade;
     }
 
+    public String getRegURL() {
+        return regURL;
+    }
+
+    public void setRegURL(String regURL) {
+        this.regURL = regURL;
+    }
+
+     
+     
+    public String  validateRegistrationURL(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String parameter_value = (String) facesContext.getExternalContext().getRequestParameterMap().get("regURL");
+
+        if (parameter_value != null && parameter_value.equalsIgnoreCase("regURL")) {
+            return "index";
+        } else {
+            return "index";
+        }
+    } 
     
     //validate login
     public String validateUsernamePassword() {
