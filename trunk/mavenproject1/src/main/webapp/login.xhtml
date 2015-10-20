@@ -9,8 +9,8 @@
     <style type="text/css">
         .loginFormStyle {
  position : absolute;    
-    width    : 300px;
-    height   : 300px;
+    width    : 355px;
+    height   : 350px;
     left     : 40%;
     top      : 40%;
     border:  3px solid #8AC007;
@@ -22,21 +22,24 @@
 <h:body>
     <h:form class="loginFormStyle">   
         <h3>Logowanie do serwisu</h3>
-        <h:inputText id="username" value="#{login.user}"></h:inputText>
+        <h:inputText style="width: 345px; height: 30px"  id="username" value="#{login.user}"></h:inputText>
         <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
         <h:message for="username"></h:message>
         <br /><br />
          
         
-        <h:inputSecret id="password" value="#{login.pwd}"></h:inputSecret>
+        <h:inputSecret style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></h:inputSecret>
         <p:watermark for="password" value="Hasło" id="password_watermark" />
         <h:message for="password"></h:message>
         <br /><br />
          
-        <h:commandButton action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
-        <p>Kliknij xxx jeśli zapomniałeś hasła lub nie masz konta </p>
-        <p>lub zaloguj się z </p>
-        <h:commandButton action="#{login.validateUsernamePassword}" value="Facebook"></h:commandButton>
+        <h:commandButton style="width: 345px"  action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
+        <br /><br />
+        <p align="center">Kliknij jeśli <h:link outcome="register" value="jeśli nie masz konta"/> 
+            lub <h:link outcome="register" value="zapomniałeś hasła"/> </p>    
+        <hr/>
+        <p>lub zaloguj się z </p>        
+        <h:commandButton style="width: 345px" action="#{login.validateUsernamePassword}" value="Facebook"></h:commandButton>
     </h:form>
     
        
