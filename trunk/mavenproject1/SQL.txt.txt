@@ -19,6 +19,13 @@ nazwa text,
 cdate date default now()
 );
 
+CREATE TABLE Users( 
+uid serial unique not null,
+uname VARCHAR(60) NOT NULL, 
+password VARCHAR(60) NOT NULL, 
+PRIMARY KEY(uid))
+;
+
 
 
 CREATE TABLE event
