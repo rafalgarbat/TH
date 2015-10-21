@@ -19,7 +19,7 @@
     height   : 350px;
     left     : 40%;
     top      : 40%;
-    border:  3px solid #8AC007;
+    border:  0px solid #8AC007;
     padding: 10px;
     margin-left : -100px; /* half of the width  */
     margin-top  : -100px; /* half of the height */
@@ -42,7 +42,7 @@
         <h:commandButton style="width: 345px"  action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
         <br /><br />
         <p align="center">Kliknij jeśli <h:link outcome="register" value="jeśli nie masz konta"/> 
-            lub <h:link outcome="register" value="zapomniałeś hasła"/> </p>    
+            lub <h:link outcome="remember" value="zapomniałeś hasła"/> </p>    
         <hr/>
         <p>lub zaloguj się z </p>        
         <h:commandButton style="width: 345px" action="#{login.validateUsernamePassword}" value="Facebook"></h:commandButton>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>login</title>
+</h:head>
+    <style type="text/css">
+        .loginFormStyle {
+ position : absolute;        
+    left     : 40%;
+    top      : 40%;
+    border:  0px solid #8AC007;
+    padding: 10px;
+    margin-left : -100px; /* half of the width  */
+    margin-top  : -100px; /* half of the height */
+}
+.inputTextStyle{
+    width: 347px; 
+    height: 30px;
+}
+    </style>
+<h:body>
+    <h:form class="loginFormStyle">          
+        <h:inputText class="inputTextStyle"  id="email" value="#{login.user}"></h:inputText>
+        <p:watermark for="email" value="Adres email" id="email_watermark" />
+        <h:message for="email"></h:message>
+        <br /><br /> 
+        <h:commandButton class="inputTextStyle" action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>              
+    </h:form>           
+</h:body>
+</html>
