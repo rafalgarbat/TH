@@ -25,7 +25,7 @@
     </style>
 <h:body>
     <h:form class="loginFormStyle">          
-        <h:inputText class="inputTextStyle"  id="imieinazwisko" value="#{login.user}"></h:inputText>
+        <h:inputText class="inputTextStyle"  id="imieinazwisko" value="#{login.imieinazwisko}"></h:inputText>
         <p:watermark for="imieinazwisko" value="Imię i naziwsko" id="imieinazwisko_watermark" />
         <h:message for="imieinazwisko"></h:message>
         <br /><br />
@@ -33,7 +33,7 @@
         <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
         <h:message for="username"></h:message>
         <br /><br /> 
-        <h:inputText class="inputTextStyle"  id="email" value="#{login.user}"></h:inputText>
+        <h:inputText class="inputTextStyle"  id="email" value="#{login.email}"></h:inputText>
         <p:watermark for="email" value="Adres email" id="email_watermark" />
         <h:message for="email"></h:message>
         <br /><br /> 
@@ -45,7 +45,7 @@
         <p:watermark for="repassword" value="Powtórz hasło" id="repassword_watermark" />
         <h:message for="repassword"></h:message>
         <br /><br /> 
-        <h:commandButton class="inputTextStyle" action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
+        <h:commandButton class="inputTextStyle" action="#{login.createUser()}" value="Login"></h:commandButton>
               
     </h:form>
     
