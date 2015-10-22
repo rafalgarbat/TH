@@ -29,7 +29,9 @@ public class Login implements Serializable {
     private String msg;
     private String user;
     private String regURL;
-    
+    private String imieinazwisko;
+    private String email;
+        
  
     public String getPwd() {
         return pwd;
@@ -67,6 +69,22 @@ public class Login implements Serializable {
         this.regURL = regURL;
     }
 
+    public String getImieinazwisko() {
+        return imieinazwisko;
+    }
+
+    public void setImieinazwisko(String imieinazwisko) {
+        this.imieinazwisko = imieinazwisko;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
      
      
     public String  validateRegistrationURL(){
@@ -79,6 +97,22 @@ public class Login implements Serializable {
             return "index";
         }
     } 
+    
+    public String createUser(){
+        boolean valid =getFacade().createUser(imieinazwisko, user, email, pwd);
+        if (valid){
+            HttpSession session = SessionBean.getSession();
+            session.setAttribute("username", user);
+            return "/klient/List";     //todo: przeniesc defaultową poczatkwoa strona do jakeigo konfigu 
+        }else{
+             FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Blad podczas tworzenia uzytkownika",
+                            "Blad podczas tworzenia uzytkownika"));
+            return "login";
+        }
+    }
     
     //validate login
     public String validateUsernamePassword() {

@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,8 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_uid_seq")
+	@SequenceGenerator(
+		name="users_uid_seq",
+		sequenceName="users_uid_seq",
+		allocationSize=1
+	)    
     @Column(name = "uid")
     private Integer uid;
     @Basic(optional = false)
@@ -50,6 +55,20 @@ public class Users implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Size(min = 3, max = 100)
+    @Column(name = "email")
+    private String email;
+    
+    @Size(min = 1)
+    @Column(name = "nazwauzytkownika")
+    private String nazwauzytkownika;
+    
+    @Size(min = 1)
+    @Column(name = "hashCode")
+    private String hashCode;
+    
+
+    
     public Users() {
     }
 
@@ -87,6 +106,32 @@ public class Users implements Serializable {
         this.password = password;
     }
 
+    public String getHashCode() {
+        return hashCode;
+    }
+
+    public void setHashCode(String hashCode) {
+        this.hashCode = hashCode;
+    }
+
+    
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNazwauzytkownika() {
+        return nazwauzytkownika;
+    }
+
+    public void setNazwauzytkownika(String nazwauzytkownika) {
+        this.nazwauzytkownika = nazwauzytkownika;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
