@@ -101,6 +101,7 @@ public class UserScheduleBean implements Serializable {
         event = (UserScheduleEvent) selectEvent.getObject();        
         event.setKeywords(((Events)event.getData()).getKeywords());
         event.setDescription(((Events)event.getData()).getOpis());
+        event.setGmap_cords(((Events)event.getData()).getGmapCords());
     }
     
     public void onAddEvent(SelectEvent selectEvent) {
