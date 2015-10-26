@@ -10,6 +10,7 @@ package com.mycompany.mavenproject1;
  * @author Jaroslaw.Skrzydlo
  */
 
+import com.mycompany.mavenproject1.event.Events;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,12 +22,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -47,14 +45,14 @@ public class KlientScheduleView implements Serializable {
  
     private ScheduleModel eventModel;
     private ScheduleEvent event =  new DefaultScheduleEvent();
-    private Event ejbEvent;
+    private Events ejbEvent;
     private MapModel simpleModel;
     
     
     @EJB
     private KlientFacade klientFacade;
     
-    List<Event> listOfAllEvents = new ArrayList<Event>();   
+    List<Events> listOfAllEvents = new ArrayList<>();   
  
     @PostConstruct
     public void init() {
@@ -69,10 +67,10 @@ public class KlientScheduleView implements Serializable {
         
 
         eventModel = new DefaultScheduleModel();        
-        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
         Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
-            Event eve = (Event)pIt.next();
+            Events eve = (Events)pIt.next();
             DefaultScheduleEvent def=new DefaultScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
@@ -83,10 +81,10 @@ public class KlientScheduleView implements Serializable {
     
     public void refreshModel(){
     eventModel.clear();
-    listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
+    listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
     Iterator pIt = listOfAllEvents.iterator();
         while(pIt.hasNext()){
-            Event eve = (Event)pIt.next();
+            Events eve = (Events)pIt.next();
             DefaultScheduleEvent def=new DefaultScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);                             
             eventModel.addEvent(def);            
         }
@@ -115,7 +113,7 @@ public class KlientScheduleView implements Serializable {
         return klientFacade;
     }
 
-    public Event getEjbEvent() {
+    public Events getEjbEvent() {
         return ejbEvent;
     }
     
@@ -213,8 +211,8 @@ public class KlientScheduleView implements Serializable {
     public void addEvent(ActionEvent actionEvent) {
         if(event.getId()!=null){
             /*konieczne aby zadziala updateEvent*/
-            ((Event)event.getData()).setTytul(event.getTitle());
-            ((Event)event.getData()).setPrzesuniecie("55");
+            ((Events)event.getData()).setTytul(event.getTitle());
+            ((Events)event.getData()).setPrzesuniecie("55");
         }
         
         

@@ -7,27 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-    <p:growl id="messages" showDetail="true" />  
-            
-<h:form id="klientSchedule">
-    <h:panelGrid columnClasses="value">
-        <h3 style="margin-top: 0">Editable Schedule</h3>
-        <p:schedule id="schedule" value="#{klientScheduleView.eventModel}" draggable="false" widgetVar="myschedule" timeZone="GMT+2" >
-            <p:ajax event="eventSelect" listener="#{klientScheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />               
-        </p:schedule>
- 
-       
-    </h:panelGrid>
- 
-    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="eventDetails" columns="2">
-            <p:outputLabel  value="Tytu: #{klientScheduleView.event.title}" />
-            
-            <h:selectBooleanCheckbox id="allDay" value="#{klientScheduleView.event.allDay}" />            
-        </h:panelGrid>
-    </p:dialog>    
-</h:form>
+        <p>pusto</p>
         
 <style type="text/css">
     .value {

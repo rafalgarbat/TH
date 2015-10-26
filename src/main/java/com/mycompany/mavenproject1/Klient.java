@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.event.Events;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -41,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Klient.findByCdate", query = "SELECT k FROM Klient k WHERE k.cdate = :cdate")})
 public class Klient implements Serializable {
     @OneToMany(mappedBy = "klientId")
-    private Collection<Event> eventCollection;
+    private Collection<Events> eventsCollection;
+    
     @OneToMany(mappedBy = "ownerId")
     private Collection<GrupyTreningowe> grupyTreningoweCollection;
     private static final long serialVersionUID = 1L;
@@ -164,14 +166,14 @@ public class Klient implements Serializable {
     public void setGrupyTreningoweCollection(Collection<GrupyTreningowe> grupyTreningoweCollection) {
         this.grupyTreningoweCollection = grupyTreningoweCollection;
     }
-
+    
     @XmlTransient
-    public Collection<Event> getEventCollection() {
-        return eventCollection;
+    public Collection<Events> getEventsCollection() {
+        return eventsCollection;
     }
 
-    public void setEventCollection(Collection<Event> eventCollection) {
-        this.eventCollection = eventCollection;
+    public void setEventsCollection(Collection<Events> eventsCollection) {
+        this.eventsCollection = eventsCollection;
     }
     
 }
