@@ -11,6 +11,6 @@ package com.mycompany.mavenproject1.auth;
  */
 public class SlownikAdresow {
    
-    public static String STRONA_PO_ZALOGOWANIU ="/klient/List";
+    public static String STRONA_PO_ZALOGOWANIU ="/event/evenstmap";
     
 }
