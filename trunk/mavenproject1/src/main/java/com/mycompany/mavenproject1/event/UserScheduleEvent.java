@@ -5,10 +5,8 @@
  */
 package com.mycompany.mavenproject1.event;
 
-import com.mycompany.mavenproject1.Event;
 import java.util.Date;
 import org.primefaces.model.DefaultScheduleEvent;
-import org.primefaces.model.ScheduleEvent;
 
 /**
  *
@@ -18,10 +16,12 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
             
     
     private String gmap_cords;
-    
     private String keywords;
+    private String description;
+    private int typPrzesuniecia;
+    
 
-    public UserScheduleEvent(String tytul, Date dataod, Date datado, Event eve) {
+    public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
         super(tytul,dataod,datado,eve);
     }
 
@@ -48,7 +48,21 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
-    
-    
-    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTypPrzesuniecia() {
+        return typPrzesuniecia;
+    }
+
+    public void setTypPrzesuniecia(int typPrzesuniecia) {
+        this.typPrzesuniecia = typPrzesuniecia;
+    }
+            
 }

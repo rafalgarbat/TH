@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,10 +26,7 @@ import javax.inject.Named;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
  
 @ManagedBean
@@ -42,16 +40,15 @@ public class UserScheduleBean implements Serializable {
     @EJB
     private KlientFacade klientFacade;
     
-    private List<Event> listOfAllEvents = new ArrayList<Event>();
+    private List<Events> listOfAllEvents = new ArrayList<>();
     
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();   
-        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Event.findAll").getResultList();
-        Iterator pIt = listOfAllEvents.iterator();
-        while(pIt.hasNext()){
-            Event eve = (Event)pIt.next();
+        listOfAllEvents = getFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
+        for (Events eve : listOfAllEvents) {
             UserScheduleEvent def=new UserScheduleEvent(eve.getTytul(), eve.getDataod() ,eve.getDatado(), eve);   
+            
             //def.setStyleClass("public-event");
             eventModel.addEvent(def);            
         }
@@ -101,7 +98,9 @@ public class UserScheduleBean implements Serializable {
     }
     
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (UserScheduleEvent) selectEvent.getObject();
+        event = (UserScheduleEvent) selectEvent.getObject();        
+        event.setKeywords(((Events)event.getData()).getKeywords());
+        event.setDescription(((Events)event.getData()).getOpis());
     }
     
     public void onAddEvent(SelectEvent selectEvent) {
@@ -129,7 +128,7 @@ public class UserScheduleBean implements Serializable {
     
     public String getDataEventId(){
         if (event.getData() != null){
-           return ((Event)event.getData()).getEvent_id();
+           return ((Events)event.getData()).getEventId();
         }
         return "";
     }
@@ -146,20 +145,27 @@ public class UserScheduleBean implements Serializable {
          
         return t.getTime();
     }
-     
+    
+    public String getDataOpis(){
+        if (event.getData() != null){
+           return ((Events)event.getData()).getOpis();
+        }
+        return "opis pusty";
+    }
+    
     
     public String getDataKeywords(){
         if (event.getData() != null){
-           return ((Event)event.getData()).getKeywords();
+           return ((Events)event.getData()).getKeywords();
         }
-        return "";
+        return "key pusty";
     }
    
     public String getDataGmapCords(){
         if (event.getData() != null){
-           return ((Event)event.getData()).getGmap_cords();
+           return ((Events)event.getData()).getGmapCords();
         }
-        return "";
+        return "gmap pusty";
     }
    
     

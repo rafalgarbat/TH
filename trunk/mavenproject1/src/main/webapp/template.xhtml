@@ -18,7 +18,7 @@
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}" >
+            <p:layoutUnit position="north" size="0">
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
@@ -28,10 +28,10 @@
                         <p:menuitem value="Moje grupy" outcome="/workouts/myWorkouts.xhtml" icon="ui-icon-tag" />
                         <p:menuitem value="Dashboard" outcome="/event/dashboard.xhtml" icon="ui-icon-tag" />
                          
-                        <f:facet name="options">   
-                            <p>Welcome #{login.user} <commandButton type="button" value="Logout" icon="ui-icon-extlink" />                            
-                            </p>
-                        </f:facet>
+                          <f:facet name="options">
+                              #{SessionBean.getUserName()}
+                              <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                          </f:facet>
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>

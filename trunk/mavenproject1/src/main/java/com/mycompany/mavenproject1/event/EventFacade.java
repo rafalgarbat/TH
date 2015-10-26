@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.mavenproject1;
+package com.mycompany.mavenproject1.event;
 
+import com.mycompany.mavenproject1.AbstractFacade;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,7 +13,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Jaroslaw.Skrzydlo
  */
-public class EventFacade extends AbstractFacade<Event> {
+public class EventFacade extends AbstractFacade<Events> {
     @PersistenceContext(unitName = "com.mycompany_mavenproject1_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -22,7 +23,7 @@ public class EventFacade extends AbstractFacade<Event> {
     }
 
     public EventFacade() {
-        super(Event.class);
+        super(Events.class);
     }
     
 }

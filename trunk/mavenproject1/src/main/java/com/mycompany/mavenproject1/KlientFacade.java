@@ -5,15 +5,13 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
@@ -36,37 +34,41 @@ public class KlientFacade extends AbstractFacade<Klient> {
         super(Klient.class);
     }
 
-    public Event readEvent(Object aObject){
-        Event pEve = (Event)aObject;
-        List<Event> listOfEvents = new ArrayList<>();  
-        listOfEvents = em.createNamedQuery("Event.findById").setParameter("id", pEve.getId()).getResultList();
+    public Events readEvent(Object aObject){
+        Events pEve = (Events)aObject;
+        List<Events> listOfEvents = new ArrayList<>();  
+        listOfEvents = em.createNamedQuery("Events.findById").setParameter("id", pEve.getId()).getResultList();
         int x=0;
        return listOfEvents.get(0);
     }
     
     public void saveScheduleModel(ScheduleModel aModel){        
-        Event myEvent;
-        List<Event> listOfEvents = new ArrayList<Event>();  
+        Events myEvent;
+        List<Events> listOfEvents = new ArrayList<>();  
         for (ScheduleEvent eve : aModel.getEvents()) {                        
-            Event e = (Event)eve.getData();
+            Events e = (Events)eve.getData();
             if (e ==null){
                 //dodanie nowego
-                myEvent = new Event();
-                myEvent.setEvent_id(eve.getId());
+                myEvent = new Events();
+                myEvent.setEventId(eve.getId());
                 myEvent.setTytul(eve.getTitle());
                 myEvent.setDatado(eve.getEndDate());
                 myEvent.setDataod(eve.getStartDate());
-                myEvent.setGmap_cords(((UserScheduleEvent)eve).getGmap_cords());    
+                myEvent.setGmapCords(((UserScheduleEvent)eve).getGmap_cords());    
+                myEvent.setOpis(((UserScheduleEvent)eve).getDescription());
+                myEvent.setTypPrzesuniecia(((UserScheduleEvent)eve).getTypPrzesuniecia());
                 myEvent.setKeywords(((UserScheduleEvent)eve).getKeywords());    
                 em.persist(myEvent);  
             }else{
-                listOfEvents = em.createNamedQuery("Event.findById").setParameter("id", e.getId()).getResultList();
+                listOfEvents = em.createNamedQuery("Events.findById").setParameter("id", e.getId()).getResultList();
                 myEvent = listOfEvents.get(0);
-                myEvent.setEvent_id(eve.getId());
+                myEvent.setEventId(eve.getId());
                 myEvent.setTytul(eve.getTitle());
                 myEvent.setDatado(eve.getEndDate());
                 myEvent.setDataod(eve.getStartDate()); 
-                myEvent.setGmap_cords(((UserScheduleEvent)eve).getGmap_cords());
+                myEvent.setGmapCords(((UserScheduleEvent)eve).getGmap_cords());
+                myEvent.setOpis(((UserScheduleEvent)eve).getDescription());
+                myEvent.setTypPrzesuniecia(((UserScheduleEvent)eve).getTypPrzesuniecia());
                 myEvent.setKeywords(((UserScheduleEvent)eve).getKeywords());    
                 getEntityManager().merge(myEvent);
             }

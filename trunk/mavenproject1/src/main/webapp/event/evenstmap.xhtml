@@ -12,24 +12,17 @@
 
     
     <ui:composition template="/calendartemplate.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="xxxxxxxxxxxxxx"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
-       
+        <ui:define name="body">       
             <h:form id="test">
                 <p>#{userScheduleBean.event.title}</p>
                 <p>#{userScheduleBean.getDataEventId()}</p>
                 <p>#{userScheduleBean.getDataKeywords()}</p>
                 <p>#{userScheduleBean.getDataGmapCords()}</p>
             </h:form>
-        
-                 
-            
-            
     
             <h:form>
     <p:growl id="messages" showDetail="true" />
@@ -38,7 +31,7 @@
     
     <h:panelGrid columnClasses="value">
         <h3 style="margin-top: 0">Kalendarz</h3>
-        <p:schedule id="schedule" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+1" style="width:800px;height:100px">
+        <p:schedule id="schedule2" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+1" style="width:800px;height:100px">
             <p:ajax event="dateSelect" listener="#{userScheduleBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventSelect" listener="#{userScheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventMove" listener="#{userScheduleBean.onEventMove}" update="messages" />
@@ -61,27 +54,43 @@
                 <p:column>                    
                     <p:calendar id="from" value="#{userScheduleBean.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
                 </p:column>                
-                <p:column><p:outputLabel for="to" value="Data zakończnia: " /></p:column>
+                <p:column>
+                        <p:outputLabel for="to" value="Data zakończnia: " />
+                </p:column>
                 <p:column>
                     <p:calendar id="to" value="#{userScheduleBean.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
                 </p:column>
             </p:row>
             <p:row>
-                <p:column><p:outputLabel for="allDay" value="All Day:" /></p:column>
-                <p:column colspan="3"><h:selectBooleanCheckbox id="allDay" value="#{userScheduleBean.event.allDay}" /></p:column>
+                <p:column>
+                    <p:outputLabel for="publiczne" value="Publiczne?" />
+                    <h:selectBooleanCheckbox id="publiczne" value="#{userScheduleBean.event.allDay}" />
+                </p:column>
+                <p:column>
+                        <p:outputLabel for="allDay" value="Cały dzień?" />
+                        <h:selectBooleanCheckbox id="allDay" value="#{userScheduleBean.event.allDay}" />
+                </p:column>
+                <p:column colspan="2">
+                    <h:selectOneMenu id="txt3" value="#{userScheduleBean.event.typPrzesuniecia}" label="Powtarzanie">
+                        <f:selectItem itemLabel="Powtarzanie" itemValue="" noSelectionOption="true" />
+                        <f:selectItem itemLabel="Co tydzień" itemValue="1" />
+                        <f:selectItem itemLabel="Co miesiąc" itemValue="2" />
+                        <f:selectItem itemLabel="Co rok" itemValue="3" />
+                    </h:selectOneMenu>
+                </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="4">                     
-                     <p:inputTextarea  id="opis" value ="#{userScheduleBean.event.description}" rows="6" cols="72" />
+                    <p:inputTextarea  id="opis" value ="#{userScheduleBean.event.description}" rows="6" cols="72" />
                      <p:watermark for="opis" value="Opis wydarzenia" id="opis_watermark" />
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="4">                     
-                     <p:inputTextarea  id="keywords" value ="#{userScheduleBean.event.keywords}" rows="6" cols="72" />
+                    <p:inputTextarea  id="keywords" value ="#{userScheduleBean.event.keywords}" rows="6" cols="72" />
                      <p:watermark for="keywords" value="Słowa kluczowe po których będzie można odszukać wydarzenie" id="keywords_watermark" />
                 </p:column>
-            </p:row>
+            </p:row>          
             <p:row>
                 <p:column><p:commandButton type="reset" value="Cofnij" /></p:column>
                 <p:column><p:commandButton id="addButton" value="Save" actionListener="#{userScheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" /></p:column>

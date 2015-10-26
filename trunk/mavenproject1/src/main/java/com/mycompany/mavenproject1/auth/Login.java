@@ -13,10 +13,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
  
 @ManagedBean
+@Named("login")
 @SessionScoped
 public class Login implements Serializable {
  
@@ -103,7 +105,7 @@ public class Login implements Serializable {
         if (valid){
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
-            return "/klient/List";     //todo: przeniesc defaultową poczatkwoa strona do jakeigo konfigu 
+            return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         }else{
              FacesContext.getCurrentInstance().addMessage(
                     null,
@@ -120,7 +122,7 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
-            return "/klient/List";
+            return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
