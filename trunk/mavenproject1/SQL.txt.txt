@@ -35,22 +35,25 @@ WITH (
 ALTER TABLE users OWNER TO postgres;
 
 
-CREATE TABLE event
+drop table event
+
+CREATE TABLE events
 (
   id serial NOT NULL,
   klient_id integer,
   tytul text,
+  opis text,
   czycalydzien boolean DEFAULT false,
   czypubliczne boolean DEFAULT true,
   dataod date,
   datado date,
   przesuniecie text,
   typ_przesuniecia integer,
-  cdate date DEFAULT now(),
-  mdate date DEFAULT now(),
-  event_id text,
   gmap_cords text,
   keywords text,
+  event_id text,
+  cdate date DEFAULT now(),
+  mdate date DEFAULT now(),
   CONSTRAINT event_pkey PRIMARY KEY (id),
   CONSTRAINT eventklient_id_fkey FOREIGN KEY (klient_id)
       REFERENCES klient (id) MATCH SIMPLE
@@ -59,7 +62,7 @@ CREATE TABLE event
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE event OWNER TO postgres;
+ALTER TABLE events OWNER TO postgres;
 
 
 ALTER TABLE klient ADD COLUMN "password" text;
