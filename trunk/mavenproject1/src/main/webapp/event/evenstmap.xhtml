@@ -24,92 +24,90 @@
             </h:form>
     
             <h:form>
-    <p:growl id="messages" showDetail="true" />
-    <p:commandButton id="btnZapiszModel" value="Zapisz" actionListener="#{userScheduleBean.zapiszModel}" />
-    <p:commandButton id="btnDodajTrening" value="Dodaj trening" actionListener="#{userScheduleBean.onAddEvent}" update="eventDetails" oncomplete="PF('eventDialog').show();"/>    
-    
-    <h:panelGrid columnClasses="value">
-        <h3 style="margin-top: 0">Kalendarz</h3>
-        <p:schedule id="schedule2" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+1" style="width:800px;height:100px">
-            <p:ajax event="dateSelect" listener="#{userScheduleBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventSelect" listener="#{userScheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-            <p:ajax event="eventMove" listener="#{userScheduleBean.onEventMove}" update="messages" />
-            <p:ajax event="eventResize" listener="#{userScheduleBean.onEventResize}" update="messages" />            
-        </p:schedule>
-    </h:panelGrid>
- 
+                <p:growl id="messages" showDetail="true" />
+                <p:commandButton id="btnZapiszModel" value="Zapisz" actionListener="#{userScheduleBean.zapiszModel}" />
+                <p:commandButton id="btnDodajTrening" value="Dodaj trening" actionListener="#{userScheduleBean.onAddEvent}" update="eventDetails" oncomplete="PF('eventDialog').show();"/>    
 
+                <h:panelGrid columnClasses="value">
+                    <h3 style="margin-top: 0">Kalendarz</h3>
+                    <p:schedule id="schedule2" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+1" style="width:800px;height:100px">
+                        <p:ajax event="dateSelect" listener="#{userScheduleBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventSelect" listener="#{userScheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventMove" listener="#{userScheduleBean.onEventMove}" update="messages" />
+                        <p:ajax event="eventResize" listener="#{userScheduleBean.onEventResize}" update="messages" />            
+                    </p:schedule>
+                </h:panelGrid>
     
-    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="eventDetails">
-             <p:row>
-                <p:column colspan="4">                       
-                       <p:inputText id="title" value="#{userScheduleBean.event.title}" required="true" /> 
-                       <p:watermark for="title" value="Tytył" id="title_watermark" />
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column><p:outputLabel for="from" value="Data rozpoczęcia: " /></p:column>
-                <p:column>                    
-                    <p:calendar id="from" value="#{userScheduleBean.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
-                </p:column>                
-                <p:column>
-                        <p:outputLabel for="to" value="Data zakończnia: " />
-                </p:column>
-                <p:column>
-                    <p:calendar id="to" value="#{userScheduleBean.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
-                    <p:outputLabel for="publiczne" value="Publiczne?" />
-                    <h:selectBooleanCheckbox id="publiczne" value="#{userScheduleBean.event.allDay}" />
-                </p:column>
-                <p:column>
-                        <p:outputLabel for="allDay" value="Cały dzień?" />
-                        <h:selectBooleanCheckbox id="allDay" value="#{userScheduleBean.event.allDay}" />
-                </p:column>
-                <p:column colspan="2">
-                    <h:selectOneMenu id="txt3" value="#{userScheduleBean.event.typPrzesuniecia}" label="Powtarzanie">
-                        <f:selectItem itemLabel="Powtarzanie" itemValue="" noSelectionOption="true" />
-                        <f:selectItem itemLabel="Co tydzień" itemValue="1" />
-                        <f:selectItem itemLabel="Co miesiąc" itemValue="2" />
-                        <f:selectItem itemLabel="Co rok" itemValue="3" />
-                    </h:selectOneMenu>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="4">                     
-                    <p:inputTextarea  id="opis" value ="#{userScheduleBean.event.description}" rows="6" cols="72" />
-                     <p:watermark for="opis" value="Opis wydarzenia" id="opis_watermark" />
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="4">                     
-                    <p:inputTextarea  id="keywords" value ="#{userScheduleBean.event.keywords}" rows="6" cols="72" />
-                     <p:watermark for="keywords" value="Słowa kluczowe po których będzie można odszukać wydarzenie" id="keywords_watermark" />
-                </p:column>
-            </p:row>          
-            <p:row>
-                <p:column><p:commandButton type="reset" value="Cofnij" /></p:column>
-                <p:column><p:commandButton id="addButton" value="Save" actionListener="#{userScheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" /></p:column>
-                <p:column><p:commandButton id="reset" value="Anuluj"  oncomplete="PF('eventDialog').hide();"/></p:column>
-                <p:column><p:commandButton id="delete" value="Usuń" actionListener="#{userScheduleBean.deleteEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/></p:column>
-            </p:row>
- 
-            
-            
- 
-            
-            
-        </h:panelGrid>
-    </p:dialog>    
-</h:form>
-            
-      
-            
-           
+                <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                    <h:panelGrid id="eventDetails">
+                         <p:row>
+                            <p:column colspan="4">                       
+                                   <p:inputText id="title" value="#{userScheduleBean.event.title}" required="true" /> 
+                                   <p:watermark for="title" value="Tytył" id="title_watermark" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel for="from" value="Data rozpoczęcia: " /></p:column>
+                            <p:column>                    
+                                <p:calendar id="from" value="#{userScheduleBean.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+                            </p:column>                
+                            <p:column>
+                                    <p:outputLabel for="to" value="Data zakończnia: " />
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="to" value="#{userScheduleBean.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="publiczne" value="Publiczne?" />
+                                <h:selectBooleanCheckbox id="publiczne" value="#{userScheduleBean.event.allDay}" />
+                            </p:column>
+                            <p:column>
+                                    <p:outputLabel for="allDay" value="Cały dzień?" />
+                                    <h:selectBooleanCheckbox id="allDay" value="#{userScheduleBean.event.allDay}" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <h:selectOneMenu id="txt3" value="#{userScheduleBean.event.typPrzesuniecia}" label="Powtarzanie">
+                                    <f:selectItem itemLabel="Powtarzanie" itemValue="" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Co tydzień" itemValue="1" />
+                                    <f:selectItem itemLabel="Co miesiąc" itemValue="2" />
+                                    <f:selectItem itemLabel="Co rok" itemValue="3" />
+                                </h:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="4">                     
+                                <p:inputTextarea  id="opis" value ="#{userScheduleBean.event.description}" rows="6" cols="72" />
+                                 <p:watermark for="opis" value="Opis wydarzenia" id="opis_watermark" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="4">                     
+                                <p:inputTextarea  id="keywords" value ="#{userScheduleBean.event.keywords}" rows="6" cols="72" />
+                                 <p:watermark for="keywords" value="Słowa kluczowe po których będzie można odszukać wydarzenie" id="keywords_watermark" />
+                            </p:column>
+                        </p:row>          
+                        <p:row>
+                            <p:column><p:commandButton type="reset" value="Cofnij" /></p:column>
+                            <p:column><p:commandButton id="addButton" value="Save" actionListener="#{userScheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" /></p:column>
+                            <p:column><p:commandButton id="reset" value="Anuluj"  oncomplete="PF('eventDialog').hide();"/></p:column>
+                            <p:column><p:commandButton id="delete" value="Usuń" actionListener="#{userScheduleBean.deleteEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/></p:column>
+                        </p:row>
+
+
+
+
+
+
+                    </h:panelGrid>
+                </p:dialog>    
+        </h:form>
         </ui:define>
+        
+         <ui:define name="west">
+             olalala
+         </ui:define>    
         
     </ui:composition>
 
