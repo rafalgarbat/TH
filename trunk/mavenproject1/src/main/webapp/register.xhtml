@@ -2,50 +2,84 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>login</title>
 </h:head>
     <style type="text/css">
         .loginFormStyle {
  position : absolute;    
-    width    : 355px;
-    height   : 350px;
-    left     : 40%;
-    top      : 40%;
+    width    : 555px;
+    height   : 550px;
+    left     : 30%;
+    top      : 30%;
     border:  0px solid #8AC007;
     padding: 10px;
     margin-left : -100px; /* half of the width  */
     margin-top  : -100px; /* half of the height */
 }
 .inputTextStyle{
-    width: 347px; 
+    width: 450px; 
     height: 30px;
 }
     </style>
 <h:body>
-    <h:form class="loginFormStyle">          
-        <h:inputText class="inputTextStyle"  id="imieinazwisko" value="#{login.imieinazwisko}"></h:inputText>
-        <p:watermark for="imieinazwisko" value="Imię i naziwsko" id="imieinazwisko_watermark" />
-        <h:message for="imieinazwisko"></h:message>
-        <br /><br />
-        <h:inputText class="inputTextStyle"  id="username" value="#{login.user}"></h:inputText>
+    <h:form class="loginFormStyle">   
+       <p:messages id="messages" showDetail="true" autoUpdate="true" />
+        
+       <h:panelGrid columns="1" id="matchGrid1" cellpadding="5">    
+           
+        <p:outputLabel for="userType" value="Rodzaj konta" />
+        <p:selectOneMenu id="userType" value="#{login.imieinazwisko}" required="true">
+            <f:selectItem itemLabel="Klient" itemValue="k" />
+            <f:selectItem itemLabel="Trener" itemValue="t" />
+            <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="o" />
+            <f:selectItem itemLabel="Grupa robocza" itemValue="g" />
+        </p:selectOneMenu>
+        <p:inputText class="inputTextStyle"  id="username" value="#{login.user}"></p:inputText>
         <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
-        <h:message for="username"></h:message>
-        <br /><br /> 
-        <h:inputText class="inputTextStyle"  id="email" value="#{login.email}"></h:inputText>
+        
+        <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
         <p:watermark for="email" value="Adres email" id="email_watermark" />
-        <h:message for="email"></h:message>
-        <br /><br /> 
-        <h:inputSecret class="inputTextStyle" id="password" value="#{login.pwd}"></h:inputSecret>
-        <p:watermark for="password" value="Hasło" id="password_watermark" />
-        <h:message for="password"></h:message>
-        <br /><br />
-        <h:inputSecret class="inputTextStyle" id="repassword" value="#{login.pwd}"></h:inputSecret>
-        <p:watermark for="repassword" value="Powtórz hasło" id="repassword_watermark" />
-        <h:message for="repassword"></h:message>
-        <br /><br /> 
-        <h:commandButton class="inputTextStyle" action="#{login.createUser()}" value="Login"></h:commandButton>
+       
+        <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
+        <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
+            
+        <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
+        <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" />
+        
+        <p:separator style="height:2px"/>        
+        <h:panelGrid columns="4" id="sliderr" cellpadding="5">  
+        <p:outputLabel value="Bieganie " />    
+        <p:selectBooleanCheckbox label="cboxbieganie" value="1" />            
+        <p:inputText type="hidden" id="bieganie" value="1" />
+        <p:slider for="bieganie" style="width: 300px;" />
+        
+        <p:outputLabel value="Kolarstwo " />    
+        <p:selectBooleanCheckbox label="cboxrower" value="1" />            
+        <p:inputText type="hidden" id="rower" value="1" />
+        <p:slider for="rower" style="width: 300px;" />   
+        
+        <p:outputLabel value="Pływanie " />    
+        <p:selectBooleanCheckbox label="cboxplywanie" value="1" />            
+        <p:inputText type="hidden" id="plywanie" value="1" />
+        <p:slider for="plywanie" style="width: 300px;" />
+        
+        <p:outputLabel value="Triathlon " />    
+        <p:selectBooleanCheckbox label="cboxtriathlon" value="1" />            
+        <p:inputText type="hidden" id="triathlon" value="1" />
+        <p:slider for="triathlon" style="width: 300px;" />
+        </h:panelGrid>
+        <p:separator style="height:2px"/>        
+            
+        
+        
+        
+        </h:panelGrid>
+        <br />
+        <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
+        <p:commandButton type="cancel"  value="Anuluj"></p:commandButton>
               
     </h:form>
     
