@@ -13,6 +13,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -33,6 +34,8 @@ public class Login implements Serializable {
     private String regURL;
     private String imieinazwisko;
     private String email;
+    
+    private boolean imieinazwisko_rendered =true;
         
  
     public String getPwd() {
@@ -87,6 +90,15 @@ public class Login implements Serializable {
         this.email = email;
     }
 
+    public boolean isImieinazwisko_disabled() {
+        return imieinazwisko_rendered;
+    }
+
+    public void setImieinazwisko_disabled(boolean imieinazwisko_disabled) {
+        this.imieinazwisko_rendered = imieinazwisko_disabled;
+    }
+
+    
      
      
     public String  validateRegistrationURL(){
@@ -139,4 +151,12 @@ public class Login implements Serializable {
         session.invalidate();
         return "login";
     }
+    
+     public void checkSelectedVal(ValueChangeEvent event){
+       String selectedVal=event.getNewValue().toString();
+      // if(selectedVal.equalsIgnoreCase("o")||selectedVal.equalsIgnoreCase("g")){
+         imieinazwisko_rendered=false;
+      // }      
+     }
+    
 }
