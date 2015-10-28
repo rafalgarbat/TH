@@ -9,12 +9,10 @@
 </h:head>
     <style type="text/css">
         .loginFormStyle {
- position : absolute;    
-    width    : 555px;
-    height   : 550px;
+ position : absolute;       
     left     : 30%;
-    top      : 30%;
-    border:  0px solid #8AC007;
+    top      : 20%;
+    border:  1px solid #33CCFF;
     padding: 10px;
     margin-left : -100px; /* half of the width  */
     margin-top  : -100px; /* half of the height */
@@ -23,64 +21,176 @@
     width: 450px; 
     height: 30px;
 }
+.companyHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+
     </style>
 <h:body>
     <h:form class="loginFormStyle">   
-       <p:messages id="messages" showDetail="true" autoUpdate="true" />
-        
-       <h:panelGrid columns="1" id="matchGrid1" cellpadding="5">    
+       <p:panelGrid styleClass="companyHeaderGrid"> 
+        <p:row>
+            <p:column colspan="3">Twoje dane <p:separator /></p:column>
+        </p:row>       
+        <p:row>
+            <p:column><p:outputLabel for="userType" value="Rodzaj konta" /></p:column>
+            <p:column>
+                <p:selectOneMenu id="userType" value="#{login.userType}" required="true">
+                    <f:selectItem itemLabel="Wybierz..." itemValue="" />
+                    <f:selectItem itemLabel="Klient" itemValue="1" />
+                    <f:selectItem itemLabel="Trener" itemValue="2" />
+                    <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="3" />
+                    <f:selectItem itemLabel="Grupa robocza" itemValue="4" />
+                </p:selectOneMenu>
+            </p:column>
+            
+            <p:column rowspan="12"><p:messages id="messages" showDetail="true" autoUpdate="true" /></p:column>
+        </p:row>                
            
-        <p:outputLabel for="userType" value="Rodzaj konta" />
-        <p:selectOneMenu id="userType" value="#{login.imieinazwisko}" required="true">
-            <f:selectItem itemLabel="Klient" itemValue="k" />
-            <f:selectItem itemLabel="Trener" itemValue="t" />
-            <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="o" />
-            <f:selectItem itemLabel="Grupa robocza" itemValue="g" />
-        </p:selectOneMenu>
-        <p:inputText class="inputTextStyle"  id="username" value="#{login.user}"></p:inputText>
-        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+        <p:row>
+            <p:column><p:outputLabel for="username" value="Nazwa użytkownika" /></p:column>
+            <p:column>
+                <p:inputText class="inputTextStyle"  id="username" value="#{login.uname}"></p:inputText>
+                <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />                
+            </p:column>  
+     
+        </p:row>
         
-        <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
-        <p:watermark for="email" value="Adres email" id="email_watermark" />
-       
-        <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
-        <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
+        <p:row>
+            <p:column><p:outputLabel for="email" value="Adres email" /></p:column>
+            <p:column>
+                <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
+                <p:watermark for="email" value="Adres email" id="email_watermark" />                
+            </p:column>                        
+        </p:row>
+         
+        <p:row>
+            <p:column><p:outputLabel for="pwd1" value="Hasło" /></p:column>
+            <p:column>
+                <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
+                <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
+            </p:column>            
+        </p:row>
+        <p:row>
+            <p:column></p:column>
+            <p:column><p>Hasło musi składać się z min. 6 znaków, <br /> max. 30 znaków i musi zawierać cyfry i litery.</p></p:column>
+        </p:row>
+        
+        <p:row>
+            <p:column><p:outputLabel for="pwd2" value="Powtórz hasło" /></p:column>     
+            <p:column>
+                <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
+                <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> </p:column>    
+        </p:row>
             
-        <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
-        <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" />
         
-        <p:separator style="height:2px"/>        
+        <p:row>
+            <p:column><p:outputLabel for="state" value="Województwo" /> </p:column>     
+            <p:column>
+                <p:selectOneMenu id="state" value="#{login.state}" required="true">
+        <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
+        <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. lubelskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. lubuskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. łódzkie" itemValue="1" />
+        <f:selectItem itemLabel="woj. małopolskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. mazowieckie" itemValue="1" />
+        <f:selectItem itemLabel="woj. opolskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. podkarpackie" itemValue="1" />
+        <f:selectItem itemLabel="woj. podlaskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. pomorskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. śląskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. wielkopolskie" itemValue="1" />
+        <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="1" />
+                </p:selectOneMenu>
+            </p:column>    
+        </p:row>
+           
+        
+        <p:row>
+            <p:column><p:outputLabel for="city" value="Miasto" /> </p:column>     
+            <p:column> <p:inputText class="inputTextStyle"  id="city" value="#{login.city}"></p:inputText>
+        <p:watermark for="city" value="Miasto" id="city_watermark" /> </p:column>    
+        </p:row>
+        
+       <p:row>            
+            <p:column colspan="3"><p:separator />Jakimi dyscyplinami i w jakim stopniu jesteś zainteresowany?<br/>
+            Oznacz to suwakami poniżej lub wypełnij szybki quiz 
+              <p:commandButton type="cancel"  value="Quiz"></p:commandButton>
+              <p:separator />
+            </p:column>
+        </p:row>
+            
+           
+        <p:row>
+            <p:column><p:outputLabel value="Bieganie " /> </p:column>     
+            <p:column>              
+                <p:slider for="bieganie" style="width: 300px;" /> 
+                <p:inputText type="hidden" id="bieganie" value="#{login.r_val}" />
+            </p:column>           
+        </p:row>
+                 
+        <p:row>
+            <p:column><p:outputLabel value="Kolarstwo " /> </p:column>     
+            <p:column> <p:inputText type="hidden" id="rower" value="#{login.b_val}"  />
+        <p:slider for="rower" style="width: 300px;" />  </p:column>    
+        </p:row>
+           
+                
+        <p:row>
+            <p:column><p:outputLabel value="Pływanie " />  </p:column>     
+            <p:column> <p:inputText type="hidden" id="plywanie" value="#{login.s_val}"  />
+        <p:slider for="plywanie" style="width: 300px;" /> </p:column>    
+        </p:row>
+           
+                
+        <p:row>
+            <p:column><p:outputLabel value="Triathlon " /> </p:column>     
+            <p:column><p:inputText type="hidden" id="triathlon" value="#{login.t_val}"  />
+        <p:slider for="triathlon" style="width: 300px;" step="10" /> </p:column>    
+        </p:row>
+           
+        
+        <p:row>
+            <p:column>
+             <p:selectBooleanCheckbox label="cboxrower" value="1" />      
+            </p:column>
+            <p:column colspan="2">
+                <h6>Wyrażam zgodę na przesyłanie na podany adres e-mail informacji handlowych,<br/> 
+                    promocyjnych i marketingowych dotyczących produktów i usług, <br/>
+                    a także na przetwarzanie moich danych osobowych</h6>                   
+            </p:column>       
+        </p:row>
+               
+      
         <h:panelGrid columns="4" id="sliderr" cellpadding="5">  
-        <p:outputLabel value="Bieganie " />    
-        <p:selectBooleanCheckbox label="cboxbieganie" value="1" />            
-        <p:inputText type="hidden" id="bieganie" value="1" />
-        <p:slider for="bieganie" style="width: 300px;" />
+         
         
-        <p:outputLabel value="Kolarstwo " />    
-        <p:selectBooleanCheckbox label="cboxrower" value="1" />            
-        <p:inputText type="hidden" id="rower" value="1" />
-        <p:slider for="rower" style="width: 300px;" />   
         
-        <p:outputLabel value="Pływanie " />    
+           
+                 
+         
+        
+          
         <p:selectBooleanCheckbox label="cboxplywanie" value="1" />            
-        <p:inputText type="hidden" id="plywanie" value="1" />
-        <p:slider for="plywanie" style="width: 300px;" />
+        <p:selectBooleanCheckbox label="cboxtriathlon" />            
         
-        <p:outputLabel value="Triathlon " />    
-        <p:selectBooleanCheckbox label="cboxtriathlon" value="1" />            
-        <p:inputText type="hidden" id="triathlon" value="1" />
-        <p:slider for="triathlon" style="width: 300px;" />
         </h:panelGrid>
         <p:separator style="height:2px"/>        
-            
-        
-        
-        
-        </h:panelGrid>
-        <br />
-        <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
+                    
+
+        <p:row>
+            <p:column colspan="3">
+                <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
         <p:commandButton type="cancel"  value="Anuluj"></p:commandButton>
-              
+            </p:column>
+        </p:row>
+        
+         </p:panelGrid>     
     </h:form>
     
        

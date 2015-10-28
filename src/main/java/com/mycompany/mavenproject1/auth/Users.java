@@ -66,8 +66,29 @@ public class Users implements Serializable {
     @Size(min = 1)
     @Column(name = "hashCode")
     private String hashCode;
+        
+    @Column(name = "user_type_id")    
+    private Integer user_type_id;
     
-
+    @Column(name = "r_val")    
+    private Integer r_val;
+    
+    @Column(name = "b_val")    
+    private Integer b_val;
+    
+    @Column(name = "s_val")
+    private Integer s_val;
+    
+    @Column(name = "t_val")
+    private Integer t_val;
+    
+    @Column(name = "state")    
+    private String state;
+    
+    @Column(name = "city")
+    private String city;
+    
+    
     
     public Users() {
     }
@@ -114,7 +135,13 @@ public class Users implements Serializable {
         this.hashCode = hashCode;
     }
 
-    
+    public Integer getUser_type_id() {
+        return user_type_id;
+    }
+
+    public void setUser_type_id(Integer user_type_id) {
+        this.user_type_id = user_type_id;
+    }    
     
     public String getEmail() {
         return email;
@@ -131,6 +158,56 @@ public class Users implements Serializable {
     public void setNazwauzytkownika(String nazwauzytkownika) {
         this.nazwauzytkownika = nazwauzytkownika;
     }
+
+    public Integer getR_val() {
+        return r_val;
+    }
+
+    public void setR_val(Integer r_val) {
+        this.r_val = r_val;
+    }
+
+    public Integer getB_val() {
+        return b_val;
+    }
+
+    public void setB_val(Integer b_val) {
+        this.b_val = b_val;
+    }
+
+    public Integer getS_val() {
+        return s_val;
+    }
+
+    public void setS_val(Integer s_val) {
+        this.s_val = s_val;
+    }
+
+    public Integer getT_val() {
+        return t_val;
+    }
+
+    public void setT_val(Integer t_val) {
+        this.t_val = t_val;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
+    
     
     @Override
     public int hashCode() {
@@ -156,5 +233,7 @@ public class Users implements Serializable {
     public String toString() {
         return "com.mycompany.mavenproject1.auth.Users[ uid=" + uid + " ]";
     }
+   
+    
     
 }
