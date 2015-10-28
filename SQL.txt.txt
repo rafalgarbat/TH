@@ -1,32 +1,18 @@
-CREATE TABLE klient
-(
-  id serial NOT NULL  PRIMARY KEY,
-  imie text,
-  nazwisko text,
-  email text,
-  login text,
-  cdate date DEFAULT now()
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE klient OWNER TO postgres;
-
-create table grupy_treningowe(
-id serial NOT NULL  PRIMARY KEY,
-owner_id integer REFERENCES klient (id),
-nazwa text,
-cdate date default now()
-);
 
 CREATE TABLE users
 (
   uid serial NOT NULL,
   uname character varying(60) NOT NULL,
-  "password" character varying(60) NOT NULL,
+  password character varying(60) NOT NULL,
   email text,
-  nazwauzytkownika text,
+  user_type_id integer,
   hashcode text,
+  state text,
+  city text,
+  r_val integer default 0,
+  b_val integer default 0,
+  s_val integer default 0,
+  t_val integer default 0,
   CONSTRAINT users_pkey PRIMARY KEY (uid)
 )
 WITH (
@@ -34,8 +20,6 @@ WITH (
 );
 ALTER TABLE users OWNER TO postgres;
 
-
-drop table event
 
 CREATE TABLE events
 (
@@ -63,6 +47,39 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE events OWNER TO postgres;
+
+
+--reszta tabel jest smieciowa--
+
+
+CREATE TABLE klient
+(
+  id serial NOT NULL  PRIMARY KEY,
+  imie text,
+  nazwisko text,
+  email text,
+  login text,
+  cdate date DEFAULT now()
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE klient OWNER TO postgres;
+
+create table grupy_treningowe(
+id serial NOT NULL  PRIMARY KEY,
+owner_id integer REFERENCES klient (id),
+nazwa text,
+cdate date default now()
+);
+
+
+
+
+
+drop table event
+
+
 
 
 ALTER TABLE klient ADD COLUMN "password" text;
