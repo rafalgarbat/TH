@@ -6,14 +6,12 @@
 package com.mycompany.mavenproject1.auth;
 
 
-import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -27,59 +25,42 @@ public class Login implements Serializable {
     
     @EJB
     private LoginFacade loginFacade;
-    
-    private String pwd;
-    private String msg;
-    private String user;
-    private String regURL;
-    private String imieinazwisko;
-    private String email;
-    
-    private boolean imieinazwisko_rendered =true;
         
- 
-    public String getPwd() {
-        return pwd;
-    }
- 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
- 
-    public String getMsg() {
-        return msg;
-    }
- 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
- 
-    public String getUser() {
-        return user;
-    }
- 
-    public void setUser(String user) {
-        this.user = user;
-    }
- 
-     private LoginFacade getFacade() {
+    private String uname;
+    private String pwd;
+    private String email;
+    private int userType;
+    private String city;
+    private String state;
+    private int r_val;
+    private int s_val;
+    private int b_val;
+    private int t_val;
+    private String hashcode;
+    private String msg;
+
+    public LoginFacade getLoginFacade() {
         return loginFacade;
     }
 
-    public String getRegURL() {
-        return regURL;
+    public void setLoginFacade(LoginFacade loginFacade) {
+        this.loginFacade = loginFacade;
     }
 
-    public void setRegURL(String regURL) {
-        this.regURL = regURL;
+    public String getUname() {
+        return uname;
     }
 
-    public String getImieinazwisko() {
-        return imieinazwisko;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
-    public void setImieinazwisko(String imieinazwisko) {
-        this.imieinazwisko = imieinazwisko;
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getEmail() {
@@ -90,15 +71,79 @@ public class Login implements Serializable {
         this.email = email;
     }
 
-    public boolean isImieinazwisko_disabled() {
-        return imieinazwisko_rendered;
+    public int getUserType() {
+        return userType;
     }
 
-    public void setImieinazwisko_disabled(boolean imieinazwisko_disabled) {
-        this.imieinazwisko_rendered = imieinazwisko_disabled;
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getR_val() {
+        return r_val;
+    }
+
+    public void setR_val(int r_val) {
+        this.r_val = r_val;
+    }
+
+    public int getS_val() {
+        return s_val;
+    }
+
+    public void setS_val(int s_val) {
+        this.s_val = s_val;
+    }
+
+    public int getB_val() {
+        return b_val;
+    }
+
+    public void setB_val(int b_val) {
+        this.b_val = b_val;
+    }
+
+    public int getT_val() {
+        return t_val;
+    }
+
+    public void setT_val(int t_val) {
+        this.t_val = t_val;
+    }
+
+    public String getHashcode() {
+        return hashcode;
+    }
+
+    public void setHashcode(String hashcode) {
+        this.hashcode = hashcode;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
     
+
      
      
     public String  validateRegistrationURL(){
@@ -113,10 +158,10 @@ public class Login implements Serializable {
     } 
     
     public String createUser(){
-        boolean valid =getFacade().createUser(imieinazwisko, user, email, pwd);
+        boolean valid =getLoginFacade().createUser(uname, email, pwd, userType);
         if (valid){
             HttpSession session = SessionBean.getSession();
-            session.setAttribute("username", user);
+            session.setAttribute("username", uname);
             return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         }else{
              FacesContext.getCurrentInstance().addMessage(
@@ -130,10 +175,10 @@ public class Login implements Serializable {
     
     //validate login
     public String validateUsernamePassword() {
-        boolean valid = getFacade().validate(user, pwd);
+        boolean valid = getLoginFacade().validate(uname, pwd);
         if (valid) {
             HttpSession session = SessionBean.getSession();
-            session.setAttribute("username", user);
+            session.setAttribute("username", uname);
             return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -151,12 +196,6 @@ public class Login implements Serializable {
         session.invalidate();
         return "login";
     }
-    
-     public void checkSelectedVal(ValueChangeEvent event){
-       String selectedVal=event.getNewValue().toString();
-      // if(selectedVal.equalsIgnoreCase("o")||selectedVal.equalsIgnoreCase("g")){
-         imieinazwisko_rendered=false;
-      // }      
-     }
+
     
 }

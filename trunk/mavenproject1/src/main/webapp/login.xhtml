@@ -12,7 +12,7 @@
         <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"/>
     </h:head>
     <f:metadata>
-        <f:viewParam name="regURL" value="#{login.regURL}"/>
+        <f:viewParam name="regURL" value="#{login.hashcode}"/>
         <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
     </f:metadata>
     
@@ -31,24 +31,36 @@
     </style>
 <h:body>
     <h:form class="loginFormStyle">   
-        <h:inputText style="width: 345px; height: 30px"  id="username" value="#{login.user}"></h:inputText>
-        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
-        <h:message for="username"></h:message>
-        <br /><br />
+        <h:message for="password"/>
+        <p:row>
+            <p:column colspan="2">
+            <p:inputText style="width: 345px; height: 30px"  id="username" value="#{login.uname}"></p:inputText>
+            <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />            
+            </p:column>            
+        </p:row>
+        <p:row>
+            <p:column colspan="2">
+            <p:password style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></p:password>
+            <p:watermark for="password" value="Hasło" id="password_watermark" />            
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="2"><p:commandButton style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj"/></p:column>         
+        </p:row>
+        <p:row>            
+           <p:column colspan="2"><p:commandButton  style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj przez facebook"></p:commandButton></p:column>
+        </p:row>
+        <p:row>
+            <p:column><p:commandButton  action="register.xhtml?faces-redirect=true" value="Zarejestruj nowe konto"/></p:column>
+            <p:column><p:commandButton  action="remember.xhtml?faces-redirect=true" value="Przypomnij moje hasło"/></p:column>            
+        </p:row>
+            
          
         
-        <h:inputSecret style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></h:inputSecret>
-        <p:watermark for="password" value="Hasło" id="password_watermark" />
-        <h:message for="password"></h:message>
-        <br /><br />
-         
-        <h:commandButton style="width: 345px"  action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
-        <br /><br />
-        <p align="center">Kliknij jeśli <h:link outcome="register" value="jeśli nie masz konta"/> 
-            lub <h:link outcome="remember" value="zapomniałeś hasła"/> </p>    
-        <hr/>
-        <p>lub zaloguj się z </p>        
-        <h:commandButton style="width: 345px" action="#{login.validateUsernamePassword}" value="Facebook"></h:commandButton>
+        
+        
+        
+        
     </h:form>
     
        
