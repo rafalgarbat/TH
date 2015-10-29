@@ -23,8 +23,8 @@
     </style>
 <h:body>
     <h:form class="loginFormStyle">          
-        <h:inputText class="inputTextStyle"  id="email" value="#{login.user}"></h:inputText>
-        <p:watermark for="email" value="Adres email" id="email_watermark" />
+        <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
+        <p:watermark for="email" value="Adres email związany z Twoim kontem" id="email_watermark" />
         <h:message for="email"></h:message>
         <br /><br /> 
         <h:commandButton class="inputTextStyle" action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>              

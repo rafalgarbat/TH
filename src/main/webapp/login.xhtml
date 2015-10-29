@@ -18,50 +18,97 @@
     
     <style type="text/css">
         .loginFormStyle {
- position : absolute;    
-    width    : 355px;
-    height   : 350px;
-    left     : 40%;
+ position : absolute;       
+    left     : 30%;
     top      : 40%;
-    border:  0px solid #8AC007;
+    border:  3px solid #33CCFF;
     padding: 10px;
     margin-left : -100px; /* half of the width  */
     margin-top  : -100px; /* half of the height */
 }
+.loginFormStyle.ui-panelgrid>*>tr,
+.loginFormStyle.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+
     </style>
-<h:body>
-    <h:form class="loginFormStyle">   
-        <h:message for="password"/>
+<h:body>    
+        <h:form class="loFormStyle">  
+             <p:panelGrid id="logowanieGrid" class="loginFormStyle">                 
         <p:row>
-            <p:column colspan="2">
+            <p:column><h3>Logowanie</h3><p:separator /></p:column>
+            <p:column><h3>Rejestrajca</h3><p:separator /></p:column>            
+        </p:row> 
+        <p:row>
+            <p:column>
             <p:inputText style="width: 345px; height: 30px"  id="username" value="#{login.uname}"></p:inputText>
             <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />            
-            </p:column>            
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-            <p:password style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></p:password>
-            <p:watermark for="password" value="Hasło" id="password_watermark" />            
+            </p:column>
+            <p:column>
+                <h4>Nie masz jeszcze konta? Wypełnij krótki formularz i zarejestruj się!<br/>
+                Założenie konta jest bezpłatne i trwa mniej niż 2 minuty.</h4>
             </p:column>
         </p:row>
         <p:row>
-            <p:column colspan="2"><p:commandButton style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj"/></p:column>         
-        </p:row>
-        <p:row>            
-           <p:column colspan="2"><p:commandButton  style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj przez facebook"></p:commandButton></p:column>
+            <p:column>
+            <p:password style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></p:password>
+            <p:watermark for="password" value="Hasło" id="password_watermark" />            
+            </p:column>
+            <p:column></p:column>
         </p:row>
         <p:row>
-            <p:column><p:commandButton  action="register.xhtml?faces-redirect=true" value="Zarejestruj nowe konto"/></p:column>
-            <p:column><p:commandButton  action="remember.xhtml?faces-redirect=true" value="Przypomnij moje hasło"/></p:column>            
+            <p:column><p:commandButton style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj > "/></p:column>         
+            <p:column><p:commandButton  style="width: 450px; height: 30px" action="register.xhtml?faces-redirect=true" value="Załóż konto >"/></p:column>
         </p:row>
+        <p:row>            
+           <p:column><p:commandButton  style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj przez facebook > "></p:commandButton></p:column>
+           <p:column></p:column>
+        </p:row>
+        <p:row>            
+            <p:column><h3>Zapomniałes hasła? </h3><p:separator />
+                <p:commandButton  style="width: 345px; height: 30px"  value="Przypomnij hasło >"   oncomplete="PF('remember_dialog').show();" />
+                
+                <p:dialog widgetVar="remember_dialog" modal="true">
+                    
+                    <h:form class="loginFormStyle">          
+                        <p:panelGrid id="remember_dlg">
+                            <p:row><p:column colspan="2">
+                                    <p:messages id="messages" />                  
+                                </p:column></p:row>
+                            <p:row>
+                                <p:column colspan="2"><h3>Przypomnij hasło</h3><p:separator />Jeśli nie pamiętasz hasła, <br/>podaj adres e-mail używany do logowania</p:column>                                
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel for="email" value="Adres email" />
+                                </p:column>
+                                <p:column>
+                                     <p:inputText style="width: 345px; height: 30px"  id="email" value="#{login.email}"></p:inputText>
+                                     <p:watermark for="email" value="Adres email związany z Twoim kontem" id="email_watermark" />      
+                                </p:column>                                
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                   <p:commandButton  style="width: 345px; height: 30px"  action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>               
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>    
+                  
+                  
+                    </h:form>   
+                    
+                </p:dialog>
+                
+                
+                
+                
             
-         
-        
-        
-        
-        
-        
-    </h:form>
+            </p:column>            
+            <p:column></p:column>
+        </p:row>
+                 </p:panelGrid>
+     </h:form>
+   
     
        
 </h:body>
