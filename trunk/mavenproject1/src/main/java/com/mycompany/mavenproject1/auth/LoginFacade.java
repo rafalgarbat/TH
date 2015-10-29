@@ -37,12 +37,18 @@ public class LoginFacade extends AbstractFacade<Users>{
         return !pQuery.getResultList().isEmpty();
     }
     
-    public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType){
+    public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType, String aCity, String aState, int aR, int aT, int aS, int aB){
         Users pNewUser = new Users();
         pNewUser.setPassword(aPassword);
         pNewUser.setUname(aLogin);                
         pNewUser.setEmail(aEmail);
         pNewUser.setUser_type_id(aUserType);
+        pNewUser.setState(aEmail);
+        pNewUser.setCity(aEmail);
+        pNewUser.setR_val(aUserType);
+        pNewUser.setT_val(aUserType);
+        pNewUser.setS_val(aUserType);
+        pNewUser.setB_val(aUserType);
         //pNewUser.setHashCode("xxxx");
         create(pNewUser);
         /* todo: wysylanie maila aktywacyjnego i aktywacja konta, poki co wsystko aktywne z defaultu

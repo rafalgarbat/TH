@@ -58,11 +58,7 @@ public class Users implements Serializable {
     @Size(min = 3, max = 100)
     @Column(name = "email")
     private String email;
-    
-    @Size(min = 1)
-    @Column(name = "nazwauzytkownika")
-    private String nazwauzytkownika;
-    
+        
     @Size(min = 1)
     @Column(name = "hashCode")
     private String hashCode;
@@ -150,15 +146,7 @@ public class Users implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getNazwauzytkownika() {
-        return nazwauzytkownika;
-    }
-
-    public void setNazwauzytkownika(String nazwauzytkownika) {
-        this.nazwauzytkownika = nazwauzytkownika;
-    }
-
+   
     public Integer getR_val() {
         return r_val;
     }

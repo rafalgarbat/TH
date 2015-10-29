@@ -7,6 +7,8 @@ package com.mycompany.mavenproject1.auth;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -14,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
  
 @ManagedBean
@@ -25,7 +28,7 @@ public class Login implements Serializable {
     
     @EJB
     private LoginFacade loginFacade;
-        
+    
     private String uname;
     private String pwd;
     private String email;
@@ -143,7 +146,17 @@ public class Login implements Serializable {
         this.msg = msg;
     }
     
-
+ public void viewQuizCustomized() {
+        Map<String,Object> options = new HashMap<>();
+        options.put("modal", true);
+        options.put("width", 640);
+        options.put("height", 340);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        options.put("headerElement", "customheader");
+                 
+        RequestContext.getCurrentInstance().openDialog("quiz.xhtml", options, null);
+    }
      
      
     public String  validateRegistrationURL(){
@@ -158,7 +171,7 @@ public class Login implements Serializable {
     } 
     
     public String createUser(){
-        boolean valid =getLoginFacade().createUser(uname, email, pwd, userType);
+        boolean valid =getLoginFacade().createUser(uname, email, pwd, userType,city, state,r_val,t_val,s_val,b_val);
         if (valid){
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
