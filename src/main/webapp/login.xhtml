@@ -30,7 +30,13 @@
 .loginFormStyle.ui-panelgrid .ui-panelgrid-cell {
     border: none;
 }
-
+.myStyle{
+ padding: 10px;    
+    }    
+.myStyle.ui-panelgrid>*>tr,
+.myStyle.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
     </style>
 <h:body>    
         <h:form class="loFormStyle">  
@@ -68,10 +74,10 @@
             <p:column><h3>Zapomniałes hasła? </h3><p:separator />
                 <p:commandButton  style="width: 345px; height: 30px"  value="Przypomnij hasło >"   oncomplete="PF('remember_dialog').show();" />
                 
-                <p:dialog widgetVar="remember_dialog" modal="true">
+                <p:dialog widgetVar="remember_dialog" modal="true" width="500px" >
                     
                     <h:form class="loginFormStyle">          
-                        <p:panelGrid id="remember_dlg">
+                        <p:panelGrid id="remember_dlg" class="myStyle">
                             <p:row><p:column colspan="2">
                                     <p:messages id="messages" />                  
                                 </p:column></p:row>
@@ -89,7 +95,7 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
-                                   <p:commandButton  style="width: 345px; height: 30px"  action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>               
+                                   <p:commandButton  style="width: 100%; height: 30px"  action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>               
                                 </p:column>
                             </p:row>
                         </p:panelGrid>    

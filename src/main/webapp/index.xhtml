@@ -1,24 +1,56 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  
-      xmlns:h="http://java.sun.com/jsf/html"
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+    <h:head>        
+        <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
     </h:head>
-    <h:body>
-
-        Hello POC !
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/klient/List" value="Show All Klient Items"/>
-        <br />
-        <h:link outcome="/workouts/List" value="Show All Workouts Items"/>
-    </h:body>
-
-
-
-
+    
+    <ui:composition template="/templates/maintemplate.xhtml">
+    
+        <ui:define name="west">
+            oooooooo
+        </ui:define>
+        
+        
+          <ui:define name="body">
+            <div style="height:500px">
+    <h:form id="dupa">
+        <p:growl id="msgs" showDetail="true" />
+ 
+        <p:dashboard id="board" model="#{dashboardController.model}">
+            <p:ajax event="reorder"  update="msgs" />
+ 
+            <p:panel id="sports" header="Sports"  toggleable="true" >
+                <h:outputText value="Sports Content" />
+            </p:panel>
+ 
+            <p:panel id="finance" header="Finance">
+                <h:outputText value="Finance Content" />
+            </p:panel>
+ 
+            <p:panel id="lifestyle" header="Lifestyle">
+                <h:outputText value="Lifestyle Content"  />
+            </p:panel>
+ 
+            <p:panel id="weather" header="Weather">
+                <h:outputText value="Weather Content" />
+            </p:panel>
+ 
+            <p:panel id="politics" header="Politics">
+                <h:outputText value="Politics Content" />
+            </p:panel>
+        </p:dashboard>
+ 
+        <div style="clear:both" />
+    </h:form>
+</div>
+        </ui:define>
+    </ui:composition>
+    
+    
 
 </html>
