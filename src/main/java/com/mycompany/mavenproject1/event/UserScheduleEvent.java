@@ -14,11 +14,14 @@ import org.primefaces.model.DefaultScheduleEvent;
  */
 public class UserScheduleEvent extends DefaultScheduleEvent{
             
-    
+    //brakuje typu wydarzenia - tri, bieganie, kolarstwo
+    //brakuje adresu wydarzenia (poza kordynatami gmaps)
     private String gmap_cords;
     private String keywords;
     private String description;
     private int typPrzesuniecia;
+    private String adres;
+    private String typWydarzenia;
     
 
     public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
@@ -64,5 +67,22 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public void setTypPrzesuniecia(int typPrzesuniecia) {
         this.typPrzesuniecia = typPrzesuniecia;
     }
-            
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
+
+    public String getTypWydarzenia() {
+        return typWydarzenia;
+    }
+
+    public void setTypWydarzenia(String typWydarzenia) {
+        this.typWydarzenia = typWydarzenia;
+    }
+        
+    
 }

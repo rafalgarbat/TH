@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.event;
 
 import com.mycompany.mavenproject1.AbstractFacade;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,12 +14,13 @@ import javax.persistence.PersistenceContext;
  *
  * @author Jaroslaw.Skrzydlo
  */
+@Stateless
 public class EventFacade extends AbstractFacade<Events> {
     @PersistenceContext(unitName = "com.mycompany_mavenproject1_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 
