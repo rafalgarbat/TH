@@ -48,6 +48,9 @@ WITH (
 );
 ALTER TABLE events OWNER TO postgres;
 
+alter table events add column adres text;
+alter table events add column typ_wydarzenia text;
+
 
 --reszta tabel jest smieciowa--
 
