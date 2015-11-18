@@ -28,8 +28,55 @@
                 </p:tab>
                 <p:tab title="Lista">
                     <h:panelGrid columns="2" cellpadding="10">                        
-                        <h:outputText value="Francis Ford Coppola's legendary..." />
-                        <h:outputText value="Francis Ford Coppola's legendary..." />
+                        <h:outputText value="A tu scroll o ostatnio zaktualizowanych albo info o selectowanym" />
+                        <h:form id="form">
+                            <p:dataTable var="event" value="#{eventList.events}" 
+                                         widgetVar="eventsTable"
+                                         emptyMessage="No cars found with given criteria"
+                                         rows="10" paginator="true">
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Search all fields:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                    </p:outputPanel>
+                                </f:facet>                            
+                                <p:column headerText="Impreza">
+                                    <h:outputText value="#{event.title}" />
+                                </p:column>
+                                <p:column headerText="Początek">
+                                    <h:outputText value="#{event.startDate}" />
+                                </p:column>    
+                                <p:column headerText="Miejsce">
+                                    <h:outputText value="#{event.adres}" />
+                                </p:column>       
+                                <p:column headerText="Typ wydarzenia" filterBy="#{event.typWydarzenia}" filterMatchMode="equals">
+                                    <f:facet name="filter">
+                                        <p:selectOneButton onchange="PF('eventsTable').filter()">
+                                            <f:converter converterId="javax.faces.Boolean" />
+                                            <f:selectItem itemLabel="Wszystkie" itemValue="" />
+                                            <f:selectItem itemLabel="Triathlon" itemValue="t" />
+                                            <f:selectItem itemLabel="Kolarstwo" itemValue="k" />
+                                            <f:selectItem itemLabel="Bieganie" itemValue="b" />
+                                        </p:selectOneButton>   
+                                    </f:facet>
+                                    <h:outputText value="#{event.typWydarzenia}" />
+                                </p:column>                                   
+                                <p:column headerText="Cechy">
+                                    <h:outputText value="#{event.title}" />
+                                </p:column>  
+                                <p:column style="width:32px;text-align: center">
+
+                                    <p:commandButton update=":form:eventDetail" oncomplete="PF('eventDialog').show()" icon="ui-icon-search" title="View">
+                                        <f:setPropertyActionListener value="#{event}" target="#{eventList.selectedEvent}" />
+                                    </p:commandButton>
+                                </p:column>                                    
+                            </p:dataTable>     
+                            <p:dialog header="Event Info" widgetVar="eventDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="eventDetail" style="text-align:center;">
+                                        xxxx
+                                    </p:outputPanel>    
+                                </p:dialog>    
+                        </h:form>     
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Mapa wydarzeń">

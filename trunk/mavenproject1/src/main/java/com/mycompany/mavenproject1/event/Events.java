@@ -96,6 +96,10 @@ public class Events implements Serializable {
     @Column(name = "mdate")
     @Temporal(TemporalType.DATE)
     private Date mdate;
+    @Column(name = "adres")
+    private String adres;
+    @Column(name = "typ_wydarzenia")
+    private String typ_wydarzenia;
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
     @ManyToOne
     private Klient klientId;
@@ -225,6 +229,22 @@ public class Events implements Serializable {
 
     public void setKlientId(Klient klientId) {
         this.klientId = klientId;
+    }
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
+
+    public String getTyp_wydarzenia() {
+        return typ_wydarzenia;
+    }
+
+    public void setTyp_wydarzenia(String typ_wydarzenia) {
+        this.typ_wydarzenia = typ_wydarzenia;
     }
 
     @Override
