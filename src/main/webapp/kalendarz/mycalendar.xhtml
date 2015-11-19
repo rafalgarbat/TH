@@ -19,7 +19,7 @@
         <ui:define name="body">            
             <p:tabView dynamic="true" cache="true" id="tabCalendar">
                 <p:tab title="Podsumowanie">
-                    <h:panelGrid columns="2" cellpadding="10">                        
+                    <h:panelGrid columns="2" cellpadding="0">                        
                         <h:outputText
                             value="The story begins as Don Vito Corleone..." />
                         <h:outputText
@@ -52,6 +52,8 @@
                                     <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
                                     <h:outputText value="Opis" />
                                     <h:outputText value="#{event.description}" />    
+                                    <h:outputText value="Zapisanych" />
+                                    <h:outputText value="#{event.iloscZapisanych}" />    
                                     </p:panelGrid>    
                                 </p:rowExpansion>
                                 <p:column headerText="Impreza" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
@@ -102,7 +104,7 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Mapa wydarzeń">
-                    <h:panelGrid columns="2" cellpadding="10">                        
+                    <h:panelGrid columns="2" cellpadding="0">                        
                         <h:outputText value="After a break of more than 15 years..." />
                         <h:outputText value="After a break of more than 15 years..." />
                     </h:panelGrid>

@@ -36,8 +36,10 @@ public class EventService {
 
         listOfAllEvents = getEventFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
         for (Events eve : listOfAllEvents) {
-            UserScheduleEvent def = new UserScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado(), eve);
+            
+            UserScheduleEvent def = new UserScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado(), eve);            
             def.setDbEventId(eve.getId());
+            def.setIloscZapisanych(eve.getUsereventsCollection().size());
             list.add(def);
         }
 

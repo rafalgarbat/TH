@@ -7,6 +7,7 @@ package com.mycompany.mavenproject1.event;
 
 import com.mycompany.mavenproject1.Klient;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,12 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -45,10 +48,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Events.findByTypPrzesuniecia", query = "SELECT e FROM Events e WHERE e.typPrzesuniecia = :typPrzesuniecia"),
     @NamedQuery(name = "Events.findByGmapCords", query = "SELECT e FROM Events e WHERE e.gmapCords = :gmapCords"),
     @NamedQuery(name = "Events.findByKeywords", query = "SELECT e FROM Events e WHERE e.keywords = :keywords"),
-    @NamedQuery(name = "Events.findByEventId", query = "SELECT e FROM Events e WHERE e.eventId = :eventId"),
+    @NamedQuery(name = "Events.findByEventId", query = "SELECT e FROM Events e WHERE e.eventId = :eventId"),    
     @NamedQuery(name = "Events.findByCdate", query = "SELECT e FROM Events e WHERE e.cdate = :cdate"),
     @NamedQuery(name = "Events.findByMdate", query = "SELECT e FROM Events e WHERE e.mdate = :mdate")})
 public class Events implements Serializable {
+    @OneToMany(mappedBy = "eventId")
+    private Collection<Userevents> usereventsCollection;
     private static final long serialVersionUID = 1L;
     @Id
     	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="events_id_seq")
@@ -270,6 +275,15 @@ public class Events implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.mavenproject1.event.Events[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Userevents> getUsereventsCollection() {
+        return usereventsCollection;
+    }
+
+    public void setUsereventsCollection(Collection<Userevents> usereventsCollection) {
+        this.usereventsCollection = usereventsCollection;
     }
     
 }

@@ -21,7 +21,7 @@ public class EventFacade extends AbstractFacade<Events> {
 
     @Override
     public EntityManager getEntityManager() {
-        return em;
+        return em; 
     }
 
     public EventFacade() {

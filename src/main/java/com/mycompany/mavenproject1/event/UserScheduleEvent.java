@@ -24,6 +24,8 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private String typWydarzenia;
     private int dbEventId;
     
+    private int iloscZapisanych;
+    
 
     public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
         super(tytul,dataod,datado,eve);
@@ -91,6 +93,14 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
 
     public void setDbEventId(int dbEventId) {
         this.dbEventId = dbEventId;
+    }
+
+    public int getIloscZapisanych() {
+        return iloscZapisanych;
+    }
+
+    public void setIloscZapisanych(int iloscZapisanych) {
+        this.iloscZapisanych = iloscZapisanych;
     }
         
     
