@@ -13,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -45,9 +47,16 @@ public class EventList implements Serializable {
         return selectedEvent;
     }
 
+    public void setEvents(List<UserScheduleEvent> events) {
+        this.events = events;
+    }
+
     public void setSelectedEvent(UserScheduleEvent selectedEvent) {
         this.selectedEvent = selectedEvent;
     }
     
-    
+     public void onRowSelect(SelectEvent event) {
+     }
+   public void onRowUnselect(UnselectEvent event) {
+   } 
 }

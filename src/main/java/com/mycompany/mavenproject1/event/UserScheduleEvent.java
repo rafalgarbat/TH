@@ -22,6 +22,7 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private int typPrzesuniecia;
     private String adres;
     private String typWydarzenia;
+    private int dbEventId;
     
 
     public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
@@ -82,6 +83,14 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
 
     public void setTypWydarzenia(String typWydarzenia) {
         this.typWydarzenia = typWydarzenia;
+    }
+
+    public int getDbEventId() {
+        return dbEventId;
+    }
+
+    public void setDbEventId(int dbEventId) {
+        this.dbEventId = dbEventId;
     }
         
     
