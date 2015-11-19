@@ -37,6 +37,12 @@ public class LoginFacade extends AbstractFacade<Users>{
         return !pQuery.getResultList().isEmpty();
     }
     
+    public int getUserId(String uname){
+     Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
+     Users pUser = (Users)pQuery.getResultList().get(0);
+     return pUser.getUid();
+    }
+    
     public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType, String aCity, String aState, int aR, int aT, int aS, int aB){
         Users pNewUser = new Users();
         pNewUser.setPassword(aPassword);
