@@ -189,9 +189,12 @@ public class Login implements Serializable {
     //validate login
     public String validateUsernamePassword() {
         boolean valid = getLoginFacade().validate(uname, pwd);
+        
         if (valid) {
+            int pUserId =  getLoginFacade().getUserId(uname);
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
+            session.setAttribute("userId", pUserId);
             return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         } else {
             FacesContext.getCurrentInstance().addMessage(
