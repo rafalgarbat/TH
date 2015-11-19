@@ -17,7 +17,7 @@
 
 
         <ui:define name="body">            
-            <p:tabView dynamic="true" cache="true">
+            <p:tabView dynamic="true" cache="true" id="tabCalendar">
                 <p:tab title="Podsumowanie">
                     <h:panelGrid columns="2" cellpadding="10">                        
                         <h:outputText
@@ -27,20 +27,34 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Lista">
-                    <h:panelGrid columns="2" cellpadding="10">                        
-                        <h:outputText value="A tu scroll o ostatnio zaktualizowanych albo info o selectowanym" />
+                    <h:panelGrid columns="1" cellpadding="0">                        
+                        
                         <h:form id="form">
-                            <p:dataTable var="event" value="#{eventList.events}" 
+                            <p:growl id="msgs" showDetail="true" />
+
+                            <p:dataTable id ="eventListDT" var="event" value="#{eventList.events}" 
                                          widgetVar="eventsTable"
+                                         rowKey="#{event.dbEventId}"
                                          emptyMessage="No cars found with given criteria"
-                                         rows="10" paginator="true">
+                                         rows="10" paginator="true"
+                                         selectionMode="single" selection="#{eventList.selectedEvent}"
+                                         >
                                 <f:facet name="header">
                                     <p:outputPanel>
                                         <h:outputText value="Search all fields:" />
                                         <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
                                     </p:outputPanel>
-                                </f:facet>                            
-                                <p:column headerText="Impreza">
+                                </f:facet>
+                                <p:column style="width:16px">
+                                    <p:rowToggler />
+                                </p:column>
+                                <p:rowExpansion>
+                                    <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                                    <h:outputText value="Opis" />
+                                    <h:outputText value="#{event.description}" />    
+                                    </p:panelGrid>    
+                                </p:rowExpansion>
+                                <p:column headerText="Impreza" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
                                     <h:outputText value="#{event.title}" />
                                 </p:column>
                                 <p:column headerText="Początek">
@@ -64,18 +78,26 @@
                                 <p:column headerText="Cechy">
                                     <h:outputText value="#{event.title}" />
                                 </p:column>  
-                                <p:column style="width:32px;text-align: center">
+                                <f:facet name="footer">
+                                    <p:commandButton process="eventListDT" update=":tabCalendar:form:eventDetail" icon="ui-icon-search" value="Wyświetl informacje" oncomplete="PF('eventDialog').show()" />
+                                </f:facet>                                 
+                            </p:dataTable>                            
 
-                                    <p:commandButton update=":form:eventDetail" oncomplete="PF('eventDialog').show()" icon="ui-icon-search" title="View">
-                                        <f:setPropertyActionListener value="#{event}" target="#{eventList.selectedEvent}" />
-                                    </p:commandButton>
-                                </p:column>                                    
-                            </p:dataTable>     
-                            <p:dialog header="Event Info" widgetVar="eventDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                                    <p:outputPanel id="eventDetail" style="text-align:center;">
-                                        xxxx
-                                    </p:outputPanel>    
-                                </p:dialog>    
+                            <p:dialog header="Informacje o wydarzeniu" 
+                                      widgetVar="eventDialog" 
+                                      showEffect="fade" hideEffect="fade" resizable="true" closable="true">
+                                <p:outputPanel id="eventDetail" style="text-align:center;">
+                                    <p:panelGrid  columns="2" rendered="#{not empty eventList.selectedEvent}">              
+                                        <h:outputText value="Id:" />
+                                        <h:outputText value="#{eventList.selectedEvent.dbEventId}" />
+                                        
+                                        <h:outputText value="Opis" />
+                                        <h:outputText value="#{eventList.selectedEvent.description}" />
+                                        
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+
                         </h:form>     
                     </h:panelGrid>
                 </p:tab>
