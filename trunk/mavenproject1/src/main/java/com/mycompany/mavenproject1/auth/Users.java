@@ -5,7 +5,9 @@
  */
 package com.mycompany.mavenproject1.auth;
 
+import com.mycompany.mavenproject1.event.Userevents;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+    @Size(max = 2147483647)
+    @Column(name = "hashcode")
+    private String hashCode;
+    @OneToMany(mappedBy = "userId")
+    private Collection<Userevents> usereventsCollection;
     private static final long serialVersionUID = 1L;
     @Id
     	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_uid_seq")
@@ -57,11 +66,7 @@ public class Users implements Serializable {
 
     @Size(min = 3, max = 100)
     @Column(name = "email")
-    private String email;
-        
-    @Size(min = 1)
-    @Column(name = "hashCode")
-    private String hashCode;
+    private String email;        
         
     @Column(name = "user_type_id")    
     private Integer user_type_id;
@@ -220,6 +225,16 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.mavenproject1.auth.Users[ uid=" + uid + " ]";
+    }
+
+
+    @XmlTransient
+    public Collection<Userevents> getUsereventsCollection() {
+        return usereventsCollection;
+    }
+
+    public void setUsereventsCollection(Collection<Userevents> usereventsCollection) {
+        this.usereventsCollection = usereventsCollection;
     }
    
     
