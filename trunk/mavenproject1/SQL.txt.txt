@@ -51,6 +51,15 @@ ALTER TABLE events OWNER TO postgres;
 alter table events add column adres text;
 alter table events add column typ_wydarzenia text;
 
+create table userevents(
+uid serial NOT NULL,
+user_id integer  REFERENCES users (uid),
+event_id integer REFERENCES events (id),
+stan integer default 0,
+CONSTRAINT userevents_pkey PRIMARY KEY (uid)
+)
+ 
+
 
 --reszta tabel jest smieciowa--
 
