@@ -27,12 +27,10 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Lista">
-                    <h:panelGrid columns="1" cellpadding="0">                        
-                        
-                        <h:form id="form">
+                        <h:form id="dtform">
                             <p:growl id="msgs" showDetail="true" />
 
-                            <p:dataTable id ="eventListDT" var="event" value="#{eventList.events}" 
+                            <p:dataTable id ="eventListDT" var="event" value="#{eventList.getEvents()}" 
                                          widgetVar="eventsTable"
                                          rowKey="#{event.dbEventId}"
                                          emptyMessage="No cars found with given criteria"
@@ -45,8 +43,8 @@
                                         <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
                                     </p:outputPanel>
                                 </f:facet>
-                                <p:column style="width:16px">
-                                    <p:rowToggler />
+                                <p:column style="width:16px" >
+                                    <p:rowToggler/>     
                                 </p:column>
                                 <p:rowExpansion>
                                     <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
@@ -81,7 +79,15 @@
                                     <h:outputText value="#{event.title}" />
                                 </p:column>  
                                 <f:facet name="footer">
-                                    <p:commandButton process="eventListDT" update=":tabCalendar:form:eventDetail" icon="ui-icon-search" value="Wyświetl informacje" oncomplete="PF('eventDialog').show()" />
+                                    <p:commandButton process="eventListDT" update=":tabCalendar:dtform:eventDetail" 
+                                                     icon="ui-icon-search" value="Wyświetl informacje" 
+                                                     oncomplete="PF('eventDialog').show()" />
+                                    <p:commandButton process="eventListDT" update=":tabCalendar:dtform" 
+                                                     icon="ui-icon-search" value="Zapisz sie do wydarzenia #{login.uname}" 
+                                                     action="#{eventList.zapiszSieNaEvent(login.uname)}" />  
+                                     <p:commandButton process="eventListDT" update=":tabCalendar:dtform:eventListDT" 
+                                                     icon="ui-icon-search" value="Refresh" 
+                                                     action="#{eventList.loadEvents()}" /> 
                                 </f:facet>                                 
                             </p:dataTable>                            
 
@@ -101,7 +107,6 @@
                             </p:dialog>
 
                         </h:form>     
-                    </h:panelGrid>
                 </p:tab>
                 <p:tab title="Mapa wydarzeń">
                     <h:panelGrid columns="2" cellpadding="0">                        

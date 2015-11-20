@@ -32,7 +32,7 @@ public class EventService {
     private List<Events> listOfAllEvents = new ArrayList<>();
 
     public List<UserScheduleEvent> getEvents() {
-        list = new ArrayList<UserScheduleEvent>();
+        list = new ArrayList<>();
 
         listOfAllEvents = getEventFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
         for (Events eve : listOfAllEvents) {
@@ -40,6 +40,7 @@ public class EventService {
             UserScheduleEvent def = new UserScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado(), eve);            
             def.setDbEventId(eve.getId());
             def.setIloscZapisanych(eve.getUsereventsCollection().size());
+            def.setAdres(eve.getAdres());
             list.add(def);
         }
 

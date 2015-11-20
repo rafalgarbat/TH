@@ -17,12 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Jaroslaw.Skrzydlo
+ * @author Jaroslaw.Skrzydlo  
  */
 @Entity
 @Table(name = "userevents")
@@ -33,9 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Userevents.findByStan", query = "SELECT u FROM Userevents u WHERE u.stan = :stan")})
 public class Userevents implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+        @Id
+    	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userevents_uid_seq")
+	@SequenceGenerator(
+		name="userevents_uid_seq",
+		sequenceName="userevents_uid_seq",
+		allocationSize=3
+	)    
     @Column(name = "uid")
     private Integer uid;
     @Column(name = "stan")

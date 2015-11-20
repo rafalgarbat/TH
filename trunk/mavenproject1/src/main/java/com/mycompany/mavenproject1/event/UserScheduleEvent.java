@@ -103,5 +103,6 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
         this.iloscZapisanych = iloscZapisanych;
     }
         
+   
     
 }

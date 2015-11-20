@@ -146,6 +146,8 @@ public class Login implements Serializable {
         this.msg = msg;
     }
     
+    
+    
  public void viewQuizCustomized() {
         Map<String,Object> options = new HashMap<>();
         options.put("modal", true);
