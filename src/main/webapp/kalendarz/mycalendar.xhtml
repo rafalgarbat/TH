@@ -17,16 +17,6 @@
 
 
         <ui:define name="body">            
-            <p:tabView dynamic="true" cache="true" id="tabCalendar">
-                <p:tab title="Podsumowanie">
-                    <h:panelGrid columns="2" cellpadding="0">                        
-                        <h:outputText
-                            value="The story begins as Don Vito Corleone..." />
-                        <h:outputText
-                            value="The story begins as Don Vito Corleone..." />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Lista">
                         <h:form id="dtform">
                             <p:growl id="msgs" showDetail="true" />
 
@@ -79,13 +69,13 @@
                                     <h:outputText value="#{event.title}" />
                                 </p:column>  
                                 <f:facet name="footer">
-                                    <p:commandButton process="eventListDT" update=":tabCalendar:dtform:eventDetail" 
+                                    <p:commandButton process="eventListDT" update=":dtform:eventDetail" 
                                                      icon="ui-icon-search" value="Wyświetl informacje" 
                                                      oncomplete="PF('eventDialog').show()" />
-                                    <p:commandButton process="eventListDT" update=":tabCalendar:dtform" 
+                                    <p:commandButton process="eventListDT" update=":dtform" 
                                                      icon="ui-icon-search" value="Zapisz sie do wydarzenia #{login.uname}" 
                                                      action="#{eventList.zapiszSieNaEvent(login.uname)}" />  
-                                     <p:commandButton process="eventListDT" update=":tabCalendar:dtform:eventListDT" 
+                                     <p:commandButton process="eventListDT" update=":dtform:eventListDT" 
                                                      icon="ui-icon-search" value="Refresh" 
                                                      action="#{eventList.loadEvents()}" /> 
                                 </f:facet>                                 
@@ -106,15 +96,7 @@
                                 </p:outputPanel>
                             </p:dialog>
 
-                        </h:form>     
-                </p:tab>
-                <p:tab title="Mapa wydarzeń">
-                    <h:panelGrid columns="2" cellpadding="0">                        
-                        <h:outputText value="After a break of more than 15 years..." />
-                        <h:outputText value="After a break of more than 15 years..." />
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
+                        </h:form>
         </ui:define>
     </ui:composition>
 </html>

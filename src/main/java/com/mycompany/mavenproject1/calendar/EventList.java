@@ -10,9 +10,11 @@ import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
@@ -38,6 +40,8 @@ public class EventList implements Serializable {
 
     public void loadEvents(){
        events = service.getEvents();
+       FacesMessage msg = new FacesMessage("Events loaded: "+events.toString());
+       FacesContext.getCurrentInstance().addMessage(null, msg);
     }
             
     public void rowExpanded(ToggleEvent event) {        
