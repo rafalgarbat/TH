@@ -14,31 +14,46 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
 
 /**
  *
  * @author Jaroslaw.Skrzydlo
  */
-@ManagedBean(name="eventList")
+@ManagedBean(name = "eventList")
 @ViewScoped
 public class EventList implements Serializable {
-     
+
     private List<UserScheduleEvent> events;
     private UserScheduleEvent selectedEvent;
-    
+
     @ManagedProperty("#{eventService}")
     private EventService service;
- 
+
     @PostConstruct
     public void init() {
-        events = service.getEvents();
+        loadEvents();
     }
-     
-    public List<UserScheduleEvent> getEvents() {
+
+    public void loadEvents(){
+       events = service.getEvents();
+    }
+            
+    public void rowExpanded(ToggleEvent event) {        
+        //Events eve = (Events)service.getEventFacade().getEntityManager().createNamedQuery("Events.findById").setParameter("id", selectedEvent.getDbEventId()).getResultList().get(0);
+       // selectedEvent.setIloscZapisanych(eve.getUsereventsCollection().size());     
+    }
+       
+    
+    public void zapiszSieNaEvent(String uname){
+       service.getEventFacade().zapiszNaEvent(selectedEvent,uname);
+    }  
+    
+    public List getEvents() {
         return events;
     }
- 
+
     public void setService(EventService service) {
         this.service = service;
     }
@@ -54,9 +69,13 @@ public class EventList implements Serializable {
     public void setSelectedEvent(UserScheduleEvent selectedEvent) {
         this.selectedEvent = selectedEvent;
     }
+
+    public void onRowSelect(SelectEvent event) {
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+    }
     
-     public void onRowSelect(SelectEvent event) {
-     }
-   public void onRowUnselect(UnselectEvent event) {
-   } 
+    
+    
 }
