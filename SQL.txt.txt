@@ -60,6 +60,10 @@ CONSTRAINT userevents_pkey PRIMARY KEY (uid)
 )
  
 
+alter table events alter column datado type timestamp with time zone
+
+alter table events alter column dataod type timestamp with time zone
+
 
 --reszta tabel jest smieciowa--
 
