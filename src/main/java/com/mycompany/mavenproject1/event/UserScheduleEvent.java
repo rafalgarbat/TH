@@ -5,6 +5,8 @@
  */
 package com.mycompany.mavenproject1.event;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+import java.util.Collection;
 import java.util.Date;
 import org.primefaces.model.DefaultScheduleEvent;
 
@@ -24,7 +26,13 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private String typWydarzenia;
     private int dbEventId;
     
-    private int iloscZapisanych;
+    private int iloscZapisanych; //do wywalenia
+    private int czyJestemZapisany;
+    
+    /**
+     * Kolekcja zapisanych do wydarzenia
+     */
+     private Collection<Userevents> zapisani;
     
 
     public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
@@ -74,7 +82,12 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public String getAdres() {
         return adres;
     }
+    
+    public String getCapitalizedAdres() {
+        return StringUtils.capitalize(adres);
+    }
 
+    
     public void setAdres(String adres) {
         this.adres = adres;
     }
@@ -102,7 +115,26 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public void setIloscZapisanych(int iloscZapisanych) {
         this.iloscZapisanych = iloscZapisanych;
     }
+
+    public int getCzyJestemZapisany() {
+        return czyJestemZapisany;
+    }
+
+    public void setCzyJestemZapisany(int czyJestemZapisany) {
+        this.czyJestemZapisany = czyJestemZapisany;
+    }
+
+    public Collection<Userevents> getZapisani() {
+        return zapisani;
+    }
+
+    public void setZapisani(Collection<Userevents> zapisani) {
+        this.zapisani = zapisani;
+    }
         
-   
+      public String getCapitalizedTitle() {
+        return StringUtils.capitalize(this.getTitle());
+    }
+
     
 }
