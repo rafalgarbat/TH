@@ -40,10 +40,16 @@ public class EventList implements Serializable {
 
     public void loadEvents(){
        events = service.getEvents();
+       
+       if (!events.isEmpty()){
+       selectedEvent = events.get(0);
+       }
        FacesMessage msg = new FacesMessage("Events loaded: "+events.toString());
        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-            
+    
+     
+    
     public void rowExpanded(ToggleEvent event) {        
         //Events eve = (Events)service.getEventFacade().getEntityManager().createNamedQuery("Events.findById").setParameter("id", selectedEvent.getDbEventId()).getResultList().get(0);
        // selectedEvent.setIloscZapisanych(eve.getUsereventsCollection().size());     
