@@ -18,6 +18,12 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
+import org.primefaces.event.map.OverlaySelectEvent;
+import org.primefaces.model.map.Circle;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -29,6 +35,8 @@ public class EventList implements Serializable {
 
     private List<UserScheduleEvent> events;
     private UserScheduleEvent selectedEvent;
+    private MapModel simpleModel;
+    private Marker marker;
 
     @ManagedProperty("#{eventService}")
     private EventService service;
@@ -42,13 +50,52 @@ public class EventList implements Serializable {
        events = service.getEvents();
        
        if (!events.isEmpty()){
-       selectedEvent = events.get(0);
+            selectedEvent = events.get(0);
        }
+       loadGmapMarkes();
        FacesMessage msg = new FacesMessage("Events loaded: "+events.toString());
        FacesContext.getCurrentInstance().addMessage(null, msg);
+       
+       /*simpleModel = new DefaultMapModel();
+          
+        //Shared coordinates
+        LatLng coord1 = new LatLng(36.879466, 30.667648);
+        LatLng coord2 = new LatLng(36.883707, 30.689216);
+        LatLng coord3 = new LatLng(36.879703, 30.706707);
+        LatLng coord4 = new LatLng(36.885233, 30.702323);
+          
+        //Basic marker
+        simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
+        simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
+        simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
+        simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
+        */
+       
     }
     
-     
+    public void loadGmapMarkes(){
+        simpleModel = new DefaultMapModel(); 
+        LatLng pCoord;
+        for(UserScheduleEvent eve: events){
+           String pCoords =  eve.getGmap_cords();
+           if(pCoords != null && pCoords.length()>3){           
+            String[] parts =  pCoords.split(", ");
+            Double pLat = new Double(parts[0]);
+            Double pLng = new Double(parts[1]);
+            pCoord = new LatLng(pLat, pLng);
+            Marker pMarker = new Marker(pCoord,eve.getTitle());
+            pMarker.setData(new MarkerData(eve.getTitle(), eve.getDescription()));
+            simpleModel.addOverlay(pMarker);
+            
+          /*  Circle circle1 = new Circle(pCoord, 500);  
+        circle1.setStrokeColor("#d93c3c");  
+        circle1.setFillColor("#d93c3c");  
+        circle1.setFillOpacity(0.7);
+        simpleModel.addOverlay(circle1);
+         */   
+           }
+        }
+    } 
     
     public void rowExpanded(ToggleEvent event) {        
         //Events eve = (Events)service.getEventFacade().getEntityManager().createNamedQuery("Events.findById").setParameter("id", selectedEvent.getDbEventId()).getResultList().get(0);
@@ -86,6 +133,14 @@ public class EventList implements Serializable {
     public void onRowUnselect(UnselectEvent event) {
     }
     
-    
-    
+    public void onMarkerSelect(OverlaySelectEvent event) {
+        marker = (Marker) event.getOverlay();
+    }
+      
+    public MapModel getSimpleModel() {
+        return simpleModel;
+    }
+     public Marker getMarker() {
+        return marker;
+    }
 }
