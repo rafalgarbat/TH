@@ -5,7 +5,7 @@
  */
 package com.mycompany.mavenproject1.event;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+//import com.sun.xml.internal.ws.util.StringUtils;
 import java.util.Collection;
 import java.util.Date;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -84,7 +84,7 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     }
     
     public String getCapitalizedAdres() {
-        return StringUtils.capitalize(adres);
+        return adres; //StringUtils.capitalize(adres);
     }
 
     
@@ -133,7 +133,7 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     }
         
       public String getCapitalizedTitle() {
-        return StringUtils.capitalize(this.getTitle());
+        return this.getTitle();//StringUtils.capitalize();
     }
 
     
