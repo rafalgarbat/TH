@@ -24,6 +24,7 @@
                         <h:form> 
                                 <p:inputText style="margin-right:10px" placeholder="Search"/>
                                 <p:commandButton type="button" value="Szukaj" icon="ui-icon-extlink" />
+                                <p:commandButton type="button" action="#{login.logout()}" value="Wyloguj"/>
                         </h:form>         
                         </f:facet>
                     </p:menubar>                    
@@ -44,29 +45,17 @@
                         <p:row>
                             <p:column colspan="2"> Fotka osoby </p:column>
                         </p:row>
-                        <p:row>
-                            <p:column colspan="2">
-                            <h:outputLabel>#{login.uname}, #{login.email} </h:outputLabel>
-                            </p:column>
-                        </p:row>
+                        
                         <p:row>
                             <p:column>
-                                        <p:commandButton  action="#{login.logout()}" value="Twoje dane"/>
-                            </p:column>
-                            <p:column>
-                                <p:commandButton  action="#{login.logout()}" value="Ustawienia"/>
-                            </p:column>
-                        </p:row>    
-                        <p:row>
-                            <p:column colspan="2">
-                                <p:commandButton  action="#{login.logout()}" value="Wyloguj"/>
-                            </p:column>
-                        </p:row>        
+                              <p:commandButton   action="/profil/profil.xhtml?faces-redirect=true" value="#{login.uname}"/>
+                            </p:column>                           
+                        </p:row>                            
                     </p:panelGrid>
 
 
                     <p:menu style="width:300px">
-                      <p:submenu label="#{login.uname}">
+                      <p:submenu label="Edytuj profil - #{login.uname}">
                             <p:menuitem value="Powiadomienia (10)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
                             <p:menuitem value="Kalendarz" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-home"/>            
                             <p:menuitem value="Nadchodzące wydarzenia (5)" url="http://www.primefaces.org" icon="ui-icon-home"/>            

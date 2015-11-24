@@ -18,7 +18,7 @@ import javax.persistence.Query;
  * @author Jaroslaw.Skrzydlo
  */
 @Stateless
-public class LoginFacade extends AbstractFacade<Users>{
+public class LoginFacade extends AbstractFacade<Users> {
 
     @PersistenceContext(unitName = "com.mycompany_mavenproject1_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -36,17 +36,23 @@ public class LoginFacade extends AbstractFacade<Users>{
         Query pQuery = em.createNamedQuery("Users.findByNameAndPassword").setParameter("uname", uname).setParameter("password", password).setMaxResults(1);
         return !pQuery.getResultList().isEmpty();
     }
-    
-    public int getUserId(String uname){
-     Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
-     Users pUser = (Users)pQuery.getResultList().get(0);
-     return pUser.getUid();
+
+    public int getUserId(String uname) {
+        Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
+        Users pUser = (Users) pQuery.getResultList().get(0);
+        return pUser.getUid();
     }
-    
-    public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType, String aCity, String aState, int aR, int aT, int aS, int aB){
+
+    public Users getUser(String uname) {
+        Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
+        Users pUser = (Users) pQuery.getResultList().get(0);
+        return pUser;
+    }
+
+    public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType, String aCity, String aState, int aR, int aT, int aS, int aB) {
         Users pNewUser = new Users();
         pNewUser.setPassword(aPassword);
-        pNewUser.setUname(aLogin);                
+        pNewUser.setUname(aLogin);
         pNewUser.setEmail(aEmail);
         pNewUser.setUser_type_id(aUserType);
         pNewUser.setState(aEmail);
@@ -63,7 +69,7 @@ public class LoginFacade extends AbstractFacade<Users>{
         }catch (MessagingException e){
          //nie udalo sie wyslac wiadomosci
         }
-        */
-        return true;        
+         */
+        return true;
     }
 }

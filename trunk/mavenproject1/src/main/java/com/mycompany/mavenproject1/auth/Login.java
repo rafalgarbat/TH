@@ -26,6 +26,8 @@ public class Login implements Serializable {
  
     private static final long serialVersionUID = 1094801825228386363L;
     
+    private Users currentUser;
+    
     @EJB
     private LoginFacade loginFacade;
     
@@ -194,6 +196,7 @@ public class Login implements Serializable {
         
         if (valid) {
             int pUserId =  getLoginFacade().getUserId(uname);
+            currentUser = getLoginFacade().getUser(uname);
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
             session.setAttribute("userId", pUserId);
@@ -213,6 +216,14 @@ public class Login implements Serializable {
         HttpSession session = SessionBean.getSession();
         session.invalidate();
         return "login";
+    }
+
+    public Users getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Users currentUser) {
+        this.currentUser = currentUser;
     }
 
     
