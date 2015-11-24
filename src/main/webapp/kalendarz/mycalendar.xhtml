@@ -130,10 +130,17 @@
 
                             <p:gmapInfoWindow id="infoWindow">
                                 <p:outputPanel style="text-align: center; display: block; margin: auto">
-                                    <h:outputText value="#{eventList.marker.data.title}" />
-                                    <br/>oooo
-                                    <h:outputText value="#{eventList.marker.data.opis}" />
-
+                                    <p:panelGrid>
+                                        <p:row>
+                                            <p:column><h:outputText value="#{eventList.marker.data.title}"/></p:column>
+                                            <p:column>Ocena xxx</p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="2">
+                                                <h:outputText value="#{eventList.marker.data.opis}" />            
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>    
                                 </p:outputPanel>
                             </p:gmapInfoWindow>
                         </p:gmap> 
