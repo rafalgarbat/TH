@@ -5,7 +5,11 @@
  */
 package com.mycompany.mavenproject1.auth;
 
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,20 +21,22 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 
- 
 @ManagedBean
 @Named("login")
 @SessionScoped
 public class Login implements Serializable {
- 
+
     private static final long serialVersionUID = 1094801825228386363L;
-    
+
     private Users currentUser;
-    
+
+    public static String destination = "\\e:\\foty\\";
+
     @EJB
     private LoginFacade loginFacade;
-    
+
     private String uname;
     private String pwd;
     private String email;
@@ -43,6 +49,7 @@ public class Login implements Serializable {
     private int t_val;
     private String hashcode;
     private String msg;
+    
 
     public LoginFacade getLoginFacade() {
         return loginFacade;
@@ -50,6 +57,38 @@ public class Login implements Serializable {
 
     public void setLoginFacade(LoginFacade loginFacade) {
         this.loginFacade = loginFacade;
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        try {
+            copyFile(getUname()+"_avatar", event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void copyFile(String fileName, InputStream in) {
+        try {
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination + fileName));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public String getUname() {
@@ -147,23 +186,22 @@ public class Login implements Serializable {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-    
-    
-    
- public void viewQuizCustomized() {
-        Map<String,Object> options = new HashMap<>();
+
+   
+
+    public void viewQuizCustomized() {
+        Map<String, Object> options = new HashMap<>();
         options.put("modal", true);
         options.put("width", 640);
         options.put("height", 340);
         options.put("contentWidth", "100%");
         options.put("contentHeight", "100%");
         options.put("headerElement", "customheader");
-                 
+
         RequestContext.getCurrentInstance().openDialog("quiz.xhtml", options, null);
     }
-     
-     
-    public String  validateRegistrationURL(){
+
+    public String validateRegistrationURL() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String parameter_value = (String) facesContext.getExternalContext().getRequestParameterMap().get("regURL");
 
@@ -172,16 +210,16 @@ public class Login implements Serializable {
         } else {
             return "index";
         }
-    } 
-    
-    public String createUser(){
-        boolean valid =getLoginFacade().createUser(uname, email, pwd, userType,city, state,r_val,t_val,s_val,b_val);
-        if (valid){
+    }
+
+    public String createUser() {
+        boolean valid = getLoginFacade().createUser(uname, email, pwd, userType, city, state, r_val, t_val, s_val, b_val);
+        if (valid) {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
             return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
-        }else{
-             FacesContext.getCurrentInstance().addMessage(
+        } else {
+            FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Blad podczas tworzenia uzytkownika",
@@ -189,13 +227,13 @@ public class Login implements Serializable {
             return "login";
         }
     }
-    
+
     //validate login
     public String validateUsernamePassword() {
         boolean valid = getLoginFacade().validate(uname, pwd);
-        
+
         if (valid) {
-            int pUserId =  getLoginFacade().getUserId(uname);
+            int pUserId = getLoginFacade().getUserId(uname);
             currentUser = getLoginFacade().getUser(uname);
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
@@ -210,7 +248,7 @@ public class Login implements Serializable {
             return "login";
         }
     }
- 
+
     //logout event, invalidate session
     public String logout() {
         HttpSession session = SessionBean.getSession();
@@ -226,5 +264,4 @@ public class Login implements Serializable {
         this.currentUser = currentUser;
     }
 
-    
 }
