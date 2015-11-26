@@ -48,19 +48,19 @@
                         
                         <p:row>
                             <p:column>
-                              <p:commandButton   action="/profil/profil.xhtml?faces-redirect=true" value="#{login.uname}"/>
+                              <p:commandButton action="/profil/profil.xhtml?faces-redirect=true" value="Edytuj profil"/>
                             </p:column>                           
                         </p:row>                            
                     </p:panelGrid>
 
 
                     <p:menu style="width:300px">
-                      <p:submenu label="Edytuj profil - #{login.uname}">
+                      <p:submenu label="#{login.getCurrentUser().uname}">
                             <p:menuitem value="Powiadomienia (10)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
                             <p:menuitem value="Kalendarz" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-home"/>            
                             <p:menuitem value="Nadchodzące wydarzenia (5)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
                             <p:menuitem value="Wydarzenia w pobliżu (1)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
-                            <p:menuitem value="Moje grupy" url="http://www.primefaces.org" icon="ui-icon-home"/>                                        
+                            <p:menuitem value="Moje grupy"  outcome="/groups/groups.xhtml" icon="ui-icon-home"/>                                        
                             <p:menuitem value="Kontakty" url="http://www.primefaces.org" icon="ui-icon-home"/>                                        
                        </p:submenu>  
                     </p:menu>                
