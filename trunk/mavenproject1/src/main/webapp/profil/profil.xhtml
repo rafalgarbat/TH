@@ -37,15 +37,22 @@
                     <h:form id="ustawieniaForm" >                      
                         <p:row>
                             <p:column> 
-                                
-                                <p:graphicImage name="#{FacesContext.getCurrentInstance().getExternalContext()}\\resources\\images\\ala_avatar.jpg"
-                                                width="300px" height="300px" />
-                                <p:fileUpload fileUploadListener="#{login.handleFileUpload}"
+                              <p:fileUpload fileUploadListener="#{login.handleFileUpload}"
                                               mode="advanced" 
                                               dragDropSupport="false"
-                                              update="messages" sizeLimit="1000000" 
-                                              fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                              sizeLimit="1000000" 
+                                              fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                              oncomplete="PF(':profilTab:ustawieniaForm').show()"
+                                              update=":profilTab:ustawieniaForm:#{login.currentUser.uname}_id"
+                                              />
 
+                                <p:graphicImage library="images" name="#{login.currentUser.uname}_avatar.jpg" 
+                                                cache="false" width="300px" height="300px"
+                                                id="#{login.currentUser.uname}_id"
+                                                alt="Brak zdjęcia"
+                                                />               
+                                                
+                                
                                 <p:growl id="messages" showDetail="true" />
 
                             </p:column>  

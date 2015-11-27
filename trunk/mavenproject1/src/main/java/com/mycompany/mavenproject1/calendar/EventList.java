@@ -8,6 +8,7 @@ package com.mycompany.mavenproject1.calendar;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,6 +20,9 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.event.map.OverlaySelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -35,6 +39,14 @@ public class EventList implements Serializable {
 
     private List<UserScheduleEvent> events;
     private UserScheduleEvent selectedEvent;
+    
+    private List<Calendars> userCalendars;
+    
+    /**
+     * Wykorzystywany do schedulera 
+     */
+    private ScheduleModel eventModel;
+    
     private MapModel simpleModel;
     private Marker marker;
 
@@ -45,7 +57,11 @@ public class EventList implements Serializable {
     public void init() {
         loadEvents();
     }
-
+    
+    public List<Calendars> loadCalendars(String aUname){
+        return service.getUserCalendars(aUname);
+    }
+    
     public void loadEvents(){
        events = service.getEvents();
        
@@ -53,24 +69,25 @@ public class EventList implements Serializable {
             selectedEvent = events.get(0);
        }
        loadGmapMarkes();
+       eventModel =  new DefaultScheduleModel();
+       for(UserScheduleEvent eve: events){
+           if (eve.getStartDate() !=null){
+            eventModel.addEvent(eve);
+           }
+       }
+       
        FacesMessage msg = new FacesMessage("Events loaded: "+events.toString());
        FacesContext.getCurrentInstance().addMessage(null, msg);
+             
        
-       /*simpleModel = new DefaultMapModel();
-          
-        //Shared coordinates
-        LatLng coord1 = new LatLng(36.879466, 30.667648);
-        LatLng coord2 = new LatLng(36.883707, 30.689216);
-        LatLng coord3 = new LatLng(36.879703, 30.706707);
-        LatLng coord4 = new LatLng(36.885233, 30.702323);
-          
-        //Basic marker
-        simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
-        simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
-        simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
-        simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
-        */
-       
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) {
+        selectedEvent = (UserScheduleEvent) selectEvent.getObject();
+    }
+     
+    public void onDateSelect(SelectEvent selectEvent) {
+        selectedEvent = new UserScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
     
     public void loadGmapMarkes(){
@@ -103,8 +120,8 @@ public class EventList implements Serializable {
     }
        
     
-    public void zapiszSieNaEvent(String uname){
-       service.getEventFacade().zapiszNaEvent(selectedEvent,uname);
+    public void obserwujWydarzenie(String uname){
+       service.getEventFacade().obserwujWydarzenie(selectedEvent,uname);
     }  
     
     public List getEvents() {
@@ -143,4 +160,22 @@ public class EventList implements Serializable {
      public Marker getMarker() {
         return marker;
     }
+
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+
+    public List<Calendars> getUserCalendars() {
+        return userCalendars;
+    }
+
+    public void setUserCalendars(List<Calendars> userCalendars) {
+        this.userCalendars = userCalendars;
+    }
+     
+     
 }

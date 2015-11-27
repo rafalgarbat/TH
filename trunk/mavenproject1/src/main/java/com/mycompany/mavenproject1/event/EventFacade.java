@@ -30,7 +30,7 @@ public class EventFacade extends AbstractFacade<Events> {
         super(Events.class);
     }
 
-    public void zapiszNaEvent(UserScheduleEvent selectedEvent, String uname) {
+    public void obserwujWydarzenie(UserScheduleEvent selectedEvent, String uname) {
         Userevents us = new Userevents();
         Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
         Users pUser = (Users)pQuery.getResultList().get(0);     
