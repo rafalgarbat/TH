@@ -58,6 +58,28 @@ event_id integer REFERENCES events (id),
 stan integer default 0,
 CONSTRAINT userevents_pkey PRIMARY KEY (uid)
 )
+
+create table calendars(
+uid serial unique not null,
+name text,
+ispublic boolean default true,
+CONSTRAINT calendars_pkey PRIMARY KEY (uid)
+);
+
+create table usercalendars(
+uid serial unique NOT NULL,
+userid integer REFERENCES users (uid),
+calendarid integer REFERENCES calendars (uid),
+CONSTRAINT usercalendars_pkey PRIMARY KEY (uid)
+);
+
+CREATE TABLE calendarevents
+(
+  uid serial unique not null,
+  calenarid integer REFERENCES calendars (uid),
+  eventid integer REFERENCES events (id),
+  CONSTRAINT calendarevents_pkey PRIMARY KEY (uid)
+);
  
 
 alter table events alter column datado type timestamp with time zone
