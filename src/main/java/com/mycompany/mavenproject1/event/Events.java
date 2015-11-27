@@ -5,8 +5,10 @@
  */
 package com.mycompany.mavenproject1.event;
 
+import com.mycompany.mavenproject1.calendar.Calendarevents;
 import com.mycompany.mavenproject1.Klient;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -55,6 +57,10 @@ import org.eclipse.persistence.annotations.Cache;
     @NamedQuery(name = "Events.findByCdate", query = "SELECT e FROM Events e WHERE e.cdate = :cdate"),
     @NamedQuery(name = "Events.findByMdate", query = "SELECT e FROM Events e WHERE e.mdate = :mdate")})
 public class Events implements Serializable {
+    
+    
+    @OneToMany(mappedBy = "eventid")
+    private Collection<Calendarevents> calendareventsCollection;
     @OneToMany(mappedBy = "eventId")
     private Collection<Userevents> usereventsCollection;
     private static final long serialVersionUID = 1L;
@@ -108,6 +114,9 @@ public class Events implements Serializable {
     private String adres;
     @Column(name = "typ_wydarzenia")
     private String typ_wydarzenia;
+    @Column(name = "rating")
+    private Integer rating;
+    
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
     @ManyToOne
     private Klient klientId;
@@ -287,6 +296,23 @@ public class Events implements Serializable {
 
     public void setUsereventsCollection(Collection<Userevents> usereventsCollection) {
         this.usereventsCollection = usereventsCollection;
+    }
+
+    public int getRating() {
+        return rating.intValue();
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @XmlTransient
+    public Collection<Calendarevents> getCalendareventsCollection() {
+        return calendareventsCollection;
+    }
+
+    public void setCalendareventsCollection(Collection<Calendarevents> calendareventsCollection) {
+        this.calendareventsCollection = calendareventsCollection;
     }
     
 }

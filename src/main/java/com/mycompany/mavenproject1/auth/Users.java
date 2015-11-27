@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.auth;
 
+import com.mycompany.mavenproject1.calendar.Usercalendars;
 import com.mycompany.mavenproject1.event.Userevents;
 import java.io.Serializable;
 import java.util.Collection;
@@ -38,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+    @OneToMany(mappedBy = "userid")
+    private Collection<Usercalendars> usercalendarsCollection;
     @Size(max = 2147483647)
     @Column(name = "hashcode")
     private String hashCode;
@@ -235,6 +238,15 @@ public class Users implements Serializable {
 
     public void setUsereventsCollection(Collection<Userevents> usereventsCollection) {
         this.usereventsCollection = usereventsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Usercalendars> getUsercalendarsCollection() {
+        return usercalendarsCollection;
+    }
+
+    public void setUsercalendarsCollection(Collection<Usercalendars> usercalendarsCollection) {
+        this.usercalendarsCollection = usercalendarsCollection;
     }
    
     

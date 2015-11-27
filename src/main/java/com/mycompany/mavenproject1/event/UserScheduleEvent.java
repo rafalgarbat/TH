@@ -25,6 +25,7 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private String adres;
     private String typWydarzenia;
     private int dbEventId;
+    private Integer rating;
     
     private int iloscZapisanych; //do wywalenia
     private int czyJestemZapisany;
@@ -134,6 +135,14 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
         
       public String getCapitalizedTitle() {
         return this.getTitle();//StringUtils.capitalize();
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     

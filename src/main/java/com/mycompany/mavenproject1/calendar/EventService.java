@@ -5,6 +5,8 @@
  */
 package com.mycompany.mavenproject1.calendar;
 
+import com.mycompany.mavenproject1.auth.LoginFacade;
+import com.mycompany.mavenproject1.auth.Users;
 import com.mycompany.mavenproject1.event.EventFacade;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
@@ -31,8 +33,39 @@ public class EventService {
     @EJB
     private EventFacade eventFacade;
 
+    @EJB
+    private LoginFacade loginFacade;
+
     private List<UserScheduleEvent> list;
     private List<Events> listOfAllEvents = new ArrayList<>();
+
+    /**
+     * Zwraca liste wszystkich eventow z wszystkich kalendarzy danej osoby
+     */
+    public List<UserScheduleEvent> getUserEvents(String aUname) {
+        Users pUser = loginFacade.getUser(aUname);
+        list = new ArrayList<>(); //todo: uwaga czy to powinno nadpisywac list?
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            Calendars pCalendar = (Calendars) pUserCal.getCalendarid();
+            for (Calendarevents pCalEvent : pCalendar.getCalendareventsCollection()) {
+                list.add(createUserScheduleEvent(pCalEvent.getEventid()));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Zwraca liste kalendarzy producenta
+     */
+    public List<Calendars> getUserCalendars(String aUname) {
+        List<Calendars> pCalendars = new ArrayList<>();
+        Users pUser = loginFacade.getUser(aUname);
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            Calendars pCalendar = (Calendars) pUserCal.getCalendarid();
+            pCalendars.add(pCalendar);
+        }
+        return pCalendars;
+    }
 
     public List<UserScheduleEvent> getEvents() {
         list = new ArrayList<>();
@@ -44,21 +77,25 @@ public class EventService {
             def.setDbEventId(eve.getId());
             def.setStartDate(eve.getDataod());
             def.setEndDate(eve.getDatado());
-            
             def.setIloscZapisanych(eve.getUsereventsCollection().size());
             def.setAdres(eve.getAdres());
             def.setDescription(eve.getOpis());
             def.setKeywords(eve.getKeywords());
-          //  def.setAllDay(eve.getCzycalydzien());
+            //  def.setAllDay(eve.getCzycalydzien());
             def.setGmap_cords(eve.getGmapCords());
-            
+            def.setRating(eve.getRating());
+
             def.setZapisani(eve.getUsereventsCollection());
             list.add(def);
         }
         return list;
     }
-    
-  
+
+    public UserScheduleEvent createUserScheduleEvent(Events aEvent) {
+        UserScheduleEvent def = new UserScheduleEvent(aEvent.getTytul(), aEvent.getDataod(), aEvent.getDatado(), aEvent);
+        return def;
+    }
+
     public int sprawdzCzyZapisany(UserScheduleEvent event, String uname) {
         Iterator pIt = event.getZapisani().iterator();
         while (pIt.hasNext()) {

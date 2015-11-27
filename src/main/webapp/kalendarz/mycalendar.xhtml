@@ -11,20 +11,48 @@
 
     <ui:composition template="/templates/maintemplate.xhtml">
 
-        <ui:define name="west">
-            xxxxxx
-        </ui:define>
-
-
         <ui:define name="body">            
             <p:tabView dynamic="true" cache="false" id="eventsTab" >
-                <p:tab title="Podsumowanie">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-                        <h:outputText value="Francis Ford Coppola's legendary..." />
-                    </h:panelGrid>
+                <p:tab title="My Calendars">
+                    <p:tabView orientation="left" value="#{eventList.loadCalendars(login.uname)}" var="calendars">
+                        <p:tab title="xxx: #{calendars.name}" closable="true">
+                           xxxx 
+                        </p:tab>
+                    </p:tabView>    
+                </p:tab>
+                <p:tab title="All events">
+                    <h:form id="scheduleForm">
+                        <h:panelGrid columns="2" cellpadding="0" >                                                                   
+                            <p:panel header="popo" style="width: 900px;">
+                             <p:schedule 
+                                    id="schedule"
+                                    value="#{eventList.eventModel}"
+                                    widgetVar="myschedule" timeZone="GMT+1"
+                                    draggable="false">
+                                    <p:ajax event="dateSelect" listener="#{eventList.onDateSelect}" 
+                                                update="eventDetails" oncomplete="PF('eventDialog').show();" />                                 
+                             </p:schedule>                                                        
+                                
+                                
+                            </p:panel>
+                            <p:panel header="popo" >
+                               xxxx
+                            </p:panel>
+                            <p:panel header="popo">ooo3</p:panel>
+                              <p:panel header="popo">ooo3</p:panel>
+                        </h:panelGrid>
+
+                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{eventList.selectedEvent.title}" required="true" />
+        </h:panelGrid>
+                        </p:dialog>
+                        
+                    </h:form>
                 </p:tab>                 
-                <p:tab title="Lista">
+                <p:tab title="List">
+                    
                     <h:form id="dtform">
                         <p:growl id="msgs" showDetail="true" />
 
@@ -38,7 +66,7 @@
                             <p:ajax event="rowSelect" update=":eventsTab:dtform" process="eventListDT" />
                             <f:facet name="header">
                                 <p:outputPanel>
-                                    <h:outputText value="Search all fields:" />
+                                    <h:outputText value="Szukaj po wszystkich polach:" />
                                     <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
                                 </p:outputPanel>
                             </f:facet>
@@ -87,7 +115,12 @@
                                     </p:selectOneButton>   
                                 </f:facet>
                                 <h:outputText value="#{event.typWydarzenia}" />
-                            </p:column>                                   
+                            </p:column>
+                            <p:column headerText="Ocena">
+                                <p:rating  value="#{event.rating}" stars="5"/>
+                                <br/>
+                                <h:outputText value="Oceniano XX razy" />
+                            </p:column>
                             <p:column headerText="Cechy" filterBy="#{event.keywords}" sortBy="#{event.keywords}" filterMatchMode="contains">
                                 <h:outputText value="#{event.keywords}" />
                             </p:column>  
@@ -96,8 +129,8 @@
                                                  icon="ui-icon-search" value="Wyświetl informacje" 
                                                  oncomplete="PF('eventDialog').show()" />
                                 <p:commandButton process="eventListDT" update=":eventsTab:dtform" 
-                                                 icon="ui-icon-search" value="Zapisz sie do wydarzenia #{login.uname}" 
-                                                 action="#{eventList.zapiszSieNaEvent(login.uname)}" />  
+                                                 icon="ui-icon-search" value="Obserwuj wydarzenie" 
+                                                 action="#{eventList.obserwujWydarzenie(login.uname)}" />  
                                 <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventListDT" 
                                                  icon="ui-icon-search" value="Refresh" 
                                                  action="#{eventList.loadEvents()}" /> 
@@ -123,7 +156,7 @@
 
 
                 </p:tab>       
-                <p:tab title="Mapa">
+                <p:tab title="Map">
                     <h:panelGrid columns="1" cellpadding="0" >           
                         <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:1000px;height:800px" model="#{eventList.simpleModel}" >
                             <p:ajax event="overlaySelect" listener="#{eventList.onMarkerSelect}" />

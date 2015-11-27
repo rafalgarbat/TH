@@ -5,7 +5,9 @@
  */
 package com.mycompany.mavenproject1.auth;
 
+import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,9 +21,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 @Named("login")
@@ -32,7 +37,7 @@ public class Login implements Serializable {
 
     private Users currentUser;
 
-    public static String destination = "\\e:\\foty\\";
+    public static String destination = "E:\\roboczy\\traininglib\\mavenproject1\\src\\main\\webapp\\resources\\images\\";
 
     @EJB
     private LoginFacade loginFacade;
@@ -59,10 +64,21 @@ public class Login implements Serializable {
         this.loginFacade = loginFacade;
     }
 
+    public StreamedContent  getImage(String aName)  throws IOException{
+        StreamedContent content;
+        //Image img = ImageIO.read(new File("strawberry.jpg"));
+        String path = destination+"ala_avatar.jpg";
+       // String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(path); 
+                        
+        return new DefaultStreamedContent(new FileInputStream(path));
+    }
+    
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+         ServletContext pCont = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
+         
         try {
-            copyFile(getUname()+"_avatar", event.getFile().getInputstream());
+            copyFile(getUname()+"_avatar.jpg", event.getFile().getInputstream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +87,9 @@ public class Login implements Serializable {
 
     public void copyFile(String fileName, InputStream in) {
         try {
-            // write the inputStream to a FileOutputStream
+            File pCurrentFile = new File(destination + fileName);
+            pCurrentFile.delete();
+            
             OutputStream out = new FileOutputStream(new File(destination + fileName));
 
             int read = 0;
