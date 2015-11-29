@@ -56,11 +56,17 @@
 
                     <p:menu style="width:300px">
                       <p:submenu label="#{login.getCurrentUser().uname}">
-                            <p:menuitem value="Powiadomienia (10)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
-                            <p:menuitem value="Kalendarz" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-home"/>            
-                            <p:menuitem value="Nadchodzące wydarzenia (5)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
-                            <p:menuitem value="Wydarzenia w pobliżu (1)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
-                            <p:menuitem value="Moje grupy"  outcome="/groups/groups.xhtml" icon="ui-icon-home"/>                                        
+                            <p:menuitem value="Pulpit" outcome="/index.xhtml" icon="ui-icon-home"/>            
+                            <p:menuitem value="Wiadomości (10)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
+                            <p:submenu label="Kalendarz">
+                                <p:menuitem value="Mój kalendarz" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-home"/>            
+                                <p:menuitem value="Nadchodzące wydarzenia (5)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
+                                <p:menuitem value="Utwórz wydarzenie" url="http://www.primefaces.org" icon="ui-icon-home"/>            
+                            </p:submenu>                                
+                            <p:submenu label="Grupy">
+                                <p:menuitem value="Moje grupy"  outcome="/groups/groups.xhtml" icon="ui-icon-home"/>                                        
+                                <p:menuitem value="Utwórz grupe"  outcome="/groups/groups.xhtml" icon="ui-icon-home"/>                                        
+                            </p:submenu>                            
                             <p:menuitem value="Kontakty" url="http://www.primefaces.org" icon="ui-icon-home"/>                                        
                        </p:submenu>  
                     </p:menu>                
@@ -69,7 +75,7 @@
                     <h:form id="formdatascroller">
                       <p:dataScroller value="#{newsView.news}" var="news" chunkSize="10" mode="inline" scrollHeight="500">
                        <f:facet name="header">
-                           Scroll Down to load more news
+                           Powiadomienia
                        </f:facet>
                        <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="tytuł" />
