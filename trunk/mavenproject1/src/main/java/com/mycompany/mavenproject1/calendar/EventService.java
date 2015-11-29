@@ -67,6 +67,23 @@ public class EventService {
         return pCalendars;
     }
 
+    /**
+     * Pobiera lista eventow z podanego kalendarza
+     */
+    public List<UserScheduleEvent> getUserCalendarEvents(String aUname, String aCalendarName) {
+        Users pUser = loginFacade.getUser(aUname);
+        List<UserScheduleEvent> pSelectedCalendarEvents = new ArrayList();
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            Calendars pCalendar = (Calendars) pUserCal.getCalendarid();
+            if (pCalendar.getName().equals(aCalendarName)) {
+                for (Calendarevents pCalEvent : pCalendar.getCalendareventsCollection()) {
+                    pSelectedCalendarEvents.add(createUserScheduleEvent(pCalEvent.getEventid()));
+                }
+            }
+        }
+        return new ArrayList();
+    }
+
     public List<UserScheduleEvent> getEvents() {
         list = new ArrayList<>();
 

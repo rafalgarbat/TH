@@ -7,26 +7,54 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>        
         <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
+        
+        
+        
+        <script type="text/css">
+        /** tabs **/
+.ui-tabs.ui-tabs-left > .ui-tabs-nav {
+   width: 5%;
+}
+/** panels **/
+.ui-tabs.ui-tabs-left > .ui-tabs-panels {
+   width: 95%;
+}
+      </script>
+       
     </h:head>
 
     <ui:composition template="/templates/maintemplate.xhtml">
 
         <ui:define name="body">            
-            <p:tabView dynamic="true" cache="false" id="eventsTab" >
-                <p:tab title="My Calendars">
-                    <p:tabView orientation="left" value="#{eventList.loadCalendars(login.uname)}" var="calendars">
-                        <p:tab title="xxx: #{calendars.name}" closable="true">
-                           xxxx 
+            <p:tabView dynamic="true" cache="false" id="eventsTab"  >
+                <p:tab title="My Calendars" >
+                    todo: dodac do zakladanego uzytkownika zakladanie jego kalendarza!!!
+                    <p:tabView id="myCalsTV"
+                               orientation="left" 
+                               var="calendars"                               
+                               value="#{eventList.loadCalendars(login.uname)}"                                
+                               cache="false" 
+                               >
+                        <p:tab title="#{calendars.name}" closable="true">                         
+                            <p:panel header="#{calendars.name}">
+                             <p:schedule 
+                                   id="schedule_#{calendars.uid}" 
+                                   value="#{eventList.loadCalendarModel(login.uname,calendars.name)}"                                   
+                                   widgetVar="schedule_#{calendars.uid}"             
+                                   timeZone="GMT+1" draggable="false">                                    
+                             </p:schedule>   
+                            </p:panel>
+                          
                         </p:tab>
                     </p:tabView>    
                 </p:tab>
-                <p:tab title="All events">
+                <p:tab title="Public events">
                     <h:form id="scheduleForm">
                         <h:panelGrid columns="2" cellpadding="0" >                                                                   
                             <p:panel header="popo" style="width: 900px;">
                              <p:schedule 
                                     id="schedule"
-                                    value="#{eventList.eventModel}"
+                                    value="#{eventList.allEventModel}"
                                     widgetVar="myschedule" timeZone="GMT+1"
                                     draggable="false">
                                     <p:ajax event="dateSelect" listener="#{eventList.onDateSelect}" 
@@ -35,11 +63,14 @@
                                 
                                 
                             </p:panel>
-                            <p:panel header="popo" >
-                               xxxx
+                            <p:panel header="Informacje o wydarzeniu" >
+                               Button obserwuj wydarzenie
+                               Button powiadom znajomego
+                               Okienko z informacjami o wydarzeniu
+                               Button wyświetl na mapie wydarzenie
                             </p:panel>
                             <p:panel header="popo">ooo3</p:panel>
-                              <p:panel header="popo">ooo3</p:panel>
+                            <p:panel header="popo">ooo3</p:panel>
                         </h:panelGrid>
 
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
