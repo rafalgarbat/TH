@@ -1,61 +1,79 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-          xmlns:h="http://xmlns.jcp.org/jsf/html"
-          xmlns:p="http://primefaces.org/ui"
-          xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-        <h:head>
-            <title><ui:insert name="title">Default Title</ui:insert></title>
-            <h:outputStylesheet library="css" name="jsfcrud.css"/>
-            <h:outputScript library="js" name="jsfcrud.js"/>
-            <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
-        </h:head>
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
+        <script type="text/css">
+.companyHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+border: none;
+}
+        </script>
 
-        <h:body>
+    </h:head>
 
-            <p:growl id="growl" life="3000" />
+    <h:body>
 
-            <p:layout fullPage="true">
-                <p:layoutUnit position="north">
-                    <p:menubar>
-                        <f:facet name="options">
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north">
+                <p:menubar>
+                    <f:facet name="options">
                         <h:form> 
-                                <p:inputText style="margin-right:10px" placeholder="Search"/>
-                                <p:commandButton type="button" value="Szukaj" icon="ui-icon-extlink" />
-                                <p:commandButton type="button" action="#{login.logout()}" value="Wyloguj"/>
+                            <p:inputText style="margin-right:10px" placeholder="Search"/>
+                            <p:commandButton type="button" value="Szukaj" icon="ui-icon-extlink" />
+                            <p:commandButton type="button" action="#{login.logout()}" value="Wyloguj"/>
                         </h:form>         
-                        </f:facet>
-                    </p:menubar>                    
-                </p:layoutUnit>
+                    </f:facet>
+                </p:menubar>                    
+            </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="5">
-                    <ui:insert name="footer"/>
-                </p:layoutUnit>
+            <p:layoutUnit position="south" size="5">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
 
-                <p:layoutUnit position="center">
-                    <ui:insert name="body"/>
-                </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
 
-                 <p:layoutUnit position="west" style="min-width:300px;">
-                    <h:form>
-                    <p:growl autoUpdate="true"/>
-                    <p:panelGrid columns="1" style="width: 100%">
-                        <p:row>
-                            <p:column colspan="2"> Fotka osoby </p:column>
-                        </p:row>
-                        
-                        <p:row>
-                            <p:column>
-                              <p:commandButton action="/profil/profil.xhtml?faces-redirect=true" value="Edytuj profil"/>
-                            </p:column>                           
-                        </p:row>                            
+            <p:layoutUnit position="west" style="min-width:330px;" >
+                <h:form>
+                    <p:panelGrid columns="2" styleClass="companyHeaderGrid">
+                        <p:panel>
+                            <p:graphicImage library="images" name="#{login.currentUser.uname}_small_avatar.jpg" 
+                                            cache="false" width="150px" height="150px"
+                                            id="#{login.currentUser.uname}_id"
+                                            alt="Brak zdjęcia"
+                                            /> 
+                        </p:panel>
+                        <p:panel>
+                            <p:commandButton action="/profil/profil.xhtml?faces-redirect=true" 
+                                             value="Edytuj profil"
+                                             />
+                            <br/>
+                            <p:commandButton action="/profil/profil.xhtml?faces-redirect=true" 
+                                             value="Wyloguj"
+                                             />
+                        </p:panel>
+
+
+
+
+
                     </p:panelGrid>
 
 
                     <p:menu style="width:300px">
-                      <p:submenu label="#{login.getCurrentUser().uname}">
+                        <p:submenu label="#{login.getCurrentUser().uname}">
                             <p:menuitem value="Pulpit" outcome="/index.xhtml" icon="ui-icon-home"/>            
                             <p:menuitem value="Wiadomości (10)" url="http://www.primefaces.org" icon="ui-icon-home"/>            
                             <p:submenu label="Kalendarz">
@@ -68,16 +86,16 @@
                                 <p:menuitem value="Utwórz grupe"  outcome="/groups/groups.xhtml" icon="ui-icon-home"/>                                        
                             </p:submenu>                            
                             <p:menuitem value="Kontakty" url="http://www.primefaces.org" icon="ui-icon-home"/>                                        
-                       </p:submenu>  
+                        </p:submenu>  
                     </p:menu>                
-                    </h:form>
+                </h:form>
 
-                    <h:form id="formdatascroller">
-                      <p:dataScroller value="#{newsView.news}" var="news" chunkSize="10" mode="inline" scrollHeight="500">
-                       <f:facet name="header">
-                           Powiadomienia
-                       </f:facet>
-                       <h:panelGrid columns="2" cellpadding="5">
+                <h:form id="formdatascroller">
+                    <p:dataScroller value="#{newsView.news}" var="news" chunkSize="10" mode="inline" scrollHeight="500">
+                        <f:facet name="header">
+                            Powiadomienia
+                        </f:facet>
+                        <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="tytuł" />
                             <h:outputText value="#{news.title}" style="font-weight: bold"/>
 
@@ -87,14 +105,14 @@
                             <h:outputText value="dnia" />
                             <h:outputText value="#{news.cdate}" style="font-weight: bold"/>
                         </h:panelGrid>
-                      </p:dataScroller>   
-                    </h:form>    
+                    </p:dataScroller>   
+                </h:form>    
 
-                   <ui:insert name="west"/>
-                </p:layoutUnit>
+                <ui:insert name="west"/>
+            </p:layoutUnit>
 
-            </p:layout>
+        </p:layout>
 
-        </h:body>
+    </h:body>
 
-    </html>
+</html>
