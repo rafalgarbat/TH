@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.auth;
 
+import com.mycompany.mavenproject1.util.ImageUtil;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,6 +80,7 @@ public class Login implements Serializable {
          
         try {
             copyFile(getUname()+"_avatar.jpg", event.getFile().getInputstream());
+            ImageUtil.imageResize(destination+"ala_avatar.jpg",destination+"_small_avatar.jpg" );
         } catch (IOException e) {
             e.printStackTrace();
         }
