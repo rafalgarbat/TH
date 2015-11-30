@@ -90,7 +90,7 @@ public class DashboardController implements Serializable{
         Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
         xAxis.setLabel("Data");
         xAxis.setMin(0);
-        xAxis.setMax(200);
+        xAxis.setMax(10);
          
         Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
         

@@ -80,7 +80,7 @@ public class Login implements Serializable {
          
         try {
             copyFile(getUname()+"_avatar.jpg", event.getFile().getInputstream());
-            ImageUtil.imageResize(destination+"ala_avatar.jpg",destination+"_small_avatar.jpg" );
+            ImageUtil.imageResize(destination+"ala_avatar.jpg",destination+"ala_small_avatar.jpg" );
         } catch (IOException e) {
             e.printStackTrace();
         }
