@@ -29,8 +29,8 @@ CREATE TABLE events
   opis text,
   czycalydzien boolean DEFAULT false,
   czypubliczne boolean DEFAULT true,
-  dataod date,
-  datado date,
+  dataod timestamp with time zone,
+  datado timestamp with time zone,
   przesuniecie text,
   typ_przesuniecia integer,
   gmap_cords text,
@@ -38,6 +38,9 @@ CREATE TABLE events
   event_id text,
   cdate date DEFAULT now(),
   mdate date DEFAULT now(),
+  adres text,
+  typ_wydarzenia text,
+  rating numeric(5,2),
   CONSTRAINT event_pkey PRIMARY KEY (id),
   CONSTRAINT eventklient_id_fkey FOREIGN KEY (klient_id)
       REFERENCES klient (id) MATCH SIMPLE
@@ -47,7 +50,6 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE events OWNER TO postgres;
-
 alter table events add column adres text;
 alter table events add column typ_wydarzenia text;
 
