@@ -48,6 +48,7 @@
                         || reqURI.indexOf("/register.xhtml") >= 0
                         || reqURI.indexOf("/remember.xhtml") >= 0
                         || reqURI.indexOf("/quiz.xhtml") >= 0
+                        || reqURI.indexOf("/test.xhtml") >= 0
                         || (ses != null && ses.getAttribute("username") != null)
                         || reqURI.indexOf("/public/") >= 0
                         || reqURI.contains("javax.faces.resource"))
