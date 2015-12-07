@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.auth;
 
 import com.mycompany.mavenproject1.calendar.Usercalendars;
+import com.mycompany.mavenproject1.contacts.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
 import java.io.Serializable;
 import java.util.Collection;
@@ -39,8 +40,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+    
+    /**
+     * Lista kontaktow danego uzytkownika
+     */
+    @OneToMany(mappedBy = "contactId")
+    private Collection<Usercontacts> usercontactsCollection;
+    
+    @OneToMany(mappedBy = "userId")
+    private Collection<Usercontacts> usercontactsCollection1;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Usercalendars> usercalendarsCollection;
+    
     @Size(max = 2147483647)
     @Column(name = "hashcode")
     private String hashCode;
@@ -247,6 +259,24 @@ public class Users implements Serializable {
 
     public void setUsercalendarsCollection(Collection<Usercalendars> usercalendarsCollection) {
         this.usercalendarsCollection = usercalendarsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Usercontacts> getUsercontactsCollection() {
+        return usercontactsCollection;
+    }
+
+    public void setUsercontactsCollection(Collection<Usercontacts> usercontactsCollection) {
+        this.usercontactsCollection = usercontactsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Usercontacts> getUsercontactsCollection1() {
+        return usercontactsCollection1;
+    }
+
+    public void setUsercontactsCollection1(Collection<Usercontacts> usercontactsCollection1) {
+        this.usercontactsCollection1 = usercontactsCollection1;
     }
    
     
