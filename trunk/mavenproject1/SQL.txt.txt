@@ -20,6 +20,14 @@ WITH (
 );
 ALTER TABLE users OWNER TO postgres;
 
+create table usercontacts(
+uid serial NOT NULL,
+user_id integer REFERENCES users (uid),
+contact_id integer REFERENCES users (uid),
+CONSTRAINT usercontacts_pkey PRIMARY KEY (uid)    
+);
+
+
 
 CREATE TABLE events
 (
