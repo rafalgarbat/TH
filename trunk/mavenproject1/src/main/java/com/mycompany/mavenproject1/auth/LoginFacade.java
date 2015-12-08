@@ -7,6 +7,7 @@ package com.mycompany.mavenproject1.auth;
 
 import com.mycompany.mavenproject1.AbstractFacade;
 import com.mycompany.mavenproject1.mail.SendMailTLS;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
@@ -49,6 +50,11 @@ public class LoginFacade extends AbstractFacade<Users> {
         return pUser;
     }
 
+    public List<Users> getUsers(String uname){
+        Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", '%'+uname+'%');
+        return pQuery.getResultList();         
+    }
+    
     public boolean createUser(String aLogin, String aEmail, String aPassword, int aUserType, String aCity, String aState, int aR, int aT, int aS, int aB) {
         Users pNewUser = new Users();
         pNewUser.setPassword(aPassword);

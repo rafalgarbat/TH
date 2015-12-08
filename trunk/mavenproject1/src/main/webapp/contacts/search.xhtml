@@ -8,20 +8,25 @@
       xmlns:pe="http://primefaces.org/ui/extensions">
     <h:head>        
         <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
-      
+
     </h:head>
 
     <ui:composition template="/templates/maintemplate.xhtml">
         <ui:define name="body">
+            <h:form id="searchForm">
 
-            <h:form id="form">
-                <p:dataGrid var="contact" value="#{usercontactsView.getUserContacts(login.uname)}" 
-                            columns="9"                             
-                            rows="12" paginator="true" 
-                            id="users"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">                   
+                <p:inputText id="searchString" title="searchString" 
+                             value="#{contactssearchview.unameSearchExpr}" >
+                    <p:ajax event="keyup" listener="#{contactssearchview.performSearch()}" 
+                            process="@this" update="@form"></p:ajax>
+                </p:inputText> 
 
-                    <p:panel header="#{contact.uname}" style="text-align:center; max-width: 200px; font-size: 10px" >
+                
+                <p:dataGrid id="resultGroup"
+                            widgetVar="resultGroup" 
+                            var="contact"
+                            value="#{contactssearchview.searchedContacts}">
+                      <p:panel header="#{contact.uname}" style="text-align:center; max-width: 200px; font-size: 10px" >
                         <f:facet name="actions">
                             <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
                                 <h:outputText styleClass="ui-icon ui-icon-circle-plus" title="Dodaj znajomego" />
@@ -40,20 +45,9 @@
                        
 
                     </p:panel>
-
-
                 </p:dataGrid>
-
-                <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <p:outputPanel id="carDetail" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty usercontactsView.selectedContact}" columnClasses="label,value">
-                            <h:outputText value="Id:" />                            
-                        </p:panelGrid>
-                    </p:outputPanel>
-                </p:dialog>
-
-            </h:form> 
-
+                
+            </h:form>
 
 
 

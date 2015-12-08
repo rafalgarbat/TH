@@ -22,7 +22,8 @@ import javax.faces.bean.ViewScoped;
 public class UsercontactsView {
     
     private List<Contact> users;
-     
+    private List<Contact> propUsers;
+    
     private Contact selectedContact;
      
     @ManagedProperty("#{contactsService}")
@@ -30,27 +31,36 @@ public class UsercontactsView {
      
     @PostConstruct
     public void init() {
-        users = new ArrayList<>();  
+        users = new ArrayList<>(); 
+        propUsers = new ArrayList<>();
         
     }
     
     public List<Contact> getUserContacts(String aUname) {
         Contact pContact;
+        users.clear();
         for(Users pUC : service.getUserContacts("ala")){
             pContact = new Contact(pUC.getUname());    
+            pContact.setPersonalInfo("Personal info");
+            pContact.setAddrInfo("Addr info");
             users.add(pContact);
         }
-        /*Users tmp = new Users();
-        tmp.setUname("z11");
-        Contact tmp = new Contact("jarek");        
-        users.add(tmp);
-         tmp = new Contact("marek");        
-        users.add(tmp);
-         tmp = new Contact("janek");        
-        users.add(tmp);*/
+       
         return users;
     }
 
+      public List<Contact> getUserPropContacts(String aUname) {
+        Contact pContact;
+               
+        Contact tmp = new Contact("jarek");        
+        propUsers.add(tmp);
+         tmp = new Contact("marek");        
+        propUsers.add(tmp);
+         tmp = new Contact("janek");        
+        propUsers.add(tmp);
+        return propUsers;
+    }
+    
     public List<Contact> getUsers() {
         return users;
     }
@@ -73,6 +83,14 @@ public class UsercontactsView {
 
     public void setService(ContactsService service) {
         this.service = service;
+    }
+
+    public List<Contact> getPropUsers() {
+        return propUsers;
+    }
+
+    public void setPropUsers(List<Contact> propUsers) {
+        this.propUsers = propUsers;
     }
    
     
