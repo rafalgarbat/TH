@@ -54,7 +54,7 @@
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
+     js.src = "//connect.facebook.net/pl_PL/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
@@ -95,7 +95,9 @@
             <p:column><p:commandButton  style="width: 450px; height: 30px" action="register.xhtml?faces-redirect=true" value="Załóż konto >"/></p:column>
         </p:row>
         <p:row>            
-           <p:column>f<fb:login-button scope='email,publish_stream'>Zaloguj przez facebook</fb:login-button></p:column>
+           <p:column><fb:login-button scope='email,publish_stream'>Zaloguj przez facebook</fb:login-button>
+               
+           </p:column>
            <p:column></p:column>
         </p:row>
         <p:row>            
