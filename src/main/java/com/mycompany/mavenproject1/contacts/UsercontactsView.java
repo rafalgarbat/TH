@@ -39,11 +39,8 @@ public class UsercontactsView {
     public List<Contact> getUserContacts(String aUname) {
         Contact pContact;
         users.clear();
-        for(Users pUC : service.getUserContacts("ala")){
-            pContact = new Contact(pUC.getUname());    
-            pContact.setPersonalInfo("Personal info");
-            pContact.setAddrInfo("Addr info");
-            users.add(pContact);
+        for(Users pUC : service.getUserContacts("ala")){            
+            users.add(pUC.getContact());
         }
        
         return users;
@@ -61,6 +58,7 @@ public class UsercontactsView {
         return propUsers;
     }
     
+      
     public List<Contact> getUsers() {
         return users;
     }

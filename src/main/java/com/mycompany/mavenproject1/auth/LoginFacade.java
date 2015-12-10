@@ -51,7 +51,7 @@ public class LoginFacade extends AbstractFacade<Users> {
     }
 
     public List<Users> getUsers(String uname){
-        Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", '%'+uname+'%');
+        Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", "%"+uname+"%");
         return pQuery.getResultList();         
     }
     

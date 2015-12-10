@@ -12,42 +12,31 @@
     </h:head>
 
     <ui:composition template="/templates/maintemplate.xhtml">
-        <ui:define name="body">
-            <h:form id="searchForm">
+        <ui:define name="body" id="xxx">
 
-                <p:inputText id="searchString" title="searchString" 
-                             value="#{contactssearchview.unameSearchExpr}" >
-                    <p:ajax event="keyup" listener="#{contactssearchview.performSearch()}" 
-                            process="@this" update="@form"></p:ajax>
-                </p:inputText> 
+            <p:panel  header="Wyszukiwarka" style="margin-bottom:20px">
+                <h:form id="wyszukiwarkaSpraw">
+                    <p:panelGrid id="ppg1713" styleClass="nameValue" columns="2" columnClasses="label, value" >
+                        <p:outputLabel id="pol1714" value="Typ sprawy: "/>
+                        <p:inputText value="#{contactssearchview.unameSearchExpr}" id="nrProd" />
+                    </p:panelGrid>
 
-                
-                <p:dataGrid id="resultGroup"
-                            widgetVar="resultGroup" 
-                            var="contact"
-                            value="#{contactssearchview.searchedContacts}">
-                      <p:panel header="#{contact.uname}" style="text-align:center; max-width: 200px; font-size: 10px" >
-                        <f:facet name="actions">
-                            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
-                                <h:outputText styleClass="ui-icon ui-icon-circle-plus" title="Dodaj znajomego" />
-                            </h:commandLink>                         
-                            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
-                                <h:outputText styleClass="ui-icon ui-icon-mail-closed" title="Wyślij wiadomość" />
-                            </h:commandLink>                                                         
-                        </f:facet>
-                        <p:graphicImage name="images/ala_small_avatar.jpg" width="170px"/> 
-                        <hr/>
-                        <h:outputLabel>
-                            #{contact.addrInfo}<hr/>
-                            #{contact.personalInfo}
-                        
-                        </h:outputLabel>    
-                       
+                    <p:commandButton value="Szukaj" id="szukaj"                                     
+                                     action="#{contactssearchview.performSearch()}"                                     
+                                     update="@all"/>
 
-                    </p:panel>
-                </p:dataGrid>
-                
-            </h:form>
+                </h:form>
+            </p:panel>    
+
+            <p:panel header="Wyniki wyszukiwania" style="margin-bottom:20px">
+                <h:form id="formTabela">
+                    <p:dataTable var="contact" id="tabelaWynikow"  value="#{contactssearchview.searchedContacts}" >
+                        <p:column  width="250px;">
+                            <h:outputText id="hot1735" value="#{contact.uname}"/>
+                        </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </p:panel>    
 
 
 

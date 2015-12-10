@@ -43,6 +43,8 @@ public class Login implements Serializable {
     @EJB
     private LoginFacade loginFacade;
 
+    private String langVersion;
+    
     private String uname;
     private String pwd;
     private String email;
@@ -284,4 +286,18 @@ public class Login implements Serializable {
         this.currentUser = currentUser;
     }
 
+    public String getLangVersion() {
+        return langVersion;
+    }
+
+    public void setLangVersion(String langVersion) {
+        this.langVersion = langVersion;
+    }
+
+    
+    public String getName(String aObjName){        
+         return "x";
+    }
+    
+    
 }

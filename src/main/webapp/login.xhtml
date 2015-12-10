@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:fb="http://www.facebook.com/2008/fbml">
- <h:head>
+    <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
@@ -16,136 +16,139 @@
         <f:viewParam name="regURL" value="#{login.hashcode}"/>
         <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
     </f:metadata>
-    
+
     <style type="text/css">
         .loginFormStyle {
- position : absolute;       
-    left     : 30%;
-    top      : 40%;
-    border:  3px solid #33CCFF;
-    padding: 10px;
-    margin-left : -100px; /* half of the width  */
-    margin-top  : -100px; /* half of the height */
-}
-.loginFormStyle.ui-panelgrid>*>tr,
-.loginFormStyle.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
-}
-.myStyle{
- padding: 10px;    
-    }    
-.myStyle.ui-panelgrid>*>tr,
-.myStyle.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
-}
+            position : absolute;       
+            left     : 30%;
+            top      : 40%;
+            border:  3px solid #33CCFF;
+            padding: 10px;
+            margin-left : -100px; /* half of the width  */
+            margin-top  : -100px; /* half of the height */
+        }
+        .loginFormStyle.ui-panelgrid>*>tr,
+        .loginFormStyle.ui-panelgrid .ui-panelgrid-cell {
+            border: none;
+        }
+        .myStyle{
+            padding: 10px;    
+        }    
+        .myStyle.ui-panelgrid>*>tr,
+        .myStyle.ui-panelgrid .ui-panelgrid-cell {
+            border: none;
+        }
     </style>
 
-<h:body> 
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '158696067475014',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
+    <h:body> 
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '158696067475014',
+                    xfbml: true,
+                    version: 'v2.5'
+                });
+            };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/pl_PL/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
- 
-<!--
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>-->
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/pl_PL/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+        <!--
+        <div
+          class="fb-like"
+          data-share="true"
+          data-width="450"
+          data-show-faces="true">
+        </div>-->
 
         <h:form class="loFormStyle">  
-             <p:panelGrid id="logowanieGrid" class="loginFormStyle">                 
-        <p:row>
-            <p:column><h3>Logowanie</h3><p:separator /></p:column>
-            <p:column><h3>Rejestrajca</h3><p:separator /></p:column>            
-        </p:row> 
-        <p:row>
-            <p:column>
-            <p:inputText style="width: 345px; height: 30px"  id="username" value="#{login.uname}"></p:inputText>
-            <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />            
-            </p:column>
-            <p:column>
-                <h4>Nie masz jeszcze konta? Wypełnij krótki formularz i zarejestruj się!<br/>
-                Założenie konta jest bezpłatne i trwa mniej niż 2 minuty.</h4>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column>
-            <p:password style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></p:password>
-            <p:watermark for="password" value="Hasło" id="password_watermark" />            
-            </p:column>
-            <p:column></p:column>
-        </p:row>
-        <p:row>
-            <p:column><p:commandButton style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj > "/></p:column>         
-            <p:column><p:commandButton  style="width: 450px; height: 30px" action="register.xhtml?faces-redirect=true" value="Załóż konto >"/></p:column>
-        </p:row>
-        <p:row>            
-           <p:column><fb:login-button scope='email,publish_stream'>Zaloguj przez facebook</fb:login-button>
-               
-           </p:column>
-           <p:column></p:column>
-        </p:row>
-        <p:row>            
-            <p:column><h3>Zapomniałes hasła? </h3><p:separator />
-                <p:commandButton  style="width: 345px; height: 30px"  value="Przypomnij hasło >"   oncomplete="PF('remember_dialog').show();" />
-                
-                <p:dialog widgetVar="remember_dialog" modal="true" width="500px" >
-                    
-                    <h:form class="loginFormStyle">          
-                        <p:panelGrid id="remember_dlg" class="myStyle">
-                            <p:row><p:column colspan="2">
-                                    <p:messages id="messages" />                  
-                                </p:column></p:row>
-                            <p:row>
-                                <p:column colspan="2"><h3>Przypomnij hasło</h3><p:separator />Jeśli nie pamiętasz hasła, <br/>podaj adres e-mail używany do logowania</p:column>                                
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="email" value="Adres email" />
-                                </p:column>
-                                <p:column>
-                                     <p:inputText style="width: 345px; height: 30px"  id="email" value="#{login.email}"></p:inputText>
-                                     <p:watermark for="email" value="Adres email związany z Twoim kontem" id="email_watermark" />      
-                                </p:column>                                
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="2">
-                                   <p:commandButton  style="width: 100%; height: 30px"  action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>               
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>    
-                  
-                  
-                    </h:form>   
-                    
-                </p:dialog>
-                
-                
-                
-                
-            
-            </p:column>            
-            <p:column></p:column>
-        </p:row>
-                 </p:panelGrid>
-     </h:form>
-   
-    
-       
-</h:body>
+            <p:panelGrid id="logowanieGrid" class="loginFormStyle">                 
+                <p:row>
+                    <p:column><h3>Logowanie</h3><p:separator /></p:column>
+                    <p:column><h3>Rejestrajca</h3><p:separator /></p:column>            
+                </p:row> 
+                <p:row>
+                    <p:column>
+                        <p:inputText style="width: 345px; height: 30px"  id="username" value="#{login.uname}"></p:inputText>
+                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />            
+                    </p:column>
+                    <p:column>
+                        <h4>Nie masz jeszcze konta? Wypełnij krótki formularz i zarejestruj się!<br/>
+                            Założenie konta jest bezpłatne i trwa mniej niż 2 minuty.</h4>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:password style="width: 345px; height: 30px" id="password" value="#{login.pwd}"></p:password>
+                        <p:watermark for="password" value="Hasło" id="password_watermark" />            
+                    </p:column>
+                    <p:column></p:column>
+                </p:row>
+                <p:row>
+                    <p:column><p:commandButton style="width: 355px; height: 30px" action="#{login.validateUsernamePassword}" value="Zaloguj > "/></p:column>         
+                    <p:column><p:commandButton  style="width: 450px; height: 30px" action="register.xhtml?faces-redirect=true" value="Załóż konto >"/></p:column>
+                </p:row>
+                <p:row>            
+                    <p:column><fb:login-button scope='email,publish_stream'>Zaloguj przez facebook</fb:login-button>
+
+                    </p:column>
+                    <p:column></p:column>
+                </p:row>
+                <p:row>            
+                    <p:column><h3>Zapomniałes hasła? </h3><p:separator />
+                        <p:commandButton  style="width: 345px; height: 30px"  value="Przypomnij hasło >"   oncomplete="PF('remember_dialog').show();" />
+
+                        <p:dialog widgetVar="remember_dialog" modal="true" width="500px" >
+
+                            <h:form class="loginFormStyle">          
+                                <p:panelGrid id="remember_dlg" class="myStyle">
+                                    <p:row><p:column colspan="2">
+                                            <p:messages id="messages" />                  
+                                        </p:column></p:row>
+                                    <p:row>
+                                        <p:column colspan="2"><h3>Przypomnij hasło</h3><p:separator />Jeśli nie pamiętasz hasła, <br/>podaj adres e-mail używany do logowania</p:column>                                
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel for="email" value="Adres email" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText style="width: 345px; height: 30px"  id="email" value="#{login.email}"></p:inputText>
+                                            <p:watermark for="email" value="Adres email związany z Twoim kontem" id="email_watermark" />      
+                                        </p:column>                                
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:commandButton  style="width: 100%; height: 30px"  action="#{login.validateUsernamePassword}" value="Prześlij hasło ponownie"/>               
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>    
+
+
+                            </h:form>   
+
+                        </p:dialog>
+
+
+
+
+
+                    </p:column>            
+                    <p:column></p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+
+
+
+    </h:body>
 </html>

@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.auth;
 
 import com.mycompany.mavenproject1.calendar.Usercalendars;
+import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
 import java.io.Serializable;
@@ -279,6 +280,12 @@ public class Users implements Serializable {
         this.usercontactsCollection1 = usercontactsCollection1;
     }
    
-    
+    public Contact getContact(){
+        Contact pCont = new Contact();
+        pCont.setUname(getUname());
+        pCont.setAddrInfo(getState()+", "+getCity());
+        pCont.setPersonalInfo("opis todo");
+        return pCont;
+    }
     
 }
