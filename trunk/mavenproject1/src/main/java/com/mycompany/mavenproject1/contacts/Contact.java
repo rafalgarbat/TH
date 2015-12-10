@@ -18,6 +18,9 @@ public class Contact {
         this.uname = aUname;
         
     }
+
+    public Contact() {   
+    }
     
     public String getUname() {
         return uname;

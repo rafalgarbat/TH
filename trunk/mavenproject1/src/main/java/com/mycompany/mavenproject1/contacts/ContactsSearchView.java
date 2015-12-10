@@ -5,18 +5,20 @@
  */
 package com.mycompany.mavenproject1.contacts;
 
+import com.mycompany.mavenproject1.auth.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Jaroslaw.Skrzydlo
  */
-@ManagedBean(name = "contactssearchview")
+@Named("contactssearchview")
 @ViewScoped
 public class ContactsSearchView {
     
@@ -28,14 +30,13 @@ public class ContactsSearchView {
     
     @PostConstruct
     public void init() {
-        searchedContacts = new ArrayList<>(); 
+         searchedContacts = new ArrayList<>(); 
+         Contact c= new Contact("x1");
+         searchedContacts.add(c);
     }
     
     public void performSearch(){
-       // service.getUserContacts(unameSearchExpr);
-        Contact pTmp = new Contact("xxx");
-        searchedContacts.clear();
-        searchedContacts.add(pTmp);
+       
     }
     
     public String getUnameSearchExpr() {

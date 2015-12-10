@@ -34,7 +34,11 @@ public class ContactsService {
         for (Usercontacts pUC : pUser.getUsercontactsCollection()) {
             userContacts.add(pUC.getContactId());
         }
-        return userContacts;
+        return userContacts; 
+    }
+    
+    public List<Users> searchForUsers(String aUname){        
+        return loginFacade.getUsers(aUname);    
     }
 
     public List<Users> getUserContacts() {

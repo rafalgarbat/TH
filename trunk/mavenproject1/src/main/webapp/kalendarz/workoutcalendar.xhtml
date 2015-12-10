@@ -27,17 +27,74 @@
 
         <ui:define name="body">            
             <p:tabView dynamic="true" cache="false" id="eventsTab"  >
-                <p:tab title="List">                    
+                <p:tab title="My Calendars" >
+                    todo: dodac do zakladanego uzytkownika zakladanie jego kalendarza!!!
+                    <p:tabView id="myCalsTV"
+                               orientation="left" 
+                               var="calendars"                               
+                               value="#{eventList.loadCalendars(login.uname)}"                                
+                               cache="false" 
+                               >
+                        <p:tab title="#{calendars.name}" closable="true">                         
+                            <p:panel header="#{calendars.name}">
+                             <p:schedule 
+                                   id="schedule_#{calendars.uid}" 
+                                   value="#{eventList.loadCalendarModel(login.uname,calendars.name)}"                                   
+                                   widgetVar="schedule_#{calendars.uid}"             
+                                   timeZone="GMT+1" draggable="false">                                    
+                             </p:schedule>   
+                            </p:panel>
+                          
+                        </p:tab>
+                    </p:tabView>    
+                </p:tab>
+                <p:tab title="Public events">
+                    <h:form id="scheduleForm">
+                        <h:panelGrid columns="2" cellpadding="0" >                                                                   
+                            <p:panel header="popo" style="width: 900px;">
+                             <p:schedule 
+                                    id="schedule"
+                                    value="#{eventList.allEventModel}"
+                                    widgetVar="myschedule" timeZone="GMT+1"
+                                    draggable="false">
+                                    <p:ajax event="dateSelect" listener="#{eventList.onDateSelect}" 
+                                                update="eventDetails" oncomplete="PF('eventDialog').show();" />                                 
+                             </p:schedule>                                                        
+                                
+                                
+                            </p:panel>
+                            <p:panel header="Informacje o wydarzeniu" >
+                               Button obserwuj wydarzenie
+                               Button powiadom znajomego
+                               Okienko z informacjami o wydarzeniu
+                               Button wyświetl na mapie wydarzenie
+                            </p:panel>
+                            <p:panel header="popo">ooo3</p:panel>
+                            <p:panel header="popo">ooo3</p:panel>
+                        </h:panelGrid>
+
+                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{eventList.selectedEvent.title}" required="true" />
+        </h:panelGrid>
+                        </p:dialog>
+                        
+                    </h:form>
+                </p:tab>                 
+                <p:tab title="List">
+                    
                     <h:form id="dtform">
                         <p:growl id="msgs" showDetail="true" />
 
                         <p:dataTable id ="eventListDT" var="event" value="#{eventList.getEvents()}" 
                                      widgetVar="eventsTable"
                                      rowKey="#{event.dbEventId}"
-                                     emptyMessage="xxx"
-                                     rows="10" paginator="true"  
+                                     emptyMessage="No cars found with given criteria"
+                                     rows="10" paginator="true" 
                                      selectionMode="single" selection="#{eventList.selectedEvent}"                                        
-                                     >                          
+                                     >
+                            <p:ajax event="rowSelect" update=":eventsTab:dtform" process="eventListDT" />
                             <f:facet name="header">
                                 <p:outputPanel>
                                     <h:outputText value="Szukaj po wszystkich polach:" />
@@ -98,7 +155,17 @@
                             <p:column headerText="Cechy" filterBy="#{event.keywords}" sortBy="#{event.keywords}" filterMatchMode="contains">
                                 <h:outputText value="#{event.keywords}" />
                             </p:column>  
-                                                         
+                            <f:facet name="footer">
+                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventDetail" 
+                                                 icon="ui-icon-search" value="Wyświetl informacje" 
+                                                 oncomplete="PF('eventDialog').show()" />
+                                <p:commandButton process="eventListDT" update=":eventsTab:dtform" 
+                                                 icon="ui-icon-search" value="Obserwuj wydarzenie" 
+                                                 action="#{eventList.obserwujWydarzenie(login.uname)}" />  
+                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventListDT" 
+                                                 icon="ui-icon-search" value="Refresh" 
+                                                 action="#{eventList.loadEvents()}" /> 
+                            </f:facet>                                 
                         </p:dataTable>                            
 
                         <p:dialog header="Informacje o wydarzeniu" 
