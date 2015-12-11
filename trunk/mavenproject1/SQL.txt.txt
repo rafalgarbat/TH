@@ -27,6 +27,17 @@ contact_id integer REFERENCES users (uid),
 CONSTRAINT usercontacts_pkey PRIMARY KEY (uid)    
 );
 
+CREATE TABLE msg
+(
+  uid serial NOT NULL,
+  from_user_id integer  REFERENCES users (uid),
+  to_user_id integer  REFERENCES users (uid),
+  stan integer DEFAULT 0,
+  CONSTRAINT msg_pkey PRIMARY KEY (uid)
+)
+WITH (
+  OIDS=FALSE
+);
 
 
 CREATE TABLE events
