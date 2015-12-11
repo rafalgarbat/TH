@@ -9,85 +9,63 @@ package com.mycompany.mavenproject1.contacts;
  *
  * @author Jaroslaw.Skrzydlo
  */
+import com.mycompany.mavenproject1.auth.LoginFacade;
+import com.mycompany.mavenproject1.auth.Users;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.persistence.Query;
  
 @ManagedBean(name = "carService")
 @ApplicationScoped
 public class CarService {
-     
-    private final static String[] colors;
-     
-    private final static String[] brands;
-     
-    static {
-        colors = new String[10];
-        colors[0] = "Black";
-        colors[1] = "White";
-        colors[2] = "Green";
-        colors[3] = "Red";
-        colors[4] = "Blue";
-        colors[5] = "Orange";
-        colors[6] = "Silver";
-        colors[7] = "Yellow";
-        colors[8] = "Brown";
-        colors[9] = "Maroon";
-         
-        brands = new String[10];
-        brands[0] = "BMW";
-        brands[1] = "Mercedes";
-        brands[2] = "Volvo";
-        brands[3] = "Audi";
-        brands[4] = "Renault";
-        brands[5] = "Fiat";
-        brands[6] = "Volkswagen";
-        brands[7] = "Honda";
-        brands[8] = "Jaguar";
-        brands[9] = "Ford";
-    }
-     
-    public List<Car> createCars(int size) {
-        List<Car> list = new ArrayList<Car>();
-        for(int i = 0 ; i < size ; i++) {
-            list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
-        }
-         
+    
+    @EJB
+    private LoginFacade loginFacade;
+
+    public List<Contact> createContacts(int size, String aUname) {
+        List<Contact> list = new ArrayList<Contact>();
+        
+         Query pQuery = loginFacade.getEntityManager().createNamedQuery("Users.findAll").setMaxResults(size);
+         List<Users> pResults = pQuery.getResultList();
+         for(Users pU : pResults){
+            Contact pTmp = pU.getContact();
+            pTmp.setCzyZnajomy(czyZnajomy(aUname,pU.getUsercontactsCollection()));
+            list.add(pTmp);
+         }
+                 
         return list;
     }
-     
-    private String getRandomId() {
-        return UUID.randomUUID().toString().substring(0, 8);
+    /*
+    todo: przeniesc to do odczytu z bazy w postaci left joina - bedzie szybciej
+    */
+    public boolean czyZnajomy(String aUname, Collection<Usercontacts> aCol){
+        for(Usercontacts aCo  : aCol){
+            if (aCo.getContactId().getUname().equals(aUname)){
+            return true; //todo: chyba źle dziala, sprawdzić
+            }
+        }
+        return false;
     }
-     
-    private int getRandomYear() {
-        return (int) (Math.random() * 50 + 1960);
+    
+    public void sendInvitation(String aUnameFrom, String aUnameTo){
+    
+    
     }
-     
-    private String getRandomColor() {
-        return colors[(int) (Math.random() * 10)];
+    
+    public LoginFacade getLoginFacade() {
+        return loginFacade;
     }
-     
-    private String getRandomBrand() {
-        return brands[(int) (Math.random() * 10)];
+
+    public void setLoginFacade(LoginFacade loginFacade) {
+        this.loginFacade = loginFacade;
     }
-     
-    public int getRandomPrice() {
-        return (int) (Math.random() * 100000);
-    }
-     
-    public boolean getRandomSoldState() {
-        return (Math.random() > 0.5) ? true: false;
-    }
- 
-    public List<String> getColors() {
-        return Arrays.asList(colors);
-    }
-     
-    public List<String> getBrands() {
-        return Arrays.asList(brands);
-    }
+    
+    
+    
 }

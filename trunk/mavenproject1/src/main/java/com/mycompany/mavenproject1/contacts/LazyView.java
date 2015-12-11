@@ -19,28 +19,33 @@ import org.primefaces.model.LazyDataModel;
 @ViewScoped
 public class LazyView implements Serializable {
      
-    private LazyDataModel<Car> lazyModel;
+    private LazyDataModel<Contact> lazyModel;
      
-    private Car selectedCar;
+    private Contact selectedContact;
      
     @ManagedProperty("#{carService}")
     private CarService service;
      
     @PostConstruct
     public void init() {
-        lazyModel = new LazyCarDataModel(service.createCars(200));
+       // lazyModel = new LazyCarDataModel(service.createContacts(200,"ala"));
     }
  
-    public LazyDataModel<Car> getLazyModel() {
+    public LazyDataModel<Contact> getLazyModel() {
         return lazyModel;
     }
- 
-    public Car getSelectedCar() {
-        return selectedCar;
+    
+    public LazyDataModel<Contact> getLazyModel(String aUname) {
+         lazyModel = new LazyCarDataModel(service.createContacts(200,"ala"));
+         return lazyModel;
+    }
+     
+    public Contact getSelectedContact() {
+        return selectedContact;
     }
  
-    public void setSelectedCar(Car selectedCar) {
-        this.selectedCar = selectedCar;
+    public void setSelectedContact(Contact selectedCar) {
+        this.selectedContact = selectedCar;
     }
      
     public void setService(CarService service) {
@@ -48,7 +53,13 @@ public class LazyView implements Serializable {
     }
      
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
+        FacesMessage msg = new FacesMessage("Car Selected", ((Contact) event.getObject()).getUname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    
+    public void sendInvitation(String aUname, String aUnameTo){    
+        service.sendInvitation(aUname, aUnameTo);
+        FacesMessage msg = new FacesMessage("Wysłano zaproszenie");
+    }
+    
 }
