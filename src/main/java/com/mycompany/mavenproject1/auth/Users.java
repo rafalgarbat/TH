@@ -9,6 +9,7 @@ import com.mycompany.mavenproject1.calendar.Usercalendars;
 import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
+import com.mycompany.mavenproject1.news.Msg;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -41,6 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+    
+    @OneToMany(mappedBy = "toUserId")
+    private Collection<Msg> msgCollection;
+    @OneToMany(mappedBy = "fromUserId")
+    private Collection<Msg> msgCollection1;
     
     /**
      * Lista kontaktow danego uzytkownika
@@ -283,9 +289,28 @@ public class Users implements Serializable {
     public Contact getContact(){
         Contact pCont = new Contact();
         pCont.setUname(getUname());
-        pCont.setAddrInfo(getState()+", "+getCity());
+        pCont.setCity(getCity());
+        pCont.setState(getState());
         pCont.setPersonalInfo("opis todo");
         return pCont;
+    }
+
+    @XmlTransient
+    public Collection<Msg> getMsgCollection() {
+        return msgCollection;
+    }
+
+    public void setMsgCollection(Collection<Msg> msgCollection) {
+        this.msgCollection = msgCollection;
+    }
+
+    @XmlTransient
+    public Collection<Msg> getMsgCollection1() {
+        return msgCollection1;
+    }
+
+    public void setMsgCollection1(Collection<Msg> msgCollection1) {
+        this.msgCollection1 = msgCollection1;
     }
     
 }

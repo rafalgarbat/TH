@@ -13,7 +13,7 @@ import java.util.Comparator;
 import org.primefaces.model.SortOrder;
 
  
-public class LazySorter implements Comparator<Car> {
+public class LazySorter implements Comparator<Contact> {
  
     private String sortField;
      
@@ -24,10 +24,10 @@ public class LazySorter implements Comparator<Car> {
         this.sortOrder = sortOrder;
     }
  
-    public int compare(Car car1, Car car2) {
+    public int compare(Contact car1, Contact car2) {
         try {
-            Object value1 = Car.class.getField(this.sortField).get(car1);
-            Object value2 = Car.class.getField(this.sortField).get(car2);
+            Object value1 = Contact.class.getField(this.sortField).get(car1);
+            Object value2 = Contact.class.getField(this.sortField).get(car2);
  
             int value = ((Comparable)value1).compareTo(value2);
              

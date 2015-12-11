@@ -20,18 +20,18 @@ import org.primefaces.model.SortOrder;
 /**
  * Dummy implementation of LazyDataModel that uses a list to mimic a real datasource like a database.
  */
-public class LazyCarDataModel extends LazyDataModel<Car> {
+public class LazyCarDataModel extends LazyDataModel<Contact> {
      
-    private List<Car> datasource;
+    private List<Contact> datasource;
      
-    public LazyCarDataModel(List<Car> datasource) {
+    public LazyCarDataModel(List<Contact> datasource) {
         this.datasource = datasource;
     }
      
     @Override
-    public Car getRowData(String rowKey) {
-        for(Car car : datasource) {
-            if(car.getId().equals(rowKey))
+    public Contact getRowData(String rowKey) {
+        for(Contact car : datasource) {
+            if(car.getUname().equals(rowKey))
                 return car;
         }
  
@@ -39,16 +39,16 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
     }
  
     @Override
-    public Object getRowKey(Car car) {
-        return car.getId();
+    public Object getRowKey(Contact car) {
+        return car.getUname();
     }
  
     @Override
-    public List<Car> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
-        List<Car> data = new ArrayList<Car>();
+    public List<Contact> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
+        List<Contact> data = new ArrayList<Contact>();
  
         //filter
-        for(Car car : datasource) {
+        for(Contact car : datasource) {
             boolean match = true;
  
             if (filters != null) {

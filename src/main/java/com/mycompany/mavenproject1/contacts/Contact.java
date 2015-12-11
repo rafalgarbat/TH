@@ -11,12 +11,18 @@ package com.mycompany.mavenproject1.contacts;
  */
 public class Contact {
     private String uname;
-    private String addrInfo;
+    private String city;
+    private String state;
     private String personalInfo;
+    
+    /**
+     * Informacja czy jestescie juz znajomymi
+     */
+    private boolean czyZnajomy;
+    
         
     public Contact(String aUname){
-        this.uname = aUname;
-        
+        this.uname = aUname;        
     }
 
     public Contact() {   
@@ -30,13 +36,23 @@ public class Contact {
         this.uname = uname;
     }
 
-    public String getAddrInfo() {
-        return addrInfo;
+    public String getCity() {
+        return city;
     }
 
-    public void setAddrInfo(String addrInfo) {
-        this.addrInfo = addrInfo;
+    public void setCity(String city) {
+        this.city = city;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    
 
     public String getPersonalInfo() {
         return personalInfo;
@@ -44,6 +60,14 @@ public class Contact {
 
     public void setPersonalInfo(String personalInfo) {
         this.personalInfo = personalInfo;
+    }
+
+    public boolean isCzyZnajomy() {
+        return czyZnajomy;
+    }
+
+    public void setCzyZnajomy(boolean czyZnajomy) {
+        this.czyZnajomy = czyZnajomy;
     }
 
     
