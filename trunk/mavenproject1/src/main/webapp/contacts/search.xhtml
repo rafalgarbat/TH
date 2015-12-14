@@ -12,8 +12,8 @@
     </h:head>
 
     <ui:composition template="/templates/maintemplate.xhtml">
-        <ui:define name="body">                          
-<h:form id="form">
+        <ui:define name="body">            
+<h:form id="form">    
     <p:dataTable var="contact" value="#{dtLazyView.getLazyModel(login.uname)}" paginator="true" rows="30"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                  rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{dtLazyView.selectedContact}" 
@@ -39,8 +39,9 @@
  
     <p:dialog header="Szczegóły" widgetVar="carDialog"  showEffect="fade" hideEffect="fade" resizable="false">
         <p:outputPanel id="carDetail" style="text-align:center;">
-            <p:panelGrid  columns="1" rendered="#{not empty dtLazyView.selectedContact}" columnClasses="label,value">
-                
+          
+            <p:panelGrid  columns="1" rendered="#{not empty dtLazyView.selectedContact}" columnClasses="label,value">                
+                <p:growl id="growl" showDetail="true" sticky="true" />     
                 <p:row>
                     <p:column>
                         <h:graphicImage name="images/#{dtLazyView.selectedContact.uname}_avatar.jpg" width="150px;" alt="Brak zdjęcia"/>
@@ -50,14 +51,15 @@
                     <p:column><h:outputText value="#{dtLazyView.selectedContact.personalInfo}" /></p:column>                   
                 </p:row>
                 <p:row>                   
-                    <p:column>Należy do grup XXX</p:column>                   
+                    <p:column>Należy do grup lista grup</p:column>                   
                 </p:row>
                 <p:row>                   
                     <p:column>
-                        <p:commandButton value="Dodaj do znajomych" title="Dodaj do znajomych"
+                        <p:commandButton value="Dodaj do znajomych" 
+                                         title="Dodaj do znajomych" 
+                                         update="growl"
                                          rendered="#{not dtLazyView.selectedContact.czyZnajomy}"
-                                         actionListener="#{dtLazyView.sendInvitation(login.uname, dtLazyView.selectedContact.uname)}" 
-                                         
+                                         action="#{dtLazyView.sendInvitation(login.uname, dtLazyView.selectedContact.uname)}"                                                                                   
                                          />
                         <p:outputLabel value="Jesteście znajomymi" 
                                        rendered="#{dtLazyView.selectedContact.czyZnajomy}"

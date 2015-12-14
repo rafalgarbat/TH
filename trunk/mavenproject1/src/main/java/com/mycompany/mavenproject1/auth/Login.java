@@ -223,6 +223,11 @@ public class Login implements Serializable {
         RequestContext.getCurrentInstance().openDialog("quiz.xhtml", options, null);
     }
 
+    public String onChange(){  
+        return "lalala";
+    //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "You have selected: " + value, null));  
+    } 
+    
     public String validateRegistrationURL() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String parameter_value = (String) facesContext.getExternalContext().getRequestParameterMap().get("regURL");

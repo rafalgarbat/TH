@@ -9,7 +9,6 @@ import com.mycompany.mavenproject1.AbstractFacade;
 import com.mycompany.mavenproject1.mail.SendMailTLS;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;

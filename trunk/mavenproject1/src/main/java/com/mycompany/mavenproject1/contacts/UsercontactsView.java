@@ -25,6 +25,8 @@ public class UsercontactsView {
     private List<Contact> propUsers;
     
     private Contact selectedContact;
+    
+    private String msgContent;
      
     @ManagedProperty("#{contactsService}")
     private ContactsService service;
@@ -89,6 +91,14 @@ public class UsercontactsView {
 
     public void setPropUsers(List<Contact> propUsers) {
         this.propUsers = propUsers;
+    }
+
+    public String getMsgContent() {
+        return msgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
     }
    
     

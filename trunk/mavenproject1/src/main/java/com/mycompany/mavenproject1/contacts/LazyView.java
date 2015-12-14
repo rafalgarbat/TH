@@ -53,13 +53,15 @@ public class LazyView implements Serializable {
     }
      
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Car Selected", ((Contact) event.getObject()).getUname());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        //FacesMessage msg = new FacesMessage("Car Selected", ((Contact) event.getObject()).getUname());
+       // FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
     public void sendInvitation(String aUname, String aUnameTo){    
-        service.sendInvitation(aUname, aUnameTo);
-        FacesMessage msg = new FacesMessage("Wysłano zaproszenie");
+       // service.sendInvitation(aUname, aUnameTo); 
+     FacesMessage msg = new FacesMessage("Car Selected");
+     FacesContext.getCurrentInstance().addMessage(null, msg);
+    
     }
     
 }
