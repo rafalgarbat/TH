@@ -4,218 +4,216 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<h:head>
-    <title>Logowanie do serwisu</title>
-</h:head>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      >
+    <h:head>
+        <title>Logowanie do serwisu</title>
+    </h:head>
     <style type="text/css">
         .loginFormStyle {
- position : absolute;       
-    left     : 30%;
-    top      : 10%;    
-    border:  1px solid #33CCFF;
-    padding: 10px;
-    margin-left : -100px; /* half of the width  */
-    margin-top  : -100px; /* half of the height */
-}
-.inputTextStyle{
-    width: 450px; 
-    height: 30px;
-}
-.companyHeaderGrid.ui-panelgrid>*>tr,
-.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
-}
+            position : absolute;       
+            left     : 30%;
+            top      : 10%;    
+            border:  1px solid #33CCFF;
+            padding: 10px;
+            margin-left : -100px; /* half of the width  */
+            margin-top  : -100px; /* half of the height */
+        }
+        .inputTextStyle{
+            width: 450px; 
+            height: 30px;
+        }
+        .companyHeaderGrid.ui-panelgrid>*>tr,
+        .companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+            border: none;
+        }
 
     </style>
-    
+
     <script type="text/javascript">
-    /**
-     * Faces Validator
-     */
-    PrimeFaces.validator['customValidator'] = {
- 
-        pattern: /\S+@\S+/,
- 
-        validate: function(element, value) {
-            //use element.data() to access validation metadata, in this case there is none.
-            if(!this.pattern.test(value)) {
-                throw {
-                    summary: 'Validation Error',
-                    detail: value + ' is not a validol'
+        /**
+         * Faces Validator
+         */
+        PrimeFaces.validator['customValidator'] = {
+            pattern: /\S+@\S+/,
+            validate: function (element, value) {
+                //use element.data() to access validation metadata, in this case there is none.
+                if (!this.pattern.test(value)) {
+                    throw {
+                        summary: 'Validation Error',
+                        detail: value + ' is not a validol'
+                    }
                 }
             }
-        }
-    };
-    
+        };
+
     </script>
-    
-<h:body>
-    
-    <h:form class="loginFormStyle">   
-       <p:panelGrid styleClass="companyHeaderGrid"> 
-        <p:row>
-            <p:column colspan="3">
-                <p:messages id="messages" showDetail="true" autoUpdate="true" style="width: 100%"/>    
-            </p:column>       
-        </p:row>   
-        <p:row>
-            <p:column colspan="3">Twoje dane <p:separator /></p:column>
-        </p:row>       
-        <p:row>
-            <p:column><p:outputLabel for="userType" value="Rodzaj konta" /></p:column>
-            <p:column>
-                <p:selectOneMenu id="userType" value="#{login.userType}" required="true" requiredMessage="Nie wybrałeś rodzaju konta">
-                    <f:selectItem itemLabel="Wybierz..." itemValue="" />
-                    <f:selectItem itemLabel="Klient" itemValue="1" />
-                    <f:selectItem itemLabel="Trener" itemValue="2" />
-                    <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="3" />
-                    <f:selectItem itemLabel="Grupa robocza" itemValue="4" />
-                </p:selectOneMenu>
-            </p:column>
-            
-            <p:column rowspan="12">
-                
-            </p:column>
-        </p:row>                
-           
-        <p:row>
-            <p:column><p:outputLabel for="username" value="Nazwa użytkownika" /></p:column>
-            <p:column>
-                <p:inputText class="inputTextStyle"  id="username" value="#{login.uname}" required="true" requiredMessage="Nie wybrałeś nazwy użytkownika">               
-                </p:inputText>
-                <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" /> 
-                
-            </p:column>  
-     
-        </p:row>
-        
-        <p:row>
-            <p:column><p:outputLabel for="email" value="Adres email" /></p:column>
-            <p:column>
-                <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
-                <p:watermark for="email" value="Adres email" id="email_watermark" />                
-            </p:column>                        
-        </p:row>
-         
-        <p:row>
-            <p:column><p:outputLabel for="pwd1" value="Hasło" /></p:column>
-            <p:column>
-                <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
-                <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
-            </p:column>            
-        </p:row>
-        <p:row>
-            <p:column></p:column>
-            <p:column><p>Hasło musi składać się z min. 6 znaków, <br /> max. 30 znaków i musi zawierać cyfry i litery.</p></p:column>
-        </p:row>
-        
-        <p:row>
-            <p:column><p:outputLabel for="pwd2" value="Powtórz hasło" /></p:column>     
-            <p:column>
-                <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
-                <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> </p:column>    
-        </p:row>
-            
-        
-        <p:row>
-            <p:column><p:outputLabel for="state" value="Województwo" /> </p:column>     
-            <p:column>
-                <p:selectOneMenu id="state" value="#{login.state}" required="true" requiredMessage="Nie wybrałeś województwa">
-        <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
-        <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. lubelskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. lubuskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. łódzkie" itemValue="1" />
-        <f:selectItem itemLabel="woj. małopolskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. mazowieckie" itemValue="1" />
-        <f:selectItem itemLabel="woj. opolskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. podkarpackie" itemValue="1" />
-        <f:selectItem itemLabel="woj. podlaskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. pomorskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. śląskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. wielkopolskie" itemValue="1" />
-        <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="1" />
-                </p:selectOneMenu>
-            </p:column>    
-        </p:row>
-           
-        
-        <p:row>
-            <p:column><p:outputLabel for="city" value="Miasto" /> </p:column>     
-            <p:column> <p:inputText class="inputTextStyle"  id="city" value="#{login.city}"></p:inputText>
-        <p:watermark for="city" value="Miasto" id="city_watermark" /> </p:column>    
-        </p:row>
-        
-       <p:row>            
-            <p:column colspan="3"><p:separator />Jakimi dyscyplinami i w jakim stopniu jesteś zainteresowany?<br/>
-            Oznacz to suwakami poniżej lub wypełnij szybki quiz 
-           
-            <p:commandButton value="Quiz"  actionListener="#{login.viewQuizCustomized()}" oncomplete="PF('w_dialog').show();" />
-            <p:dialog widgetVar="w_dialog" modal="true">
-                <p>Dialog's content.</p>
-                <ui:include src="quiz.xhtml"></ui:include>    
-            </p:dialog>
-            
-            <p:separator />
-            </p:column>
-        </p:row>
-            
-           
-        <p:row>
-            <p:column><p:outputLabel value="Bieganie " /> </p:column>     
-            <p:column>              
-                <p:slider for="bieganie" style="width: 300px;" /> 
-                <p:inputText type="hidden" id="bieganie" value="#{login.r_val}" />
-            </p:column>           
-        </p:row>
-                 
-        <p:row>
-            <p:column><p:outputLabel value="Kolarstwo " /> </p:column>     
-            <p:column> <p:inputText type="hidden" id="rower" value="#{login.b_val}"  />
-        <p:slider for="rower" style="width: 300px;" />  </p:column>    
-        </p:row>
-           
-                
-        <p:row>
-            <p:column><p:outputLabel value="Pływanie " />  </p:column>     
-            <p:column> <p:inputText type="hidden" id="plywanie" value="#{login.s_val}"  />
-        <p:slider for="plywanie" style="width: 300px;" /> </p:column>    
-        </p:row>
-           
-                
-        <p:row>
-            <p:column><p:outputLabel value="Triathlon " /> </p:column>     
-            <p:column><p:inputText type="hidden" id="triathlon" value="#{login.t_val}"  />
-        <p:slider for="triathlon" style="width: 300px;" step="10" /> </p:column>    
-        </p:row>
-           
-        
-        <p:row>
-            <p:column>
-             <p:selectBooleanCheckbox label="cboxrower" value="1" />      
-            </p:column>
-            <p:column colspan="2">
-                <h6>Wyrażam zgodę na przesyłanie na podany adres e-mail informacji handlowych,<br/> 
-                    promocyjnych i marketingowych dotyczących produktów i usług, <br/>
-                    a także na przetwarzanie moich danych osobowych</h6>                   
-            </p:column>       
-        </p:row>
-               
-       <p:separator style="height:2px"/>        
-        <p:row>
-            <p:column colspan="3">
-                <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
-                <p:commandButton  type="cancel" action="login.xhtml?faces-redirect=true" value="Anuluj" immediate="true"></p:commandButton>
-            </p:column>
-        </p:row>
-        
-         </p:panelGrid>     
-    </h:form>
-    
-       
-</h:body>
+
+    <h:body>
+
+        <h:form class="loginFormStyle">   
+            <p:panelGrid styleClass="companyHeaderGrid"> 
+                <p:row>
+                    <p:column colspan="5">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" style="width: 100%"/>    
+                    </p:column>       
+                </p:row>   
+                <p:row>
+                    <p:column colspan="5">Twoje dane <p:separator /></p:column>
+                </p:row>       
+                <p:row>
+                    <p:column><p:outputLabel for="userType" value="Rodzaj konta" /></p:column>
+                    <p:column colspan="3">
+                        <p:selectOneMenu id="userType" value="#{login.userType}" required="true" requiredMessage="Nie wybrałeś rodzaju konta">
+                            <f:selectItem itemLabel="Wybierz..." itemValue="" />
+                            <f:selectItem itemLabel="Klient" itemValue="1" />
+                            <f:selectItem itemLabel="Trener" itemValue="2" />
+                            <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="3" />
+                            <f:selectItem itemLabel="Grupa robocza" itemValue="4" />
+                        </p:selectOneMenu>
+                    </p:column>
+
+                    <p:column rowspan="12">
+
+                    </p:column>
+                </p:row>                
+
+                <p:row>
+                    <p:column><p:outputLabel for="username" value="Nazwa użytkownika" /></p:column>
+                    <p:column colspan="3">
+                        <p:inputText class="inputTextStyle"  id="username" value="#{login.uname}" required="true" requiredMessage="Nie wybrałeś nazwy użytkownika">               
+                        </p:inputText>
+                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" /> 
+
+                    </p:column>  
+
+                </p:row>
+
+                <p:row>
+                    <p:column><p:outputLabel for="email" value="Adres email" /></p:column>
+                    <p:column  colspan="3">
+                        <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
+                        <p:watermark for="email" value="Adres email" id="email_watermark" />                
+                    </p:column>                        
+                </p:row>
+
+                <p:row>
+                    <p:column><p:outputLabel for="pwd1" value="Hasło" /></p:column>
+                    <p:column  colspan="3">
+                        <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
+                        <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
+                    </p:column>            
+                </p:row>
+                <p:row>
+                    <p:column></p:column>
+                    <p:column colspan="3"><p>Hasło musi składać się z min. 6 znaków, <br /> max. 30 znaków i musi zawierać cyfry i litery.</p></p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column><p:outputLabel for="pwd2" value="Powtórz hasło" /></p:column>     
+                    <p:column  colspan="3">
+                        <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
+                        <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> </p:column>    
+                </p:row>
+
+
+                <p:row>
+                    <p:column><p:outputLabel for="state" value="Województwo" /> </p:column>     
+                    <p:column  colspan="3">
+                        <p:selectOneMenu id="state" value="#{login.state}" required="true" requiredMessage="Nie wybrałeś województwa">
+                            <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
+                            <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
+                            <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="2" />
+                            <f:selectItem itemLabel="woj. lubelskie" itemValue="3" />
+                            <f:selectItem itemLabel="woj. lubuskie" itemValue="4" />
+                            <f:selectItem itemLabel="woj. łódzkie" itemValue="5" />
+                            <f:selectItem itemLabel="woj. małopolskie" itemValue="6" />
+                            <f:selectItem itemLabel="woj. mazowieckie" itemValue="7" />
+                            <f:selectItem itemLabel="woj. opolskie" itemValue="8" />
+                            <f:selectItem itemLabel="woj. podkarpackie" itemValue="9" />
+                            <f:selectItem itemLabel="woj. podlaskie" itemValue="10" />
+                            <f:selectItem itemLabel="woj. pomorskie" itemValue="11" />
+                            <f:selectItem itemLabel="woj. śląskie" itemValue="12" />
+                            <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="13" />
+                            <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="14" />
+                            <f:selectItem itemLabel="woj. wielkopolskie" itemValue="15" />
+                            <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="16" />
+                        </p:selectOneMenu>
+                    </p:column>    
+                </p:row>
+
+
+                <p:row>
+                    <p:column><p:outputLabel for="city" value="Miasto" /> </p:column>     
+                    <p:column  colspan="3"> <p:inputText class="inputTextStyle"  id="city" value="#{login.city}"></p:inputText>
+                        <p:watermark for="city" value="Miasto" id="city_watermark" /> </p:column>    
+                </p:row>
+
+                <p:row>            
+                    <p:column colspan="4"><p:separator />Jakimi dyscyplinami i w jakim stopniu jesteś zainteresowany?<br/>
+                        Oznacz to poniżej lub wypełnij szybki quiz 
+
+                        <p:commandButton value="Quiz"  actionListener="#{login.viewQuizCustomized()}" oncomplete="PF('w_dialog').show();" />
+                        <p:dialog widgetVar="w_dialog" modal="true">
+                            <p>Dialog's content.</p>
+                            <ui:include src="quiz.xhtml"></ui:include>    
+                        </p:dialog>
+
+                        <p:separator />
+                    </p:column>
+                </p:row>
+
+                <p:row>                    
+                    <p:column>
+                      <p:outputLabel value="Bieganie " />
+                        <p:outputPanel id="container"  layout="block" style="text-align: center;">                              
+                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.r_val}" step="5"  />                                
+                        </p:outputPanel>
+                    </p:column>    
+                    <p:column>
+                        <p:outputLabel value="Kolarstwo " /> 
+                        <p:outputPanel id="container2"  layout="block" style="text-align: center;">                              
+                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.b_val}" step="5"  />                                
+                        </p:outputPanel>
+                    </p:column>  
+                     <p:column>
+                         <p:outputLabel value="Pływanie" />
+                        <p:outputPanel id="container3"  layout="block" style="text-align: center;">                              
+                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.s_val}" step="5"  />                                
+                        </p:outputPanel>
+                    </p:column> 
+                     <p:column>
+                          <p:outputLabel value="Triathlon " />
+                        <p:outputPanel id="container4"  layout="block" style="text-align: center;">                              
+                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.t_val}" step="5"  />                                
+                        </p:outputPanel>
+                    </p:column> 
+                </p:row>
+
+
+                <p:row>
+                    <p:column>
+                        <p:selectBooleanCheckbox label="cboxrower" value="1" />      
+                    </p:column>
+                    <p:column colspan="2">
+                        <h6>Wyrażam zgodę na przesyłanie na podany adres e-mail informacji handlowych,<br/> 
+                            promocyjnych i marketingowych dotyczących produktów i usług, <br/>
+                            a także na przetwarzanie moich danych osobowych</h6>                   
+                    </p:column>       
+                </p:row>
+
+                <p:separator style="height:2px"/>        
+                <p:row>
+                    <p:column colspan="3">
+                        <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
+                        <p:commandButton  type="cancel" action="login.xhtml?faces-redirect=true" value="Anuluj" immediate="true"></p:commandButton>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>     
+        </h:form>
+
+
+    </h:body>
 </html>

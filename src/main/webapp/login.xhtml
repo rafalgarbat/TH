@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:fb="http://www.facebook.com/2008/fbml">
+      >
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
@@ -98,7 +98,7 @@
                     <p:column><p:commandButton  style="width: 450px; height: 30px" action="register.xhtml?faces-redirect=true" value="Załóż konto >"/></p:column>
                 </p:row>
                 <p:row>            
-                    <p:column><fb:login-button scope='email,publish_stream'>Zaloguj przez facebook</fb:login-button>
+                    <p:column>
 
                     </p:column>
                     <p:column></p:column>
