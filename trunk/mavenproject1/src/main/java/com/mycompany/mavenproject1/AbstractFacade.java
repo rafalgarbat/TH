@@ -5,11 +5,13 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.mavenproject1.auth.Users;
 import com.mycompany.mavenproject1.util.JsfUtil;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -25,7 +27,13 @@ public abstract class AbstractFacade<T> {
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
+    
+     public Users getUser(String uname) {
+        Query pQuery = getEntityManager().createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
+        Users pUser = (Users) pQuery.getResultList().get(0);
+        return pUser;
+    }
+    
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
