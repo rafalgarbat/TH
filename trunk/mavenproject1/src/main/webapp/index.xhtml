@@ -19,15 +19,12 @@
 
 
         <ui:define name="body">
-            <div style="height:500px">
+            
                 <h:form id="dupa">
                     <p:growl id="msgs" showDetail="true" />
 
-                    <p:dashboard id="board" model="#{dashboardController.model}">
-                        <p:ajax event="reorder"  update="msgs" />     
-
                         <p:panel id="sports"  toggleable="true" header="Najbliższe wydarzenie" >
-                            <h:panelGrid columns="1" cellpadding="10">  
+                            <h:panelGrid columns="1" >  
                                 <p align="center"> #{dashboardController.eventinfo.eventTitle}</p>
                                 <pe:knob widgetVar="knob" labelTemplate="{value}dni" disabled="true"
                                          value="#{dashboardController.eventinfo.daysToEvent}"
@@ -41,7 +38,7 @@
                         </p:panel>
 
                         <p:panel id="lifestyle" header="">
-                            <h:outputText value="Workout type: run.. ilość +km"  />
+                           <p:chart type="line" model="#{dashboardController.typyEventowlineModel}" style="height:300px;"/>
                         </p:panel>
 
                         <p:panel id="weather" header="Wydarzenia w okresie czasu" >
@@ -55,11 +52,10 @@
                         </p:panel>
 
 
-                    </p:dashboard>
-
+                  
                     <div style="clear:both" />
                 </h:form>
-            </div>
+          
         </ui:define>
     </ui:composition>
 
