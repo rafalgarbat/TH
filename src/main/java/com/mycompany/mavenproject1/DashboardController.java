@@ -45,7 +45,7 @@ public class DashboardController implements Serializable {
     private DashboardModel model;
     private BarChartModel barModel;
 
-    private EventInfo eventinfo;
+    private EventInfo eventinfo = new EventInfo();
 
     private HorizontalBarChartModel horizontalBarModel;
     
@@ -57,6 +57,7 @@ public class DashboardController implements Serializable {
     @PostConstruct
     public void init() {
         createEventInfo("ala");
+        createTrainingLineModels(); 
         createHorizontalBarModel();
         model = new DefaultDashboardModel();
         DashboardColumn column1 = new DefaultDashboardColumn();
@@ -137,9 +138,9 @@ public class DashboardController implements Serializable {
         this.horizontalBarModel = horizontalBarModel;
     }
 
-      private void createLineModels() {
+      private void createTrainingLineModels() {
         typyEventowlineModel = initLinearModel();
-        typyEventowlineModel.setTitle("Linear Chart");
+        typyEventowlineModel.setTitle("Typy treningów");
         typyEventowlineModel.setLegendPosition("e");
         Axis yAxis = typyEventowlineModel.getAxis(AxisType.Y);
         yAxis.setMin(0);

@@ -12,4 +12,10 @@ package com.mycompany.mavenproject1.wspolne;
 public class SlownikStalych {
     public final static int EVENT_BIORE_UDZIAL =0;
     public final static int EVENT_OBSERWOWANY =0;
+    
+    public final static String EVENT_TRIATHLON = "1";
+    public final static String EVENT_RUNING = "2";
+    public final static String EVENT_SWIMMING = "3";
+    public final static String EVENT_BIKE = "4";
+    
 }

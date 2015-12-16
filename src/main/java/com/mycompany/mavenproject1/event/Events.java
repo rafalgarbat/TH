@@ -299,7 +299,10 @@ public class Events implements Serializable {
     }
 
     public int getRating() {
-        return rating.intValue();
+        if (this.rating ==null){
+        return 0;
+        }
+        return this.rating.intValue();
     }
 
     public void setRating(int rating) {
