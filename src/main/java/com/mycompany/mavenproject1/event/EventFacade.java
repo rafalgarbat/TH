@@ -68,14 +68,15 @@ public class EventFacade extends AbstractFacade<Events> {
     /**
      * Zwraca mape z iloscią eventow dla danego czasu (maska)
      */
-    public HashMap<String, Long> podajStatystyki(String aUname, String aMask) {
+    public HashMap<String, Long> podajStatystyki(String aUname, String aMask, int aUdzial) {
         HashMap<String, Long> pStats = new HashMap<String, Long>();
         String pQuery = "select coalesce(d.data,'-'), d.count from ("
                 + "select to_char(e.dataod,'YYYY-MM') as data,count(*) from events e, userevents ue "
-                + "where ue.event_id =  e.id "
+                + "where ue.event_id =  e.id and ue.stan = ? "
                 + " group by to_char(e.dataod,'YYYY-MM') order by 1 "
                 + ")d";
-        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).getResultList();
+        
+        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, aUdzial).getResultList();
         for (Object[] ob : results) {
             String pKey = (String) ob[0];
             Long pVal = (Long) ob[1];

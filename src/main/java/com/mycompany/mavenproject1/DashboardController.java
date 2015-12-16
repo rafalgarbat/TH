@@ -8,6 +8,7 @@ package com.mycompany.mavenproject1;
 import com.mycompany.mavenproject1.auth.LoginFacade;
 import com.mycompany.mavenproject1.calendar.EventInfo;
 import com.mycompany.mavenproject1.event.EventFacade;
+import com.mycompany.mavenproject1.wspolne.SlownikStalych;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +31,8 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.HorizontalBarChartModel;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 /**
  *
@@ -45,6 +48,8 @@ public class DashboardController implements Serializable {
     private EventInfo eventinfo;
 
     private HorizontalBarChartModel horizontalBarModel;
+    
+    private LineChartModel typyEventowlineModel;
 
     @EJB
     private EventFacade eventFacade;
@@ -83,7 +88,7 @@ public class DashboardController implements Serializable {
         int pMaxLicznosc = 0;
         horizontalBarModel = new HorizontalBarChartModel();
 
-        HashMap pStats = eventFacade.podajStatystyki("ala", "YYYY-MM-DD");
+        HashMap pStats = eventFacade.podajStatystyki("ala", "YYYY-MM",SlownikStalych.EVENT_BIORE_UDZIAL);
         Iterator it = pStats.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -92,7 +97,17 @@ public class DashboardController implements Serializable {
                 pMaxLicznosc = ((Long) pair.getValue()).intValue();
             }
         }
+        pStats = eventFacade.podajStatystyki("ala", "YYYY-MM",SlownikStalych.EVENT_OBSERWOWANY);
+        it = pStats.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            myWatched.set(pair.getKey(), ((Long) pair.getValue()).intValue());
+            if (pMaxLicznosc < ((Long) pair.getValue()).intValue()) {
+                pMaxLicznosc = ((Long) pair.getValue()).intValue();
+            }
+        }
 
+        
         horizontalBarModel.addSeries(myEvents);
         horizontalBarModel.addSeries(myWatched);
 
@@ -102,7 +117,7 @@ public class DashboardController implements Serializable {
         Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
         xAxis.setLabel("Ilość");
         xAxis.setMin(0);
-        xAxis.setMax(pMaxLicznosc+2);
+        xAxis.setMax(pMaxLicznosc+5);
 
         Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
 
@@ -122,6 +137,45 @@ public class DashboardController implements Serializable {
         this.horizontalBarModel = horizontalBarModel;
     }
 
+      private void createLineModels() {
+        typyEventowlineModel = initLinearModel();
+        typyEventowlineModel.setTitle("Linear Chart");
+        typyEventowlineModel.setLegendPosition("e");
+        Axis yAxis = typyEventowlineModel.getAxis(AxisType.Y);
+        yAxis.setMin(0);
+        yAxis.setMax(10);
+               
+    }
+     
+    
+    private LineChartModel initLinearModel() {
+        LineChartModel model = new LineChartModel();
+ 
+        LineChartSeries series1 = new LineChartSeries();
+        series1.setLabel("Series 1");
+ 
+        series1.set(1, 2);
+        series1.set(2, 1);
+        series1.set(3, 3);
+        series1.set(4, 6);
+        series1.set(5, 8);
+ 
+        LineChartSeries series2 = new LineChartSeries();
+        series2.setLabel("Series 2");
+ 
+        series2.set(1, 6);
+        series2.set(2, 3);
+        series2.set(3, 2);
+        series2.set(4, 7);
+        series2.set(5, 9);
+ 
+        model.addSeries(series1);
+        model.addSeries(series2);
+         
+        return model;
+    }
+    
+    
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
 
@@ -194,4 +248,14 @@ public class DashboardController implements Serializable {
         this.eventinfo = eventinfo;
     }
 
+    public LineChartModel getTypyEventowlineModel() {
+        return typyEventowlineModel;
+    }
+
+    public void setTypyEventowlineModel(LineChartModel typyEventowlineModel) {
+        this.typyEventowlineModel = typyEventowlineModel;
+    }
+
+    
+    
 }
