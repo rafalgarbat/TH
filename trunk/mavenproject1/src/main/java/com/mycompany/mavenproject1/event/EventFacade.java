@@ -66,7 +66,7 @@ public class EventFacade extends AbstractFacade<Events> {
     }
 
     public HashMap<String, Long> podajStatystykiWydarzen(String aUname, String aMask, String aTypWydarzenia) {
-        HashMap<String, Long> pStats = new HashMap<String, Long>();
+        HashMap<String, Long> pStats = new HashMap<>();
         String pQuery = "select coalesce(d.data,'-'), d.count from ("
                 + "                select to_char(e.dataod,'YYYY-MM') as data,count(*) from events e, userevents ue "
                 + "                where ue.event_id =  e.id and e.typ_wydarzenia = '?'"
@@ -84,9 +84,13 @@ public class EventFacade extends AbstractFacade<Events> {
 
     /**
      * Zwraca mape z iloscią eventow dla danego czasu (maska)
+     * @param aUname
+     * @param aMask
+     * @param aUdzial
+     * @return 
      */
     public HashMap<String, Long> podajStatystyki(String aUname, String aMask, int aUdzial) {
-        HashMap<String, Long> pStats = new HashMap<String, Long>();
+        HashMap<String, Long> pStats = new HashMap<>();
         String pQuery = "select coalesce(d.data,'-'), d.count from ("
                 + "select to_char(e.dataod,'YYYY-MM') as data,count(*) from events e, userevents ue "
                 + "where ue.event_id =  e.id and ue.stan = ? "
