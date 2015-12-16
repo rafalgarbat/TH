@@ -44,25 +44,42 @@ public class EventFacade extends AbstractFacade<Events> {
         em.persist(us);
     }
 
-    public EventInfo podajNajblizsze(String aUname) {        
+    public EventInfo podajNajblizsze(String aUname) {
         Users pUser = getUser(aUname);
-        
-        Query pQuery =getEntityManager().createNativeQuery("select e.id, e.tytul, to_char(age(e.dataod,now()),'DD') from userevents ue, events e"
+
+        Query pQuery = getEntityManager().createNativeQuery("select e.id, e.tytul, to_char(age(e.dataod,now()),'DD') from userevents ue, events e"
                 + " where ue.event_id =  e.id"
                 + " and ue.user_id = ?"
                 + " and e.dataod > now()"
                 + " order by e.dataod"
                 + " limit 1");
         pQuery.setParameter(1, pUser.getUid());
-        EventInfo pei =  new EventInfo();
-        List<Object[]> results  = pQuery.getResultList();
+        EventInfo pei = new EventInfo();
+        List<Object[]> results = pQuery.getResultList();
         for (Object[] ob : results) {
-          pei.setEventId((int) ob[0]);
-          pei.setEventTitle((String) ob[1]);
-          pei.setDaysToEvent(new Integer((String)ob[2]));
+            pei.setEventId((int) ob[0]);
+            pei.setEventTitle((String) ob[1]);
+            pei.setDaysToEvent(new Integer((String) ob[2]));
         }
-        
-        return pei;    
+
+        return pei;
+    }
+
+    public HashMap<String, Long> podajStatystykiWydarzen(String aUname, String aMask, String aTypWydarzenia) {
+        HashMap<String, Long> pStats = new HashMap<String, Long>();
+        String pQuery = "select coalesce(d.data,'-'), d.count from ("
+                + "                select to_char(e.dataod,'YYYY-MM') as data,count(*) from events e, userevents ue "
+                + "                where ue.event_id =  e.id and e.typ_wydarzenia = '?'"
+                + "                 group by to_char(e.dataod,'YYYY-MM') order by 1 "
+                + "                )d order by 1";
+        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, aTypWydarzenia).getResultList();
+        for (Object[] ob : results) {
+            String pKey = (String) ob[0];
+            Long pVal = (Long) ob[1];
+            pStats.put(pKey, pVal);
+        }
+        return pStats;
+
     }
 
     /**
@@ -75,7 +92,7 @@ public class EventFacade extends AbstractFacade<Events> {
                 + "where ue.event_id =  e.id and ue.stan = ? "
                 + " group by to_char(e.dataod,'YYYY-MM') order by 1 "
                 + ")d";
-        
+
         List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, aUdzial).getResultList();
         for (Object[] ob : results) {
             String pKey = (String) ob[0];
