@@ -40,11 +40,13 @@ public class Login implements Serializable {
 
     public static String destination = "E:\\roboczy\\traininglib\\mavenproject1\\src\\main\\webapp\\resources\\images\\";
 
+    private String paramEventId;
+
     @EJB
     private LoginFacade loginFacade;
 
     private String langVersion;
-    
+
     private String uname;
     private String pwd;
     private String email;
@@ -57,7 +59,6 @@ public class Login implements Serializable {
     private int t_val;
     private String hashcode;
     private String msg;
-    
 
     public LoginFacade getLoginFacade() {
         return loginFacade;
@@ -67,22 +68,22 @@ public class Login implements Serializable {
         this.loginFacade = loginFacade;
     }
 
-    public StreamedContent  getImage(String aName)  throws IOException{
+    public StreamedContent getImage(String aName) throws IOException {
         StreamedContent content;
         //Image img = ImageIO.read(new File("strawberry.jpg"));
-        String path = destination+"ala_avatar.jpg";
+        String path = destination + "ala_avatar.jpg";
        // String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(path); 
-                        
+
         return new DefaultStreamedContent(new FileInputStream(path));
     }
-    
+
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-         ServletContext pCont = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
-         
+        ServletContext pCont = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+
         try {
-            copyFile(getUname()+"_avatar.jpg", event.getFile().getInputstream());
-            ImageUtil.imageResize(destination+"ala_avatar.jpg",destination+"ala_small_avatar.jpg" );
+            copyFile(getUname() + "_avatar.jpg", event.getFile().getInputstream());
+            ImageUtil.imageResize(destination + "ala_avatar.jpg", destination + "ala_small_avatar.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,7 +94,7 @@ public class Login implements Serializable {
         try {
             File pCurrentFile = new File(destination + fileName);
             pCurrentFile.delete();
-            
+
             OutputStream out = new FileOutputStream(new File(destination + fileName));
 
             int read = 0;
@@ -209,8 +210,6 @@ public class Login implements Serializable {
         this.msg = msg;
     }
 
-   
-
     public void viewQuizCustomized() {
         Map<String, Object> options = new HashMap<>();
         options.put("modal", true);
@@ -223,11 +222,11 @@ public class Login implements Serializable {
         RequestContext.getCurrentInstance().openDialog("quiz.xhtml", options, null);
     }
 
-    public String onChange(){  
+    public String onChange() {
         return "lalala";
-    //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "You have selected: " + value, null));  
-    } 
-    
+        //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "You have selected: " + value, null));  
+    }
+
     public String validateRegistrationURL() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String parameter_value = (String) facesContext.getExternalContext().getRequestParameterMap().get("regURL");
@@ -299,10 +298,14 @@ public class Login implements Serializable {
         this.langVersion = langVersion;
     }
 
-    
-    public String getName(String aObjName){        
-         return "x";
+    public String getName(String aObjName) {
+        return "x";
     }
-    
-    
+
+    public String getParamEventId() {
+
+        Map<String, String> paramMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        return paramMap.get("paramEventId");
+    }
+
 }
