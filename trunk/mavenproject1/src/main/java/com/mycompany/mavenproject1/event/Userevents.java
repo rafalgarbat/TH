@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Jaroslaw.Skrzydlo  
+ * @author Jaroslaw.Skrzydlo
  */
 @Entity
 @Table(name = "userevents")
@@ -33,18 +33,39 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Userevents.findByUid", query = "SELECT u FROM Userevents u WHERE u.uid = :uid"),
     @NamedQuery(name = "Userevents.findByStan", query = "SELECT u FROM Userevents u WHERE u.stan = :stan")})
 public class Userevents implements Serializable {
+
     private static final long serialVersionUID = 1L;
-        @Id
-    	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userevents_uid_seq")
-	@SequenceGenerator(
-		name="userevents_uid_seq",
-		sequenceName="userevents_uid_seq",
-		allocationSize=3
-	)    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userevents_uid_seq")
+    @SequenceGenerator(
+            name = "userevents_uid_seq",
+            sequenceName = "userevents_uid_seq",
+            allocationSize = 3
+    )
     @Column(name = "uid")
     private Integer uid;
+    
     @Column(name = "stan")
     private Integer stan;
+
+    @Column(name = "duration")
+    private String duration;
+    
+    @Column(name = "distance")
+    private String distance;
+    
+    @Column(name = "kalorie")
+    private String kalorie;
+    
+    @Column(name = "uwagi")
+    private String uwagi;
+    
+    @Column(name = "link")
+    private String link;
+    
+    @Column(name = "completed")
+    private boolean completed;
+
     @JoinColumn(name = "user_id", referencedColumnName = "uid")
     @ManyToOne
     private Users userId;
@@ -91,6 +112,54 @@ public class Userevents implements Serializable {
         this.eventId = eventId;
     }
 
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getKalorie() {
+        return kalorie;
+    }
+
+    public void setKalorie(String kalorie) {
+        this.kalorie = kalorie;
+    }
+
+    public String getUwagi() {
+        return uwagi;
+    }
+
+    public void setUwagi(String uwagi) {
+        this.uwagi = uwagi;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,5 +184,5 @@ public class Userevents implements Serializable {
     public String toString() {
         return "com.mycompany.mavenproject1.event.Userevents[ uid=" + uid + " ]";
     }
-    
+
 }
