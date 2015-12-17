@@ -19,43 +19,55 @@
 
 
         <ui:define name="body">
-            
-                <h:form id="dupa">
-                    <p:growl id="msgs" showDetail="true" />
 
-                        <p:panel id="sports"  toggleable="true" header="Najbliższe wydarzenie" >
-                            <h:panelGrid columns="1" >  
-                                <p align="center"> #{dashboardController.eventinfo.eventTitle}</p>
-                                <pe:knob widgetVar="knob" labelTemplate="{value}dni" disabled="true"
-                                         value="#{dashboardController.eventinfo.daysToEvent}"
-                                         thickness=".4"
-                                         />
-                            </h:panelGrid>    
+            <h:form id="dupa">
+                <p:growl id="msgs" showDetail="true" />
+                <p:panel id="firstPanel" header="Statystki" toggleable="true">
+
+
+                    <h:panelGrid columns="4" border="0" >  
+                        <p:panel id="sports"  toggleable="true" style="height: 400px"  >
+                            <h:outputLabel value="Najbliższe wydarzenie za: "/><hr/>
+                            <pe:knob widgetVar="knob" labelTemplate="{value}dni" disabled="true" 
+                                     value="#{dashboardController.eventinfo.daysToEvent}"
+                                     thickness=".4"  />
+                            <hr/>
+                            <div style="max-width: 300px">
+                             #{dashboardController.eventinfo.eventTitle}   
+                            </div>
                         </p:panel>
 
-                        <p:panel id="finance" header="Kalendarz">
-                          
-                        </p:panel>
+                        <p:panel  style="width: 400px; height: 400px;">
+                             <h:outputLabel value="Ilość wydarzeń w miesiącu: "/><hr/>
+                            <p:chart type="bar" model="#{dashboardController.barAnimatedModel}"/>
+                        </p:panel>   
+                        <p:panel>3</p:panel>   
+                        <p:panel>4</p:panel>   
+                    </h:panelGrid> 
+                </p:panel>
+                <p:panel id="finance" header="Kalendarz">
 
-                        <p:panel id="lifestyle" header="">
-                           <p:chart type="line" model="#{dashboardController.typyEventowlineModel}" style="height:300px;"/>
-                        </p:panel>
+                </p:panel>
 
-                        <p:panel id="weather" header="Wydarzenia w okresie czasu" >
-                            <p:selectOneMenu id="onemenu">
-                                <f:selectItem itemLabel="w miesiącu" itemValue="YYYY-MM" />
-                                <f:selectItem itemLabel="w dniu" itemValue="YYYY-MM-DD" />
-                                <f:selectItem itemLabel="w roku" itemValue="YYYY" />
-                            </p:selectOneMenu>
-                            <p:chart type="bar"                                      
-                                     model="#{dashboardController.horizontalBarModel}" style="height:300px"/>
-                        </p:panel>
+                <p:panel id="lifestyle" header="">
+                    <p:chart type="line" model="#{dashboardController.typyEventowlineModel}" style="height:300px;"/>
+                </p:panel>
+
+                <p:panel id="weather" header="Wydarzenia w okresie czasu" >
+                    <p:selectOneMenu id="onemenu">
+                        <f:selectItem itemLabel="w miesiącu" itemValue="YYYY-MM" />
+                        <f:selectItem itemLabel="w dniu" itemValue="YYYY-MM-DD" />
+                        <f:selectItem itemLabel="w roku" itemValue="YYYY" />
+                    </p:selectOneMenu>
+                    <p:chart type="bar"                                      
+                             model="#{dashboardController.horizontalBarModel}" style="height:300px"/>
+                </p:panel>
 
 
-                  
-                    <div style="clear:both" />
-                </h:form>
-          
+
+                <div style="clear:both" />
+            </h:form>
+
         </ui:define>
     </ui:composition>
 

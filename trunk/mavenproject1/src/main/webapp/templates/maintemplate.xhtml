@@ -39,8 +39,11 @@
                     <pe:layoutPane position="center" minHeight="60">  
                         <h:form>  
                             <p:growl id="messages"/>
-
-                            <p:menubar>
+                                    
+                            <p:menubar>                              
+                                <p:menuitem value="Trening na dziś"
+                                            style="color: green;background-color:gainsboro"
+                                            outcome="/index.xhtml"  />
                                 <p:submenu label="Start" icon="ui-icon-document">                                    
                                     <p:menuitem value="Pulpit" outcome="/index.xhtml"  />
                                     <p:menuitem value="Ustawienia" outcome="/profil/profil.xhtml"  />

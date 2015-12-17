@@ -44,11 +44,12 @@ public class DashboardController implements Serializable {
 
     private DashboardModel model;
     private BarChartModel barModel;
+    private BarChartModel barAnimatedModel; /*Wydarzenia w tym miesiacu*/
 
     private EventInfo eventinfo = new EventInfo();
 
     private HorizontalBarChartModel horizontalBarModel;
-    
+
     private LineChartModel typyEventowlineModel;
 
     @EJB
@@ -57,8 +58,9 @@ public class DashboardController implements Serializable {
     @PostConstruct
     public void init() {
         createEventInfo("ala");
-        createTrainingLineModels(); 
+        createTrainingLineModels();
         createHorizontalBarModel();
+        createBarAnimatedModels();
         model = new DefaultDashboardModel();
         DashboardColumn column1 = new DefaultDashboardColumn();
         DashboardColumn column2 = new DefaultDashboardColumn();
@@ -89,7 +91,7 @@ public class DashboardController implements Serializable {
         int pMaxLicznosc = 0;
         horizontalBarModel = new HorizontalBarChartModel();
 
-        HashMap pStats = eventFacade.podajStatystyki("ala", "YYYY-MM",SlownikStalych.EVENT_BIORE_UDZIAL);
+        HashMap pStats = eventFacade.podajStatystyki("ala", "YYYY-MM", SlownikStalych.EVENT_BIORE_UDZIAL);
         Iterator it = pStats.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -98,7 +100,7 @@ public class DashboardController implements Serializable {
                 pMaxLicznosc = ((Long) pair.getValue()).intValue();
             }
         }
-        pStats = eventFacade.podajStatystyki("ala", "YYYY-MM",SlownikStalych.EVENT_OBSERWOWANY);
+        pStats = eventFacade.podajStatystyki("ala", "YYYY-MM", SlownikStalych.EVENT_OBSERWOWANY);
         it = pStats.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -108,7 +110,6 @@ public class DashboardController implements Serializable {
             }
         }
 
-        
         horizontalBarModel.addSeries(myEvents);
         horizontalBarModel.addSeries(myWatched);
 
@@ -118,7 +119,7 @@ public class DashboardController implements Serializable {
         Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
         xAxis.setLabel("Ilość");
         xAxis.setMin(0);
-        xAxis.setMax(pMaxLicznosc+5);
+        xAxis.setMax(pMaxLicznosc + 5);
 
         Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
 
@@ -138,45 +139,84 @@ public class DashboardController implements Serializable {
         this.horizontalBarModel = horizontalBarModel;
     }
 
-      private void createTrainingLineModels() {
+    private void createTrainingLineModels() {
         typyEventowlineModel = initLinearModel();
         typyEventowlineModel.setTitle("Typy treningów");
         typyEventowlineModel.setLegendPosition("e");
         Axis yAxis = typyEventowlineModel.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(10);
-               
+
     }
-     
-    
+
+    private void createBarAnimatedModels() {
+        barAnimatedModel = initBarAnimatedModel();
+        //barAnimatedModel.setTitle("");
+        barAnimatedModel.setAnimate(true);
+        barAnimatedModel.setLegendPosition("ne");
+        Axis yAxis = barAnimatedModel.getAxis(AxisType.Y);
+        yAxis.setMin(0);
+        yAxis.setMax(150);
+    }
+
+    /**
+     * Inicjalizuje wykres na stronie glownej z podsumowaniem wydarzen w obecnym
+     * miesiacu
+     */
+    private BarChartModel initBarAnimatedModel() {
+        BarChartModel model = new BarChartModel();
+
+        ChartSeries pBike = new ChartSeries();
+        pBike.setLabel("Bike");
+        pBike.set("2004", 120);
+
+        ChartSeries pSwim = new ChartSeries();
+        pSwim.setLabel("Swim");
+        pSwim.set("2004", 52);
+
+        ChartSeries pRun = new ChartSeries();
+        pRun.setLabel("Run");
+        pRun.set("2004", 20);
+
+        ChartSeries pTri = new ChartSeries();
+        pTri.setLabel("Tri");
+        pTri.set("2004", 72);
+
+        model.addSeries(pBike);
+        model.addSeries(pSwim);
+        model.addSeries(pRun);
+        model.addSeries(pTri);
+
+        return model;
+    }
+
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
- 
+
         LineChartSeries series1 = new LineChartSeries();
         series1.setLabel("Series 1");
- 
+
         series1.set(1, 2);
         series1.set(2, 1);
         series1.set(3, 3);
         series1.set(4, 6);
         series1.set(5, 8);
- 
+
         LineChartSeries series2 = new LineChartSeries();
         series2.setLabel("Series 2");
- 
+
         series2.set(1, 6);
         series2.set(2, 3);
         series2.set(3, 2);
         series2.set(4, 7);
         series2.set(5, 9);
- 
+
         model.addSeries(series1);
         model.addSeries(series2);
-         
+
         return model;
     }
-    
-    
+
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
 
@@ -257,6 +297,13 @@ public class DashboardController implements Serializable {
         this.typyEventowlineModel = typyEventowlineModel;
     }
 
-    
+    public BarChartModel getBarAnimatedModel() {
+        return barAnimatedModel;
+    }
+
+    public void setBarAnimatedModel(BarChartModel barAnimatedModel) {
+        this.barAnimatedModel = barAnimatedModel;
+    }
+
     
 }
