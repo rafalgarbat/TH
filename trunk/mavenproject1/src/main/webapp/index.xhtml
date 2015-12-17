@@ -23,9 +23,8 @@
             <h:form id="dupa">
                 <p:growl id="msgs" showDetail="true" />
                 <p:panel id="firstPanel" header="Statystki" toggleable="true">
-
-
                     <h:panelGrid columns="4" border="0" >  
+                        
                         <p:panel id="sports"  toggleable="true" style="height: 400px"  >
                             <h:outputLabel value="Najbliższe wydarzenie za: "/><hr/>
                             <pe:knob widgetVar="knob" labelTemplate="{value}dni" disabled="true" 
@@ -33,27 +32,40 @@
                                      thickness=".4"  />
                             <hr/>
                             <div style="max-width: 300px">
-                             #{dashboardController.eventinfo.eventTitle}   
+                                #{dashboardController.eventinfo.eventTitle}   
                             </div>
+                            <hr/>
+                            <p:commandButton value="Idz do wydarzenia"/>
                         </p:panel>
 
                         <p:panel  style="width: 400px; height: 400px;">
-                             <h:outputLabel value="Ilość wydarzeń w miesiącu: "/><hr/>
+                            <h:outputLabel value="Ilość wydarzeń w miesiącu: "/><hr/>
                             <p:chart type="bar" model="#{dashboardController.barAnimatedModel}"/>
                         </p:panel>   
-                        <p:panel>3</p:panel>   
-                        <p:panel>4</p:panel>   
+                        <p:panel>
+                            <h:panelGrid columnClasses="value" style="width:400px;  ">
+                                <p:schedule id="schedulex" value="#{userScheduleBean.eventModel}" widgetVar="myschedule" timeZone="GMT+1" />                        
+                            </h:panelGrid>
+
+                        </p:panel> 
+                        <p:panel style="height: 400px;">
+                            <h:panelGrid columns="1" border="0" >   
+                                <h:outputLabel value="Wszystkich aktywności: ">3</h:outputLabel>
+                                <h:outputLabel value="Przebiegnięty dytans: ">3</h:outputLabel>
+                                <h:outputLabel value="Przebiejechany dystans: ">3</h:outputLabel>
+                                <h:outputLabel value="Przepłynięty dystans: ">3</h:outputLabel>
+                                <h:outputLabel value="Zaległyh treningów: ">3</h:outputLabel>
+                            </h:panelGrid>   
+                        </p:panel>
+                        
                     </h:panelGrid> 
                 </p:panel>
-                <p:panel id="finance" header="Kalendarz">
 
-                </p:panel>
-
-                <p:panel id="lifestyle" header="">
+                <p:panel id="lifestyle" header="" toggleable="true">
                     <p:chart type="line" model="#{dashboardController.typyEventowlineModel}" style="height:300px;"/>
                 </p:panel>
 
-                <p:panel id="weather" header="Wydarzenia w okresie czasu" >
+                <p:panel id="weather" header="Wydarzenia w okresie czasu" toggleable="true" >
                     <p:selectOneMenu id="onemenu">
                         <f:selectItem itemLabel="w miesiącu" itemValue="YYYY-MM" />
                         <f:selectItem itemLabel="w dniu" itemValue="YYYY-MM-DD" />
