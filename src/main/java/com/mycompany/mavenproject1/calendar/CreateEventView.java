@@ -28,6 +28,7 @@ public class CreateEventView {
     @PostConstruct
     public void init() {
     czyCykliczne="0";
+    newEvent = new Events();
     }
 
     public Events getNewEvent() {
