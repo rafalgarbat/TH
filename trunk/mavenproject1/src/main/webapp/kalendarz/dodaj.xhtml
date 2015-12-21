@@ -14,10 +14,14 @@
         <ui:define name="body"> 
 
             <h:form id="addEventForm">
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                  
-
-                    <p:outputLabel for="typWydarzenia" value="typWydarzenia" />
+                
+                <h:panelGrid columns="2" style="margin-bottom:0px" cellpadding="5">                  
+                    <h:panelGrid columns="2">
+                        
+                    <p:outputLabel for="nazwaWydarzenia" value="Nazwa" />
+                    <p:inputText id="nazwaWydarzenia" style="width: 100%"/>
+                    
+                    <p:outputLabel for="typWydarzenia" value="Typ wydarzenia" />
                     <p:selectOneButton id ="typWydarzenia" >
                         <f:selectItem itemLabel="Kolarstwo" itemValue="4" />
                         <f:selectItem itemLabel="Pływanie" itemValue="3" />
@@ -25,27 +29,27 @@
                         <f:selectItem itemLabel="Triathlon" itemValue="1" />
                     </p:selectOneButton>   
 
-                    <p:outputLabel for="rodzajWydarzenia" value="rodzajWydarzenia" />
+                    <p:outputLabel for="rodzajWydarzenia" value="Rodzaj" />
                     <p:selectOneButton id ="rodzajWydarzenia" >
                         <f:selectItem itemLabel="Zawody" itemValue="1" />
                         <f:selectItem itemLabel="Trening" itemValue="2" />
                         <f:selectItem itemLabel="Inne" itemValue="3" />                             
                     </p:selectOneButton>   
 
-                    <p:outputLabel for="czyPubliczne" value="czyPubliczne?" />
+                    <p:outputLabel for="czyPubliczne" value="Publiczne?" />
                     <p:selectOneButton id ="czyPubliczne" >
                         <f:selectItem itemLabel="Tak" itemValue="1" />
                         <f:selectItem itemLabel="Nie" itemValue="2" />                               
                     </p:selectOneButton>   
 
-                    <p:outputLabel for="czyCykliczne" value="Wydarzenie cykliczne?" />
+                    <p:outputLabel for="czyCykliczne" value="Cykliczne?" />
                     <p:selectOneMenu id="czyCykliczne" value="#{createeventview.czyCykliczne}" >                        
                         <f:selectItem itemLabel="Nie" itemValue="2" />
                         <f:selectItem itemLabel="Tak" itemValue="1"  />
                         <f:ajax  render="@form" />
                     </p:selectOneMenu> 
   
-                    <p:outputLabel for="cyklicznie" value="xxxx:" rendered="#{createeventview.czyCykliczne== '1'}"/>
+                    <p:outputLabel for="cyklicznie" value="" rendered="#{createeventview.czyCykliczne== '1'}"/>
                     <h:panelGroup id="cyklicznie" rendered="#{createeventview.czyCykliczne== '1'}">                 
                         <h:panelGrid columns="2">
                             <p:outputLabel for="powtarzane" value="Powtarzane co" />
@@ -54,19 +58,40 @@
                                 <f:selectItem itemLabel="Miesiąc" itemValue="2" />                               
                                 <f:selectItem itemLabel="Rok" itemValue="3" />                               
                             </p:selectOneButton>   
+                            <p:outputLabel for="powtarzaneprzez" value="Ilość powtórzeń " />
+                            <p:inputMask id="powtarzaneprzez" value="1" mask="99"/>
                         </h:panelGrid>
                     </h:panelGroup>
 
-
+                    <p:outputLabel for="czyCalodniowe" value="Całodniowe?" />
+                    <p:selectOneMenu id="czyCalodniowe" value="#{createeventview.newEvent.czycalydzien}" >                        
+                        <f:selectItem itemLabel="Nie" itemValue="2" />
+                        <f:selectItem itemLabel="Tak" itemValue="1"  />
+                        <f:ajax  render="@form" />
+                    </p:selectOneMenu> 
+  
 
                     <p:outputLabel for="datetime" value="Początek" />
                     <p:calendar id="datetime"  pattern="MM/dd/yyyy HH:mm" mode="inline"/>
 
-                    <p:outputLabel for="datetime_end" value="Koniec" />
-                    <p:calendar id="datetime_end"  pattern="MM/dd/yyyy HH:mm" mode="inline" />
+                    <p:outputLabel for="datetime_end" value="Koniec" rendered="#{createeventview.newEvent.czycalydzien =='2'}" />
+                    <p:calendar id="datetime_end"  pattern="MM/dd/yyyy HH:mm" mode="inline" 
+                                rendered="#{createeventview.newEvent.czycalydzien =='2'}"
+                                />
 
-                    <p:inputTextarea rows="6" cols="33" />
+                   
 
+                    </h:panelGrid>
+                    
+                    <h:panelGrid>
+                        <p:outputLabel for="opis" value="Opis" />
+                        <p:editor id="opis" widgetVar="editorWidget" width="600" />
+                        <hr/>
+                        <p:outputLabel for="keywords" value="Słowa kluczowe" />
+                        <p:editor id="keywords" widgetVar="editorWidget2" width="600" />
+                    </h:panelGrid>
+
+                   
                 </h:panelGrid>
 
 
