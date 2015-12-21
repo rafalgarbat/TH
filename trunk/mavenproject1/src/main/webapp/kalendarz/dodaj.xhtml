@@ -10,36 +10,69 @@
     <h:head>        
         <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
     </h:head>
-
     <ui:composition template="/templates/maintemplate.xhtml">
         <ui:define name="body"> 
+
             <h:form id="addEventForm">
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    
-                    <p:outputLabel for="console" value="" />
-                    <p:inputText id="nazwa"/>
-                    
-                    <p:outputLabel for="console" value="Rodzaj" />
-                    <p:selectOneRadio id="console" value="">
-                        <f:selectItem itemLabel="Wydarzenie" itemValue="Xbox One" />
-                        <f:selectItem itemLabel="Trening" itemValue="PS4" />
-                        <f:selectItem itemLabel="Zawody" itemValue="Wii U" />
-                    </p:selectOneRadio>
+                  
 
-                    <p:outputLabel for="console" value="Typ" />
-                    <p:selectManyCheckbox id="basic" >
-                        <f:selectItem itemLabel="Kolarstwo" itemValue="Xbox One" />
-                        <f:selectItem itemLabel="Bieganie" itemValue="PS4" />
-                        <f:selectItem itemLabel="Pływanie" itemValue="Wii U" />
-                        <f:selectItem itemLabel="Triathlon" itemValue="Wii U" />
-                    </p:selectManyCheckbox>
-                    
+                    <p:outputLabel for="typWydarzenia" value="typWydarzenia" />
+                    <p:selectOneButton id ="typWydarzenia" >
+                        <f:selectItem itemLabel="Kolarstwo" itemValue="4" />
+                        <f:selectItem itemLabel="Pływanie" itemValue="3" />
+                        <f:selectItem itemLabel="Bieganie" itemValue="2" />
+                        <f:selectItem itemLabel="Triathlon" itemValue="1" />
+                    </p:selectOneButton>   
+
+                    <p:outputLabel for="rodzajWydarzenia" value="rodzajWydarzenia" />
+                    <p:selectOneButton id ="rodzajWydarzenia" >
+                        <f:selectItem itemLabel="Zawody" itemValue="1" />
+                        <f:selectItem itemLabel="Trening" itemValue="2" />
+                        <f:selectItem itemLabel="Inne" itemValue="3" />                             
+                    </p:selectOneButton>   
+
+                    <p:outputLabel for="czyPubliczne" value="czyPubliczne?" />
+                    <p:selectOneButton id ="czyPubliczne" >
+                        <f:selectItem itemLabel="Tak" itemValue="1" />
+                        <f:selectItem itemLabel="Nie" itemValue="2" />                               
+                    </p:selectOneButton>   
+
+                    <p:outputLabel for="czyCykliczne" value="Wydarzenie cykliczne?" />
+                    <p:selectOneMenu id="czyCykliczne" value="#{createeventview.czyCykliczne}" >                        
+                        <f:selectItem itemLabel="Nie" itemValue="2" />
+                        <f:selectItem itemLabel="Tak" itemValue="1"  />
+                        <f:ajax  render="@form" />
+                    </p:selectOneMenu> 
+  
+                    <p:outputLabel for="cyklicznie" value="xxxx:" rendered="#{createeventview.czyCykliczne== '1'}"/>
+                    <h:panelGroup id="cyklicznie" rendered="#{createeventview.czyCykliczne== '1'}">                 
+                        <h:panelGrid columns="2">
+                            <p:outputLabel for="powtarzane" value="Powtarzane co" />
+                            <p:selectOneButton id ="powtarzane" >
+                                <f:selectItem itemLabel="Tydzien" itemValue="1" />
+                                <f:selectItem itemLabel="Miesiąc" itemValue="2" />                               
+                                <f:selectItem itemLabel="Rok" itemValue="3" />                               
+                            </p:selectOneButton>   
+                        </h:panelGrid>
+                    </h:panelGroup>
+
+
+
+                    <p:outputLabel for="datetime" value="Początek" />
+                    <p:calendar id="datetime"  pattern="MM/dd/yyyy HH:mm" mode="inline"/>
+
+                    <p:outputLabel for="datetime_end" value="Koniec" />
+                    <p:calendar id="datetime_end"  pattern="MM/dd/yyyy HH:mm" mode="inline" />
+
                     <p:inputTextarea rows="6" cols="33" />
-                    
+
                 </h:panelGrid>
 
 
             </h:form>
+
         </ui:define>
     </ui:composition>
+
 </html>
