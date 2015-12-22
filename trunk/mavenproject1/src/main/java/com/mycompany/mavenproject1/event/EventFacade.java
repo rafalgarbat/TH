@@ -7,7 +7,11 @@ package com.mycompany.mavenproject1.event;
 
 import com.mycompany.mavenproject1.AbstractFacade;
 import com.mycompany.mavenproject1.auth.Users;
+import com.mycompany.mavenproject1.calendar.Calendarevents;
+import com.mycompany.mavenproject1.calendar.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
+import com.mycompany.mavenproject1.calendar.Usercalendars;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,6 +36,15 @@ public class EventFacade extends AbstractFacade<Events> {
 
     public EventFacade() {
         super(Events.class);
+    }
+
+    public List<Userevents> getEventyUzytkownika(String aUname) {
+        Users pUser = (Users) getUser(aUname);
+        List<Userevents> pList = new ArrayList<>();
+        for (Userevents pUserEvent : pUser.getUsereventsCollection()) {
+            pList.add(pUserEvent);
+        }
+        return pList;
     }
 
     public void obserwujWydarzenie(UserScheduleEvent selectedEvent, String uname) {
@@ -84,10 +97,11 @@ public class EventFacade extends AbstractFacade<Events> {
 
     /**
      * Zwraca mape z iloscią eventow dla danego czasu (maska)
+     *
      * @param aUname
      * @param aMask
      * @param aUdzial
-     * @return 
+     * @return
      */
     public HashMap<String, Long> podajStatystyki(String aUname, String aMask, int aUdzial) {
         HashMap<String, Long> pStats = new HashMap<>();

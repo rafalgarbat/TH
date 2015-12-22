@@ -16,21 +16,41 @@
 
     <ui:composition template="/templates/maintemplate.xhtml">
         <ui:define name="body">
-
-
-
-
             <h:form id="todayTrainingForm" >
-                <h:panelGrid columns="2" id="zbiorczyPanelPG">
-                    <p:panel header="Trening na dzień na 2015-12-19" style="height: 500px;">
+                <p:growl id="msgs" showDetail="true" />
+                <h:panelGrid id="mojeTreningiPG" columns="3">
+                    <p:dataTable value="#{todayTrainingController.getMojeEventy(login.uname)}" 
+                                 var="userevents"
+                                 selection="#{todayTrainingController.selectedUserEvent}" 
+                                 rowKey="#{userevents.uid}"
+                                 selectionMode="single"
+                                 paginator="true"
+                                 paginatorPosition="top"
+                                 rows="30"
+                                 >  
+                        <p:ajax event="rowSelect" listener="#{todayTrainingController.onRowSelect}" update="@([id$=opisTreninguPG])" process="@this"/>
+
+                        <p:column headerText="Data">
+                            #{userevents.eventId.dataod} 
+                        </p:column>
+                        <p:column headerText="Tytul">
+                            #{userevents.eventId.tytul} 
+                        </p:column>
+                        <p:column headerText="Typ">
+                            #{userevents.eventId.typ_wydarzenia} 
+                        </p:column>
+                    </p:dataTable>
+
+
+                    <p:panel header="Trening na dzień na 2015-12-19" >
                         <h:panelGrid id="opisTreninguPG">
                             <p:row>
-                                <p:column>Trening #{todayTrainingController.myEvent.typ_wydarzenia} Nazwa: </p:column>
-                                <p:column><h:outputLabel value="#{todayTrainingController.myEvent.tytul}"/></p:column>                             
+                                <p:column>Trening #{todayTrainingController.selectedUserEvent.typ_wydarzenia} Nazwa: </p:column>
+                                <p:column><h:outputLabel value="#{todayTrainingController.selectedUserEvent.tytul}"/></p:column>                             
                             </p:row>
                             <p:row>                                
                                 <p:column colspan="2">tuu opis treningu do wykoania
-                                    <h:outputText value="#{todayTrainingController.myEvent.opis}"/></p:column>
+                                    <h:outputText value="#{todayTrainingController.selectedUserEvent.opis}"/></p:column>
                             </p:row>
 
                         </h:panelGrid>    
@@ -39,11 +59,11 @@
                     <p:panel header="Dane treningu" style="height: 500px;">
                         <h:panelGrid columns="2">
                             <p:outputLabel for="stanTreningu" value="stanTreningu"   />
-                            <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.myUserEvent.completed}">
+                            <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
                                 <f:selectItem itemLabel="Zrobiony" itemValue="0" />
                                 <f:selectItem itemLabel="Nie zrobiony" itemValue="1" />
                             </p:selectOneButton>   
-                            
+
                             <p:outputLabel for="duration" value="duration" />
                             <p:inputText id="duration"/>
 
@@ -52,15 +72,15 @@
 
                             <p:outputLabel for="kalorie" value="kalorie" />
                             <p:inputText id="kalorie"/> 
-                            
+
                             <p:outputLabel for="uwagi" value="uwagi" />
                             <p:inputTextarea id="uwagi" cols="50" rows="10"/>
-  
+
                             <p:outputLabel for="link" value="link" />
                             <p:inputText id="link" >
                                 <p:watermark for="link" value="Link do zapisu treningu Garmin/Strava/Polar..." id="link_watermark" /> 
                             </p:inputText> 
-                            
+
                         </h:panelGrid>  
 
 
@@ -68,8 +88,10 @@
 
 
 
-                </h:panelGrid> 
-            </h:form>
+
+                </h:panelGrid>
+            </h:form>    
+
 
         </ui:define>
     </ui:composition>
