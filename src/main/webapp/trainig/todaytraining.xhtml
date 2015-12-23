@@ -14,48 +14,48 @@
     <ui:composition template="/templates/maintemplate.xhtml">
         <ui:define name="body">  
 
+            <f:facet name="last">
+                <h:outputStylesheet library="css" name="mycustom.css" />
+            </f:facet>
             <h:form id="form" >
-                <p:growl id="msgs" showDetail="true" />
-                <p:panelGrid columns="3">
-                    <p:dataTable value="#{todayTrainingController.getMojeEventy(login.uname)}" 
-                                 var="userevents"
-                                 selection="#{todayTrainingController.selectedUserEvent}" 
-                                 rowKey="#{userevents.uid}"
-                                 selectionMode="single"
-                                 paginator="true"
-                                 paginatorPosition="top"
-                                 rows="30"
-                                 >  
-                        <p:ajax event="rowSelect" 
-                                listener="#{todayTrainingController.onRowSelect}" 
-                                update="@([id$=opisTreninguPG])" />
+                <p:growl id="msgs" showDetail="true"  />
 
-                        <p:column headerText="Data">
-                            #{userevents.eventId.dataod} 
-                        </p:column>
-                        <p:column headerText="Tytul">
-                            #{userevents.eventId.tytul} 
-                        </p:column>
-                        <p:column headerText="Typ">
-                            #{userevents.eventId.typ_wydarzenia} 
-                        </p:column>
-                    </p:dataTable>
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <p:panel>
 
-                    <h:panelGrid id="opisTreninguPG">
-                        <p:row>
-                            <p:column>Trening #{todayTrainingController.selectedUserEvent.uid} Nazwa: </p:column>
-                            <p:column><h:outputLabel value="#{todayTrainingController.selectedUserEvent.eventId.tytul}"/></p:column>                             
-                        </p:row>
-                        <p:row>                                
-                            <p:column colspan="2">tuu opis treningu do wykoania
-                                <h:outputText value="#{todayTrainingController.selectedUserEvent.eventId.opis}"/></p:column>
-                        </p:row>
+                        <p:dataTable value="#{todayTrainingController.getMojeEventy(login.uname)}" 
+                                     var="userevents"
+                                     selection="#{todayTrainingController.selectedUserEvent}" 
+                                     rowKey="#{userevents.uid}"
+                                     selectionMode="single"
+                                     paginator="true"
+                                     paginatorPosition="top"
+                                     rows="30"
+                                     >  
+                            <p:ajax event="rowSelect" 
+                                    listener="#{todayTrainingController.onRowSelect}" 
+                                    update="@([id$=opisTreninguPG])" />
 
-                    </h:panelGrid>    
+                            <p:column headerText="Data">
+                                #{userevents.eventId.dataod} 
+                            </p:column>
+                            <p:column headerText="Tytul">
+                                #{userevents.eventId.tytul} 
+                            </p:column>
+                            <p:column headerText="Typ">
+                                #{userevents.eventId.typ_wydarzenia} 
+                            </p:column>
+                        </p:dataTable>
 
+                    </p:panel>
 
-                    <p:panel id="daneTreninguPl" header="Dane treningu" style="height: 500px;">
-                        <h:panelGrid columns="2">
+                    <p:panel >
+
+                        <h:panelGrid columns="2" id="opisTreninguPG"  columnClasses="alignTop,alignTop">
+
+                            <p:outputLabel  value="xxx"    />
+                            Trening #{todayTrainingController.selectedUserEvent.uid} 
+
                             <p:outputLabel for="stanTreningu" value="stanTreningu"   />
                             <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
                                 <f:selectItem itemLabel="Zrobiony" itemValue="0" />
@@ -83,7 +83,9 @@
 
 
                     </p:panel>
-                </p:panelGrid>
+                </h:panelGrid>
+
+
             </h:form>    
 
 
