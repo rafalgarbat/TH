@@ -50,9 +50,7 @@ public class TodayTrainingController implements Serializable {
     }
 
     public void loadEvent(int aUserEventId) {
-        Query pQ = eventFacade.getEntityManager().createNamedQuery("Userevents.findByUid").setParameter("uid", aUserEventId);
-        Userevents pTmp = (Userevents) pQ.getSingleResult();
-        myEvent = pTmp.getEventId();
+
     }
 
     public EventFacade getEventFacade() {
