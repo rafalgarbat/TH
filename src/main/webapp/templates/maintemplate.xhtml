@@ -38,24 +38,23 @@
                             <p:growl id="messages"/>
 
                             <p:menubar>                              
+                                <p:menuitem value="#" outcome="/index.xhtml"  />
                                 <p:menuitem value="Trening na dziś"
                                             style="color: green;background-color:gainsboro"                                            
                                             outcome="/trainig/todaytraining.xhtml?paramEventId=71"  />
-                                <p:submenu label="Start" icon="ui-icon-document">                                    
-                                    <p:menuitem value="Pulpit" outcome="/index.xhtml"  />
-                                    <p:menuitem value="Ustawienia" outcome="/profil/profil.xhtml"  />
-                                    <p:separator />
-                                    <p:menuitem value="Wyloguj" url="#" />
-                                </p:submenu>
-
-                                <p:submenu label="Terminarz" icon="ui-icon-pencil">
-                                    <p:menuitem value="Mój kalendarz" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
-                                    <p:menuitem value="Mapa" outcome="/kalendarz/mymap.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
-                                    <p:submenu label="Wydarzenia">
+                                <p:submenu label="Aktywności" icon="ui-icon-document">                                    
                                         <p:menuitem value="Wydarzenia" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
                                         <p:menuitem value="Treningi" outcome="/kalendarz/workoutcalendar.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
                                         <p:menuitem value="Zawody" outcome="/kalendarz/compcaledar.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
-                                    </p:submenu>
+                                    <p:separator />
+                                    <p:menuitem value="Ustawienia" outcome="/profil/profil.xhtml"  />
+                                </p:submenu>
+
+                                
+                                <p:submenu label="Szukaj wydarzeń"  icon="ui-icon-pencil">
+                                    <p:menuitem value="Wydarzenia" outcome="/kalendarz/mycalendar.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                                    <p:menuitem value="Mapa" outcome="/kalendarz/mymap.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                                    
                                     <p:separator/>
                                     <p:menuitem value="Dodaj wydarzenie" outcome="/kalendarz/dodaj.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
 
@@ -63,10 +62,9 @@
 
                                 <p:submenu label="Grupy" icon="ui-icon-help">
                                     <p:menuitem value="Moje grupy" url="#" />
-                                    <p:submenu label="Szukaj" icon="ui-icon-search">                                        
-                                    </p:submenu>
-                                    <p:separator />
-                                    <p:menuitem value="Uwtórz grupe" url="#" />
+                                    <p:menuitem value="Szukaj" icon="ui-icon-search"/>                                        
+                                <p:separator/>
+                                    <p:menuitem value="Dodaj grupe" url="#" />
                                 </p:submenu>
 
                                 <p:submenu label="Kontakty" icon="ui-icon-gear">
