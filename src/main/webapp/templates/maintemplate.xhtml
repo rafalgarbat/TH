@@ -84,7 +84,11 @@
                             </p:menubar>                             
                         </h:form>
 
-                        <ui:insert name="body"/>
+                        <ui:insert name="body">
+                            <f:facet name="last">
+                                <h:outputStylesheet library="css" name="mycustom.css" />
+                            </f:facet>
+                        </ui:insert>
 
                     </pe:layoutPane>  
                 </pe:layoutPane>  
