@@ -15,12 +15,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -36,16 +39,14 @@ public class Login implements Serializable {
 
     private static final long serialVersionUID = 1094801825228386363L;
 
+    @EJB
+    private LoginFacade loginFacade;
+
     private Users currentUser;
 
     public static String destination = "E:\\roboczy\\traininglib\\mavenproject1\\src\\main\\webapp\\resources\\images\\";
 
     private String paramEventId;
-
-    @EJB
-    private LoginFacade loginFacade;
-
-    private String langVersion;
 
     private String uname;
     private String pwd;
@@ -59,6 +60,44 @@ public class Login implements Serializable {
     private int t_val;
     private String hashcode;
     private String msg;
+    private String localeCode;
+
+    private static Map<String, Object> countries;
+
+    static {
+        countries = new LinkedHashMap<String, Object>();
+        countries.put("English", Locale.ENGLISH); //label, value                
+        countries.put("Polish", new Locale.Builder().setLanguage("pl").setRegion("PL").build());
+    }
+
+    public Map<String, Object> getCountriesInMap() {
+        return countries;
+    }
+
+    public String getLocaleCode() {
+        return localeCode;
+    }
+
+    public void setLocaleCode(String localeCode) {
+        this.localeCode = localeCode;
+    }
+
+    //value change event listener
+    public void countryLocaleCodeChanged(ValueChangeEvent e) {
+
+        String newLocaleValue = e.getNewValue().toString();
+
+        //loop country map to compare the locale code
+        for (Map.Entry<String, Object> entry : countries.entrySet()) {
+
+            if (entry.getValue().toString().equals(newLocaleValue)) {
+
+                FacesContext.getCurrentInstance()
+                        .getViewRoot().setLocale((Locale) entry.getValue());
+
+            }
+        }
+    }
 
     public LoginFacade getLoginFacade() {
         return loginFacade;
@@ -72,7 +111,7 @@ public class Login implements Serializable {
         StreamedContent content;
         //Image img = ImageIO.read(new File("strawberry.jpg"));
         String path = destination + "ala_avatar.jpg";
-       // String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(path); 
+        // String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(path); 
 
         return new DefaultStreamedContent(new FileInputStream(path));
     }
@@ -290,16 +329,8 @@ public class Login implements Serializable {
         this.currentUser = currentUser;
     }
 
-    public String getLangVersion() {
-        return langVersion;
-    }
-
-    public void setLangVersion(String langVersion) {
-        this.langVersion = langVersion;
-    }
-
     public String getName(String aObjName) {
-        return "x";
+        return "";
     }
 
     public String getParamEventId() {

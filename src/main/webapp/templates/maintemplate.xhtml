@@ -21,25 +21,22 @@
                             <p:outputLabel value="#{login.uname}"/>  
                             <p:spacer width="1" height="22" style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px" />
                             <p:outputLabel value="Wiadomości"/><b> 44</b>                     
-                            
+
                             <p:spacer width="1" height="22" style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px" />
                             <p:outputLabel value="Ustawienia"/>  
                             <p:spacer width="1" height="22" style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px" />
-                            <p:selectOneMenu id="caseSelection"
-                                             value="#{login.langVersion}"
-                                             style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px">  
-                                <f:selectItem itemLabel="PL" itemValue="PL" />  
-                                <f:selectItem itemLabel="ENG" itemValue="ENG" />                                      
-                                <f:ajax render="@all" />
-                            </p:selectOneMenu>                                
-                            <p:commandButton id="logoutBtn" type="button" value="Logout #{login.langVersion}" icon="ui-icon-extlink" />                                                                
+                            <h:selectOneMenu value="#{login.localeCode}" onchange="submit()" style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px"
+                                             valueChangeListener="#{login.countryLocaleCodeChanged}">
+                                <f:selectItems value="#{login.countriesInMap}" /> 
+                            </h:selectOneMenu>
+                            <p:commandButton id="logoutBtn" type="button" value="#{msg['wyloguj.jsf']}" icon="ui-icon-extlink" />                                                                
                         </div>
 
                     </pe:layoutPane>  
                     <pe:layoutPane position="center" minHeight="60">  
                         <h:form>  
                             <p:growl id="messages"/>
-                                    
+
                             <p:menubar>                              
                                 <p:menuitem value="Trening na dziś"
                                             style="color: green;background-color:gainsboro"                                            
@@ -93,32 +90,32 @@
                 <pe:layoutPane position="west" size="315">  
                     <pe:layoutPane position="center" minHeight="60">  
                         <p:panel header="Ostatnio na forum" toggleable="true">
-                        <h:form id="formdatascroller">
-                            <p:dataScroller value="#{newsView.news}" var="news" chunkSize="10" mode="inline" scrollHeight="500">
+                            <h:form id="formdatascroller">
+                                <p:dataScroller value="#{newsView.news}" var="news" chunkSize="10" mode="inline" scrollHeight="500">
 
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="tytuł" />
-                                    <h:outputText value="#{news.title}" style="font-weight: bold"/>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="tytuł" />
+                                        <h:outputText value="#{news.title}" style="font-weight: bold"/>
 
-                                    <h:outputText value="" />
-                                    <h:outputText value="#{news.body}" style="font-weight: bold"/>
+                                        <h:outputText value="" />
+                                        <h:outputText value="#{news.body}" style="font-weight: bold"/>
 
-                                    <h:outputText value="dnia" />
-                                    <h:outputText value="#{news.cdate}" style="font-weight: bold"/>
-                                </h:panelGrid>
-                            </p:dataScroller>   
-                        </h:form>
-                            </p:panel>
+                                        <h:outputText value="dnia" />
+                                        <h:outputText value="#{news.cdate}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:dataScroller>   
+                            </h:form>
+                        </p:panel>
                         <p:panel header="Reklama" closable="true">
                             <p:graphicImage value="http://images.okazje.info.pl/p/sport-i-hobby/2126/opaska-cep-na-lydke-2-0-m.jpg" 
                                             width="220px;"/>
-                             <p:commandButton id="reklama1" 
-                                              type="button" value="Zobacz oferte" 
-                                              icon="ui-icon-extlink" />                                                                
+                            <p:commandButton id="reklama1" 
+                                             type="button" value="Zobacz oferte" 
+                                             icon="ui-icon-extlink" />                                                                
                         </p:panel>
-                        
+
                     </pe:layoutPane>
-                    
+
 
                 </pe:layoutPane>  
 
