@@ -17,6 +17,7 @@
             <f:facet name="last">
                 <h:outputStylesheet library="css" name="mycustom.css" />
             </f:facet>
+            <p:graphicImage library="images" value="icon/swim.png" alt="Brak" />
             <h:form id="form" >
                 <p:growl id="msgs" showDetail="true"  />
 
@@ -43,7 +44,7 @@
                                 #{userevents.eventId.tytul} 
                             </p:column>
                             <p:column headerText="Typ">
-                                #{userevents.eventId.typ_wydarzenia} 
+                                <p:graphicImage library="icon" value="swim.png" />
                             </p:column>
                         </p:dataTable>
 

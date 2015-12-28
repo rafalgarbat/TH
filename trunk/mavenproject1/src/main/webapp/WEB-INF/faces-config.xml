@@ -16,6 +16,16 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+     
+        <locale-config>
+            <default-locale>pl</default-locale>
+     	</locale-config>
+        
+        <resource-bundle>
+            <base-name>output</base-name>
+            <var>msg</var>
+	</resource-bundle>        
+                
     </application>
     
     <navigation-rule>
