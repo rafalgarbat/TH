@@ -33,7 +33,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @ManagedBean
-@Named("login")
+@Named("loginbean")
 @SessionScoped
 public class Login implements Serializable {
 
@@ -295,6 +295,7 @@ public class Login implements Serializable {
 
     //validate login
     public String validateUsernamePassword() {
+
         boolean valid = getLoginFacade().validate(uname, pwd);
 
         if (valid) {
