@@ -4,6 +4,23 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
+        
+        <name>primefaces-rio</name>
+    
+        <component>
+            <component-type>org.primefaces.component.RioMenu</component-type>
+            <component-class>org.primefaces.rio.component.menu.RioMenu</component-class>
+        </component>
+    
+        <render-kit>
+            <renderer>
+                <component-family>org.primefaces.component</component-family>
+                <renderer-type>org.primefaces.component.RioMenuRenderer</renderer-type>
+                <renderer-class>org.primefaces.rio.component.menu.RioMenuRenderer</renderer-class>
+            </renderer>
+        </render-kit>
+    
+        
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
@@ -16,28 +33,16 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-     
+    
         <locale-config>
             <default-locale>pl</default-locale>
-     	</locale-config>
-        
+        </locale-config>
+    
         <resource-bundle>
             <base-name>output</base-name>
             <var>msg</var>
-	</resource-bundle>        
-                
+        </resource-bundle>        
+    
     </application>
     
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>admin</from-outcome>
-            <to-view-id>/admin.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-  <action-listener>org.primefaces.application.DialogActionListener</action-listener>
-    <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
-    <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
-    
-
 </faces-config>
