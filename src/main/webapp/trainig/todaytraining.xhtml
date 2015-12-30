@@ -6,81 +6,97 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
-        
-            <f:facet name="last">
-                <h:outputStylesheet library="css" name="mycustom.css" />
-            </f:facet>
-            <h:form id="form" >
-                <p:growl id="msgs" showDetail="true"  />
 
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
-                    <p:panel>
+        <f:facet name="last">
+            <h:outputStylesheet library="css" name="mycustom.css" />
+        </f:facet>
+        <h:form id="form" >
+            <p:growl id="msgs" showDetail="true"  />
 
-                        <p:dataTable value="#{todayTrainingController.getMojeEventy(loginbean.uname)}" 
-                                     var="userevents"
-                                     selection="#{todayTrainingController.selectedUserEvent}"
-                                     rowKey="#{userevents.uid}"
-                                     selectionMode="single"
-                                     paginator="true"
-                                     paginatorPosition="top"
-                                     rows="30"
-                                     >  
-                            <p:ajax event="rowSelect" 
-                                    listener="#{todayTrainingController.onRowSelect}" 
-                                    update="@([id$=opisTreninguPG])" />
-                            <p:column headerText="Typ" style="width:20px;">
-                                <div class="icon icon-fork-and-knife"></div>                            
-                            </p:column>
-                            <p:column headerText="Data">
-                                #{userevents.eventId.dataod} 
-                            </p:column>
-                            <p:column headerText="Tytul">
-                                #{userevents.eventId.tytul} 
-                            </p:column>
-                            
-                        </p:dataTable>
+            <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                <p:panel>
 
-                    </p:panel>
+                    <p:dataTable value="#{todayTrainingController.getMojeEventy(loginbean.uname)}" 
+                                 var="userevents"
+                                 selection="#{todayTrainingController.selectedUserEvent}"
+                                 rowKey="#{userevents.uid}"
+                                 selectionMode="single"
+                                 paginator="true"
+                                 paginatorPosition="top"
+                                 rows="30"
 
-                    <p:panel >
-
-                        <h:panelGrid columns="2" id="opisTreninguPG"  columnClasses="alignTop,alignTop">
-
-                            <p:outputLabel  value="xxx"    />
-                            Trening #{todayTrainingController.selectedUserEvent.uid} 
-
-                            <p:outputLabel for="stanTreningu" value="stanTreningu"   />
-                            <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
-                                <f:selectItem itemLabel="Zrobiony" itemValue="0" />
-                                <f:selectItem itemLabel="Nie zrobiony" itemValue="1" />
-                            </p:selectOneButton>   
-
-                            <p:outputLabel for="duration" value="duration" />
-                            <p:inputText id="duration"/>
-
-                            <p:outputLabel for="distance" value="distance" />
-                            <p:inputText id="distance"/>
-
-                            <p:outputLabel for="kalorie" value="kalorie" />
-                            <p:inputText id="kalorie"/> 
-
-                            <p:outputLabel for="uwagi" value="uwagi" />
-                            <p:inputTextarea id="uwagi" cols="50" rows="10"/>
-
-                            <p:outputLabel for="link" value="link" />
-                            <p:inputText id="link" >
-                                <p:watermark for="link" value="Link do zapisu treningu Garmin/Strava/Polar..." id="link_watermark" /> 
-                            </p:inputText> 
-
-                        </h:panelGrid>  
+                                 >  
+                        <p:ajax event="rowSelect" 
+                                listener="#{todayTrainingController.onRowSelect}" 
+                                update="@([id$=opisTreninguPG])" />
+                        <p:column headerText="Typ" style="width:20px;">
+                            <div class="icon icon-man459"></div>                            
+                        </p:column>
+                        <p:column headerText="Data" style="width:140px;">
 
 
-                    </p:panel>
-                </h:panelGrid>
+                            <h:outputText value="#{userevents.eventId.dataod}">
+                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Tytul">
+                            #{userevents.eventId.tytul} 
+                        </p:column>
+                        <p:column headerText="Dystans">
+                            #{userevents.distance} 
+                        </p:column>
+                        <p:column headerText="Czas ruchu">
+                            #{userevents.duration} 
+                        </p:column>
+                        <p:column headerText="Wykonanie" style="width:80px;">                            
+                            <p:inputSwitch value="#{userevents.completed}" 
+                                           offLabel="Nie" onLabel="Tak"
+                                           disabled="true"
+                                           />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+
+                <p:panel >
+
+                    <h:panelGrid columns="2" id="opisTreninguPG"  columnClasses="alignTop,alignTop">
+
+                        <p:outputLabel  value="xxx"    />
+                        Trening #{todayTrainingController.selectedUserEvent.uid} 
+
+                        <p:outputLabel for="stanTreningu" value="stanTreningu"   />
+                        <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
+                            <f:selectItem itemLabel="Zrobiony" itemValue="0" />
+                            <f:selectItem itemLabel="Nie zrobiony" itemValue="1" />
+                        </p:selectOneButton>   
+
+                        <p:outputLabel for="duration" value="duration" />
+                        <p:inputText id="duration"/>
+
+                        <p:outputLabel for="distance" value="distance" />
+                        <p:inputText id="distance" value="#{todayTrainingController.selectedUserEvent.distance}"/>
+
+                        <p:outputLabel for="kalorie" value="kalorie" />
+                        <p:inputText id="kalorie"/> 
+
+                        <p:outputLabel for="uwagi" value="uwagi" />
+                        <p:inputTextarea id="uwagi" cols="50" rows="10"/>
+
+                        <p:outputLabel for="link" value="link" />
+                        <p:inputText id="link" >
+                            <p:watermark for="link" value="Link do zapisu treningu Garmin/Strava/Polar..." id="link_watermark" /> 
+                        </p:inputText> 
+
+                    </h:panelGrid>  
 
 
-            </h:form>    
+                </p:panel>
+            </h:panelGrid>
+
+
+        </h:form>    
 
     </ui:define>
-    
+
 </ui:composition>
