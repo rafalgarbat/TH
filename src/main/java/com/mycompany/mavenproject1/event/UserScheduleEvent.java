@@ -27,6 +27,11 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private int dbEventId;
     private Integer rating;
     
+    private String  dystans;
+    private String  ranga;
+    private String  organizator_info;
+    private String  rejestracja_info;    
+    
     private int iloscZapisanych; //do wywalenia
     private int czyJestemZapisany;
     
@@ -143,6 +148,38 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public String getDystans() {
+        return dystans;
+    }
+
+    public void setDystans(String dystans) {
+        this.dystans = dystans;
+    }
+
+    public String getRanga() {
+        return ranga;
+    }
+
+    public void setRanga(String ranga) {
+        this.ranga = ranga;
+    }
+
+    public String getOrganizator_info() {
+        return organizator_info;
+    }
+
+    public void setOrganizator_info(String organizator_info) {
+        this.organizator_info = organizator_info;
+    }
+
+    public String getRejestracja_info() {
+        return rejestracja_info;
+    }
+
+    public void setRejestracja_info(String rejestracja_info) {
+        this.rejestracja_info = rejestracja_info;
     }
 
     

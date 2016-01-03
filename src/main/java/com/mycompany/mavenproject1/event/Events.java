@@ -117,6 +117,24 @@ public class Events implements Serializable {
     @Column(name = "rating")
     private Integer rating;
     
+    @Column(name = "dystans")
+    private String  dystans;
+    
+    @Column(name = "ranga")
+    private String  ranga;
+    
+    @Column(name = "organizator_info")
+    private String  organizator_info;
+    
+    @Column(name = "rejestracja_info")
+    private String  rejestracja_info;
+
+    @Column(name = "rodzaj_wydarzenia")
+    private Integer rodzaj_wydarzenia;
+    
+    @Column(name = "adreswww")
+    private String adreswww;
+    
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
     @ManyToOne
     private Klient klientId;
@@ -264,6 +282,23 @@ public class Events implements Serializable {
         this.typ_wydarzenia = typ_wydarzenia;
     }
 
+    public Integer getRodzaj_wydarzenia() {
+        return rodzaj_wydarzenia;
+    }
+
+    public void setRodzaj_wydarzenia(Integer rodzaj_wydarzenia) {
+        this.rodzaj_wydarzenia = rodzaj_wydarzenia;
+    }
+
+    public String getAdreswww() {
+        return adreswww;
+    }
+
+    public void setAdreswww(String adreswww) {
+        this.adreswww = adreswww;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -316,6 +351,38 @@ public class Events implements Serializable {
 
     public void setCalendareventsCollection(Collection<Calendarevents> calendareventsCollection) {
         this.calendareventsCollection = calendareventsCollection;
+    }
+
+    public String getDystans() {
+        return dystans;
+    }
+
+    public void setDystans(String dystans) {
+        this.dystans = dystans;
+    }
+
+    public String getRanga() {
+        return ranga;
+    }
+
+    public void setRanga(String ranga) {
+        this.ranga = ranga;
+    }
+
+    public String getOrganizator_info() {
+        return organizator_info;
+    }
+
+    public void setOrganizator_info(String organizator_info) {
+        this.organizator_info = organizator_info;
+    }
+
+    public String getRejestracja_info() {
+        return rejestracja_info;
+    }
+
+    public void setRejestracja_info(String rejestracja_info) {
+        this.rejestracja_info = rejestracja_info;
     }
     
 }
