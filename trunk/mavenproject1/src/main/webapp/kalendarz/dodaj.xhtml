@@ -31,10 +31,10 @@
                                 <div class="ContainerIndent">
                                     <h2 class="BigTopic">Nazwa i miejsce wydarzenia</h2> 
                                     <p:panelGrid columns="1" columnClasses="ui-grid-col-1" layout="grid" styleClass="ui-panelgrid-blank" style="border:4px ; background-color:transparent;">                                     
-                                        <p:inputText id="nazwaWydarzenia"  style="width: 500px;" required="true">
+                                        <p:inputText id="nazwaWydarzenia" value="#{createeventview.newEvent.tytul}" style="width: 500px;" required="true">
                                             <p:watermark value="Nazwa wydarzenia" for="nazwaWydarzenia" />
                                         </p:inputText>    
-                                        <p:inputText id="miejsceWydarzenia" style="width: 500px;" required="true" >
+                                        <p:inputText id="miejsceWydarzenia" value="#{createeventview.newEvent.adres}" style="width: 500px;" required="true" >
                                             <p:watermark value="Adres i lokalizacja" for="miejsceWydarzenia" />
                                         </p:inputText>
                                     </p:panelGrid>
@@ -48,7 +48,7 @@
                                     <p:panelGrid columns="1" columnClasses="ui-grid-col-1" layout="grid" 
                                                  styleClass="ui-panelgrid-blank" style="border:4px ; background-color:transparent;" >
 
-                                        <p:selectOneRadio id ="typWydarzenia" required="true">
+                                        <p:selectOneRadio id ="typWydarzenia" value="#{createeventview.newEvent.typ_wydarzenia}" required="true">
                                             <f:selectItem itemLabel="Kolarstwo" itemValue="4" />
                                             <f:selectItem itemLabel="Pływanie" itemValue="3" />
                                             <f:selectItem itemLabel="Bieganie" itemValue="2" />
