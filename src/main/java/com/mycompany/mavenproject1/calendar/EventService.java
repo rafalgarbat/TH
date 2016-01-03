@@ -109,7 +109,7 @@ public class EventService {
             //  def.setAllDay(eve.getCzycalydzien());
             def.setGmap_cords(eve.getGmapCords());
             def.setRating(eve.getRating());
-            def.setDystans((String)pSlownik.get(Integer.parseInt(eve.getDystans())));
+//            def.setDystans((String)pSlownik.get(Integer.parseInt(eve.getDystans())));
             def.setOrganizator_info(eve.getOrganizator_info());
             def.setRanga(eve.getRanga());
             def.setRejestracja_info(eve.getRejestracja_info());
