@@ -49,6 +49,10 @@ public class TodayTrainingController implements Serializable {
         return pTmp.getEventId();
     }
 
+    public void zapiszZmiany(){
+    eventFacade.zapiszUserEvent(selectedUserEvent);
+    }
+    
     public void loadEvent(int aUserEventId) {
 
     }

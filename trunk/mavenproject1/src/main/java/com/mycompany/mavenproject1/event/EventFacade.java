@@ -47,6 +47,16 @@ public class EventFacade extends AbstractFacade<Events> {
         return pList;
     }
 
+    public void zapiszUserEvent(Userevents ue){
+        em.persist(ue);
+    }
+    
+    public void zapiszEvent(Events e){
+        em.persist(e);
+    }
+    
+    
+    
     public void obserwujWydarzenie(UserScheduleEvent selectedEvent, String uname) {
         Userevents us = new Userevents();
         Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);

@@ -12,12 +12,14 @@ import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import com.mycompany.mavenproject1.event.Userevents;
 import com.mycompany.mavenproject1.news.News;
+import com.mycompany.mavenproject1.slowniki.Wartosci;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -86,10 +88,16 @@ public class EventService {
 
     public List<UserScheduleEvent> getEvents() {
         list = new ArrayList<>();
-
+        HashMap pSlownik = new HashMap();
+        List <Wartosci>pTmpDystanse = new ArrayList<>();
+        
+        pTmpDystanse = getEventFacade().getEntityManager().createNamedQuery("Wartosci.findAll").getResultList(); 
+        for(Wartosci w: pTmpDystanse){
+            pSlownik.put(new Integer(w.getId()).intValue(), w.getNazwa());
+        }
+        
         listOfAllEvents = getEventFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
         for (Events eve : listOfAllEvents) {
-
             UserScheduleEvent def = new UserScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado(), eve);
             def.setDbEventId(eve.getId());
             def.setStartDate(eve.getDataod());
@@ -101,7 +109,10 @@ public class EventService {
             //  def.setAllDay(eve.getCzycalydzien());
             def.setGmap_cords(eve.getGmapCords());
             def.setRating(eve.getRating());
-
+            def.setDystans((String)pSlownik.get(Integer.parseInt(eve.getDystans())));
+            def.setOrganizator_info(eve.getOrganizator_info());
+            def.setRanga(eve.getRanga());
+            def.setRejestracja_info(eve.getRejestracja_info());
             def.setZapisani(eve.getUsereventsCollection());
             list.add(def);
         }
