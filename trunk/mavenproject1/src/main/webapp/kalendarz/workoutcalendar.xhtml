@@ -1,218 +1,207 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>        
-        <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
-        
-        
-        
-        <script type="text/css">
-        /** tabs **/
-.ui-tabs.ui-tabs-left > .ui-tabs-nav {
-   width: 5%;
-}
-/** panels **/
-.ui-tabs.ui-tabs-left > .ui-tabs-panels {
-   width: 95%;
-}
-      </script>
-       
-    </h:head>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
 
-    <ui:composition template="/templates/maintemplate.xhtml">
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                    <div class="Container100">
+                        <div class="ContainerIndent">  
 
-        <ui:define name="body">            
-            <p:tabView dynamic="true" cache="false" id="eventsTab"  >
-                <p:tab title="My Calendars" >
-                    todo: dodac do zakladanego uzytkownika zakladanie jego kalendarza!!!
-                    <p:tabView id="myCalsTV"
-                               orientation="left" 
-                               var="calendars"                               
-                               value="#{eventList.loadCalendars(login.uname)}"                                
-                               cache="false" 
-                               >
-                        <p:tab title="#{calendars.name}" closable="true">                         
-                            <p:panel header="#{calendars.name}">
-                             <p:schedule 
-                                   id="schedule_#{calendars.uid}" 
-                                   value="#{eventList.loadCalendarModel(login.uname,calendars.name)}"                                   
-                                   widgetVar="schedule_#{calendars.uid}"             
-                                   timeZone="GMT+1" draggable="false">                                    
-                             </p:schedule>   
-                            </p:panel>
-                          
-                        </p:tab>
-                    </p:tabView>    
-                </p:tab>
-                <p:tab title="Public events">
-                    <h:form id="scheduleForm">
-                        <h:panelGrid columns="2" cellpadding="0" >                                                                   
-                            <p:panel header="popo" style="width: 900px;">
-                             <p:schedule 
-                                    id="schedule"
-                                    value="#{eventList.allEventModel}"
-                                    widgetVar="myschedule" timeZone="GMT+1"
-                                    draggable="false">
-                                    <p:ajax event="dateSelect" listener="#{eventList.onDateSelect}" 
-                                                update="eventDetails" oncomplete="PF('eventDialog').show();" />                                 
-                             </p:schedule>                                                        
-                                
-                                
-                            </p:panel>
-                            <p:panel header="Informacje o wydarzeniu" >
-                               Button obserwuj wydarzenie
-                               Button powiadom znajomego
-                               Okienko z informacjami o wydarzeniu
-                               Button wyświetl na mapie wydarzenie
-                            </p:panel>
-                            <p:panel header="popo">ooo3</p:panel>
-                            <p:panel header="popo">ooo3</p:panel>
-                        </h:panelGrid>
+                            <p:tabView dynamic="true" cache="false" id="eventsTab"  >
+                                <p:tab title="My Calendars" >
+                                    todo: dodac do zakladanego uzytkownika zakladanie jego kalendarza!!!
+                                    <p:tabView id="myCalsTV"
+                                               orientation="left" 
+                                               var="calendars"                               
+                                               value="#{eventList.loadCalendars(loginbean.uname)}"                                
+                                               cache="false" 
+                                               >
+                                        <p:tab title="#{calendars.name}" closable="true">                         
+                                            <p:panel header="#{calendars.name}">
+                                                <p:schedule 
+                                                    id="schedule_#{calendars.uid}" 
+                                                    value="#{eventList.loadCalendarModel(loginbean.uname,calendars.name)}"                                   
+                                                    widgetVar="schedule_#{calendars.uid}"             
+                                                    timeZone="GMT+1" draggable="false">                                    
+                                                </p:schedule>   
+                                            </p:panel>
 
-                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="eventDetails" columns="2">
-            <p:outputLabel for="title" value="Titles:" />
-            <p:inputText id="title" value="#{eventList.selectedEvent.title}" required="true" />
-        </h:panelGrid>
-                        </p:dialog>
-                        
-                    </h:form>
-                </p:tab>                 
-                <p:tab title="List">
-                    
-                    <h:form id="dtform">
-                        <p:growl id="msgs" showDetail="true" />
-
-                        <p:dataTable id ="eventListDT" var="event" value="#{eventList.getEvents()}" 
-                                     widgetVar="eventsTable"
-                                     rowKey="#{event.dbEventId}"
-                                     emptyMessage="No cars found with given criteria"
-                                     rows="10" paginator="true" 
-                                     selectionMode="single" selection="#{eventList.selectedEvent}"                                        
-                                     >
-                            <p:ajax event="rowSelect" update=":eventsTab:dtform" process="eventListDT" />
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Szukaj po wszystkich polach:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                </p:outputPanel>
-                            </f:facet>
-                            <p:column style="width:16px" >
-                                <p:rowToggler/>                                        
-                            </p:column>
-                            <p:rowExpansion>
-                                <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
-                                    <h:outputText value="Opis" />
-                                    <h:outputText value="#{event.description}" />    
-                                    <h:outputText value="Zapisanych" />
-                                    <h:outputText value="#{event.iloscZapisanych}" />
-                                    <h:outputText value="Zapisani" />
-                                    <p:dataTable id="zapisaniListDT" var="userevents" value="#{eventList.selectedEvent.zapisani}">
-                                        <p:column headerText="Zapisani">
-                                            <h:outputText value="#{userevents.userId.uname}" />
-                                        </p:column>    
-                                    </p:dataTable>                                     
-                                </p:panelGrid>    
-                            </p:rowExpansion>
-                            <p:column headerText="Nazwa wydarzenia" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
-                                <h:outputText value="#{event.getCapitalizedTitle()}" />
-                            </p:column>
-                            <p:column headerText="Początek/Koniec">
-                                <h:outputText value="#{event.startDate}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
-                                </h:outputText>
-                                -
-                                <h:outputText value="#{event.endDate}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
-                                </h:outputText>  
-                            </p:column>    
-                            <p:column headerText="Miejsce">
-                                <h:outputText value="#{event.getCapitalizedAdres()}" /> 
-                                <br/>                                   
-                                <p:commandButton icon="ui-icon-search" value="Zobacz" rendered="#{event.getGmap_cords() != null}"/>                                                                        
-                            </p:column>       
-                            <p:column headerText="Typ wydarzenia" filterBy="#{event.typWydarzenia}" filterMatchMode="equals">
-                                <f:facet name="filter">
-                                    <p:selectOneButton onchange="PF('eventsTable').filter()">
-                                        <f:converter converterId="javax.faces.Boolean" />                                            
-                                        <f:selectItem itemLabel="Triathlon" itemValue="t" />
-                                        <f:selectItem itemLabel="Kolarstwo" itemValue="k" />
-                                        <f:selectItem itemLabel="Bieganie" itemValue="b" />
-                                        <f:selectItem itemLabel="Wszystkie" itemValue="" />
-                                    </p:selectOneButton>   
-                                </f:facet>
-                                <h:outputText value="#{event.typWydarzenia}" />
-                            </p:column>
-                            <p:column headerText="Ocena">
-                                <p:rating  value="#{event.rating}" stars="5"/>
-                                <br/>
-                                <h:outputText value="Oceniano XX razy" />
-                            </p:column>
-                            <p:column headerText="Cechy" filterBy="#{event.keywords}" sortBy="#{event.keywords}" filterMatchMode="contains">
-                                <h:outputText value="#{event.keywords}" />
-                            </p:column>  
-                            <f:facet name="footer">
-                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventDetail" 
-                                                 icon="ui-icon-search" value="Wyświetl informacje" 
-                                                 oncomplete="PF('eventDialog').show()" />
-                                <p:commandButton process="eventListDT" update=":eventsTab:dtform" 
-                                                 icon="ui-icon-search" value="Obserwuj wydarzenie" 
-                                                 action="#{eventList.obserwujWydarzenie(login.uname)}" />  
-                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventListDT" 
-                                                 icon="ui-icon-search" value="Refresh" 
-                                                 action="#{eventList.loadEvents()}" /> 
-                            </f:facet>                                 
-                        </p:dataTable>                            
-
-                        <p:dialog header="Informacje o wydarzeniu" 
-                                  widgetVar="eventDialog" 
-                                  showEffect="fade" hideEffect="fade" resizable="true" closable="true">
-                            <p:outputPanel id="eventDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty eventList.selectedEvent}">              
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{eventList.selectedEvent.dbEventId}" />
-
-                                    <h:outputText value="Opis" />
-                                    <h:outputText value="#{eventList.selectedEvent.description}" />
-
-                                </p:panelGrid>
-                            </p:outputPanel>
-                        </p:dialog>
-
-                    </h:form>
+                                        </p:tab>
+                                    </p:tabView>    
+                                </p:tab>
+                                <p:tab title="Public events">
+                                    <h:form id="scheduleForm">
+                                        <h:panelGrid columns="2" cellpadding="0" >                                                                   
+                                            <p:panel header="popo" style="width: 900px;">
+                                                <p:schedule 
+                                                    id="schedule"
+                                                    value="#{eventList.allEventModel}"
+                                                    widgetVar="myschedule" timeZone="GMT+1"
+                                                    draggable="false">
+                                                    <p:ajax event="dateSelect" listener="#{eventList.onDateSelect}" 
+                                                            update="eventDetails" oncomplete="PF('eventDialog').show();" />                                 
+                                                </p:schedule>                                                        
 
 
-                </p:tab>       
-                <p:tab title="Map">
-                    <h:panelGrid columns="1" cellpadding="0" >           
-                        <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:1000px;height:800px" model="#{eventList.simpleModel}" >
-                            <p:ajax event="overlaySelect" listener="#{eventList.onMarkerSelect}" />
+                                            </p:panel>
+                                            <p:panel header="Informacje o wydarzeniu" >
+                                                Button obserwuj wydarzenie
+                                                Button powiadom znajomego
+                                                Okienko z informacjami o wydarzeniu
+                                                Button wyświetl na mapie wydarzenie
+                                            </p:panel>
+                                            <p:panel header="popo">ooo3</p:panel>
+                                            <p:panel header="popo">ooo3</p:panel>
+                                        </h:panelGrid>
 
-                            <p:gmapInfoWindow id="infoWindow">
-                                <p:outputPanel style="text-align: center; display: block; margin: auto">
-                                    <p:panelGrid>
-                                        <p:row>
-                                            <p:column><h:outputText value="#{eventList.marker.data.title}"/></p:column>
-                                            <p:column>Ocena xxx</p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column colspan="2">
-                                                <h:outputText value="#{eventList.marker.data.opis}" />            
+                                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                            <h:panelGrid id="eventDetails" columns="2">
+                                                <p:outputLabel for="title" value="Titles:" />
+                                                <p:inputText id="title" value="#{eventList.selectedEvent.title}" required="true" />
+                                            </h:panelGrid>
+                                        </p:dialog>
+
+                                    </h:form>
+                                </p:tab>                 
+                                <p:tab title="List">
+
+                                    <h:form id="dtform">
+                                        <p:growl id="msgs" showDetail="true" />
+
+                                        <p:dataTable id ="eventListDT" var="event" value="#{eventList.getEvents()}" 
+                                                     widgetVar="eventsTable"
+                                                     rowKey="#{event.dbEventId}"
+                                                     emptyMessage="No cars found with given criteria"
+                                                     rows="10" paginator="true" 
+                                                     selectionMode="single" selection="#{eventList.selectedEvent}"                                        
+                                                     >
+                                            <p:ajax event="rowSelect" update=":eventsTab:dtform" process="eventListDT" />
+                                            <f:facet name="header">
+                                                <p:outputPanel>
+                                                    <h:outputText value="Szukaj po wszystkich polach:" />
+                                                    <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                                </p:outputPanel>
+                                            </f:facet>
+                                            <p:column style="width:16px" >
+                                                <p:rowToggler/>                                        
                                             </p:column>
-                                        </p:row>
-                                    </p:panelGrid>    
-                                </p:outputPanel>
-                            </p:gmapInfoWindow>
-                        </p:gmap> 
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
+                                            <p:rowExpansion>
+                                                <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                                                    <h:outputText value="Opis" />
+                                                    <h:outputText value="#{event.description}" />    
+                                                    <h:outputText value="Zapisanych" />
+                                                    <h:outputText value="#{event.iloscZapisanych}" />
+                                                    <h:outputText value="Zapisani" />
+                                                    <p:dataTable id="zapisaniListDT" var="userevents" value="#{eventList.selectedEvent.zapisani}">
+                                                        <p:column headerText="Zapisani">
+                                                            <h:outputText value="#{userevents.userId.uname}" />
+                                                        </p:column>    
+                                                    </p:dataTable>                                     
+                                                </p:panelGrid>    
+                                            </p:rowExpansion>
+                                            <p:column headerText="Nazwa wydarzenia" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
+                                                <h:outputText value="#{event.getCapitalizedTitle()}" />
+                                            </p:column>
+                                            <p:column headerText="Początek/Koniec">
+                                                <h:outputText value="#{event.startDate}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                                                </h:outputText>
+                                                -
+                                                <h:outputText value="#{event.endDate}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                                                </h:outputText>  
+                                            </p:column>    
+                                            <p:column headerText="Miejsce">
+                                                <h:outputText value="#{event.getCapitalizedAdres()}" /> 
+                                                <br/>                                   
+                                                <p:commandButton icon="ui-icon-search" value="Zobacz" rendered="#{event.getGmap_cords() != null}"/>                                                                        
+                                            </p:column>       
+                                            <p:column headerText="Typ wydarzenia" filterBy="#{event.typWydarzenia}" filterMatchMode="equals">
+                                                <f:facet name="filter">
+                                                    <p:selectOneButton onchange="PF('eventsTable').filter()">
+                                                        <f:converter converterId="javax.faces.Boolean" />                                            
+                                                        <f:selectItem itemLabel="Triathlon" itemValue="t" />
+                                                        <f:selectItem itemLabel="Kolarstwo" itemValue="k" />
+                                                        <f:selectItem itemLabel="Bieganie" itemValue="b" />
+                                                        <f:selectItem itemLabel="Wszystkie" itemValue="" />
+                                                    </p:selectOneButton>   
+                                                </f:facet>
+                                                <h:outputText value="#{event.typWydarzenia}" />
+                                            </p:column>
+                                            <p:column headerText="Ocena">
+                                                <p:rating  value="#{event.rating}" stars="5"/>
+                                                <br/>
+                                                <h:outputText value="Oceniano XX razy" />
+                                            </p:column>
+                                            <p:column headerText="Cechy" filterBy="#{event.keywords}" sortBy="#{event.keywords}" filterMatchMode="contains">
+                                                <h:outputText value="#{event.keywords}" />
+                                            </p:column>  
+                                            <f:facet name="footer">
+                                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventDetail" 
+                                                                 icon="ui-icon-search" value="Wyświetl informacje" 
+                                                                 oncomplete="PF('eventDialog').show()" />
+                                                <p:commandButton process="eventListDT" update=":eventsTab:dtform" 
+                                                                 icon="ui-icon-search" value="Obserwuj wydarzenie" 
+                                                                 action="#{eventList.obserwujWydarzenie(loginbean.uname)}" />  
+                                                <p:commandButton process="eventListDT" update=":eventsTab:dtform:eventListDT" 
+                                                                 icon="ui-icon-search" value="Refresh" 
+                                                                 action="#{eventList.loadEvents()}" /> 
+                                            </f:facet>                                 
+                                        </p:dataTable>                            
+
+                                        <p:dialog header="Informacje o wydarzeniu" 
+                                                  widgetVar="eventDialog" 
+                                                  showEffect="fade" hideEffect="fade" resizable="true" closable="true">
+                                            <p:outputPanel id="eventDetail" style="text-align:center;">
+                                                <p:panelGrid  columns="2" rendered="#{not empty eventList.selectedEvent}">              
+                                                    <h:outputText value="Id:" />
+                                                    <h:outputText value="#{eventList.selectedEvent.dbEventId}" />
+
+                                                    <h:outputText value="Opis" />
+                                                    <h:outputText value="#{eventList.selectedEvent.description}" />
+
+                                                </p:panelGrid>
+                                            </p:outputPanel>
+                                        </p:dialog>
+
+                                    </h:form>
 
 
-        </ui:define>
-    </ui:composition>
-</html>
+                                </p:tab>       
+                                <p:tab title="Map">
+                                    <h:panelGrid columns="1" cellpadding="0" >           
+                                        <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:1000px;height:800px" model="#{eventList.simpleModel}" >
+                                            <p:ajax event="overlaySelect" listener="#{eventList.onMarkerSelect}" />
+
+                                            <p:gmapInfoWindow id="infoWindow">
+                                                <p:outputPanel style="text-align: center; display: block; margin: auto">
+                                                    <p:panelGrid>
+                                                        <p:row>
+                                                            <p:column><h:outputText value="#{eventList.marker.data.title}"/></p:column>
+                                                            <p:column>Ocena xxx</p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column colspan="2">
+                                                                <h:outputText value="#{eventList.marker.data.opis}" />            
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:panelGrid>    
+                                                </p:outputPanel>
+                                            </p:gmapInfoWindow>
+                                        </p:gmap> 
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+
+
+
+                        </div></div></div></div></div>
+
+    </ui:define>
+
+</ui:composition>
