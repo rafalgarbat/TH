@@ -34,10 +34,22 @@ public class UserCalendarView {
             @Override
             public void loadEvents(Date start, Date end) {
                 Date random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
-jakasWartosc=jakasWartosc+1;
-                random = getRandomDate(start);
-                addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
+                DefaultScheduleEvent d = new DefaultScheduleEvent("Lazy Event 1", random, random);
+                d.setStyleClass("fc-view-container2");
+                addEvent(d);                
+                jakasWartosc=jakasWartosc+1;
+                for(int i=1;i<15;i++){
+                    random = getRandomDate(start);
+                    addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"bikepublic-event"));
+                }
+                 for(int i=1;i<10;i++){
+                    random = getRandomDate(start); 
+                    addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"swimpublic-event"));
+                } 
+                  for(int i=1;i<10;i++){
+                    random = getRandomDate(start); 
+                    addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"runpublic-event"));
+                }
             }
         };
     }

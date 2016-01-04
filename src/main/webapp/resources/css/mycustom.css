@@ -16,3 +16,26 @@ and open the template in the editor.
     width: 100%;
     height: 100%;
 }
+
+.event1 .fc-event-inner {
+
+    background: Red;
+    border-color: Yellow;
+}
+
+.bikepublic-event, .bikepublic-event .fc-event-skin, .bikepublic-event a{
+    background-color: #FFCC80; 
+    color: black;
+    border-color: #F9BF08;
+}
+
+.swimpublic-event, .swimpublic-event .fc-event-skin, .swimpublic-event a{
+    background-color: #EF9A9A; 
+    color: black;
+    border-color: #EF9A9A;
+}
+.runpublic-event, .runpublic-event .fc-event-skin, .runpublic-event a{
+    background-color: #03A9F4; 
+    color: black;
+    border-color: #03A9F4;
+}

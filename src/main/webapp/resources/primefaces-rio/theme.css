@@ -2018,6 +2018,9 @@ label {
   border-width: 0px;
 }
 .fc-view-container .fc-event {
+
+}
+.fc-view-container2 .fc-event {
   background-color: #9ccc65;
   border: solid 1px #9ccc65;
 }
