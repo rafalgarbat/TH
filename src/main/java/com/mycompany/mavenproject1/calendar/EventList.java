@@ -97,7 +97,7 @@ public class EventList implements Serializable {
         allEventModel = new DefaultScheduleModel();
         for (UserScheduleEvent eve : allEvents) {
             if (eve.getStartDate() != null) {
-                allEventModel.addEvent(eve);
+          //      allEventModel.addEvent(eve);
             }
         }
 
@@ -217,6 +217,12 @@ public class EventList implements Serializable {
         this.allEventModel = allEventModel;
     }
 
+    public void onViewChange(SelectEvent selectEvent) {
+   // String viewName = selectEvent.getObject().toString();
+   FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta");
+        
+    FacesContext.getCurrentInstance().addMessage(null, message);
+    }
     
     
 }
