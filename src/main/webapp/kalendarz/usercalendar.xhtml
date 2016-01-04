@@ -9,23 +9,46 @@
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect  ">
-                    <div class="Container100">
+                    <div class="Container75 Responsive100">
                         <div class="ContainerIndent">  
-                              <p:growl id="messages" showDetail="true" />
-                            <p:schedule id="userschedule"   value="#{eventList.allEventModel}" widgetVar="myschedule" >
-                                 <p:ajax event="viewChange" 
-                                         listener="#{eventList.onViewChange}" 
-                                         update="messages"                                        
-                                         />
+                            <p:growl id="messages" showDetail="true" />
+                            <p:schedule id="userschedule"   value="#{usercalendar.lazyEventModel}" widgetVar="myschedule" >
+                               
                             </p:schedule>
-                            
+
                             <p:dialog widgetVar="eventDialog">
                                 <p:inputText value="lalal"/>
                             </p:dialog>
                         </div>
 
                     </div>
-
+                    <div class="Container25 Responsive100">
+                        <div class="ContainerIndent">  
+                            
+                            <div class="Container100 Responsive100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect HeiAutoOnMobile">
+                                    <h2 class="CardTopic"><i class="icon-timelapse Fs20 Fleft MarRight10"></i> Statystki</h2>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Wydarzeń w tym miesiącu <span class="Fright Purple">#{usercalendar.wydarzenWMiesiacu()}</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Photo Editing Suit <span class="Fright Orange">% 67</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Simple Code Editor <span class="Fright Green">% 89</span></div></div>
+                                    <div class="SeparatorFull"></div>
+                                    <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
+                                    <div class="CardFooter">
+                                        <p:commandButton value="MORE INFO" icon="fa fa-plus Fs14" styleClass="Fright BlueTextButton"/>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        </div>
+                            
+                        </div>
+                    </div>
                 </div>
 
             </div>
