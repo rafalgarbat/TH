@@ -5,7 +5,7 @@
  */
 package com.mycompany.mavenproject1.calendar;
 
-import com.mycompany.mavenproject1.calendar.Calendars;
+import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.auth.Users;
 import java.io.Serializable;
 import javax.persistence.Basic;

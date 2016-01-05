@@ -7,11 +7,12 @@ package com.mycompany.mavenproject1.event;
 
 import com.mycompany.mavenproject1.AbstractFacade;
 import com.mycompany.mavenproject1.auth.Users;
-import com.mycompany.mavenproject1.calendar.Calendarevents;
-import com.mycompany.mavenproject1.calendar.Calendars;
+import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
+import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
 import com.mycompany.mavenproject1.calendar.Usercalendars;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -46,7 +47,26 @@ public class EventFacade extends AbstractFacade<Events> {
         }
         return pList;
     }
+    /*
+    Bierzemy dwa rodzaje eventow
+    1. Eventy z moich kalendarzy
+    2. Utworzone przezemnie eventy
+    */
+      public List<Events> getUserEvents(String aUname, Date aDateStart, Date aDateEnd) {
+        List<Events> pUSE = new ArrayList<>();
+        Users pUser = (Users) getUser(aUname);
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            Calendars pCalendar = (Calendars) pUserCal.getCalendarid();
+            for (Calendarevents pCalEvent : pCalendar.getCalendareventsCollection()) {
+                if (true) {
+                    pUSE.add(pCalEvent.getEventid());
+                }
+            }
+        }
 
+        return pUSE;
+    }
+    
     public void zapiszUserEvent(Userevents ue){
         em.persist(ue);
     }
@@ -55,6 +75,7 @@ public class EventFacade extends AbstractFacade<Events> {
         em.persist(e);
     }
     
+   
     
     
     public void obserwujWydarzenie(UserScheduleEvent selectedEvent, String uname) {

@@ -5,6 +5,8 @@
  */
 package com.mycompany.mavenproject1.calendar;
 
+import com.mycompany.mavenproject1.calendar.ob.Calendars;
+import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.auth.LoginFacade;
 import com.mycompany.mavenproject1.auth.Users;
 import com.mycompany.mavenproject1.event.EventFacade;
@@ -89,13 +91,13 @@ public class EventService {
     public List<UserScheduleEvent> getEvents() {
         list = new ArrayList<>();
         HashMap pSlownik = new HashMap();
-        List <Wartosci>pTmpDystanse = new ArrayList<>();
-        
-        pTmpDystanse = getEventFacade().getEntityManager().createNamedQuery("Wartosci.findAll").getResultList(); 
-        for(Wartosci w: pTmpDystanse){
+        List<Wartosci> pTmpDystanse = new ArrayList<>();
+
+        pTmpDystanse = getEventFacade().getEntityManager().createNamedQuery("Wartosci.findAll").getResultList();
+        for (Wartosci w : pTmpDystanse) {
             pSlownik.put(new Integer(w.getId()).intValue(), w.getNazwa());
         }
-        
+
         listOfAllEvents = getEventFacade().getEntityManager().createNamedQuery("Events.findAll").getResultList();
         for (Events eve : listOfAllEvents) {
             UserScheduleEvent def = new UserScheduleEvent(eve.getTytul(), eve.getDataod(), eve.getDatado(), eve);
@@ -106,6 +108,8 @@ public class EventService {
             def.setAdres(eve.getAdres());
             def.setDescription(eve.getOpis());
             def.setKeywords(eve.getKeywords());
+            def.setTypWydarzenia(eve.getTyp_wydarzenia());
+            def.setAdreswww(eve.getAdreswww());
             //  def.setAllDay(eve.getCzycalydzien());
             def.setGmap_cords(eve.getGmapCords());
             def.setRating(eve.getRating());
