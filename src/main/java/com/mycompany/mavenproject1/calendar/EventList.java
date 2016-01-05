@@ -39,6 +39,10 @@ import org.primefaces.model.map.Marker;
 @ViewScoped
 public class EventList implements Serializable {
 
+    private boolean wydarzeniaArchiwalne =true ;
+    private Date maxDate;
+    private Date minDate;
+    
     /**
      * Wszystkie wydarzenia
      */
@@ -223,6 +227,30 @@ public class EventList implements Serializable {
    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta");
         
     FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public boolean isWydarzeniaArchiwalne() {
+        return wydarzeniaArchiwalne;
+    }
+
+    public void setWydarzeniaArchiwalne(boolean wydarzeniaArchiwalne) {
+        this.wydarzeniaArchiwalne = wydarzeniaArchiwalne;
+    }
+
+    public Date getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(Date maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public Date getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(Date minDate) {
+        this.minDate = minDate;
     }
     
     
