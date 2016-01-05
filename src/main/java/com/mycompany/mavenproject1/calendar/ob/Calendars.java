@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.mavenproject1.calendar;
+package com.mycompany.mavenproject1.calendar.ob;
 
+import com.mycompany.mavenproject1.calendar.Usercalendars;
+import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;

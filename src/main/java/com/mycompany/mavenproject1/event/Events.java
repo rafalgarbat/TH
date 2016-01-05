@@ -5,7 +5,7 @@
  */
 package com.mycompany.mavenproject1.event;
 
-import com.mycompany.mavenproject1.calendar.Calendarevents;
+import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.Klient;
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -5,10 +5,16 @@
  */
 package com.mycompany.mavenproject1.calendar;
 
+import com.mycompany.mavenproject1.event.EventFacade;
+import com.mycompany.mavenproject1.event.Events;
+import com.mycompany.mavenproject1.event.UserScheduleEvent;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.LazyScheduleModel;
@@ -26,6 +32,9 @@ public class UserCalendarView {
 
     private int jakasWartosc =5;
     
+    @EJB
+    private EventFacade eventFacade;
+    
     @PostConstruct
     public void init() {
 
@@ -33,11 +42,12 @@ public class UserCalendarView {
 
             @Override
             public void loadEvents(Date start, Date end) {
+                
                 Date random = getRandomDate(start);
                 DefaultScheduleEvent d = new DefaultScheduleEvent("Lazy Event 1", random, random);
                 d.setStyleClass("fc-view-container2");
                 addEvent(d);                
-                jakasWartosc=jakasWartosc+1;
+              
                 for(int i=1;i<15;i++){
                     random = getRandomDate(start);
                     addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"bikepublic-event"));
@@ -46,10 +56,17 @@ public class UserCalendarView {
                     random = getRandomDate(start); 
                     addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"swimpublic-event"));
                 } 
-                  for(int i=1;i<10;i++){
+               /* for(int i=1;i<10;i++){
                     random = getRandomDate(start); 
                     addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"runpublic-event"));
                 }
+                 */ 
+                List<Events> pTmp = getEventFacade().getUserEvents("ala", start, end);
+                jakasWartosc= pTmp.size();
+                for(Events pU : pTmp){
+                    addEvent(new DefaultScheduleEvent("Lazy "+pU.getTytul(), pU.getDataod(), pU.getDataod(),"runpublic-event"));
+                }
+                  
             }
         };
     }
@@ -69,4 +86,13 @@ public class UserCalendarView {
     public int wydarzenWMiesiacu(){
     return jakasWartosc;
     }
+
+    public EventFacade getEventFacade() {
+        return eventFacade;
+    }
+
+    
+    
+    
+    
 }

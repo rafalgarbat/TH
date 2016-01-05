@@ -53,10 +53,22 @@
                                         </p:panelGrid>    
                                     </p:rowExpansion>
                                     
+                                    <p:column headerText="Akcje" style="width:250px">
+                                        <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                            <p:commandButton value="Dołącz" icon="fa fa-plus-square-o Fs16 White"  styleClass="Fright PurpleButton" 
+                                                             style="width: 110px;" iconPos="right"/>
+                                        <p:commandButton value="Obserwuj" icon="fa fa-search Fs16 White" styleClass="Fright BlueButton" 
+                                                         style="width: 110px;" iconPos="right"/>                                        
+                                        <p:commandButton value="Komentuj" icon="fa fa-comment-o Fs16 White" styleClass="Fright OrangeButton" 
+                                                         style="width: 110px;" iconPos="right"/>                                                                              
+                                        <p:commandButton value="Powiadom" icon="fa fa-users Fs16 White" styleClass="Fright GreenButton" 
+                                                         style="width: 110px;" iconPos="right"/>                                                                              
+                                      </p:panelGrid>  
+                                    </p:column> 
                                     <p:column headerText="Nazwa wydarzenia" style="width:350px;" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
                                         <h:outputText value="#{event.getCapitalizedTitle()}" />
                                     </p:column>
-                                    <p:column headerText="Początek/Koniec"  style="width:150px;">
+                                    <p:column headerText="Początek/Koniec"  style="width:150px;"  sortBy="#{event.startDate}">
                                         <h:outputText value="#{event.startDate}">
                                              <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                         </h:outputText>                                        
@@ -79,17 +91,19 @@
                                         <br/>                                   
                                         <p:commandButton icon="ui-icon-search" value="Zobacz" rendered="#{event.getGmap_cords() != null}"/>                                                                        
                                     </p:column>       
-                                    <p:column headerText="Typ wydarzenia" filterBy="#{event.typWydarzenia}" filterMatchMode="equals">
+                                    <p:column filterBy="#{event.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                         <f:facet name="filter">
-                                            <p:selectOneButton onchange="PF('eventsTable').filter()">
-                                                <f:converter converterId="javax.faces.Boolean" />                                            
-                                                <f:selectItem itemLabel="T" itemValue="t" />
-                                                <f:selectItem itemLabel="K" itemValue="k" />
-                                                <f:selectItem itemLabel="B" itemValue="b" />
-                                                <f:selectItem itemLabel="W" itemValue="" />
-                                            </p:selectOneButton>   
+                                            <p:selectOneListbox onchange="PF('eventsTable').filter()">                                                
+                                                <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
+                                                <f:selectItem itemLabel="Pływanie" itemValue="2" />
+                                                <f:selectItem itemLabel="Bieganie" itemValue="3" />
+                                                <f:selectItem itemLabel="Dowolne" itemValue="" />
+                                            </p:selectOneListbox>   
                                         </f:facet>
-                                        <h:outputText value="#{event.typWydarzenia}" />
+                                        <h:outputLabel value="#{event.typWydarzenia}" rendered="false"/>                                         
+                                        <p:graphicImage library="images" name="bike.jpg" width="75px" height="75px" rendered="#{event.typWydarzenia==1}"/>
+                                        <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{event.typWydarzenia==2}"/>
+                                        <p:graphicImage library="images" name="run.jpg" width="75px" height="75px" rendered="#{event.typWydarzenia==3}"/>                                        
                                     </p:column>
                                     
                                     <p:column headerText="Cechy" filterBy="#{event.keywords}" sortBy="#{event.keywords}" filterMatchMode="contains">
@@ -101,6 +115,10 @@
                                         <p:rating  value="#{event.rating}" stars="5"  cancel="false" disabled="true"/>
                                         <br/>
                                         <h:outputText value="Oceniano XX razy" />
+                                    </p:column>
+                                  
+                                    <p:column headerText="WWW">                                        
+                                        <h:outputText value="#{event.adreswww}"/>
                                     </p:column>
                                     
                                 </p:dataTable>                            

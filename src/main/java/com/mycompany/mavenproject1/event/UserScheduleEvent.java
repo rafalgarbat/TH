@@ -14,8 +14,8 @@ import org.primefaces.model.DefaultScheduleEvent;
  *
  * @author Jaroslaw.Skrzydlo
  */
-public class UserScheduleEvent extends DefaultScheduleEvent{
-            
+public class UserScheduleEvent extends DefaultScheduleEvent {
+
     //brakuje typu wydarzenia - tri, bieganie, kolarstwo
     //brakuje adresu wydarzenia (poza kordynatami gmaps)
     private String gmap_cords;
@@ -26,23 +26,23 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     private String typWydarzenia;
     private int dbEventId;
     private Integer rating;
-    
-    private String  dystans;
-    private String  ranga;
-    private String  organizator_info;
-    private String  rejestracja_info;    
-    
+    private String dystans;
+    private String ranga;
+    private String organizator_info;
+    private String rejestracja_info;
+    private String adreswww;
+    private String rodzaj_wydarzenia;
+
     private int iloscZapisanych; //do wywalenia
     private int czyJestemZapisany;
-    
+
     /**
      * Kolekcja zapisanych do wydarzenia
      */
-     private Collection<Userevents> zapisani;
-    
+    private Collection<Userevents> zapisani;
 
     public UserScheduleEvent(String tytul, Date dataod, Date datado, Events eve) {
-        super(tytul,dataod,datado,eve);
+        super(tytul, dataod, datado, eve);
     }
 
     public UserScheduleEvent() {
@@ -50,7 +50,7 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     }
 
     public UserScheduleEvent(String string, Date date, Date date0) {
-        super(string,date,date0);
+        super(string, date, date0);
     }
 
     public String getGmap_cords() {
@@ -88,12 +88,11 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public String getAdres() {
         return adres;
     }
-    
+
     public String getCapitalizedAdres() {
         return adres; //StringUtils.capitalize(adres);
     }
 
-    
     public void setAdres(String adres) {
         this.adres = adres;
     }
@@ -137,8 +136,8 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
     public void setZapisani(Collection<Userevents> zapisani) {
         this.zapisani = zapisani;
     }
-        
-      public String getCapitalizedTitle() {
+
+    public String getCapitalizedTitle() {
         return this.getTitle();//StringUtils.capitalize();
     }
 
@@ -182,5 +181,20 @@ public class UserScheduleEvent extends DefaultScheduleEvent{
         this.rejestracja_info = rejestracja_info;
     }
 
-    
+    public String getAdreswww() {
+        return adreswww;
+    }
+
+    public void setAdreswww(String adreswww) {
+        this.adreswww = adreswww;
+    }
+
+    public String getRodzaj_wydarzenia() {
+        return rodzaj_wydarzenia;
+    }
+
+    public void setRodzaj_wydarzenia(String rodzaj_wydarzenia) {
+        this.rodzaj_wydarzenia = rodzaj_wydarzenia;
+    }
+
 }
