@@ -1,219 +1,195 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pe="http://primefaces.org/ui/extensions"
-      >
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
     <h:head>
-        <title>Logowanie do serwisu</title>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces RIO</title>
+        <ui:insert name="head" />
     </h:head>
-    <style type="text/css">
-        .loginFormStyle {
-            position : absolute;       
-            left     : 30%;
-            top      : 10%;    
-            border:  1px solid #33CCFF;
-            padding: 10px;
-            margin-left : -100px; /* half of the width  */
-            margin-top  : -100px; /* half of the height */
-        }
-        .inputTextStyle{
-            width: 450px; 
-            height: 30px;
-        }
-        .companyHeaderGrid.ui-panelgrid>*>tr,
-        .companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
-            border: none;
-        }
+    <f:metadata>
+        <f:viewParam name="regURL" value="#{login.hashcode}"/>
+        <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
+    </f:metadata>
+    <h:body styleClass="loginbodyblue">
+        <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <h:form id="rejestracjaForm"> 
+                <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                    <div class="Wid33 MarAuto WidAutoOnMobile">
+                        <div class="Card ShadowEffect">
+                            <p:menubar>
+                                <f:facet name="options">
+                                    <p:commandButton type="button" value="Kim jesteśmy?" 
+                                                     styleClass="OrangeButton RaisedButton"
+                                                     style="width: 100px; height:100px; font-size: 18px !important; " 
+                                                     />
+                                    <p:commandButton type="button" value="Jak zacząć?" 
+                                                     styleClass="PurpleButton RaisedButton"
+                                                     style="width: 100px; height:100px; font-size: 18px !important; " 
+                                                     />                                    
+                                </f:facet>
+                            </p:menubar>  
+                            <div class="EmptyBox10"></div>
+                            <div class="Card ShadowEffect ui-fluid">
+                                    
+                                 <div class='Container90'>
+                                    <div align="left"><h3>Podstawowe informacje</h3></div>
+                                </div>
+                                <div class='Container10'>
+                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton"                                                     
+                                                     />
+                                </div>
+                                 <div class="EmptyBox10"></div>
+                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel for="username" value="Nazwa użytkownika" />
+                                    <p:inputText class="inputTextStyle"  id="username" value="#{loginbean.uname}" required="true" requiredMessage="Nie wybrałeś nazwy użytkownika">
+                                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+                                    </p:inputText>
+                                   
+                                    <p:outputLabel for="email" value="Adres email" />
+                                    <p:inputText class="inputTextStyle"  id="email" value="#{loginbean.email}" required="true" requiredMessage="Brakuje adresu email">
+                                        <p:watermark for="email" value="Adres email" id="email_watermark" />
+                                    </p:inputText>
+                                   
+                                    <p:outputLabel for="pwd1" value="Hasło" />
+                                    <p:password id="pwd1" value="#{loginbean.pwd}" match="pwd2" label="Password 1" required="true" >
+                                        <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
+                                    </p:password>
+                                  
+                                    <p:outputLabel for="pwd2" value="Powtórz hasło" />
+                                    <p:password id="pwd2" value="#{loginbean.pwd}" label="Password 2" required="true" class="inputTextStyle">
+                                        <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> 
+                                    </p:password>
+                                    
+                                    <p:outputLabel for="state" value="Województwo" /> 
+                                    <p:selectOneMenu id="state" value="#{loginbean.state}" required="true" requiredMessage="Nie wybrałeś województwa">
+                                        <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
+                                        <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
+                                        <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="2" />
+                                        <f:selectItem itemLabel="woj. lubelskie" itemValue="3" />
+                                        <f:selectItem itemLabel="woj. lubuskie" itemValue="4" />
+                                        <f:selectItem itemLabel="woj. łódzkie" itemValue="5" />
+                                        <f:selectItem itemLabel="woj. małopolskie" itemValue="6" />
+                                        <f:selectItem itemLabel="woj. mazowieckie" itemValue="7" />
+                                        <f:selectItem itemLabel="woj. opolskie" itemValue="8" />
+                                        <f:selectItem itemLabel="woj. podkarpackie" itemValue="9" />
+                                        <f:selectItem itemLabel="woj. podlaskie" itemValue="10" />
+                                        <f:selectItem itemLabel="woj. pomorskie" itemValue="11" />
+                                        <f:selectItem itemLabel="woj. śląskie" itemValue="12" />
+                                        <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="13" />
+                                        <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="14" />
+                                        <f:selectItem itemLabel="woj. wielkopolskie" itemValue="15" />
+                                        <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="16" />
+                                    </p:selectOneMenu>
+                                  
+                                    <p:outputLabel for="city" value="Miasto" /> 
+                                    <p:inputText class="inputTextStyle"  id="city" value="#{login.city}">
+                                        <p:watermark for="city" value="Miasto" id="city_watermark" />   
+                                    </p:inputText>
+                                    
+                                </p:panelGrid>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Card ShadowEffect ui-fluid">
+                             <div class='Container90'>
+                                    <div align="left"><h3>Twoje zainteresowania</h3></div>
+                                </div>
+                                <div class='Container10'>
+                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton"                                                     
+                                                     />
+                                </div>
+                                 <div class="EmptyBox10"></div>
+                                 <p:selectOneButton id="manyBtn2" >
+                                    <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
+                                    <f:selectItem itemLabel="Bieganie" itemValue="2" />
+                                    <f:selectItem itemLabel="Pływanie" itemValue="3" />
+                                    <f:selectItem itemLabel="Triathlon" itemValue="4" />                                    
+                                </p:selectOneButton>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Card ShadowEffect ui-fluid">
+                                                         
+                                <div class='Container90'>
+                                    <div align="left"><h3>Kim jesteś</h3></div>
+                                </div>
+                                <div class='Container10'>
+                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton"                                                     
+                                                     />
+                                </div>
+                                 <div class="EmptyBox10"></div>       
+                                <p:selectOneButton id="manyBtn" value="#{loginbean.user_type}">
+                                    <f:selectItem itemLabel="Sportowiec" itemValue='1' />
+                                    <f:selectItem itemLabel="Trener" itemValue="2" />
+                                    <f:selectItem itemLabel="Organizator" itemValue="3" />
+                                    <p:ajax  update="testpanel" />
+                                </p:selectOneButton>
+                                <p:outputPanel id="testpanel">     
+                                    <h3>Aplikacja pozwala na</h3>
+                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '1'}"
+                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności" disabled="true" />
+                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie wydarzeń sportowych"  disabled="true" />
+                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie grupy znajomych o wspólnej pasji"  disabled="true" />                                      
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '2'}"
+                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności podopiecznych" disabled="true" />
+                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie planów treningowych"  disabled="true" />
+                                      <p:selectBooleanCheckbox value="true"  itemLabel="zarządzanie grupami sportowymi"  disabled="true" />                                      
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '3'}"
+                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie dużych wydarzeń sportowych" disabled="true" />
+                                      <p:selectBooleanCheckbox value="true"  itemLabel="promowanie imprez sportowych"  disabled="true" />                                
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                                  
+                            </div>
+                            <div class="Card ShadowEffect ui-fluid">
+                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                     <p:commandButton type="button1"  
+                                                      value="Dalej"
+                                                      icon="fa fa-mail-forward Fs16 White" 
+                                                     styleClass="GreenButton RaisedButton"                                                     
+                                                     />
+                                     <p:commandButton type="button1"  
+                                                      value="Anuluj"
+                                                      icon="fa fa-remove Fs16 White" 
+                                                     styleClass="RedButton RaisedButton"                                                     
+                                                     />
+                                </p:panelGrid>    
+                            </div>   
 
-    </style>
+                        </div>
 
-    <script type="text/javascript">
-        /**
-         * Faces Validator
-         */
-        PrimeFaces.validator['customValidator'] = {
-            pattern: /\S+@\S+/,
-            validate: function (element, value) {
-                //use element.data() to access validation metadata, in this case there is none.
-                if (!this.pattern.test(value)) {
-                    throw {
-                        summary: 'Validation Error',
-                        detail: value + ' is not a validol'
-                    }
-                }
-            }
-        };
+                    </div>
 
-    </script>
-
-    <h:body>
-
-        <h:form class="loginFormStyle">   
-            <p:panelGrid styleClass="companyHeaderGrid"> 
-                <p:row>
-                    <p:column colspan="5">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" style="width: 100%"/>    
-                    </p:column>       
-                </p:row>   
-                <p:row>
-                    <p:column colspan="5">Twoje dane <p:separator /></p:column>
-                </p:row>       
-                <p:row>
-                    <p:column><p:outputLabel for="userType" value="Rodzaj konta" /></p:column>
-                    <p:column colspan="3">
-                        <p:selectOneMenu id="userType" value="#{login.userType}" required="true" requiredMessage="Nie wybrałeś rodzaju konta">
-                            <f:selectItem itemLabel="Wybierz..." itemValue="" />
-                            <f:selectItem itemLabel="Klient" itemValue="1" />
-                            <f:selectItem itemLabel="Trener" itemValue="2" />
-                            <f:selectItem itemLabel="Oragnizator wydarzenia" itemValue="3" />
-                            <f:selectItem itemLabel="Grupa robocza" itemValue="4" />
-                        </p:selectOneMenu>
-                    </p:column>
-
-                    <p:column rowspan="12">
-
-                    </p:column>
-                </p:row>                
-
-                <p:row>
-                    <p:column><p:outputLabel for="username" value="Nazwa użytkownika" /></p:column>
-                    <p:column colspan="3">
-                        <p:inputText class="inputTextStyle"  id="username" value="#{login.uname}" required="true" requiredMessage="Nie wybrałeś nazwy użytkownika">               
-                        </p:inputText>
-                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" /> 
-
-                    </p:column>  
-
-                </p:row>
-
-                <p:row>
-                    <p:column><p:outputLabel for="email" value="Adres email" /></p:column>
-                    <p:column  colspan="3">
-                        <p:inputText class="inputTextStyle"  id="email" value="#{login.email}"></p:inputText>
-                        <p:watermark for="email" value="Adres email" id="email_watermark" />                
-                    </p:column>                        
-                </p:row>
-
-                <p:row>
-                    <p:column><p:outputLabel for="pwd1" value="Hasło" /></p:column>
-                    <p:column  colspan="3">
-                        <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
-                        <p:password id="pwd1" value="#{login.pwd}" match="pwd2" label="Password 1" required="true" class="inputTextStyle" />
-                    </p:column>            
-                </p:row>
-                <p:row>
-                    <p:column></p:column>
-                    <p:column colspan="3"><p>Hasło musi składać się z min. 6 znaków, <br /> max. 30 znaków i musi zawierać cyfry i litery.</p></p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column><p:outputLabel for="pwd2" value="Powtórz hasło" /></p:column>     
-                    <p:column  colspan="3">
-                        <p:password id="pwd2" value="#{login.pwd}" label="Password 2" required="true" class="inputTextStyle"/>
-                        <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> </p:column>    
-                </p:row>
-
-
-                <p:row>
-                    <p:column><p:outputLabel for="state" value="Województwo" /> </p:column>     
-                    <p:column  colspan="3">
-                        <p:selectOneMenu id="state" value="#{login.state}" required="true" requiredMessage="Nie wybrałeś województwa">
-                            <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
-                            <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
-                            <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="2" />
-                            <f:selectItem itemLabel="woj. lubelskie" itemValue="3" />
-                            <f:selectItem itemLabel="woj. lubuskie" itemValue="4" />
-                            <f:selectItem itemLabel="woj. łódzkie" itemValue="5" />
-                            <f:selectItem itemLabel="woj. małopolskie" itemValue="6" />
-                            <f:selectItem itemLabel="woj. mazowieckie" itemValue="7" />
-                            <f:selectItem itemLabel="woj. opolskie" itemValue="8" />
-                            <f:selectItem itemLabel="woj. podkarpackie" itemValue="9" />
-                            <f:selectItem itemLabel="woj. podlaskie" itemValue="10" />
-                            <f:selectItem itemLabel="woj. pomorskie" itemValue="11" />
-                            <f:selectItem itemLabel="woj. śląskie" itemValue="12" />
-                            <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="13" />
-                            <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="14" />
-                            <f:selectItem itemLabel="woj. wielkopolskie" itemValue="15" />
-                            <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="16" />
-                        </p:selectOneMenu>
-                    </p:column>    
-                </p:row>
-
-
-                <p:row>
-                    <p:column><p:outputLabel for="city" value="Miasto" /> </p:column>     
-                    <p:column  colspan="3"> <p:inputText class="inputTextStyle"  id="city" value="#{login.city}"></p:inputText>
-                        <p:watermark for="city" value="Miasto" id="city_watermark" /> </p:column>    
-                </p:row>
-
-                <p:row>            
-                    <p:column colspan="4"><p:separator />Jakimi dyscyplinami i w jakim stopniu jesteś zainteresowany?<br/>
-                        Oznacz to poniżej lub wypełnij szybki quiz 
-
-                        <p:commandButton value="Quiz"  actionListener="#{login.viewQuizCustomized()}" oncomplete="PF('w_dialog').show();" />
-                        <p:dialog widgetVar="w_dialog" modal="true">
-                            <p>Dialog's content.</p>
-                            <ui:include src="quiz.xhtml"></ui:include>    
-                        </p:dialog>
-
-                        <p:separator />
-                    </p:column>
-                </p:row>
-
-                <p:row>                    
-                    <p:column>
-                      <p:outputLabel value="Bieganie " />
-                        <p:outputPanel id="container"  layout="block" style="text-align: center;">                              
-                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.r_val}" step="5"  />                                
-                        </p:outputPanel>
-                    </p:column>    
-                    <p:column>
-                        <p:outputLabel value="Kolarstwo " /> 
-                        <p:outputPanel id="container2"  layout="block" style="text-align: center;">                              
-                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.b_val}" step="5"  />                                
-                        </p:outputPanel>
-                    </p:column>  
-                     <p:column>
-                         <p:outputLabel value="Pływanie" />
-                        <p:outputPanel id="container3"  layout="block" style="text-align: center;">                              
-                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.s_val}" step="5"  />                                
-                        </p:outputPanel>
-                    </p:column> 
-                     <p:column>
-                          <p:outputLabel value="Triathlon " />
-                        <p:outputPanel id="container4"  layout="block" style="text-align: center;">                              
-                            <pe:knob widgetVar="knob" labelTemplate="{value}%" value="#{login.t_val}" step="5"  />                                
-                        </p:outputPanel>
-                    </p:column> 
-                </p:row>
+                </div>
+            </h:form>
 
 
-                <p:row>
-                    <p:column>
-                        <p:selectBooleanCheckbox label="cboxrower" value="1" />      
-                    </p:column>
-                    <p:column colspan="2">
-                        <h6>Wyrażam zgodę na przesyłanie na podany adres e-mail informacji handlowych,<br/> 
-                            promocyjnych i marketingowych dotyczących produktów i usług, <br/>
-                            a także na przetwarzanie moich danych osobowych</h6>                   
-                    </p:column>       
-                </p:row>
 
-                <p:separator style="height:2px"/>        
-                <p:row>
-                    <p:column colspan="3">
-                        <p:commandButton  action="#{login.createUser()}" value="Załóż konto"></p:commandButton>
-                        <p:commandButton  type="cancel" action="login.xhtml?faces-redirect=true" value="Anuluj" immediate="true"></p:commandButton>
-                    </p:column>
-                </p:row>
+        </div>
 
-            </p:panelGrid>     
-        </h:form>
-
+        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
 
     </h:body>
+
 </html>
