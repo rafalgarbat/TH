@@ -38,7 +38,8 @@ import org.primefaces.model.StreamedContent;
 public class Login implements Serializable {
 
     private static final long serialVersionUID = 1094801825228386363L;
-
+    private String user_type; /*sportowiec, trener, organizator*/
+    
     @EJB
     private LoginFacade loginFacade;
 
@@ -338,6 +339,14 @@ public class Login implements Serializable {
 
         Map<String, String> paramMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         return paramMap.get("paramEventId");
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 
 }
