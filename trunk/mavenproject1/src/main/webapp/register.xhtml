@@ -26,51 +26,51 @@
                 <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                     <div class="Wid33 MarAuto WidAutoOnMobile">
                         <div class="Card ShadowEffect">
-                            <p:menubar>
-                                <f:facet name="options">
-                                    <p:commandButton type="button" value="Kim jesteśmy?" 
+                                    <p:commandButton  value="Kim jesteśmy?" 
+                                                     action="info.xhtml?faces-redirect=true"
+                                                     immediate="true" ajax="false"
                                                      styleClass="OrangeButton RaisedButton"
-                                                     style="width: 100px; height:100px; font-size: 18px !important; " 
-                                                     />
+                                                                                                      
+                                                     />                                   
                                     <p:commandButton type="button" value="Jak zacząć?" 
                                                      styleClass="PurpleButton RaisedButton"
-                                                     style="width: 100px; height:100px; font-size: 18px !important; " 
-                                                     />                                    
-                                </f:facet>
-                            </p:menubar>  
+                                                    
+                                                     />
+                                     
+                          
                             <div class="EmptyBox10"></div>
                             <div class="Card ShadowEffect ui-fluid">
-                                    
-                                 <div class='Container90'>
+
+                                <div class='Container90'>
                                     <div align="left"><h3>Podstawowe informacje</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
                                                      styleClass="BlueButton RaisedButton"                                                     
                                                      />
                                 </div>
-                                 <div class="EmptyBox10"></div>
+                                <div class="EmptyBox10"></div>
                                 <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <p:outputLabel for="username" value="Nazwa użytkownika" />
                                     <p:inputText class="inputTextStyle"  id="username" value="#{loginbean.uname}" required="true" requiredMessage="Nie wybrałeś nazwy użytkownika">
                                         <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
                                     </p:inputText>
-                                   
+
                                     <p:outputLabel for="email" value="Adres email" />
                                     <p:inputText class="inputTextStyle"  id="email" value="#{loginbean.email}" required="true" requiredMessage="Brakuje adresu email">
                                         <p:watermark for="email" value="Adres email" id="email_watermark" />
                                     </p:inputText>
-                                   
+
                                     <p:outputLabel for="pwd1" value="Hasło" />
                                     <p:password id="pwd1" value="#{loginbean.pwd}" match="pwd2" label="Password 1" required="true" >
                                         <p:watermark for="pwd1" value="Hasło" id="pwd1_watermark" />
                                     </p:password>
-                                  
+
                                     <p:outputLabel for="pwd2" value="Powtórz hasło" />
                                     <p:password id="pwd2" value="#{loginbean.pwd}" label="Password 2" required="true" class="inputTextStyle">
                                         <p:watermark for="pwd2" value="Powtórz hasło" id="pwd2_watermark" /> 
                                     </p:password>
-                                    
+
                                     <p:outputLabel for="state" value="Województwo" /> 
                                     <p:selectOneMenu id="state" value="#{loginbean.state}" required="true" requiredMessage="Nie wybrałeś województwa">
                                         <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
@@ -91,26 +91,26 @@
                                         <f:selectItem itemLabel="woj. wielkopolskie" itemValue="15" />
                                         <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="16" />
                                     </p:selectOneMenu>
-                                  
+
                                     <p:outputLabel for="city" value="Miasto" /> 
                                     <p:inputText class="inputTextStyle"  id="city" value="#{login.city}">
                                         <p:watermark for="city" value="Miasto" id="city_watermark" />   
                                     </p:inputText>
-                                    
+
                                 </p:panelGrid>
                             </div>
                             <div class="EmptyBox10"></div>
                             <div class="Card ShadowEffect ui-fluid">
-                             <div class='Container90'>
+                                <div class='Container90'>
                                     <div align="left"><h3>Twoje zainteresowania</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
                                                      styleClass="BlueButton RaisedButton"                                                     
                                                      />
                                 </div>
-                                 <div class="EmptyBox10"></div>
-                                 <p:selectOneButton id="manyBtn2" >
+                                <div class="EmptyBox10"></div>
+                                <p:selectOneButton id="manyBtn2" >
                                     <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
                                     <f:selectItem itemLabel="Bieganie" itemValue="2" />
                                     <f:selectItem itemLabel="Pływanie" itemValue="3" />
@@ -119,16 +119,16 @@
                             </div>
                             <div class="EmptyBox10"></div>
                             <div class="Card ShadowEffect ui-fluid">
-                                                         
+
                                 <div class='Container90'>
                                     <div align="left"><h3>Kim jesteś</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                      <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
+                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
                                                      styleClass="BlueButton RaisedButton"                                                     
                                                      />
                                 </div>
-                                 <div class="EmptyBox10"></div>       
+                                <div class="EmptyBox10"></div>       
                                 <p:selectOneButton id="manyBtn" value="#{loginbean.user_type}">
                                     <f:selectItem itemLabel="Sportowiec" itemValue='1' />
                                     <f:selectItem itemLabel="Trener" itemValue="2" />
@@ -140,33 +140,33 @@
                                     <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '1'}"
                                                  layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                         <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności" disabled="true" />
-                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie wydarzeń sportowych"  disabled="true" />
-                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie grupy znajomych o wspólnej pasji"  disabled="true" />                                      
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie wydarzeń sportowych"  disabled="true" />
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie grupy znajomych o wspólnej pasji"  disabled="true" />                                      
                                     </p:panelGrid>
                                     <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '2'}"
                                                  layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                         <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności podopiecznych" disabled="true" />
-                                      <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie planów treningowych"  disabled="true" />
-                                      <p:selectBooleanCheckbox value="true"  itemLabel="zarządzanie grupami sportowymi"  disabled="true" />                                      
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie planów treningowych"  disabled="true" />
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="zarządzanie grupami sportowymi"  disabled="true" />                                      
                                     </p:panelGrid>
                                     <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '3'}"
                                                  layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                         <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie dużych wydarzeń sportowych" disabled="true" />
-                                      <p:selectBooleanCheckbox value="true"  itemLabel="promowanie imprez sportowych"  disabled="true" />                                
+                                        <p:selectBooleanCheckbox value="true"  itemLabel="promowanie imprez sportowych"  disabled="true" />                                
                                     </p:panelGrid>
                                 </p:outputPanel>
-                                  
+
                             </div>
                             <div class="Card ShadowEffect ui-fluid">
                                 <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                     <p:commandButton type="button1"  
-                                                      value="Dalej"
-                                                      icon="fa fa-mail-forward Fs16 White" 
+                                    <p:commandButton type="button1"  
+                                                     value="Dalej"
+                                                     icon="fa fa-mail-forward Fs16 White" 
                                                      styleClass="GreenButton RaisedButton"                                                     
                                                      />
-                                     <p:commandButton type="button1"  
-                                                      value="Anuluj"
-                                                      icon="fa fa-remove Fs16 White" 
+                                    <p:commandButton type="button1"  
+                                                     value="Anuluj"
+                                                     icon="fa fa-remove Fs16 White" 
                                                      styleClass="RedButton RaisedButton"                                                     
                                                      />
                                 </p:panelGrid>    
@@ -175,7 +175,7 @@
                         </div>
 
                     </div>
-
+Trainig Hub, 2016<hr/>
                 </div>
             </h:form>
 

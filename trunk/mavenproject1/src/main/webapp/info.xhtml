@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces RIO</title>
+        <ui:insert name="head" />
+    </h:head>
+    <f:metadata>
+        <f:viewParam name="regURL" value="#{login.hashcode}"/>
+        <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
+    </f:metadata>
+    <h:body styleClass="loginbodyblue">
+        <div class="Wid80 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <h:form id="rejestracjaForm"> 
+                <div class="Wid50 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                    <div class="Wid100 MarAuto WidAutoOnMobile">
+                        <div class="Card ShadowEffect">
+
+                            <div class="Container100 Responsive100">
+                                <div class="ContainerIndent">                                  
+                                    <h:form>
+                                        <p:tabView orientation="left">
+                                            <p:tab title="Kim jesteśmy">
+                                                <h:panelGrid columns="2" cellpadding="10">
+                                                    <i class="icon-windows-1 Fs50 Purple"></i>
+                                                    <div class="EmptyBox40"></div>
+                                                    <i class="icon-browser Fs50 Orange"></i>
+                                                    <div class="EmptyBox40"></div>
+                                                   <i class="icon-dribbble Fs60 Red"></i>
+                                                    <h:outputText
+                                                        value="Material design is guided by print-based design elements—such as typography, grids, space, scale, color, and imagery—to create hierarchy, meaning, and focus that immerse the user in the experience.
+                                                        Material design adopts tools from the field of print design, like baseline grids and structural templates, encouraging consistency across environments by repeating visual elements, structural grids, and spacing across platforms and screen sizes. These layouts scale to fit any screen size, which simplifies the process of creating scalable apps." />
+                                                </h:panelGrid>
+                                            </p:tab>
+                                            <p:tab title="Możliwości">
+                                                <h:panelGrid columns="2" cellpadding="10">
+                                                    <h:outputText value="Francis Ford Coppola's legendary. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
+                                                </h:panelGrid>
+                                            </p:tab>
+                                            <p:tab title="Użytkownik">
+                                                <h:panelGrid columns="2" cellpadding="10">
+                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
+                                                </h:panelGrid>
+                                            </p:tab>
+                                            <p:tab title="Trener">
+                                                <h:panelGrid columns="2" cellpadding="10">
+                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
+                                                </h:panelGrid>
+                                            </p:tab>
+                                            <p:tab title="Organizator">
+                                                <h:panelGrid columns="2" cellpadding="10">
+                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
+                                                </h:panelGrid>
+                                            </p:tab>
+                                        </p:tabView>
+                                    </h:form>
+                                </div>
+                            </div>
+ <div class="Card ShadowEffect ui-fluid">
+     <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                            <p:commandButton  action="faces/register.xhtml?faces-redirect=true"
+                                               icon="fa fa-mail-reply Fs16 White"  styleClass="Wid60 Fs18 GreenButton RaisedButton"
+                                              value="Powrót do rejestracji"/>
+                            <p:commandButton  action="faces/register.xhtml?faces-redirect=true"
+                                               icon="fa fa-mail-forward Fs16 White"  styleClass="Wid60 Fs18 PurpleButton RaisedButton"                                               
+                                              value="Dowiedz się jak zacząć!"/>
+                            </p:panelGrid>
+ </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </h:form>
+
+
+
+        </div>
+
+        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+
+    </h:body>
+
+</html>
