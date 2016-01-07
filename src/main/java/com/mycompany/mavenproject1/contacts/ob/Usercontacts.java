@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.mavenproject1.contacts;
+package com.mycompany.mavenproject1.contacts.ob;
 
 import com.mycompany.mavenproject1.auth.Users;
 import java.io.Serializable;

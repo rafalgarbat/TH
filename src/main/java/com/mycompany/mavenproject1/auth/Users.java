@@ -7,9 +7,10 @@ package com.mycompany.mavenproject1.auth;
 
 import com.mycompany.mavenproject1.calendar.Usercalendars;
 import com.mycompany.mavenproject1.contacts.Contact;
-import com.mycompany.mavenproject1.contacts.Usercontacts;
+import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
 import com.mycompany.mavenproject1.news.Msg;
+import com.mycompany.mavenproject1.photos.ob.Photos;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -42,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+    
+    @OneToMany(mappedBy = "userid")
+    private Collection<Photos> photosCollection;
     
     @OneToMany(mappedBy = "toUserId")
     private Collection<Msg> msgCollection;
@@ -311,6 +315,15 @@ public class Users implements Serializable {
 
     public void setMsgCollection1(Collection<Msg> msgCollection1) {
         this.msgCollection1 = msgCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Photos> getPhotosCollection() {
+        return photosCollection;
+    }
+
+    public void setPhotosCollection(Collection<Photos> photosCollection) {
+        this.photosCollection = photosCollection;
     }
     
 }

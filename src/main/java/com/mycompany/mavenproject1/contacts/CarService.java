@@ -9,6 +9,7 @@ package com.mycompany.mavenproject1.contacts;
  *
  * @author Jaroslaw.Skrzydlo
  */
+import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.auth.LoginFacade;
 import com.mycompany.mavenproject1.auth.Users;
 import java.util.ArrayList;
