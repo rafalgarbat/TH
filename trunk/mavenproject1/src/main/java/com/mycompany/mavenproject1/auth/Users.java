@@ -5,7 +5,7 @@
  */
 package com.mycompany.mavenproject1.auth;
 
-import com.mycompany.mavenproject1.calendar.Usercalendars;
+import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
 import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;

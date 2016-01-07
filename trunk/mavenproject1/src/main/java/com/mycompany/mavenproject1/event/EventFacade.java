@@ -10,7 +10,7 @@ import com.mycompany.mavenproject1.auth.Users;
 import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
-import com.mycompany.mavenproject1.calendar.Usercalendars;
+import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
