@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.contacts;
 
+import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.auth.LoginFacade;
 import com.mycompany.mavenproject1.auth.Users;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
