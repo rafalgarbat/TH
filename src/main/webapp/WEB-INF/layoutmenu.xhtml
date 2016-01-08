@@ -14,18 +14,23 @@
                     <span class="Fs18">#{loginbean.uname}<i class="icon-downwards Fright Fs20"></i><br />
                         <span class="Fs12 FontRobotoLight">#{loginbean.currentUser.email}</span></span>
                 </a>
-                <ul>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> Pulpit</a></li>
-                    <li><a href="settingspanel.xhtml"  class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Ustawienia</a></li>                    
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Wyloguj</a></li>
+                <ul>                   
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Wyloguj się</a></li>
                 </ul>
+                
+               
             </li>
         </ul>
-        
+         <div class="Separator"></div>
+        <pr:menu id="topMenuM">
+            <p:menuitem id="menu1" value="Pulpit" icon="icon-home149" outcome="/dashboard.xhtml"/>
+            <p:menuitem id="menu1" value="Profil" icon="icon-earth205" outcome="/empty/emptypage.xhtml"/>
+            <p:menuitem id="menu1" value="Ustawienia" icon="icon-settings" outcome="/profil/settingspanel.xhtml"/>
+        </pr:menu>
         <div class="Separator"></div>
 
         <pr:menu>
-            <p:menuitem id="rm_dashboard" value="Trening na dziś" icon="icon-planet29" outcome="/trainig/todaytraining.xhtml"/>
+            <p:menuitem id="rm_dashboard" value="Trening na dziś" icon="icon-tick7" outcome="/trainig/todaytraining.xhtml"/>
             <p:menuitem id="rm_kalendarz" value="Kalendarz" icon="icon-calendar" outcome="/kalendarz/usercalendar.xhtml"/>
             <p:submenu id="rm_theme1" label="Moje aktywności" icon="icon-mountains14" >
                 <p:menuitem value="Kalendarz" outcome="/kalendarz/workoutcalendar.xhtml" icon="icon-calendar" />
@@ -38,21 +43,20 @@
                 <p:menuitem value="Dodaj wydarzenie" outcome="/kalendarz/dodaj.xhtml" icon="icon-add182"  />    
             </p:submenu>
             <p:submenu id="rm_theme3" label="Społeczność" icon="icon-circles23">
-                <p:menuitem value="Wiadomości" outcome="/kalendarz/dodaj.xhtml" icon="icon-envelope"  />    
+                <p:menuitem value="Wiadomości" outcome="/empty/emptypage.xhtml" icon="icon-grid-alt"  />
                 <p:submenu id="rm_theme4" label="Zdjęcia" icon="icon-users25">
-                    <p:menuitem value="Galeria" outcome="/kalendarz/dodaj.xhtml" icon="icon-add182"  />    
-                    <p:menuitem value="Dodaj zdjęcia" outcome="/photos/uploadphotos.xhtml" icon="icon-add182"  />    
+                    <p:menuitem value="Galeria" outcome="/empty/emptypage.xhtml" icon="icon-add182"  />    
+                    <p:menuitem value="Dodaj zdjęcia" outcome="/empty/emptypage.xhtml" icon="icon-add182"  />    
                 </p:submenu>
-                <p:submenu id="rm_theme5" label="Znajomi" icon="icon-menu55">
-                    
+                <p:submenu id="rm_theme5" label="Znajomi" icon="icon-users">
+                    <p:menuitem value="Znajomi" outcome="/empty/emptypage.xhtml" icon="icon-users"  />    
+                    <p:menuitem value="Szukaj" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
                 </p:submenu>
                 <p:submenu id="rm_theme6" label="Grupy sportowe" icon="icon-users25">
                     
                 </p:submenu>
-                <p:submenu id="rm_theme7" label="Osiągnięcia" icon="icon-users25">
-                    
-                </p:submenu>
-                <p:menuitem value="Rekordy" outcome="/kalendarz/compcaledar.xhtml" icon="icon-map103" />                
+                <p:menuitem value="Osiągnięcia" outcome="/empty/emptypage.xhtml" icon="icon-exclamation"  />
+                
             </p:submenu>            
         </pr:menu>
 
