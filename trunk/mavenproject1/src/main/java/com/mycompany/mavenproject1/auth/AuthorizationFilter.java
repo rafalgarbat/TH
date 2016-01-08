@@ -50,6 +50,8 @@
                         || reqURI.indexOf("/quiz.xhtml") >= 0
                         || reqURI.indexOf("/test.xhtml") >= 0
                         || reqURI.indexOf("/info.xhtml") >= 0
+                        || reqURI.indexOf("/help.xhtml") >= 0
+                        || reqURI.indexOf("/howtostart.xhtml") >= 0
                         || (ses != null && ses.getAttribute("username") != null)
                         || reqURI.indexOf("/public/") >= 0
                         || reqURI.contains("javax.faces.resource"))
