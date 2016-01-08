@@ -20,7 +20,7 @@
         <f:viewParam name="regURL" value="#{login.hashcode}"/>
         <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
     </f:metadata>
-    <h:body styleClass="loginbodyblue">
+    <h:body styleClass="loginbodyred">
         <div class="Wid80 DispBlock MarAuto MarTopPerc5 TexAlCenter">
             <h:form id="rejestracjaForm"> 
                 <div class="Wid50 DispBlock MarAuto MarTopPerc5 TexAlCenter">
@@ -31,7 +31,7 @@
                                 <div class="ContainerIndent">                                  
                                     <h:form>
                                         <p:tabView orientation="left">
-                                            <p:tab title="Kim jesteśmy">
+                                            <p:tab title="Pomoc">
                                                 <h:panelGrid columns="2" cellpadding="10">
                                                     <i class="icon-windows-1 Fs50 Purple"></i>
                                                     <div class="EmptyBox40"></div>
@@ -43,42 +43,22 @@
                                                         Material design adopts tools from the field of print design, like baseline grids and structural templates, encouraging consistency across environments by repeating visual elements, structural grids, and spacing across platforms and screen sizes. These layouts scale to fit any screen size, which simplifies the process of creating scalable apps." />
                                                 </h:panelGrid>
                                             </p:tab>
-                                            <p:tab title="Możliwości">
+                                            <p:tab title="Zgłoś błąd">
                                                 <h:panelGrid columns="2" cellpadding="10">
                                                     <h:outputText value="Francis Ford Coppola's legendary. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                                                   Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
                                                 </h:panelGrid>
-                                            </p:tab>
-                                            <p:tab title="Użytkownik">
-                                                <h:panelGrid columns="2" cellpadding="10">
-                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
-                                                </h:panelGrid>
-                                            </p:tab>
-                                            <p:tab title="Trener">
-                                                <h:panelGrid columns="2" cellpadding="10">
-                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
-                                                </h:panelGrid>
-                                            </p:tab>
-                                            <p:tab title="Organizator">
-                                                <h:panelGrid columns="2" cellpadding="10">
-                                                    <h:outputText value="After a break of more than 15 years. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                  Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
-                                                </h:panelGrid>
-                                            </p:tab>
+                                            </p:tab>                                                                                      
                                         </p:tabView>
                                     </h:form>
                                 </div>
                             </div>
  <div class="Card ShadowEffect ui-fluid">
-     <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+     <p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                             <p:commandButton  action="faces/register.xhtml?faces-redirect=true"
                                                icon="fa fa-mail-reply Fs16 White"  styleClass="Wid60 Fs18 GreenButton RaisedButton"
                                               value="Powrót do rejestracji"/>
-                            <p:commandButton  action="faces/howtostart.xhtml?faces-redirect=true"
-                                               icon="fa fa-mail-forward Fs16 White"  styleClass="Wid60 Fs18 PurpleButton RaisedButton"                                               
-                                              value="Dowiedz się jak zacząć!"/>
+                            
                             </p:panelGrid>
  </div>
                         </div>

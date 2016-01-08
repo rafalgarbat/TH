@@ -43,13 +43,18 @@
                                               styleClass="GreenButton Wid60 Fs18 White RaisedButton"
                                               />
                             <div class="EmptyBox10"></div>
+                              <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
+                                              icon="fa fa-facebook-f " 
+                                              styleClass="BlueButton Wid60 Fs18 White RaisedButton"
+                                              />
+                            <div class="EmptyBox10"></div>
                             <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
                                               icon="fa fa-lock"
                                               styleClass="RedButton Wid60 Fs18 White RaisedButton"
                                               value="Prześlij hasło ponownie"/> 
                             <div class="Separator"></div>                           
                             <p:commandButton  action="register.xhtml?faces-redirect=true"
-                                              icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton"
+                                              icon="fa fa-sign-in" styleClass="PurpleButton Wid60 Fs18 White RaisedButton"
                                               value="Załóż konto"/>
 
                         </div>                        

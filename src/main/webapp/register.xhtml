@@ -20,24 +20,35 @@
         <f:viewParam name="regURL" value="#{login.hashcode}"/>
         <f:event type="preRenderView" listener="#{login.validateRegistrationURL}" />
     </f:metadata>
-    <h:body styleClass="loginbodyblue">
+    <h:body styleClass="loginbodyorange">
         <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
             <h:form id="rejestracjaForm"> 
                 <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                     <div class="Wid33 MarAuto WidAutoOnMobile">
+                        <div class="Card ShadowEffect ui-fluid">
+                            <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                <p:commandButton  value="Kim jesteśmy?" 
+                                                  action="info.xhtml?faces-redirect=true"
+                                                  immediate="true" ajax="false"
+                                                  styleClass="BlueButton RaisedButton"
+                                                  />                                   
+                                <p:commandButton  value="Jak zacząć?" 
+                                                  styleClass="OrangeButton RaisedButton"
+                                                  action="howtostart.xhtml?faces-redirect=true"
+                                                  immediate="true" ajax="false"
+                                                  />
+                                <p:commandButton 
+                                    value="Pomoc"
+                                    icon="fa fa-remove Fs16 White" 
+                                    styleClass="RedButton RaisedButton"  
+                                    action="help.xhtml?faces-redirect=true"
+                                    immediate="true" ajax="false"
+                                    />
+                            </p:panelGrid>
+                        </div>
                         <div class="Card ShadowEffect">
-                                    <p:commandButton  value="Kim jesteśmy?" 
-                                                     action="info.xhtml?faces-redirect=true"
-                                                     immediate="true" ajax="false"
-                                                     styleClass="OrangeButton RaisedButton"
-                                                                                                      
-                                                     />                                   
-                                    <p:commandButton type="button" value="Jak zacząć?" 
-                                                     styleClass="PurpleButton RaisedButton"
-                                                    
-                                                     />
-                                     
-                          
+
+
                             <div class="EmptyBox10"></div>
                             <div class="Card ShadowEffect ui-fluid">
 
@@ -45,9 +56,13 @@
                                     <div align="left"><h3>Podstawowe informacje</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
-                                                     styleClass="BlueButton RaisedButton"                                                     
-                                                     />
+                                    <p:commandButton type="button1" id="help1Btn"  icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton">
+                                        <p:tooltip id="toolTipFade" for="help1Btn" >
+                                            <h:outputText value="Tutaj mamy wyjaśnienie " /><hr/>
+                                            <h:outputText value="A tu jescze coś tam, i moze być tego dużo" />                                           
+                                        </p:tooltip>
+                                    </p:commandButton>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
@@ -96,7 +111,10 @@
                                     <p:inputText class="inputTextStyle"  id="city" value="#{login.city}">
                                         <p:watermark for="city" value="Miasto" id="city_watermark" />   
                                     </p:inputText>
-
+                                     
+                                    <p:outputLabel for="zgodaChx" value="Utworzenie konta oznacza, że odpowiadają Ci Warunki korzystania z usługi, Polityka prywatności oraz Warunki korzystania z plików cookie"/>
+                                    <p:selectBooleanCheckbox id="zgodaChx"  />
+                                    
                                 </p:panelGrid>
                             </div>
                             <div class="EmptyBox10"></div>
@@ -105,17 +123,23 @@
                                     <div align="left"><h3>Twoje zainteresowania</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
-                                                     styleClass="BlueButton RaisedButton"                                                     
-                                                     />
+                                    <p:commandButton type="button1" id="help2Btn" icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton">
+                                        <p:tooltip id="toolTipFade2" for="help2Btn" >
+                                            <h:outputText value="Tutaj mamy wyjaśnienie " /><hr/>
+                                            <h:outputText value="A tu jescze coś tam, i moze być tego dużo" />                                           
+                                        </p:tooltip>                                                         
+                                    </p:commandButton>
                                 </div>
                                 <div class="EmptyBox10"></div>
-                                <p:selectOneButton id="manyBtn2" >
-                                    <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
-                                    <f:selectItem itemLabel="Bieganie" itemValue="2" />
-                                    <f:selectItem itemLabel="Pływanie" itemValue="3" />
-                                    <f:selectItem itemLabel="Triathlon" itemValue="4" />                                    
-                                </p:selectOneButton>
+                                <div class="ContainerIndent">
+                                    <p:selectManyCheckbox id="manyBtn2" >
+                                        <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
+                                        <f:selectItem itemLabel="Bieganie" itemValue="2" />
+                                        <f:selectItem itemLabel="Pływanie" itemValue="3" />
+                                        <f:selectItem itemLabel="Triathlon" itemValue="4" />                                    
+                                    </p:selectManyCheckbox>
+                                </div>
                             </div>
                             <div class="EmptyBox10"></div>
                             <div class="Card ShadowEffect ui-fluid">
@@ -124,58 +148,68 @@
                                     <div align="left"><h3>Kim jesteś</h3></div>
                                 </div>
                                 <div class='Container10'>
-                                    <p:commandButton type="button1"  icon="fa fa-question Fs16 White" 
-                                                     styleClass="BlueButton RaisedButton"                                                     
-                                                     />
+                                    <p:commandButton type="button1" id="help3Btn"  icon="fa fa-question Fs16 White" 
+                                                     styleClass="BlueButton RaisedButton">
+                                        <p:tooltip id="toolTipFade3" for="help3Btn" >
+                                            <h:outputText value="Tutaj mamy wyjaśnienie " /><hr/>
+                                            <h:outputText value="A tu jescze coś tam, i moze być tego dużo" />                                           
+                                        </p:tooltip>                                                              
+                                    </p:commandButton>
                                 </div>
                                 <div class="EmptyBox10"></div>       
-                                <p:selectOneButton id="manyBtn" value="#{loginbean.user_type}">
+                                <p:selectOneRadio id="manyBtn" value="#{loginbean.user_type}">
                                     <f:selectItem itemLabel="Sportowiec" itemValue='1' />
                                     <f:selectItem itemLabel="Trener" itemValue="2" />
                                     <f:selectItem itemLabel="Organizator" itemValue="3" />
                                     <p:ajax  update="testpanel" />
-                                </p:selectOneButton>
-                                <p:outputPanel id="testpanel">     
-                                    <h3>Aplikacja pozwala na</h3>
-                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '1'}"
-                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności" disabled="true" />
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie wydarzeń sportowych"  disabled="true" />
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie grupy znajomych o wspólnej pasji"  disabled="true" />                                      
-                                    </p:panelGrid>
-                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '2'}"
-                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności podopiecznych" disabled="true" />
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie planów treningowych"  disabled="true" />
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="zarządzanie grupami sportowymi"  disabled="true" />                                      
-                                    </p:panelGrid>
-                                    <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '3'}"
-                                                 layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie dużych wydarzeń sportowych" disabled="true" />
-                                        <p:selectBooleanCheckbox value="true"  itemLabel="promowanie imprez sportowych"  disabled="true" />                                
-                                    </p:panelGrid>
-                                </p:outputPanel>
-
+                                </p:selectOneRadio>
+                                <div class="ContainerIndent">
+                                    <p:outputPanel id="testpanel">     
+                                        <div class="EmptyBox10"></div>
+                                        <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '1'}"
+                                                     layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności" disabled="true" />
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie wydarzeń sportowych"  disabled="true" />
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie grupy znajomych o wspólnej pasji"  disabled="true" />                                      
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '2'}"
+                                                     layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="analiza aktywności podopiecznych" disabled="true" />
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie planów treningowych"  disabled="true" />
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="zarządzanie grupami sportowymi"  disabled="true" />                                      
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="1"   rendered="#{loginbean.user_type == '3'}"
+                                                     layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="tworzenie dużych wydarzeń sportowych" disabled="true" />
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="promowanie imprez sportowych"  disabled="true" /> 
+                                            <p:selectBooleanCheckbox value="true"  itemLabel="coś tam coś tam"  disabled="true" />                                
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </div>
                             </div>
                             <div class="Card ShadowEffect ui-fluid">
                                 <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                     <p:commandButton type="button1"  
-                                                     value="Dalej"
+                                                     value="Zapisz i załóż konto"
                                                      icon="fa fa-mail-forward Fs16 White" 
                                                      styleClass="GreenButton RaisedButton"                                                     
                                                      />
                                     <p:commandButton type="button1"  
                                                      value="Anuluj"
                                                      icon="fa fa-remove Fs16 White" 
-                                                     styleClass="RedButton RaisedButton"                                                     
+                                                     styleClass="RedButton RaisedButton"  
+                                                     action="login.xhtml?faces-redirect=true"
+                                                     immediate="true" ajax="false"
                                                      />
+
+
                                 </p:panelGrid>    
                             </div>   
 
                         </div>
 
                     </div>
-Trainig Hub, 2016<hr/>
+
                 </div>
             </h:form>
 
