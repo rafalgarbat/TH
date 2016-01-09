@@ -14,92 +14,160 @@
             <p:growl id="msgs" showDetail="true"  />
             <div class="Container100 ui-fluid">
                 <div class="ContainerIndent">
-                    <div class="Card ShadowEffect">  
-                        <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
+                    <div class="Card ShadowEffect"> 
+                        <p:tabView>
+                            <p:tab title="Nadchodzące">                              
+                                <p:dataTable value="#{todayTrainingController.getEventyWplanie(loginbean.uname)}" 
+                                                 var="displayeventinfo"                                                 
+                                                 paginator="true"
+                                                 paginatorPosition="top"
+                                                 rows="30"> 
+                                    <p:column headerText="Akcje" style="width:130px;">
+                                        <p:commandButton value="Zrealizowany!" icon="fa fa-check Fs16 White"  styleClass="PurpleButton" 
+                                                             style="width: 130px;" iconPos="right"/>
+                                        
+                                    </p:column>
+                                     <p:column headerText="Nazwa kalendarza" style="width:100px;">
+                                            #{displayeventinfo.calendarname} 
+                                     </p:column>
+                                      <p:column headerText="Typ" style="width:75px;">                                            
+                                             <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                     </p:column>
+                                    <p:column headerText="Tytul" >
+                                            #{displayeventinfo.eventTitle} 
+                                     </p:column>
+                                    
+                                      
+                                      
+                                     <p:column headerText="Dystans" >
+                                            #{displayeventinfo.dystans} 
+                                     </p:column>
+                                     <p:column headerText="Opis" >
+                                            #{displayeventinfo.eventOpis} 
+                                     </p:column>
+                                      <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
+                                             <h:outputText value="#{displayeventinfo.dataod}">
+                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                                            </h:outputText>
+                                     </p:column>
+                                     <p:column headerText="Kalendarz publiczny?" >                                            
+                                              <p:inputSwitch value="#{displayeventinfo.isCalendarPublic}" 
+                                                           offLabel="Nie" onLabel="Tak"
+                                                           disabled="true"
+                                                           />
+                                     </p:column>
+                                     <p:column headerText="Wydarzenie publiczne?" >                                           
+                                             <p:inputSwitch value="#{displayeventinfo.isEventPublic}" 
+                                                           offLabel="Nie" onLabel="Tak"
+                                                           disabled="true"
+                                                           />
+                                     </p:column>
+                                     <p:column headerText="Wydarzenie całodniowe?" >                                            
+                                              <p:inputSwitch value="#{displayeventinfo.isAllDay}" 
+                                                           offLabel="Nie" onLabel="Tak"
+                                                           disabled="true"
+                                                           />
+                                     </p:column>
+                                 </p:dataTable>               
+                            </p:tab>
+                            <p:tab title="Zrealizowane">
+                                <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
 
-                                     styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
-                            <p:dataTable value="#{todayTrainingController.getMojeEventy(loginbean.uname)}" 
-                                         var="userevents"
-                                         selection="#{todayTrainingController.selectedUserEvent}"
-                                         rowKey="#{userevents.uid}"
-                                         selectionMode="single"
-                                         paginator="true"
-                                         paginatorPosition="top"
-                                         rows="30"> 
+                                             styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
+                                    <p:dataTable value="#{todayTrainingController.getMojeEventy(loginbean.uname)}" 
+                                                 var="userevents"
+                                                 selection="#{todayTrainingController.selectedUserEvent}"
+                                                 rowKey="#{userevents.uid}"
+                                                 selectionMode="single"
+                                                 paginator="true"
+                                                 paginatorPosition="top"
+                                                 rows="30"> 
 
-                                <p:ajax event="rowSelect" 
-                                        listener="#{todayTrainingController.onRowSelect}" 
-                                        update="@([id$=opisTreninguPG])" />
-                                <p:column headerText="ID" style="width:20px;" >
-                                    #{userevents.uid}
-                                </p:column> 
-                                <p:column headerText="Typ" style="width:75px;">                                    
-                                    <p:graphicImage library="images" name="bike.jpg" width="75px" height="75px"/>
-                                </p:column>
-                                <p:column headerText="Data" style="width:140px;" >
+                                        <p:ajax event="rowSelect" 
+                                                listener="#{todayTrainingController.onRowSelect}" 
+                                                update="@([id$=opisTreninguPG])" />
+                                        <p:column headerText="ID" style="width:20px;" >
+                                            #{userevents.uid}
+                                        </p:column> 
+                                        <p:column headerText="Typ" style="width:75px;"> 
+                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==1}"/>
+                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==2}"/>
+                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==3}"/>
+                                        </p:column>
+                                        <p:column headerText="Data" style="width:140px;" >
 
 
-                                    <h:outputText value="#{userevents.eventId.dataod}">
-                                        <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
-                                    </h:outputText>
-                                </p:column>
+                                            <h:outputText value="#{userevents.eventId.dataod}">
+                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
 
-                                <p:column headerText="Tytul" >
-                                    #{userevents.eventId.tytul} 
-                                </p:column>
-                                <p:column headerText="Dystans">
-                                    #{userevents.distance} 
-                                </p:column>
-                                <p:column headerText="Czas ruchu">
-                                    #{userevents.duration} 
-                                </p:column>
-                                <p:column headerText="Wykonanie" style="width:80px;">                            
-                                    <p:inputSwitch value="#{userevents.completed}" 
-                                                   offLabel="Nie" onLabel="Tak"
-                                                   disabled="true"
-                                                   />
-                                </p:column>
-                            </p:dataTable>
+                                        <p:column headerText="Tytul" >
+                                            #{userevents.eventId.tytul} 
+                                        </p:column>
+                                        <p:column headerText="Dystans">
+                                            #{userevents.distance} 
+                                        </p:column>
+                                        <p:column headerText="Czas ruchu">
+                                            #{userevents.duration} 
+                                        </p:column>
+                                        <p:column headerText="Wykonanie" style="width:80px;">                            
+                                            <p:inputSwitch value="#{userevents.completed}" 
+                                                           offLabel="Nie" onLabel="Tak"
+                                                           disabled="true"
+                                                           />
+                                        </p:column>
+                                    </p:dataTable>
 
-                            <p:panelGrid columns="2" id="opisTreninguPG" styleClass="ui-panelgrid-blank"
-                                         style="width: 600px;border:0px none; background-color:transparent;">
-                                <p:outputLabel  value="xxx"    />
-                                Trening #{todayTrainingController.selectedUserEvent.uid} 
+                                    <p:panelGrid columns="2" id="opisTreninguPG" styleClass="ui-panelgrid-blank"
+                                                 style="width: 600px;border:0px none; background-color:transparent;">
+                                        <p:outputLabel  value="xxx"    />
+                                        Trening #{todayTrainingController.selectedUserEvent.uid} 
 
-                                <p:outputLabel for="stanTreningu" value="stanTreningu"   />
-                                <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
-                                    <f:selectItem itemLabel="Zrobiony" itemValue="false" />
-                                    <f:selectItem itemLabel="Nie zrobiony" itemValue="true" />
-                                </p:selectOneButton>   
+                                        <p:outputLabel for="stanTreningu" value="stanTreningu"   />
+                                        <p:selectOneButton id ="stanTreningu" value="#{todayTrainingController.selectedUserEvent.completed}">
+                                            <f:selectItem itemLabel="Zrobiony" itemValue="false" />
+                                            <f:selectItem itemLabel="Nie zrobiony" itemValue="true" />
+                                        </p:selectOneButton>   
 
-                                <p:outputLabel for="duration" value="duration" />
-                                <p:inputMask id="duration"  mask="99.99"
-                                             value="#{todayTrainingController.selectedUserEvent.duration}"/>
+                                        <p:outputLabel for="duration" value="duration" />
+                                        <p:inputMask id="duration"  mask="99.99"
+                                                     value="#{todayTrainingController.selectedUserEvent.duration}"/>
 
-                                <p:outputLabel for="distance" value="distance" />
-                                <p:inputMask id="distance"  mask="999" value="#{todayTrainingController.selectedUserEvent.distance}"/>
+                                        <p:outputLabel for="distance" value="distance" />
+                                        <p:inputMask id="distance"  mask="999" value="#{todayTrainingController.selectedUserEvent.distance}"/>
 
-                                <p:outputLabel for="kalorie" value="kalorie" />
-                                <p:inputMask id="kalorie" mask="99999" value="#{todayTrainingController.selectedUserEvent.kalorie}"/> 
+                                        <p:outputLabel for="kalorie" value="kalorie" />
+                                        <p:inputMask id="kalorie" mask="99999" value="#{todayTrainingController.selectedUserEvent.kalorie}"/> 
 
-                                <p:outputLabel for="uwagi" value="uwagi" />
-                                <p:editor id="uwagi" height="700" value="#{todayTrainingController.selectedUserEvent.uwagi}"/>
+                                        <p:outputLabel for="uwagi" value="uwagi" />
+                                        <p:editor id="uwagi" height="700" value="#{todayTrainingController.selectedUserEvent.uwagi}"/>
 
-                                <p:outputLabel for="link" value="link" />
-                                <p:inputText id="link" value="#{todayTrainingController.selectedUserEvent.link}" >
-                                    <p:watermark for="link" value="Link do zapisu treningu Garmin/Strava/Polar..." id="link_watermark" /> 
-                                </p:inputText> 
-                                 <p:outputLabel for="zapiszBtn" value="" />
-                                <p:commandButton value="Zapisz" id="zapiszBtn"
-                                                icon="fa fa-eyedropper Fs16 White" iconPos="right"
-                                                 styleClass="OrangeButton RaisedButton"
-                                                 actionListener="#{todayTrainingController.zapiszZmiany()}" update="@all"  />
+                                        <p:outputLabel for="link" value="link" />
+                                        <p:inputText id="link" value="#{todayTrainingController.selectedUserEvent.link}" >
+                                            <p:watermark for="link" value="Link do zapisu treningu Garmin/Strava/Polar..." id="link_watermark" /> 
+                                        </p:inputText> 
+                                        <p:outputLabel for="zapiszBtn" value="" />
+                                        <p:commandButton value="Zapisz" id="zapiszBtn"
+                                                         icon="fa fa-eyedropper Fs16 White" iconPos="right"
+                                                         styleClass="OrangeButton RaisedButton"
+                                                         actionListener="#{todayTrainingController.zapiszZmiany()}" update="@all"  />
+
+
+                                    </p:panelGrid> 
+
+                                    xxx
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Komentarze">
                                 
-                                
-                            </p:panelGrid> 
+                            </p:tab>
+                        </p:tabView>    
 
-                            xxx
-                        </h:panelGrid>
+
+
                     </div>
                 </div>
             </div>

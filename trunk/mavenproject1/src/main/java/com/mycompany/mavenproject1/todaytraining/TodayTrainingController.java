@@ -10,6 +10,8 @@ import com.mycompany.mavenproject1.event.EventFacade;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.Userevents;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -45,14 +47,37 @@ public class TodayTrainingController implements Serializable {
 
     public Events getEvent(int aUserEventId) {
         Query pQ = eventFacade.getEntityManager().createNamedQuery("Userevents.findByUid").setParameter("uid", aUserEventId);
+        pQ.setParameter("orderBy", "last_update_dt");
         Userevents pTmp = (Userevents) pQ.getSingleResult();
         return pTmp.getEventId();
     }
 
-    public void zapiszZmiany(){
-    eventFacade.zapiszUserEvent(selectedUserEvent);
+    public List<DisplayEventInfo> getEventyWplanie(String aUname) {
+        List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
+        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
+                + "where uc.userid =  ? "
+                + "and ce.calenarid = uc.uid "
+                + "and ce.eventid =  e.id "
+                + "and c.uid = uc.calendarid order by e.dataod ";
+        List<Object[]> results = eventFacade.getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
+        DisplayEventInfo pD;
+        for (Object[] ob : results) {
+            pD = new DisplayEventInfo();
+            pD.setCalendarname((String) ob[0]);
+            pD.setIsCalendarPublic((Boolean) ob[1]);
+            pD.setEventTitle((String) ob[3]);
+            pD.setDataod((Date) ob[7]);
+            pD.setTypWydarzenia((String) ob[8]);
+            pD.setEventOpis((String) ob[4]);
+            pWyniki.add(pD);
+        }
+        return pWyniki;
     }
-    
+
+    public void zapiszZmiany() {
+        eventFacade.zapiszUserEvent(selectedUserEvent);
+    }
+
     public void loadEvent(int aUserEventId) {
 
     }
@@ -79,7 +104,7 @@ public class TodayTrainingController implements Serializable {
 
     public void setMyEvent(Events myEvent) {
         this.myEvent = myEvent;
-    } 
+    }
 
     public Userevents getSelectedUserEvent() {
         return selectedUserEvent;
@@ -89,10 +114,9 @@ public class TodayTrainingController implements Serializable {
         this.selectedUserEvent = selectedUserEvent;
     }
 
-    
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
 }
