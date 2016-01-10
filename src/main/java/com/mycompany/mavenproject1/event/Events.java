@@ -135,6 +135,11 @@ public class Events implements Serializable {
     @Column(name = "adreswww")
     private String adreswww;
     
+    @Column(name = "rejestracja_date")
+    @Temporal(TemporalType.DATE)
+    private Date rejestracja_date;
+    
+    
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
     @ManyToOne
     private Klient klientId;
@@ -296,6 +301,14 @@ public class Events implements Serializable {
 
     public void setAdreswww(String adreswww) {
         this.adreswww = adreswww;
+    }
+
+    public Date getRejestracja_date() {
+        return rejestracja_date;
+    }
+
+    public void setRejestracja_date(Date rejestracja_date) {
+        this.rejestracja_date = rejestracja_date;
     }
     
     
