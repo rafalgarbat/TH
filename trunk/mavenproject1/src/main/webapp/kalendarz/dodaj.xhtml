@@ -93,7 +93,11 @@
                             <div class="ContainerIndent">
                                 <h2 class="BigTopic">Dane podstawowe</h2>
                                 <p:panelGrid  style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-
+                                    <p:row>
+                                        <p:column><p:outputLabel for="dataRejestracji" value="Data rejestracji"/></p:column>
+                                        <p:column><p:calendar id="dataRejestracji" value="#{createeventview.newEvent.rejestracja_date}" 
+                                                              pattern="MM/dd/yyyy HH:mm" required="true"/></p:column>
+                                    </p:row>        
                                     <p:row>
                                         <p:column ><p:outputLabel for="organizatorWydarzenia" value="Organizator"/></p:column>
                                         <p:column><p:inputText id="organizatorWydarzenia" value="#{loginbean.uname}" disabled="true"/></p:column>
