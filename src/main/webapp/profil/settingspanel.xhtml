@@ -6,62 +6,156 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
-        <div class="Container100">
+        <div class="Container40">
             <div class="ContainerIndent">
+                <div class="Card ShadowEffect ui-fluid SoftOrangeBack">     
+                    <h3>Informacje podstawowe</h3>
+                </div>
                 <div class="Card ShadowEffect TexAlCenter">
+                    <div class="Card ShadowEffect ui-fluid">                       
+                        <div align="left"><h3>Nazwa użytkownika</h3>
 
-                    <div class="Wid100 MarAuto">
-                        <div class="ContainerIndent">
-                       
-                            <div class="Container75 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftBlueBack White TexAlCenter HoverEffect">
-                                        <div class="EmptyBox5"></div>
-                                        <i class="icon icon-sort52 Fs50"></i>
-                                        <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16  White DispBlock ClearBoth">Dane osobowe</div>
-                                        <div class="CardFooter Fs22 TurquoiseBack White" >
-                                             <span class="White Fleft  Fs22">Opis co jest tu aktuaizowane</span>  
-                                             <a href="#" class="CardFooterBtn White BorderLeft Fleft ripplelink"><i class="icon-add182"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Container75 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftBlueBack White TexAlCenter HoverEffect">
-                                        <div class="EmptyBox5"></div>
-                                        <i class="icon icon-user157 Fs50"></i>
-                                        <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16 White DispBlock ClearBoth">Zdjęcie profilowe</div>
-                                         <div class="CardFooter Fs22 TurquoiseBack" >
-                                            <span class="White Fleft  Fs22">Opis co jest tu aktuaizowane</span>  
-                                             <a href="#" class="CardFooterBtn White BorderLeft Fleft ripplelink"><i class="icon-add182"></i></a>                                                                                     
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Container75 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftBlueBack White TexAlCenter HoverEffect">
-                                        <div class="EmptyBox5"></div>
-                                        <i class="icon icon-visibility1 Fs50"></i>
-                                        <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16 White DispBlock ClearBoth">Widoczność profilu</div>
-                                         <div class="CardFooter Fs22 TurquoiseBack" >
-                                            <span class="White Fleft  Fs22">Opis co jest tu aktuaizowane</span>  
-                                             <a href="#" class="CardFooterBtn White BorderLeft Fleft ripplelink"><i class="icon-add182"></i></a>                                                                                     
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <p:inplace id="edit_uname">
+                                <p:inputText value="#{loginbean.currentUser.uname}" />
+                            </p:inplace>
                         </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Email</h3>
+
+                            <p:inplace id="edit_email">
+                                <p:inputText value="#{loginbean.currentUser.email}" />
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Hasło</h3>
+
+                            <p:inplace id="edit_pass">
+                                <p:password value="#{loginbean.currentUser.password}" />
+                                <br/><h3>Powtórz hasło</h3>
+                                <p:password id="pasda"/>
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Miasto</h3>
+                            <p:inplace id="edit_city">
+                                <p:inputText value="#{loginbean.currentUser.email}" />
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Województwo</h3>
+                            <p:inplace id="edit_state" label="#{loginbean.currentUser.state}">
+                                <p:selectOneMenu id="state" value="#{loginbean.currentUser.state}" required="true" requiredMessage="Nie wybrałeś województwa">
+                                    <f:selectItem itemLabel="Wybierz..." itemValue="" />                    
+                                    <f:selectItem itemLabel="woj. dolnośląskie" itemValue="1" />
+                                    <f:selectItem itemLabel="woj. kujawsko-pomorskie" itemValue="2" />
+                                    <f:selectItem itemLabel="woj. lubelskie" itemValue="3" />
+                                    <f:selectItem itemLabel="woj. lubuskie" itemValue="4" />
+                                    <f:selectItem itemLabel="woj. łódzkie" itemValue="5" />
+                                    <f:selectItem itemLabel="woj. małopolskie" itemValue="6" />
+                                    <f:selectItem itemLabel="woj. mazowieckie" itemValue="7" />
+                                    <f:selectItem itemLabel="woj. opolskie" itemValue="8" />
+                                    <f:selectItem itemLabel="woj. podkarpackie" itemValue="9" />
+                                    <f:selectItem itemLabel="woj. podlaskie" itemValue="10" />
+                                    <f:selectItem itemLabel="woj. pomorskie" itemValue="11" />
+                                    <f:selectItem itemLabel="woj. śląskie" itemValue="12" />
+                                    <f:selectItem itemLabel="woj. świętokrzyskie" itemValue="13" />
+                                    <f:selectItem itemLabel="woj. warmińsko-mazurskie" itemValue="14" />
+                                    <f:selectItem itemLabel="woj. wielkopolskie" itemValue="15" />
+                                    <f:selectItem itemLabel="woj. zachodniopomorskie" itemValue="16" />
+                                </p:selectOneMenu>  
+                            </p:inplace>
+                        </div>
+
                     </div> 
+                    <div class="Card ShadowEffect ui-fluid">                       
+                        <div align="left"><h3>O sobie</h3>
+
+                            <p:inplace id="edit_osobie">
+                                <p:editor value="#{loginbean.currentUser.uname}" />                                 
+                            </p:inplace>
+                        </div>
+                    </div>
 
                 </div>
+
+                <div class="Card ShadowEffect ui-fluid SoftGreenBack">     
+                    <h3>Zainteresowania</h3>                    
+                </div>
+                <div class="Card ShadowEffect ui-fluid">
+                    <div class="Card ShadowEffect TexAlCenter">
+                        <div align="left">
+                            <p:selectManyCheckbox id="manyBtn2" >
+                                <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
+                                <f:selectItem itemLabel="Bieganie" itemValue="2" />
+                                <f:selectItem itemLabel="Pływanie" itemValue="3" />
+                                <f:selectItem itemLabel="Triathlon" itemValue="4" />                                    
+                            </p:selectManyCheckbox>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+        <div class="Container40">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect ui-fluid SoftRedBack">     
+                    <h3>Widoczność profilu</h3>                                        
+                </div>
+                <div class="Card ShadowEffect ui-fluid">
+                    <div class="Card ShadowEffect TexAlCenter">
+                        <div align="left">
+                            <p:panelGrid columns="2" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                <p:column style="width: 350px;">
+                                    <h3>Profil prywatny</h3>
+                                    <p:selectBooleanButton id="value1"  onLabel="Tak" offLabel="Nie" />
+                                </p:column>                              
+                                <p:column width="300px">Informacje czy moje konto można wyszukać w aplikacji</p:column>                              
 
+                                <p:column>
+                                    <h3>Wiadomości</h3>
+                                    <p:selectBooleanButton id="value2"  onLabel="Wszyscy" offLabel="Znajomi" />
+                                </p:column>                              
+                                <p:column width="300px">Informacja kto może się ze mną kontaktować</p:column>                              
+
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect ui-fluid SoftPurpleBack">     
+                    <h3>Powiadomienia</h3>                                        
+                </div>
+                <div class="Card ShadowEffect ui-fluid">
+                    <div class="Card ShadowEffect TexAlCenter">
+                        <div align="left">
+                            <p:panelGrid columns="2" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                <p:column style="width: 350px;">
+                                    <h3>Poczta elektroniczna</h3>
+                                    <p:selectBooleanButton id="value3"  onLabel="Tak" offLabel="Nie" />
+                                </p:column>                              
+                                <p:column width="300px">Informacje czy mają być wiadomości o zdarzeniach</p:column>                              
+
+                                <p:column>
+                                    <h3>W aplikacji</h3>
+                                    <p:selectBooleanButton id="value3"  onLabel="Tak" offLabel="Nie" />
+                                </p:column>                              
+                                <p:column width="300px">Powiadomienia o zdarzeniach z grup, proponowanych wydarzeniach etc</p:column>                              
+
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </div>  
+             </div>   
+        </div>
     </ui:define>
 
 </ui:composition>
