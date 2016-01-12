@@ -12,6 +12,10 @@ import com.mycompany.mavenproject1.common.SimpleView;
 import com.mycompany.mavenproject1.event.EventFacade;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +48,7 @@ import org.primefaces.model.ScheduleModel;
 public class UserCalendarView extends SimpleView{
 
     private ScheduleModel lazyEventModel;
+    private Calendars selectedCalendar;
 
     private ScheduleEvent event = new DefaultScheduleEvent();
 
@@ -125,11 +130,20 @@ public class UserCalendarView extends SimpleView{
             lazyEventModel.updateEvent(event);
         }
 
-        eventFacade.zapiszDefaultScheduleEvent(getUserUname(),event);
+        eventFacade.zapiszDefaultScheduleEvent(getUserUname(),event, selectedCalendar);
 
         event = new DefaultScheduleEvent();
     }
 
+    public List<Date> getDates(){
+        List dates = new ArrayList<Date>();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");	
+	String dateInString;
+        
+        return dates;
+    }
+    
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
     }
@@ -153,5 +167,16 @@ public class UserCalendarView extends SimpleView{
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    public Calendars getSelectedCalendar() {
+        return selectedCalendar;
+    }
+    
+
+    public void setSelectedCalendar(Calendars selectedCalendars) {
+        this.selectedCalendar = selectedCalendars;
+    }
+    
+    
 
 }
