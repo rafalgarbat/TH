@@ -68,7 +68,7 @@ public class Login implements Serializable {
     static {
         countries = new LinkedHashMap<String, Object>();
         countries.put("English", Locale.ENGLISH); //label, value                
-        countries.put("Polish", new Locale.Builder().setLanguage("pl").setRegion("PL").build());
+        //countries.put("Polish", new Locale.Builder().setLanguage("pl").setRegion("PL").build());
     }
 
     public Map<String, Object> getCountriesInMap() {
@@ -304,7 +304,7 @@ public class Login implements Serializable {
             currentUser = getLoginFacade().getUser(uname);
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", uname);
-            session.setAttribute("userId", pUserId);
+            session.setAttribute("userId", pUserId);            
             return SlownikAdresow.STRONA_PO_ZALOGOWANIU;
         } else {
             FacesContext.getCurrentInstance().addMessage(

@@ -19,6 +19,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.ScheduleEvent;
 
 /**
  *
@@ -39,6 +41,23 @@ public class EventFacade extends AbstractFacade<Events> {
         super(Events.class);
     }
 
+    public void zapiszDefaultScheduleEvent(String aUname, ScheduleEvent aDef) {
+        Events ev = new Events();
+        ev.setTytul(aDef.getTitle());
+        ev.setDataod(aDef.getStartDate());
+        ev.setDatado(aDef.getStartDate());
+        ev.setEventId(aDef.getId());
+        
+        
+        
+       // Calendarevents ca = new Calendarevents();
+        //ca.setCalenarid(aDef.getData());
+       // ca.setEventid(ev);
+        
+        em.persist(ev);
+        
+    }
+
     public List<Userevents> getEventyUzytkownika(String aUname) {
         Users pUser = (Users) getUser(aUname);
         List<Userevents> pList = new ArrayList<>();
@@ -51,8 +70,9 @@ public class EventFacade extends AbstractFacade<Events> {
     Bierzemy dwa rodzaje eventow
     1. Eventy z moich kalendarzy
     2. Utworzone przezemnie eventy
-    */
-      public List<Events> getUserEvents(String aUname, Date aDateStart, Date aDateEnd) {
+     */
+
+    public List<Events> getUserEvents(String aUname, Date aDateStart, Date aDateEnd) {
         List<Events> pUSE = new ArrayList<>();
         Users pUser = (Users) getUser(aUname);
         for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
@@ -66,18 +86,28 @@ public class EventFacade extends AbstractFacade<Events> {
 
         return pUSE;
     }
-    
-    public void zapiszUserEvent(Userevents ue){
+
+    /**
+     * Zwraca liste kalendarzy użytkownika
+     */
+    public List<Calendars> getUserCalendars(String aUname) {
+        List<Calendars> pUSE = new ArrayList<>();
+        Users pUser = (Users) getUser(aUname);
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            pUSE.add(pUserCal.getCalendarid());
+
+        }
+        return pUSE;
+    }
+
+    public void zapiszUserEvent(Userevents ue) {
         em.persist(ue);
     }
-    
-    public void zapiszEvent(Events e){
+
+    public void zapiszEvent(Events e) {
         em.persist(e);
     }
-    
-   
-    
-    
+
     public void obserwujWydarzenie(UserScheduleEvent selectedEvent, String uname) {
         Userevents us = new Userevents();
         Query pQuery = em.createNamedQuery("Users.findByUname").setParameter("uname", uname).setMaxResults(1);
