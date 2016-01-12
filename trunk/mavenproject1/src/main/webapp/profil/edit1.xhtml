@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container50">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect ui-fluid SoftOrangeBack">     
+                    <h3>Informacje podstawowe</h3>
+                </div>
+                <div class="Card ShadowEffect TexAlCenter">
+                    <div class="Card ShadowEffect ui-fluid">                       
+                        <div align="left"><h3>Nazwa użytkownika</h3>
+
+                            <p:inplace id="edit_uname">
+                                <p:inputText value="#{loginbean.currentUser.uname}" />
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Email</h3>
+
+                            <p:inplace id="edit_email">
+                                <p:inputText value="#{loginbean.currentUser.email}" />
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Hasło</h3>
+
+                            <p:inplace id="edit_pass">
+                                <p:password value="#{loginbean.currentUser.password}" />
+                                <br/><h3>Powtórz hasło</h3>
+                                <p:password id="pasda"/>
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Miasto</h3>
+                            <p:inplace id="edit_city">
+                                <p:inputText value="#{loginbean.currentUser.email}" />
+                            </p:inplace>
+                        </div>
+                    </div>
+
+                    <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Województwo</h3>
+                        </div>
+                    </div>
+                    Data aktualizacji
+                </div>
+                
+                <div class="Card ShadowEffect ui-fluid SoftGreenBack">     
+                    <h3>Zainteresowania</h3>                    
+                </div>
+                <div class="Card ShadowEffect ui-fluid">
+                        <div align="left"><h3>Bieganie</h3>
+                            <p:inplace id="edit_rval">
+                                <div class="ContainerIndent">
+                                    <p:selectManyCheckbox id="manyBtn2" >
+                                        <f:selectItem itemLabel="Kolarstwo" itemValue='1' />
+                                        <f:selectItem itemLabel="Bieganie" itemValue="2" />
+                                        <f:selectItem itemLabel="Pływanie" itemValue="3" />
+                                        <f:selectItem itemLabel="Triathlon" itemValue="4" />                                    
+                                    </p:selectManyCheckbox>
+                                </div>
+                            </p:inplace>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

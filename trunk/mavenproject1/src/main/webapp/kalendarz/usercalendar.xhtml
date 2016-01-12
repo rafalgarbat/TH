@@ -9,19 +9,43 @@
         <f:facet name="last">
             <h:outputStylesheet library="css" name="mycustom.css" />
         </f:facet>
+        <h:form>
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect  ">
                     <div class="Container75 Responsive100">
                         <div class="ContainerIndent">  
                             <p:growl id="messages" showDetail="true" />
-                            <p:schedule id="userschedule"   value="#{usercalendar.lazyEventModel}" widgetVar="myschedule" >
-
+                            
+                            <p:schedule id="schedule"   value="#{usercalendar.lazyEventModel}" widgetVar="myschedule" timeZone="GMT+1">
+                                <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                <p:ajax event="eventMove" listener="#{usercalendar.onEventMove}" update="messages" />
+                                <p:ajax event="eventResize" listener="#{usercalendar.onEventResize}" update="messages" />
                             </p:schedule>
 
-                            <p:dialog widgetVar="eventDialog">
-                                <p:inputText value="lalal"/>
-                            </p:dialog>
+                            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                <h:panelGrid id="eventDetails" columns="2">
+             #{usercalendar.getUserCalendars(loginbean.currentUser.uname)}
+                                    <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{usercalendar.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="From:" />
+            <p:calendar id="from" value="#{usercalendar.event.startDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="To:" />
+            <p:calendar id="to" value="#{usercalendar.event.endDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="allDay" value="All Day:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{usercalendar.event.allDay}" />
+ 
+            <p:commandButton type="reset" value="Reset" />
+            <p:commandButton id="addButton" value="Save" actionListener="#{usercalendar.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  />
+                                  
+                                    
+                                    
+                                </h:panelGrid>
+                            </p:dialog>    
                         </div>
                     </div>
                     <div class="Container25 Responsive100">
@@ -36,21 +60,21 @@
                             <div class="Container25 Responsive">
                                 <div class="ContainerIndent">
                                     <div class="Card ShadowEffect SoftRedBack BoldGray TexAlCenter HoverEffect">
-                                       Swimming
+                                        Swimming
                                     </div>
                                 </div>
                             </div>
-                               <div class="Container25 Responsive">
+                            <div class="Container25 Responsive">
                                 <div class="ContainerIndent">
                                     <div class="Card ShadowEffect SoftBlueBack BoldGray TexAlCenter HoverEffect">
-                                       Running
+                                        Running
                                     </div>
                                 </div>
                             </div>
-                             <div class="Container25 Responsive">
+                            <div class="Container25 Responsive">
                                 <div class="ContainerIndent">
                                     <div class="Card ShadowEffect SoftGreenBack BoldGray TexAlCenter HoverEffect">                                        
-                                       Triathlon                                        
+                                        Triathlon                                        
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +112,7 @@
             </div>
 
         </div>
-
+</h:form>
     </ui:define>
 
 </ui:composition>
