@@ -12,6 +12,7 @@ import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
 import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,23 +42,23 @@ public class EventFacade extends AbstractFacade<Events> {
         super(Events.class);
     }
 
-    public void zapiszDefaultScheduleEvent(String aUname, ScheduleEvent aDef) {
+    public void zapiszDefaultScheduleEvent(String aUname, ScheduleEvent aDef, Calendars aCal) {
         Events ev = new Events();
         ev.setTytul(aDef.getTitle());
         ev.setDataod(aDef.getStartDate());
         ev.setDatado(aDef.getStartDate());
         ev.setEventId(aDef.getId());
         
-        
-        
-       // Calendarevents ca = new Calendarevents();
-        //ca.setCalenarid(aDef.getData());
+        Calendarevents ca = new Calendarevents();
+       // ca.setCalenarid(aCal);
        // ca.setEventid(ev);
         
         em.persist(ev);
         
+        
     }
 
+    
     public List<Userevents> getEventyUzytkownika(String aUname) {
         Users pUser = (Users) getUser(aUname);
         List<Userevents> pList = new ArrayList<>();
