@@ -2,117 +2,109 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                xmlns:p="http://primefaces.org/ui"                
+                template="/WEB-INF/template.xhtml"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                >
 
     <ui:define name="content">
         <f:facet name="last">
             <h:outputStylesheet library="css" name="mycustom.css" />
+            <h:outputStylesheet library="css" name="mytimeline.css" />
         </f:facet>
         <h:form>
-        <div class="Container100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect  ">
-                    <div class="Container75 Responsive100">
-                        <div class="ContainerIndent">  
-                            <p:growl id="messages" showDetail="true" />
-                            
-                            <p:schedule id="schedule"   value="#{usercalendar.lazyEventModel}" widgetVar="myschedule" timeZone="GMT+1">
-                                <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                <p:ajax event="eventMove" listener="#{usercalendar.onEventMove}" update="messages" />
-                                <p:ajax event="eventResize" listener="#{usercalendar.onEventResize}" update="messages" />
-                            </p:schedule>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card ShadowEffect  ">
+                        <div class="Container100 Responsive100">
 
-                            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                                <h:panelGrid id="eventDetails" columns="2">
-             #{usercalendar.getUserCalendars(loginbean.currentUser.uname)}
-                                    <p:outputLabel for="title" value="Titles:" />
-            <p:inputText id="title" value="#{usercalendar.event.title}" required="true" />
- 
-            <p:outputLabel for="from" value="From:" />
-            <p:calendar id="from" value="#{usercalendar.event.startDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
- 
-            <p:outputLabel for="to" value="To:" />
-            <p:calendar id="to" value="#{usercalendar.event.endDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
- 
-            <p:outputLabel for="allDay" value="All Day:" />
-            <h:selectBooleanCheckbox id="allDay" value="#{usercalendar.event.allDay}" />
- 
-            <p:commandButton type="reset" value="Reset" />
-            <p:commandButton id="addButton" value="Save" actionListener="#{usercalendar.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  />
-                                  
-                                    
-                                    
-                                </h:panelGrid>
-                            </p:dialog>    
+                            <p:tabView>
+                                <p:tab title="Kalendarz">
+
+
+                                    <div class="ContainerIndent">  
+                                        <p:growl id="messages" showDetail="true" />
+
+                                        <p:schedule id="schedule"   value="#{usercalendar.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
+                                            <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                            <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />                              
+                                        </p:schedule>
+
+                                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                            <h:panelGrid id="eventDetails" columns="2">
+
+                                                <p:outputLabel for="calSelect" value="Kalendarz:" />
+                                                <h:selectOneMenu id="calSelect" value="#{usercalendar.selectedCalendarName}">
+                                                    <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
+                                                                   itemValue="#{calendars.name}"
+                                                                   itemLabel="#{calendars.name}"
+                                                                   />
+                                                </h:selectOneMenu>
+
+
+                                                <p:outputLabel for="title" value="Titles:" />
+                                                <p:inputText id="title" value="#{usercalendar.event.title}" required="true" />
+
+                                                <p:outputLabel for="from" value="From:" />
+                                                <p:calendar id="from" value="#{usercalendar.event.startDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+
+                                                <p:outputLabel for="to" value="To:" />
+                                                <p:calendar id="to" value="#{usercalendar.event.endDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+
+
+                                                <p:commandButton type="reset" value="Reset" />
+                                                <p:commandButton id="addButton" value="Save" actionListener="#{usercalendar.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  />
+
+
+
+                                            </h:panelGrid>
+                                        </p:dialog>    
+                                    </div>
+
+                                </p:tab>
+                                <p:tab title="Oś czasu dyscyplin">
+                                    <p:fieldset legend="Bieganie" toggleable="true" toggleSpeed="500"  >
+                                        <pe:timeline id="timeline" value="#{usercalendar.model_bieganie}"  
+                                                     height="270px" eventMargin="10" 
+                                                     showNavigation="true" showCurrentTime="true" 
+                                                     axisOnTop="true" stackEvents="true" var="events" >
+                                            <p:ajax event="select" listener="#{usercalendar.onSelect}"  />  
+
+                                            <h:panelGroup  style="padding:8px">  
+                                                <h:outputText value="#{events.tytul}+la"/>  
+                                            </h:panelGroup> 
+
+                                        </pe:timeline> 
+                                    </p:fieldset>    
+                                    <hr/>
+                                    <p:fieldset legend="Kolarstwo" toggleable="true" toggleSpeed="500" collapsed="true">
+                                        <pe:timeline id="timeline2" value="#{usercalendar.model_kolarstwo}"  
+                                                     height="250px" /> 
+                                    </p:fieldset>    
+                                    <hr/>
+                                    <p:fieldset legend="Pływanie" toggleable="true" toggleSpeed="500" collapsed="true">
+                                        <pe:timeline id="timeline3" value="#{usercalendar.model_plywanie}"  
+                                                     height="250px" /> 
+                                    </p:fieldset>   
+                                    <hr/>
+                                    <p:fieldset legend="Triathlon" toggleable="true" toggleSpeed="500" collapsed="true">
+                                        <pe:timeline id="timeline4" value="#{usercalendar.model_triathlon}"  
+                                                     height="250px" /> 
+                                    </p:fieldset>    
+
+
+
+                                </p:tab>
+                            </p:tabView>
                         </div>
-                    </div>
-                    <div class="Container25 Responsive100">
-                        <div class="ContainerIndent">  
-                            <div class="Container25 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect OrangeBack BoldGray TexAlCenter HoverEffect">
-                                        Bike
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Container25 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftRedBack BoldGray TexAlCenter HoverEffect">
-                                        Swimming
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Container25 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftBlueBack BoldGray TexAlCenter HoverEffect">
-                                        Running
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Container25 Responsive">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect SoftGreenBack BoldGray TexAlCenter HoverEffect">                                        
-                                        Triathlon                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Container25 Responsive100">
-                        <div class="ContainerIndent">  
 
-                            <div class="Container100 Responsive100">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect HeiAutoOnMobile">
-                                        <h2 class="CardTopic"><i class="icon-timelapse Fs20 Fleft MarRight10"></i> Statystki</h2>
-                                        <div class="SeparatorFull"></div>
-                                        <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Wydarzeń w tym miesiącu <span class="Fright Purple">#{usercalendar.wydarzenWMiesiacu()}</span></div></div>
-                                        <div class="SeparatorFull"></div>
-                                        <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
-                                        <div class="SeparatorFull"></div>
-                                        <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Photo Editing Suit <span class="Fright Orange">% 67</span></div></div>
-                                        <div class="SeparatorFull"></div>
-                                        <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Simple Code Editor <span class="Fright Green">% 89</span></div></div>
-                                        <div class="SeparatorFull"></div>
-                                        <div class="Wid100"><div class="ContainerIndent Fs16 BoldGray">Rio Video Editing Suit <span class="Fright Red">% 21</span></div></div>
-                                        <div class="CardFooter">
-                                            <p:commandButton value="MORE INFO" icon="fa fa-plus Fs14" styleClass="Fright BlueTextButton"/>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-
-                        </div>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
-</h:form>
+        </h:form>
     </ui:define>
 
 </ui:composition>

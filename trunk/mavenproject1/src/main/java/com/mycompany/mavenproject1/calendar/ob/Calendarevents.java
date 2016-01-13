@@ -8,6 +8,7 @@ package com.mycompany.mavenproject1.calendar.ob;
 import com.mycompany.mavenproject1.event.Events;
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "calendarevents")
+@Cacheable(false)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Calendarevents.findAll", query = "SELECT c FROM Calendarevents c"),

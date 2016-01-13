@@ -42,18 +42,21 @@ public class EventFacade extends AbstractFacade<Events> {
         super(Events.class);
     }
 
-    public void zapiszDefaultScheduleEvent(String aUname, ScheduleEvent aDef, Calendars aCal) {
+    public void zapiszDefaultScheduleEvent(String aUname, ScheduleEvent aDef, String aCalendarName) {
         Events ev = new Events();
         ev.setTytul(aDef.getTitle());
         ev.setDataod(aDef.getStartDate());
         ev.setDatado(aDef.getStartDate());
         ev.setEventId(aDef.getId());
         
+        
         Calendarevents ca = new Calendarevents();
-       // ca.setCalenarid(aCal);
-       // ca.setEventid(ev);
+        ca.setCalenarid(getUserCalendar(aUname,aCalendarName));
+        ca.setEventid(ev);
         
         em.persist(ev);
+        em.persist(ca);        
+        em.flush();
         
         
     }
@@ -73,21 +76,34 @@ public class EventFacade extends AbstractFacade<Events> {
     2. Utworzone przezemnie eventy
      */
 
-    public List<Events> getUserEvents(String aUname, Date aDateStart, Date aDateEnd) {
+    public List<Events> getUserEvents(String aUname) {
         List<Events> pUSE = new ArrayList<>();
         Users pUser = (Users) getUser(aUname);
         for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
             Calendars pCalendar = (Calendars) pUserCal.getCalendarid();
-            for (Calendarevents pCalEvent : pCalendar.getCalendareventsCollection()) {
-                if (true) {
-                    pUSE.add(pCalEvent.getEventid());
-                }
+            for (Calendarevents pCalEvent : pCalendar.getCalendareventsCollection()) {              
+                    pUSE.add(pCalEvent.getEventid());              
             }
         }
 
         return pUSE;
     }
 
+    /**
+     * Zwraca liste kalendarzy użytkownika
+     */
+    public Calendars getUserCalendar(String aUname, String aCalName) {
+       
+        Users pUser = (Users) getUser(aUname);
+        for (Usercalendars pUserCal : pUser.getUsercalendarsCollection()) {
+            if (pUserCal.getCalendarid().getName().equals(aCalName)){
+            return pUserCal.getCalendarid();
+            }
+        }
+       return null;
+    }
+
+    
     /**
      * Zwraca liste kalendarzy użytkownika
      */
