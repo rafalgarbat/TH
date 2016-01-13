@@ -12,6 +12,7 @@ import com.mycompany.mavenproject1.common.SimpleView;
 import com.mycompany.mavenproject1.event.EventFacade;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.UserScheduleEvent;
+import com.mycompany.mavenproject1.wspolne.SlownikStalych;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -33,6 +36,10 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.extensions.event.timeline.TimelineSelectEvent;
+import org.primefaces.extensions.model.timeline.TimelineEvent;
+import org.primefaces.extensions.model.timeline.TimelineGroup;
+import org.primefaces.extensions.model.timeline.TimelineModel;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
@@ -45,51 +52,61 @@ import org.primefaces.model.ScheduleModel;
  */
 @ManagedBean(name = "usercalendar")
 @ViewScoped
-public class UserCalendarView extends SimpleView{
+public class UserCalendarView extends SimpleView {
 
-    private ScheduleModel lazyEventModel;
-    private Calendars selectedCalendar;
-
+    private ScheduleModel eventModel;
+    private String selectedCalendarName;
     private ScheduleEvent event = new DefaultScheduleEvent();
+
+    private TimelineModel model_bieganie;
+    private TimelineModel model_plywanie;
+    private TimelineModel model_kolarstwo;
+    private TimelineModel model_triathlon;
 
     @EJB
     private EventFacade eventFacade;
 
     @PostConstruct
     public void init() {
-         
-        lazyEventModel = new LazyScheduleModel() {
+        eventModel = new DefaultScheduleModel();
+        model_bieganie = new TimelineModel();
+        model_plywanie = new TimelineModel();
+        model_kolarstwo = new TimelineModel();
+        model_triathlon = new TimelineModel();
+        eventModel = getEvents();
 
-            @Override
-            public void loadEvents(Date start, Date end) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+        Date data1 = new Date();
 
-                Date random = getRandomDate(start);
-                DefaultScheduleEvent d = new DefaultScheduleEvent("Lazy Event 1", random, random);
-                d.setStyleClass("fc-view-container2");
-            //    addEvent(d);                
+    }
 
-                for (int i = 1; i < 15; i++) {
-                    random = getRandomDate(start);
-                    //    addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"bikepublic-event"));
-                }
-                for (int i = 1; i < 10; i++) {
-                    random = getRandomDate(start);
-                    //      addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"swimpublic-event"));
-                }
-                /* for(int i=1;i<10;i++){
-                    random = getRandomDate(start); 
-                    addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random,"runpublic-event"));
-                }
-                 */
-                List<Events> pTmp = getEventFacade().getUserEvents(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username").toString(), start, end);
-                for (Events pU : pTmp) {                    
-                    DefaultScheduleEvent pD = new DefaultScheduleEvent(pU.getTytul(), pU.getDataod(), pU.getDataod(), pU);
-                    pD.setStyleClass("runpublic-event");
-                    addEvent(pD);
-                }
+    public ScheduleModel getEvents() {
+        ScheduleModel myModel = new DefaultScheduleModel();
 
+        List<Events> pTmp = getEventFacade().getUserEvents(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username").toString());
+        for (Events pU : pTmp) {
+            DefaultScheduleEvent pD = new DefaultScheduleEvent(pU.getTytul(), pU.getDataod(), pU.getDataod(), pU);
+            pD.setStyleClass("runpublic-event");
+            myModel.addEvent(pD);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(pU.getDataod());
+
+            if (pU.getTyp_wydarzenia() != null && pU.getTyp_wydarzenia().equals(SlownikStalych.EVENT_RUNING)) {
+                model_bieganie.add(new TimelineEvent(pU, cal.getTime()));
             }
-        };
+            if (pU.getTyp_wydarzenia() != null && pU.getTyp_wydarzenia().equals(SlownikStalych.EVENT_SWIMMING)) {
+                model_plywanie.add(new TimelineEvent(pU, cal.getTime()));
+            }
+            if (pU.getTyp_wydarzenia() != null && pU.getTyp_wydarzenia().equals(SlownikStalych.EVENT_BIKE)) {
+                model_kolarstwo.add(new TimelineEvent(pU, cal.getTime()));
+            }
+            if (pU.getTyp_wydarzenia() != null && pU.getTyp_wydarzenia().equals(SlownikStalych.EVENT_TRIATHLON)) {
+                model_triathlon.add(new TimelineEvent(pU, cal.getTime()));
+            }
+
+        }
+        return myModel;
     }
 
     public List<Calendars> getUserCalendars(String aUname) {
@@ -104,12 +121,13 @@ public class UserCalendarView extends SimpleView{
         return date.getTime();
     }
 
-    public ScheduleModel getLazyEventModel() {
-        return lazyEventModel;
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
     }
 
-    
-   
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
 
     public EventFacade getEventFacade() {
         return eventFacade;
@@ -125,25 +143,25 @@ public class UserCalendarView extends SimpleView{
 
     public void addEvent(ActionEvent actionEvent) {
         if (event.getId() == null) {
-            lazyEventModel.addEvent(event);
+            eventModel.addEvent(event);
         } else {
-            lazyEventModel.updateEvent(event);
+            eventModel.updateEvent(event);
         }
 
-        eventFacade.zapiszDefaultScheduleEvent(getUserUname(),event, selectedCalendar);
+        eventFacade.zapiszDefaultScheduleEvent(getUserUname(), event, getSelectedCalendarName());
 
         event = new DefaultScheduleEvent();
     }
 
-    public List<Date> getDates(){
+    public List<Date> getDates() {
         List dates = new ArrayList<Date>();
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");	
-	String dateInString;
-        
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        String dateInString;
+
         return dates;
     }
-    
+
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
     }
@@ -168,15 +186,34 @@ public class UserCalendarView extends SimpleView{
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public Calendars getSelectedCalendar() {
-        return selectedCalendar;
+    public String getSelectedCalendarName() {
+        return selectedCalendarName;
     }
-    
 
-    public void setSelectedCalendar(Calendars selectedCalendars) {
-        this.selectedCalendar = selectedCalendars;
+    public void setSelectedCalendarName(String selectedCalendarName) {
+        this.selectedCalendarName = selectedCalendarName;
     }
-    
-    
 
+    public TimelineModel getModel_bieganie() {
+        return model_bieganie;
+    }
+
+    public TimelineModel getModel_plywanie() {
+        return model_plywanie;
+    }
+
+    public TimelineModel getModel_kolarstwo() {
+        return model_kolarstwo;
+    }
+
+    public TimelineModel getModel_triathlon() {
+        return model_triathlon;
+    }
+
+    public void onSelect(TimelineSelectEvent e) {  
+        TimelineEvent timelineEvent = e.getTimelineEvent();  
+  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:", timelineEvent.getData().toString());  
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
 }
