@@ -35,17 +35,19 @@
                                                 listener="#{todayTrainingController.onRowSelect}" 
                                                 update="@([id$=opisTreninguPG])" />
 
-                                        <p:column headerText="Akcje" style="width:130px;">
-                                            <p:commandButton value="Zrealizowany!" icon="fa fa-check Fs16 White"  styleClass="SoftGreenBack" 
-                                                             style="width: 130px;" iconPos="right"/>
-                                            <p:commandButton value="Zrealizowany!" icon="fa fa-check Fs16 White"  styleClass="LeadenGreenBack" 
-                                                             style="width: 130px;" iconPos="right"/>
-
-                                        </p:column>
                                         <p:column headerText="Nazwa kalendarza" style="width:100px;">
                                             #{displayeventinfo.calendarname} 
                                         </p:column>
-                                        <p:column headerText="Typ" style="width:75px;">                                            
+                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                            <f:facet name="filter">
+                                            <p:selectOneListbox onchange="PF('usereventsNWidget').filter()">                                                
+                                                <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
+                                                <f:selectItem itemLabel="Pływanie" itemValue="2" />
+                                                <f:selectItem itemLabel="Bieganie" itemValue="3" />
+                                                <f:selectItem itemLabel="Dowolne" itemValue="" />
+                                            </p:selectOneListbox>   
+                                        </f:facet>
+                                            
                                             <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
                                             <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
                                             <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
@@ -81,43 +83,103 @@
                                         </p:column>
 
                                     </p:dataTable> 
-                                    <p:panel id ="opisTreninguPG"   style="width: 600px;border:0px none;">
-                                        <p:tabView>
-                                            <p:tab title="Trening">
-                                                <p:panelGrid columns="2" id="opisTren" styleClass="ui-panelgrid-blank"
-                                                             style="width: 600px;border:0px none; background-color:transparent;">
 
-                                                    <p:commandButton value="Zapisz" id="zapiszBtn"
-                                                                     icon="fa fa-eyedropper Fs16 White" iconPos="right"
-                                                                     styleClass="OrangeButton RaisedButton"
-                                                                     actionListener="#{todayTrainingController.zapiszZmiany()}" update="@all"  />
-
-                                                    <p:outputLabel  value=""    />
-                                                    Trening #{todayTrainingController.selectedEventInfo.id} 
-                                                    Pobrane #{todayTrainingController.myEvent.id} 
-
-
-                                                    <p:outputLabel for="duration" value="duration" />
-                                                    <p:inputMask id="duration"  mask="99.99"
-                                                                 value="#{todayTrainingController.rezultatTreningu.duration}"/>
-
-                                                   
-  stan integer DEFAULT 0,
-  distance text,
-  kalorie text,
-  uwagi text,
-  link text,
-  completed 
-                                                    
+                                    <p:panel id ="opisTreninguPG"   style="width:700px;border:0px none;">
+                                        <div class="Card ShadowEffect ui-fluid">                                            
+                                            <p:commandButton value="Oznacz trening jako publiczne wydarzenie" id="publiczneBtn"
+                                                             icon="fa fa-external-link Fs30  White"
+                                                             styleClass="Fs30  LeadenGreenBack RaisedButton"                                                                                 
+                                                             actionListener="#{todayTrainingController.zapiszZmiany()}" update="@all"  />
+                                        </div>
+                                        <div class="Card ShadowEffect ui-fluid">   
+                                            <p:tabView>
+                                                <p:tab title="Trening">
+                                                    <p:panelGrid  id="opisTren" styleClass="ui-panelgrid-blank"
+                                                                  style="border:0px none; background-color:transparent;">
+                                                        <p:row>
+                                                            <p:column colspan="2"><p:commandButton value="Zapisz zmiany" id="zapiszBtn"
+                                                                                                   icon="fa fa-save  Fs30 White"
+                                                                                                   styleClass="Fs30 LeadenGreenBack RaisedButton"
+                                                                                                   actionListener="#{todayTrainingController.zapiszZmiany()}"
+                                                                                                   update="@all"  />
+                                                            </p:column>
+                                                        </p:row>
 
 
-                                                </p:panelGrid>   
-                                            </p:tab>
-                                            <p:tab title="Zaproszeni">
+                                                        <p:row>
+                                                            <p:column>
+                                                                <p:outputLabel for="completedBB" value="Wykonanie" />                                                  
+                                                            </p:column>
+                                                            <p:column>                                                               
+                                                                <p:inputSwitch id="completedBB"  value="#{todayTrainingController.rezultatTreningu.completed}" 
+                                                                               offLabel="Nie" onLabel="Tak"/>                                                                
+                                                            </p:column>
+                                                        </p:row>
 
-                                            </p:tab>
 
-                                        </p:tabView>
+                                                        <p:row>
+                                                            <p:column><p:outputLabel for="link" value="Ling do treningu" /></p:column>
+                                                            <p:column><p:inputText id="link" value="#{todayTrainingController.rezultatTreningu.link}">
+                                                                    <p:watermark for="link" value="Link do treningu z zewnętrznego serwisu np Strava" />
+                                                                </p:inputText></p:column>
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column><p:outputLabel for="uwagi" value="Uwagi" /></p:column>
+                                                            <p:column><p:editor id="uwagi" value="#{todayTrainingController.rezultatTreningu.uwagi}"/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column colspan="2"><h3>Dodatkowe informacje</h3><hr/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column><p:outputLabel for="duration" value="Czas trwania" /></p:column>
+                                                            <p:column><p:inputText id="duration" value="#{todayTrainingController.rezultatTreningu.duration}"/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column>  <p:outputLabel for="distance" value="Dystans" /></p:column>
+                                                            <p:column><p:outputLabel id="distance" value="#{todayTrainingController.rezultatTreningu.distance}"/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column> <p:outputLabel for="kalorie" value="Spalone kalorie" /></p:column>
+                                                            <p:column><p:inputText id="kalorie"  value="#{todayTrainingController.rezultatTreningu.kalorie}"/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column colspan="2"><h3>Podgląd treningu</h3><hr/></p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column colspan="2"><p:editor id="uwagi2" 
+                                                                                            value="#{todayTrainingController.myEvent.opis}"
+                                                                                            disabled="true"
+                                                                                            /></p:column>
+                                                        </p:row>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    </p:panelGrid>   
+                                                </p:tab>
+                                                <p:tab title="Zaproszeni">
+
+                                                </p:tab>
+
+                                            </p:tabView>
+                                        </div>
                                     </p:panel>
 
                                 </h:panelGrid>

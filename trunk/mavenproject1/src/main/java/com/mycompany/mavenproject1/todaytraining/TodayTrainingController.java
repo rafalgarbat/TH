@@ -148,7 +148,8 @@ public class TodayTrainingController implements Serializable {
         DisplayEventInfo d = (DisplayEventInfo) event.getObject();
         myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
         //todo: setParameter("user_id", 2). 
-        List pList = eventFacade.getEntityManager().createNamedQuery("Userevents.findByUidEventId").setParameter("eventId", myEvent.getId()).getResultList();
+        List pList = eventFacade.getEntityManager().createNativeQuery("select * from userevents ue where ue.user_id = 2 and event_id = ?", Userevents.class).setParameter(1, myEvent.getId()).getResultList();
+       
         if (pList != null) { 
             rezultatTreningu = (Userevents) pList.get(0);
         }else{
