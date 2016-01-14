@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.todaytraining;
 
 import java.util.Date;
+import org.primefaces.model.SelectableDataModel;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 public class DisplayEventInfo {
     
+    private Long id;
     private String calendarname;
     private boolean isCalendarPublic;
     private boolean isEventPublic;
@@ -94,7 +96,15 @@ public class DisplayEventInfo {
     public void setDystans(int dystans) {
         this.dystans = dystans;
     }
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     
             
 }

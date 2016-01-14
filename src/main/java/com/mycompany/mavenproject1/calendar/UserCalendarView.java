@@ -57,6 +57,7 @@ public class UserCalendarView extends SimpleView {
     private ScheduleModel eventModel;
     private String selectedCalendarName;
     private ScheduleEvent event = new DefaultScheduleEvent();
+    private Events selectedTimelineEvent = new Events();
 
     private TimelineModel model_bieganie;
     private TimelineModel model_plywanie;
@@ -210,10 +211,20 @@ public class UserCalendarView extends SimpleView {
         return model_triathlon;
     }
 
+    public Events getSelectedTimelineEvent() {
+        return selectedTimelineEvent;
+    }
+
+    public void setSelectedTimelineEvent(Events selectedTimelineEvent) {
+        this.selectedTimelineEvent = selectedTimelineEvent;
+    }
+
     public void onSelect(TimelineSelectEvent e) {  
         TimelineEvent timelineEvent = e.getTimelineEvent();  
   
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:", timelineEvent.getData().toString());  
+    //    selectedTimelineEvent = (Events) timelineEvent.getData();
+        
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:","coś tam");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
 }

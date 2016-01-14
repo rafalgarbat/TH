@@ -63,12 +63,14 @@
 
                                 </p:tab>
                                 <p:tab title="Oś czasu dyscyplin">
+                                    <p:growl id="growl" showSummary="true" showDetail="true" autoUpdate="true"/>
                                     <p:fieldset legend="Bieganie" toggleable="true" toggleSpeed="500"  >
                                         <pe:timeline id="timeline" value="#{usercalendar.model_bieganie}"  
                                                      height="270px" eventMargin="10" 
                                                      showNavigation="true" showCurrentTime="true" 
                                                      axisOnTop="true" stackEvents="true" var="events" >
-                                            <p:ajax event="select" listener="#{usercalendar.onSelect}"  />  
+                                            <p:ajax event="select" listener="#{usercalendar.onSelect}" 
+                                                    />  
 
                                             <h:panelGroup  style="padding:8px">  
                                                 <h:outputText value="#{events.tytul}+la"/>  
@@ -93,7 +95,13 @@
                                     </p:fieldset>    
 
 
-
+                                     <p:dialog widgetVar="timelineDialog" header="Event Details"  showEffect="clip" hideEffect="clip">
+                                         <h:panelGrid id="timelineDetails" columns="2">
+                                              
+                                             <h:outputText value="#{usercalendar.selectedTimelineEvent.tytul}"/>  
+                                             xx<h:outputText value="#{usercalendar.selectedTimelineEvent}"/>  
+                                         </h:panelGrid>    
+                                     </p:dialog>       
                                 </p:tab>
                             </p:tabView>
                         </div>
