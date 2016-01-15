@@ -41,7 +41,7 @@
                                           style="background: rgba(255, 255, 255, 0.2); width: 250px; font-size: 20px;
                                           border-style: solid; border-width: 1px; border-color: whitesmoke;"
                                           />
-                       
+
                     </p:panelGrid> 
                 </center>
             </div>
@@ -68,52 +68,51 @@
 
 
 
-                            <div class="Container100">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect " style="background: rgba(255, 255, 255, 0.3);">
-                                        <div class="EmptyBox10"></div>
-                                        <div class="Container50 Responsive100">
-                                           
+                            <div class="Container100 ContainerIndent">
+                                <div class="Card ShadowEffect TexAlCenter" style="background: rgba(255, 255, 255, 0.3);">
+                                    <div class="EmptyBox10"></div>
 
-                                                <p:inputText  id="username" value="#{loginbean.uname}" styleClass="Fs24" ></p:inputText>
-                                                <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
 
-                                                <div class="EmptyBox30"></div>
-                                                <p:password id="password" value="#{loginbean.pwd}" styleClass="Fs24"  >
-                                                    <p:watermark for="password" value="Hasło" id="password_watermark" /> 
-                                                </p:password>
+                                   
+                                    <p:inputText  id="username" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.uname}" >
+                                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+                                    </p:inputText>
+                                        
+                                 
+                                    <div class="EmptyBox30"></div>
+                                    <p:password id="password" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.pwd}"  >
+                                        <p:watermark for="password" value="Hasło" id="password_watermark" /> 
+                                    </p:password>
 
-                                                <div class="EmptyBox30"></div>
+                                    <div class="EmptyBox30"></div>
+                                    <div>
+                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                      icon="fa fa-lock"
+                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 GreenButton"                                                      
+                                                      value="Zaloguj"/> 
 
-                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                                  icon="fa fa-lock"
-                                                                  styleClass="GreenButton Fs28" 
-                                                                  value="Zaloguj"/> 
-                                                <div class="EmptyBox30"></div>
-                                                
+                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj przez Facebook"
+                                                      icon="fa fa-facebook-f " 
+                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 BlueButton"                                                      
+                                                      />
+                                    </div>
+                                    <div class="EmptyBox30"></div>
+                                    <div>
+                                    <p:commandButton  action="register.xhtml?faces-redirect=true"
+                                                      icon="fa fa-sign-in"
+                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 OrangeButton"
+                                                      
+                                                      value="Rejestracja"/>
+                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                      icon="fa fa-lock"                                                      
+                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 RedButton"                                                      
+                                                      value="Zapomniałeś hasła?"/>
+                                    </div>
+                                    
+                                     
 
-                                           
-                                        </div>
 
-                                        <div class="Container50 Responsive100">
-                                               <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
-                                                                  icon="fa fa-facebook-f " 
-                                                                  styleClass="BlueButton Fs24" 
-                                                                  />
-
-                                                <div class="EmptyBox30"></div>                          
-                                                <p:commandButton  action="register.xhtml?faces-redirect=true"
-                                                                  icon="fa fa-sign-in"
-                                                                  styleClass="SoftBlueBack Fs24" 
-                                                                  value="Załóż konto"/>
-                                                <div class="EmptyBox30"></div>
-                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                                  icon="fa fa-lock"
-                                                                  styleClass="RedButton Fs24" 
-                                                                  value="Prześlij hasło ponownie"/> 
-                                            
-                                        </div>   
-                                    </div> </div></div>
+                                </div> </div>
                         </div>
                         <div class="EmptyBox100"></div>
 
