@@ -35,6 +35,9 @@
                                                 listener="#{todayTrainingController.onRowSelect}" 
                                                 update="@([id$=opisTreninguPG])" />
 
+                                        <p:column headerText="ID" style="width:20px;" >
+                                            #{displayeventinfo.id}
+                                        </p:column> 
                                         <p:column headerText="Nazwa kalendarza" style="width:100px;">
                                             #{displayeventinfo.calendarname} 
                                         </p:column>
@@ -154,25 +157,6 @@
                                                                                             /></p:column>
                                                         </p:row>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                     </p:panelGrid>   
                                                 </p:tab>
                                                 <p:tab title="Zaproś znajomych">
@@ -189,63 +173,77 @@
                             <p:tab title="Zrealizowane">
                                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
                                              styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
-                                    <p:dataTable value="#{todayTrainingController.getMojeEventy(loginbean.uname)}" 
-                                                 var="userevents"
-                                                 selection="#{todayTrainingController.selectedUserEvent}"
-                                                 rowKey="#{userevents.uid}"
+                                    <p:dataTable value="#{todayTrainingController.getEventyUzytkownika(loginbean.uname)}" 
+                                                 var="displayeventinfo"
+                                                 selection="#{todayTrainingController.selectedEventInfo}"
+                                                 rowKey="#{displayeventinfo.id}"
                                                  selectionMode="single"
                                                  resizableColumns="true"
                                                  paginator="true"
                                                  paginatorPosition="top"
                                                  id="eventsTableZ"
                                                  widgetVar="usereventsZWidget"
-                                                 rows="30"> 
-
-
+                                                 rows="30"
+                                                 > 
+                                        <p:ajax event="rowSelect" 
+                                                listener="#{todayTrainingController.onRowSelect}" 
+                                                update="@([id$=opisTreninguWP])" />
+  
                                         <p:column headerText="ID" style="width:20px;" >
-                                            #{userevents.uid}
+                                            #{displayeventinfo.id}
                                         </p:column> 
-                                        <p:column headerText="Typ" style="width:75px;"> 
-                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==1}"/>
-                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==2}"/>
-                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{userevents.eventId.typ_wydarzenia==3}"/>
+                                      
+                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
+                                            #{displayeventinfo.calendarname} 
+                                        </p:column>
+                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                            <f:facet name="filter">
+                                                <p:selectOneListbox onchange="PF('usereventsNWidget').filter()">                                                
+                                                    <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
+                                                    <f:selectItem itemLabel="Pływanie" itemValue="2" />
+                                                    <f:selectItem itemLabel="Bieganie" itemValue="3" />
+                                                    <f:selectItem itemLabel="Dowolne" itemValue="" />
+                                                </p:selectOneListbox>   
+                                            </f:facet>
+
+                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                        </p:column>
+                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
+                                                  filterMatchMode="contains">
+                                            #{displayeventinfo.eventTitle} 
                                         </p:column>
 
-                                        <p:column headerText="#{userevents.eventId.dataod}" sortBy="#{userevents.eventId.dataod}" 
-                                                  filterBy="#{userevents.eventId.dataod}" filterFunction="#{todayTrainingController.filterByDate}">
-                                            <f:facet name="filter">
-                                                <h:inputHidden id="filter" />
-                                            </f:facet>
-                                            <f:facet name="header">
-                                                <p:outputLabel value="#{userevents.eventId.dataod}" />
-                                                <br />
-                                                <p:calendar id="from" pattern="dd.MM.yyyy">                                                 
-                                                </p:calendar><br/>
-                                                <p:calendar id="to" pattern="dd.MM.yyyy">                                                    
-                                                </p:calendar>
-                                            </f:facet>
-                                            <h:outputText value="#{userevents.eventId.dataod}">
-                                                <f:convertDateTime type="date" dateStyle="medium" />
+                                        <p:column headerText="Dystans" >
+                                            #{displayeventinfo.dystans} 
+                                        </p:column>
+                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" 
+                                                  filterMatchMode="contains">
+                                            #{displayeventinfo.eventOpis} 
+                                        </p:column>
+                                        <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
+                                            <h:outputText value="#{displayeventinfo.dataod}">
+                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
                                         </p:column>
-
-                                        <p:column headerText="Tytul" filterBy="#{userevents.eventId.tytul}" filterMatchMode="contains">
-                                            #{userevents.eventId.tytul} 
+                                        <p:column headerText="Kalendarz publiczny?" >                                            
+                                            <p:inputSwitch value="#{displayeventinfo.isCalendarPublic}" 
+                                                           offLabel="Nie" onLabel="Tak"
+                                                           disabled="true"
+                                                           />
                                         </p:column>
-                                        <p:column headerText="Dystans">
-                                            #{userevents.distance} 
-                                        </p:column>
-                                        <p:column headerText="Czas ruchu">
-                                            #{userevents.duration} 
-                                        </p:column>
-                                        <p:column headerText="Wykonanie" style="width:80px;">                            
-                                            <p:inputSwitch value="#{userevents.completed}" 
+                                        <p:column headerText="Wydarzenie publiczne?" >                                           
+                                            <p:inputSwitch value="#{displayeventinfo.isEventPublic}" 
                                                            offLabel="Nie" onLabel="Tak"
                                                            disabled="true"
                                                            />
                                         </p:column>
                                     </p:dataTable>
 
+                                    <p:panel id ="opisTreninguWP"   style="width:700px;border:0px none;">
+                                        #{todayTrainingController.selectedEventInfo.uwagiDoTreningu}
+                                    </p:panel>       
 
 
 

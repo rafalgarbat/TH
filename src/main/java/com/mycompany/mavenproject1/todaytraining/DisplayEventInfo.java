@@ -23,8 +23,16 @@ public class DisplayEventInfo {
     private String eventOpis;
     private Date dataod;
     private String typWydarzenia;
-    private int dystans;
-
+    private int dystans;    
+    
+    /*Informacje o zrealizowanym*/
+    private String uwagiDoTreningu;
+    private String link;
+    private String duration;
+    private String distance;
+    private String kalorie;
+    private String stan;
+    
     public String getCalendarname() {
         return calendarname;
     }
@@ -103,6 +111,54 @@ public class DisplayEventInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUwagiDoTreningu() {
+        return uwagiDoTreningu;
+    }
+
+    public void setUwagiDoTreningu(String uwagiDoTreningu) {
+        this.uwagiDoTreningu = uwagiDoTreningu;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getKalorie() {
+        return kalorie;
+    }
+
+    public void setKalorie(String kalorie) {
+        this.kalorie = kalorie;
+    }
+
+    public String getStan() {
+        return stan;
+    }
+
+    public void setStan(String stan) {
+        this.stan = stan;
     }
 
     
