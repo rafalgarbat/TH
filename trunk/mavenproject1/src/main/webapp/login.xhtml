@@ -14,7 +14,7 @@
         </f:facet>
         <title>PrimeFaces RIO</title>
         <ui:insert name="head" />
-        
+
     </h:head>
     <f:metadata>
         <f:viewParam name="regURL" value="#{login.hashcode}"/>
@@ -51,49 +51,78 @@
             <div class="EmptyBox100"></div>
 
 
-            <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                 <h:form> 
-                    <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                    <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                         <div class="Wid33 MarAuto WidAutoOnMobile">
-                            <div class="ShadowEffect" style="background: rgba(255, 255, 255, 0.5);">
-                                <div class="EmptyBox20"></div>
-                                <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-users Fs40"></i>Training hub</div>
-                                <div class="EmptyBox20"></div>
-                                <div class="Wid100"><p:inputText  id="username" value="#{loginbean.uname}" styleClass="Wid80 TexAlCenter Fs18"></p:inputText>
-                                    <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" /></div>            
-                                <div class="EmptyBox10"></div>
-                                <div class="Wid100"><p:password id="password" value="#{loginbean.pwd}" styleClass="Wid80 TexAlCenter Fs18"></p:password>
-                                    <p:watermark for="password" value="Hasło" id="password_watermark" />  </div>    
-                                <div class="EmptyBox20"></div>
-                                <div class="Separator"></div>
-                                <div class="EmptyBox10"></div>
-                                <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj"
-                                                  icon="fa fa-key" 
-                                                  styleClass="GreenButton Wid60 Fs18 White RaisedButton"
-                                                  />
-                                <div class="EmptyBox10"></div>
-                                <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
-                                                  icon="fa fa-facebook-f " 
-                                                  styleClass="BlueButton Wid60 Fs18 White RaisedButton"
-                                                  />
-                                <div class="EmptyBox10"></div>
-                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                  icon="fa fa-lock"
-                                                  styleClass="RedButton Wid60 Fs18 White RaisedButton"
-                                                  value="Prześlij hasło ponownie"/> 
-                                 <div class="EmptyBox10"></div>                          
-                                <p:commandButton  action="register.xhtml?faces-redirect=true"
-                                                  icon="fa fa-sign-in" styleClass="PurpleButton Wid60 Fs18 White RaisedButton"
-                                                  value="Załóż konto"/>
-                                 <div class="EmptyBox10"></div>
-                                
 
-                            </div>                        
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <div class="Card ShadowEffect " 
+                                         style=" background-color: Transparent; "
+                                         >
+                                        <div class="Container100 Responsive100">
+                                            <div class="Wid100 White Fs30"><i class="icon-users White Fs40"></i>Training hub</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <div class="Card ShadowEffect " style="background: rgba(255, 255, 255, 0.5);">
+                                        <div class="EmptyBox10"></div>
+                                        <div class="Container50 Responsive100">
+                                            <div class="ContainerIndent TexAlCenter" >
+
+                                                <p:inputText  id="username" value="#{loginbean.uname}" styleClass="Fs24" style="width: 350px;"></p:inputText>
+                                                <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+
+                                                <div class="EmptyBox30"></div>
+                                                <p:password id="password" value="#{loginbean.pwd}" styleClass="Fs24" style="width: 350px;" >
+                                                    <p:watermark for="password" value="Hasło" id="password_watermark" /> 
+                                                </p:password>
+
+                                                <div class="EmptyBox30"></div>
+
+                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                                  icon="fa fa-lock"
+                                                                  styleClass="GreenButton Fs28" style="width: 380px;"
+                                                                  value="Zaloguj"/> 
+                                                <div class="EmptyBox30"></div>
+                                                
+
+                                            </div> 
+                                        </div>
+
+                                        <div class="Container50 Responsive100">
+                                            <div class="ContainerIndent">
+
+                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
+                                                                  icon="fa fa-facebook-f " 
+                                                                  styleClass="BlueButton Fs24" style="width: 380px;"
+                                                                  />
+
+                                                <div class="EmptyBox30"></div>                          
+                                                <p:commandButton  action="register.xhtml?faces-redirect=true"
+                                                                  icon="fa fa-sign-in"
+                                                                  styleClass="SoftBlueBack Fs24" style="width: 380px;"
+                                                                  value="Załóż konto"/>
+                                                <div class="EmptyBox30"></div>
+                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                                  icon="fa fa-lock"
+                                                                  styleClass="RedButton Fs24" style="width: 380px;"
+                                                                  value="Prześlij hasło ponownie"/> 
+                                            </div>
+                                        </div>   
+                                    </div> </div></div>
                         </div>
                         <div class="EmptyBox100"></div>
-                        
-                    </div>
 
+                    </div>
 
 
                 </h:form>    
@@ -103,7 +132,7 @@
         </div>
 
         <div id="d1" style="background-image: url('/mavenproject1/faces/javax.faces.resource/login2.png?ln=images');background-size:100% 100%; width: 100%; height: 100%; ">
-          
+
             <div class="EmptyBox100"></div>
             <div class="EmptyBox100"></div>
             <div class="EmptyBox100"></div>
@@ -123,8 +152,8 @@
                     </p:panelGrid>
                 </center>
             </div>
-            
-          
+
+
         </div>
 
 
