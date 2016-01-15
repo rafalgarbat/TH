@@ -48,7 +48,7 @@ public class TodayTrainingController implements Serializable {
     private Userevents rezultatTreningu;
 
     private Date dateFrom;
-    private Date dateTo;
+    private Date dateTo;    
 
     public List<Userevents> getMojeEventy(String aUname) {
         return eventFacade.getEventyUzytkownika(aUname);
@@ -149,10 +149,10 @@ public class TodayTrainingController implements Serializable {
         myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
         //todo: setParameter("user_id", 2). 
         List pList = eventFacade.getEntityManager().createNativeQuery("select * from userevents ue where ue.user_id = 2 and event_id = ?", Userevents.class).setParameter(1, myEvent.getId()).getResultList();
-       
-        if (pList != null) { 
+
+        if (pList != null) {
             rezultatTreningu = (Userevents) pList.get(0);
-        }else{
+        } else {
             rezultatTreningu = new Userevents();
             rezultatTreningu.setEventId(myEvent);
         }
@@ -160,6 +160,8 @@ public class TodayTrainingController implements Serializable {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
+  
 
     public Date getDateFrom() {
         return dateFrom;
@@ -193,4 +195,5 @@ public class TodayTrainingController implements Serializable {
         this.rezultatTreningu = rezultatTreningu;
     }
 
+   
 }
