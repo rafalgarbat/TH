@@ -50,7 +50,7 @@ public class TodayTrainingController implements Serializable {
     private Date dateFrom;
     private Date dateTo;    
 
-    public List<Userevents> getMojeEventy(String aUname) {
+    public List<DisplayEventInfo> getEventyUzytkownika(String aUname) {
         return eventFacade.getEventyUzytkownika(aUname);
     }
 
@@ -64,11 +64,13 @@ public class TodayTrainingController implements Serializable {
     // todo: przeniesc do fasady!
     public List<DisplayEventInfo> getEventyWplanie(String aUname) {
         List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
-        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
-                + "where uc.userid =  ? "
-                + "and ce.calenarid = uc.uid "
-                + "and ce.eventid =  e.id "
-                + "and c.uid = uc.calendarid order by e.dataod ";
+        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c " +
+"            where uc.userid = ? " +
+"                and ce.calenarid = uc.uid " +
+"                and ce.eventid =  e.id " +
+"                and c.uid = uc.calendarid " +
+"                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id )" +
+"                order by e.dataod ";
         List<Object[]> results = eventFacade.getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
         DisplayEventInfo pD;
         for (Object[] ob : results) {

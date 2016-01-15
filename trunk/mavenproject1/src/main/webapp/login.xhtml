@@ -70,16 +70,16 @@
 
                             <div class="Container100">
                                 <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect " style="background: rgba(255, 255, 255, 0.5);">
+                                    <div class="Card ShadowEffect " style="background: rgba(255, 255, 255, 0.3);">
                                         <div class="EmptyBox10"></div>
                                         <div class="Container50 Responsive100">
-                                            <div class="ContainerIndent TexAlCenter" >
+                                           
 
-                                                <p:inputText  id="username" value="#{loginbean.uname}" styleClass="Fs24" style="width: 350px;"></p:inputText>
+                                                <p:inputText  id="username" value="#{loginbean.uname}" styleClass="Fs24" ></p:inputText>
                                                 <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
 
                                                 <div class="EmptyBox30"></div>
-                                                <p:password id="password" value="#{loginbean.pwd}" styleClass="Fs24" style="width: 350px;" >
+                                                <p:password id="password" value="#{loginbean.pwd}" styleClass="Fs24"  >
                                                     <p:watermark for="password" value="Hasło" id="password_watermark" /> 
                                                 </p:password>
 
@@ -87,33 +87,31 @@
 
                                                 <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
                                                                   icon="fa fa-lock"
-                                                                  styleClass="GreenButton Fs28" style="width: 380px;"
+                                                                  styleClass="GreenButton Fs28" 
                                                                   value="Zaloguj"/> 
                                                 <div class="EmptyBox30"></div>
                                                 
 
-                                            </div> 
+                                           
                                         </div>
 
                                         <div class="Container50 Responsive100">
-                                            <div class="ContainerIndent">
-
-                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
+                                               <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj się przez Facebook"
                                                                   icon="fa fa-facebook-f " 
-                                                                  styleClass="BlueButton Fs24" style="width: 380px;"
+                                                                  styleClass="BlueButton Fs24" 
                                                                   />
 
                                                 <div class="EmptyBox30"></div>                          
                                                 <p:commandButton  action="register.xhtml?faces-redirect=true"
                                                                   icon="fa fa-sign-in"
-                                                                  styleClass="SoftBlueBack Fs24" style="width: 380px;"
+                                                                  styleClass="SoftBlueBack Fs24" 
                                                                   value="Załóż konto"/>
                                                 <div class="EmptyBox30"></div>
                                                 <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
                                                                   icon="fa fa-lock"
-                                                                  styleClass="RedButton Fs24" style="width: 380px;"
+                                                                  styleClass="RedButton Fs24" 
                                                                   value="Prześlij hasło ponownie"/> 
-                                            </div>
+                                            
                                         </div>   
                                     </div> </div></div>
                         </div>
