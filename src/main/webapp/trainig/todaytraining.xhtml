@@ -32,7 +32,7 @@
                                                  paginatorPosition="top"
                                                  rows="30"> 
                                         <p:ajax event="rowSelect" 
-                                                listener="#{todayTrainingController.onRowSelect}" 
+                                                listener="#{todayTrainingController.onRowSelect2}" 
                                                 update="@([id$=opisTreninguPG])" />
 
                                         <p:column headerText="ID" style="width:20px;" >
@@ -242,7 +242,7 @@
                                     </p:dataTable>
 
                                     <p:panel id ="opisTreninguWP"   style="width:700px;border:0px none;">
-                                        #{todayTrainingController.selectedEventInfo.uwagiDoTreningu}
+                                        aaa #{todayTrainingController.selectedEventInfo.uwagiDoTreningu}
                                     </p:panel>       
 
 

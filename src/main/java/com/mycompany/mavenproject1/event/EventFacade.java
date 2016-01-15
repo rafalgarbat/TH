@@ -90,7 +90,7 @@ public class EventFacade extends AbstractFacade<Events> {
             pD.setDuration((String) ob[12]);
             pD.setDistance((String) ob[13]);
             pD.setKalorie((String) ob[14]);
-            pD.setStan((String) ob[15]);
+            //pD.setStan((Integer) ob[15]);
             pWyniki.add(pD);
         }                
         return pWyniki;

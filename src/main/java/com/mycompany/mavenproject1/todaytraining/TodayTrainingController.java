@@ -146,6 +146,18 @@ public class TodayTrainingController implements Serializable {
         this.selectedUserEvent = selectedUserEvent;
     }
 
+    public void onRowSelect2(SelectEvent event) {
+        DisplayEventInfo d = (DisplayEventInfo) event.getObject();
+        myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
+        //todo: setParameter("user_id", 2). 
+        rezultatTreningu = new Userevents();
+        rezultatTreningu.setEventId(myEvent);
+        
+        FacesMessage msg = new FacesMessage("Selected");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    
     public void onRowSelect(SelectEvent event) {
         DisplayEventInfo d = (DisplayEventInfo) event.getObject();
         myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
