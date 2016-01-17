@@ -82,6 +82,7 @@ public class TodayTrainingController implements Serializable {
             pD.setDataod((Date) ob[7]);
             pD.setTypWydarzenia((String) ob[8]);
             pD.setEventOpis((String) ob[4]);
+            pD.setPublicUrl("/trainig/show.xhtml?eventId=18");
             pWyniki.add(pD);
         }
         return pWyniki;
@@ -106,7 +107,12 @@ public class TodayTrainingController implements Serializable {
         return filterDate.after(dateFrom) && filterDate.before(dateTo);
     }
 
-    public void zapiszZmiany() {
+    public void oznaczJakoPubliczne() {
+        selectedUserEvent.getEventId().setCzycalydzien(Boolean.TRUE);
+        eventFacade.zapiszUserEvent(selectedUserEvent);
+    }
+    
+    public void zapiszZmiany() {        
         eventFacade.zapiszUserEvent(selectedUserEvent);
     }
 

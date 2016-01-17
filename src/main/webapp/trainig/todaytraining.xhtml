@@ -10,13 +10,14 @@
         <f:facet name="last">
             <h:outputStylesheet library="css" name="mycustom.css" />
         </f:facet>
-        <h:form id="form" >
-            <p:growl id="msgs" showDetail="true"  />
-            <div class="Container100 ui-fluid">
-                <div class="ContainerIndent">
-                    <div class="Card ShadowEffect"> 
-                        <p:tabView>
-                            <p:tab title="Nadchodzące"> 
+
+        <p:growl id="msgs" showDetail="true"  />
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect"> 
+                    <p:tabView>
+                        <p:tab title="Nadchodzące"> 
+                            <h:form id="form1" >
                                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop" styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
 
 
@@ -87,13 +88,14 @@
 
                                     </p:dataTable> 
 
+
                                     <p:panel id ="opisTreninguPG"   style="width:700px;border:0px none;">
                                         <div class="Card ShadowEffect ui-fluid"> 
-                                                <p:commandButton value="Oznacz jako publiczne wydarzenie" id="publiczneBtn"
-                                                                 icon="fa fa-external-link Fs30  White"
-                                                                 styleClass="Fs30  LeadenGreenBack RaisedButton"                                                                                 
-                                                                 actionListener="#{todayTrainingController.zapiszZmiany()}" update="@all"  />                                                       
-                                         
+                                            <p:commandButton value="Oznacz jako publiczne wydarzenie" id="publiczneBtn"
+                                                             icon="fa fa-external-link Fs30  White"
+                                                             styleClass="Fs30  LeadenGreenBack RaisedButton"                                                                                 
+                                                             actionListener="#{todayTrainingController.oznaczJakoPubliczne()}" update="@all"  />                                                       
+
                                         </div>
                                         <div class="Card ShadowEffect ui-fluid">   
                                             <p:tabView widgetVar="mywidgetvar" >
@@ -168,9 +170,10 @@
                                     </p:panel>
 
                                 </h:panelGrid>
-
-                            </p:tab>
-                            <p:tab title="Zrealizowane">
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Zrealizowane">
+                            <h:form id="zrealizowaneFrm"> 
                                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
                                              styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
                                     <p:dataTable value="#{todayTrainingController.getEventyUzytkownika(loginbean.uname)}" 
@@ -188,11 +191,11 @@
                                         <p:ajax event="rowSelect" 
                                                 listener="#{todayTrainingController.onRowSelect}" 
                                                 update="@([id$=opisTreninguWP])" />
-  
-                                        <p:column headerText="ID" style="width:20px;" >
-                                            #{displayeventinfo.id}
+
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
+                                            #{displayeventinfo.id}                                          
                                         </p:column> 
-                                      
+
                                         <p:column headerText="Nazwa kalendarza" style="width:100px;">
                                             #{displayeventinfo.calendarname} 
                                         </p:column>
@@ -227,6 +230,27 @@
                                                 <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
                                         </p:column>
+
+                                        <p:column headerText="Czas trwania" sortBy="#{displayeventinfo.duration}" >
+                                            <h:outputText value="#{displayeventinfo.duration}">                                            
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="Rzeczywisty dystans" sortBy="#{displayeventinfo.dystans}" >
+                                            <h:outputText value="#{displayeventinfo.dystans}">                                            
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="Spalone kalorie" sortBy="#{displayeventinfo.kalorie}" >
+                                            <h:outputText value="#{displayeventinfo.kalorie}">                                            
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="Link" sortBy="#{displayeventinfo.link}" >
+                                            <h:outputText value="#{displayeventinfo.link}">                                            
+                                            </h:outputText>
+                                        </p:column>
+
                                         <p:column headerText="Kalendarz publiczny?" >                                            
                                             <p:inputSwitch value="#{displayeventinfo.isCalendarPublic}" 
                                                            offLabel="Nie" onLabel="Tak"
@@ -241,26 +265,31 @@
                                         </p:column>
                                     </p:dataTable>
 
-                                    <p:panel id ="opisTreninguWP"   style="width:700px;border:0px none;">
-                                        aaa #{todayTrainingController.selectedEventInfo.uwagiDoTreningu}
+                                    <p:panel id ="opisTreninguWP" header="Uwagi"  style="width:700px;border:0px none;">
+                                        <p:editor id="uwagiDoTreningu" value="#{todayTrainingController.selectedEventInfo.uwagiDoTreningu}"                                                       
+                                                  disabled="true"/>     
+                                        <hr/>                             
+                                        <h:form id="form2" >
+                                            <p:button href="#{todayTrainingController.selectedEventInfo.publicUrl}" value="Przejdź na strone wydarzenia" rendered="#{todayTrainingController.selectedEventInfo.id>0}"/>
+                                        </h:form>
+
+
+
                                     </p:panel>       
 
 
 
                                 </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Komentarze">
+                            </h:form>
+                        </p:tab>
 
-                            </p:tab>
-                        </p:tabView>    
-
+                    </p:tabView>    
 
 
-                    </div>
+
                 </div>
             </div>
-
-        </h:form>    
+        </div>
 
     </ui:define>
 

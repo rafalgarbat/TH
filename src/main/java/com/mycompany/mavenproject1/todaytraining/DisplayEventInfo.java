@@ -33,6 +33,9 @@ public class DisplayEventInfo {
     private String kalorie;
     private String stan;
     
+    /*Url*/
+    private String publicUrl;
+    
     public String getCalendarname() {
         return calendarname;
     }
@@ -159,6 +162,14 @@ public class DisplayEventInfo {
 
     public void setStan(String stan) {
         this.stan = stan;
+    }
+
+    public String getPublicUrl() {
+        return publicUrl;
+    }
+
+    public void setPublicUrl(String publicUrl) {
+        this.publicUrl = publicUrl;
     }
 
     
