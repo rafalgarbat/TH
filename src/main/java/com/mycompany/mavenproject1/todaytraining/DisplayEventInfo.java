@@ -33,6 +33,11 @@ public class DisplayEventInfo {
     private String kalorie;
     private String stan;
     
+    /*Informacje o zaproszeniu*/
+    private String eventCreateUserInfo;
+    private String eventInvitation;
+    
+    
     /*Url*/
     private String publicUrl;
     
@@ -170,6 +175,22 @@ public class DisplayEventInfo {
 
     public void setPublicUrl(String publicUrl) {
         this.publicUrl = publicUrl;
+    }
+
+    public String getEventCreateUserInfo() {
+        return eventCreateUserInfo;
+    }
+
+    public void setEventCreateUserInfo(String eventCreateUserInfo) {
+        this.eventCreateUserInfo = eventCreateUserInfo;
+    }
+
+    public String getEventInvitation() {
+        return eventInvitation;
+    }
+
+    public void setEventInvitation(String eventInvitation) {
+        this.eventInvitation = eventInvitation;
     }
 
     

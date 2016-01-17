@@ -96,6 +96,42 @@ public class EventFacade extends AbstractFacade<Events> {
         }                
         return pWyniki;
     }
+    
+    public List<DisplayEventInfo> getEventyZaproszenia(String aUname) {
+        Users pUser = (Users) getUser(aUname);
+        List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
+        String pQuery ="select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans, ue.uwagi, ue.link, ue.duration, ue.distance, ue.kalorie, ue.stan  from usercalendars uc, calendarevents ce, events e, calendars c , userevents ue " +
+"                where uc.userid = ?" +
+"                and ce.calenarid = uc.uid " +
+"                and ce.eventid =  e.id " +
+"                and ue.event_id = e.id " +
+"                and ue.user_id = uc.userid " +
+"                and c.uid = uc.calendarid order by e.dataod ";
+        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, pUser.getUid()).getResultList();
+        DisplayEventInfo pD;
+        for (Object[] ob : results) {
+            pD = new DisplayEventInfo();
+            pD.setCalendarname((String) ob[0]);
+            pD.setIsCalendarPublic((Boolean) ob[1]);
+            pD.setId(Long.parseLong(String.valueOf(ob[2])));
+            pD.setEventTitle((String) ob[3]);
+            pD.setDataod((Date) ob[7]);
+            pD.setTypWydarzenia((String) ob[8]);
+            pD.setEventOpis((String) ob[4]);
+            
+            pD.setUwagiDoTreningu((String) ob[10]);
+            pD.setLink((String) ob[11]);
+            pD.setDuration((String) ob[12]);
+            pD.setDistance((String) ob[13]);
+            pD.setKalorie((String) ob[14]);
+            pD.setPublicUrl("/faces/trainig/show.xhtml?eventId="+pD.getId().intValue()+"");//?faces-redirect=true
+            //pD.setStan((Integer) ob[15]);
+            pWyniki.add(pD);
+        }                
+        return pWyniki;
+    }
+    
+    
     /*
     Bierzemy dwa rodzaje eventow
     1. Eventy z moich kalendarzy
