@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.auth;
 
 import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
+import com.mycompany.mavenproject1.coach.CoachPlayers;
 import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
@@ -14,6 +15,7 @@ import com.mycompany.mavenproject1.photos.ob.Photos;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "users")
+@Cacheable(false)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
@@ -43,6 +46,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByNameAndPassword", query = "SELECT u FROM Users u WHERE u.uname = :uname and u.password = :password"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
 public class Users implements Serializable {
+   
+    /**
+     * Referencje coach-player
+     */
+    @OneToMany(mappedBy = "userid")
+    private Collection<CoachPlayers> coachPlayersCollection;
+    @OneToMany(mappedBy = "coachid")
+    private Collection<CoachPlayers> coachPlayersCollection1;
     
     @OneToMany(mappedBy = "userid")
     private Collection<Photos> photosCollection;
@@ -324,6 +335,24 @@ public class Users implements Serializable {
 
     public void setPhotosCollection(Collection<Photos> photosCollection) {
         this.photosCollection = photosCollection;
+    }
+
+    @XmlTransient
+    public Collection<CoachPlayers> getCoachPlayersCollection() {
+        return coachPlayersCollection;
+    }
+
+    public void setCoachPlayersCollection(Collection<CoachPlayers> coachPlayersCollection) {
+        this.coachPlayersCollection = coachPlayersCollection;
+    }
+
+    @XmlTransient
+    public Collection<CoachPlayers> getCoachPlayersCollection1() {
+        return coachPlayersCollection1;
+    }
+
+    public void setCoachPlayersCollection1(Collection<CoachPlayers> coachPlayersCollection1) {
+        this.coachPlayersCollection1 = coachPlayersCollection1;
     }
     
 }

@@ -11,6 +11,7 @@ import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
 import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
+import com.mycompany.mavenproject1.coach.CoachPlayers;
 import com.mycompany.mavenproject1.todaytraining.DisplayEventInfo;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -151,6 +152,18 @@ public class EventFacade extends AbstractFacade<Events> {
         return pUSE;
     }
 
+    public List<Users> getCoachPlayers(String aUname) {
+        List<Users> pUSE = new ArrayList<>();
+        Users pUser = (Users) getUser(aUname);
+        
+        for(CoachPlayers cp : pUser.getCoachPlayersCollection1()){
+            pUSE.add(cp.getUserid());
+        }        
+        return pUSE;
+        
+    }
+
+    
     /**
      * Zwraca liste kalendarzy użytkownika
      */

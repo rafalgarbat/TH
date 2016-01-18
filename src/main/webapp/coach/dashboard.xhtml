@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">
+
+                    <h:form id="form">
+                        <p:dataGrid var="users" value="#{coachview.getCoachPlayers()}" columns="4" layout="grid"
+                                    rows="12" paginator="true" id="users"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
+
+                            <f:facet name="header">
+                                HEADER
+                            </f:facet>
+
+                            
+                             <p:panel rendered="#{users.uid%3!=1}">
+                                <div class="ContainerIndent" >
+                                    <div class="Card ShadowEffect  GrayBack TexAlCenter HoverEffect">
+                                        <div class="EmptyBox5"></div>
+                                        <i class="icon icon-user158 Fs50"></i>
+                                        <div class="EmptyBox5"></div>
+                                        <div class="FontRobotoLight Fs16 GrayBack DispBlock ClearBoth">#{users.uname}</div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                            <p:panel rendered="#{users.uid%3==1}">
+                                <div class="ContainerIndent" >
+                                    <div class="Card ShadowEffect  SoftGreenBack TexAlCenter HoverEffect">
+                                        <div class="EmptyBox5"></div>
+                                        <i class="icon icon-user158 Fs50"></i>
+                                        <div class="EmptyBox5"></div>
+                                        <div class="FontRobotoLight Fs16 SoftGreenBack DispBlock ClearBoth">#{users.uname}</div>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+
+                        </p:dataGrid>
+
+                    </h:form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
