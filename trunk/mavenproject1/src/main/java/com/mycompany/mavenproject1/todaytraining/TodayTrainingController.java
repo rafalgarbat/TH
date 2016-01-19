@@ -69,7 +69,7 @@ public class TodayTrainingController implements Serializable {
 "                and ce.calenarid = uc.uid " +
 "                and ce.eventid =  e.id " +
 "                and c.uid = uc.calendarid " +
-"                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id )" +
+"                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id and completed =true )" +
 "                order by e.dataod ";
         List<Object[]> results = eventFacade.getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
         DisplayEventInfo pD;

@@ -19,7 +19,7 @@
                             <f:facet name="header">
                                 HEADER
                             </f:facet>
-
+           
                             
                              <p:panel rendered="#{users.uid%3!=1}">
                                 <div class="ContainerIndent" >
@@ -27,7 +27,10 @@
                                         <div class="EmptyBox5"></div>
                                         <i class="icon icon-user158 Fs50"></i>
                                         <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16 GrayBack DispBlock ClearBoth">#{users.uname}</div>
+                                        <div class="FontRobotoLight Fs16 GrayBack DispBlock ClearBoth">
+                                         <p:button href="/faces/coach/showplayer.xhtml?playerId=4" value="#{users.uname}" />
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </p:panel>

@@ -34,6 +34,12 @@ public abstract class AbstractFacade<T> {
         return pUser;
     }
     
+     public Users getUserById(Integer userId) {
+        Query pQuery = getEntityManager().createNamedQuery("Users.findByUid").setParameter("uid", 2).setMaxResults(1);
+        Users pUser = (Users) pQuery.getResultList().get(0);
+        return pUser;
+    } 
+     
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
