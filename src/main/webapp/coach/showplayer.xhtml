@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <f:metadata>
+            <f:viewParam name="playerId" value="#{coachplayerview.playerId}"/>         
+        </f:metadata>
+        <h:form>
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card ShadowEffect ">
+                        <div class="Container40 Responsive100">
+                            <div class="ContainerIndent">                           
+                                <p:fieldset legend="Lista treningów" toggleable="true" toggleSpeed="500">
+
+
+                                    <p:dataTable value="#{coachplayerview.eventyUzytkownika}" 
+                                                 var="displayeventinfo" 
+                                                 widgetVar="usereventsWidget"
+                                                 id="eventsTable"
+                                                 paginator="true"
+                                                 selection="#{coachplayerview.selectedEventInfo}"
+                                                 rowKey="#{displayeventinfo.id}"
+                                                 selectionMode="single"                                                 
+                                                 paginatorPosition="top"
+                                                 rows="10"> 
+                                        <p:ajax event="rowSelect" 
+                                                listener="#{coachplayerview.onRowSelect}" 
+                                                update="@([id$=opisTreninguW])" />
+
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
+                                            #{displayeventinfo.id}                                          
+                                        </p:column> 
+
+                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
+                                            #{displayeventinfo.calendarname} 
+                                        </p:column>
+                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                            <f:facet name="filter">
+                                                <p:selectOneListbox onchange="PF('usereventsWidget').filter()">                                                
+                                                    <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
+                                                    <f:selectItem itemLabel="Pływanie" itemValue="2" />
+                                                    <f:selectItem itemLabel="Bieganie" itemValue="3" />
+                                                    <f:selectItem itemLabel="Dowolne" itemValue="" />
+                                                </p:selectOneListbox>   
+                                            </f:facet>
+
+                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                        </p:column>
+                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
+                                                  filterMatchMode="contains">
+                                            #{displayeventinfo.eventTitle} 
+                                        </p:column>
+
+                                        <p:column headerText="Dystans" >
+                                            #{displayeventinfo.dystans} 
+                                        </p:column>
+
+                                        <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
+                                            <h:outputText value="#{displayeventinfo.dataod}">
+                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
+
+
+
+                                    </p:dataTable>   
+                                </p:fieldset>
+                            </div>
+                            <div class="ContainerIndent">
+                                <p:fieldset legend="Kalendarz" toggleable="true" toggleSpeed="500">
+                                    xxx
+                                </p:fieldset>
+                            </div>
+                        </div>
+
+                        
+                            <p:panel id ="opisTreninguW"  >  
+                                <div class="ContainerIndent">
+                                    <div class="Wid100 MarAuto">       
+                                        <p:fieldset legend="Szczegóły" toggleable="true" toggleSpeed="500">
+
+                                            <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+                                                <p:outputLabel value="Tytuł:"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.eventTitle}"/>
+
+                                                <p:outputLabel value="Czas trwania:"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.duration}"/>
+
+                                                <p:outputLabel value="Rzeczywisty dystans"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.dystans}"/>
+
+                                                <p:outputLabel value="Spalone kalorie"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.kalorie}"/>
+
+                                                <p:outputLabel value="Link (Garmin, Strava)"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.link}"/>
+
+                                            </p:panelGrid>
+
+
+
+
+                                        </p:fieldset>
+                                    </div>
+
+
+                                </div>
+                                <p:fieldset legend="Komentarz" toggleable="true" toggleSpeed="500">
+
+                                    <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}"/>     
+
+                                </p:fieldset>
+                            </p:panel> 
+                       
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
