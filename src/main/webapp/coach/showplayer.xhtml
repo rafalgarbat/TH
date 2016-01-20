@@ -13,12 +13,11 @@
         <h:form>
             <div class="Container100">
                 <div class="ContainerIndent">
-                    <div class="Card ShadowEffect ">
-                        <div class="Container40 Responsive100">
-                            <div class="ContainerIndent">                           
-                                <p:fieldset legend="Lista treningów" toggleable="true" toggleSpeed="500">
+                    <p:tabView>
+                        <p:tab title="Treningi">
 
-
+                            <div class="Container40 Responsive100">
+                                <div class="ContainerIndent">                           
                                     <p:dataTable value="#{coachplayerview.eventyUzytkownika}" 
                                                  var="displayeventinfo" 
                                                  widgetVar="usereventsWidget"
@@ -69,19 +68,12 @@
                                             </h:outputText>
                                         </p:column>
 
-
-
                                     </p:dataTable>   
-                                </p:fieldset>
-                            </div>
-                            <div class="ContainerIndent">
-                                <p:fieldset legend="Kalendarz" toggleable="true" toggleSpeed="500">
-                                    xxx
-                                </p:fieldset>
-                            </div>
-                        </div>
+                                </div>
 
-                        
+                            </div>
+
+
                             <p:panel id ="opisTreninguW"  >  
                                 <div class="ContainerIndent">
                                     <div class="Wid100 MarAuto">       
@@ -90,6 +82,9 @@
                                             <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
                                                 <p:outputLabel value="Tytuł:"/>
                                                 <p:outputLabel value="#{coachplayerview.selectedEventInfo.eventTitle}"/>
+
+                                                <p:outputLabel value="Opis"/>
+                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.eventOpis}"/>
 
                                                 <p:outputLabel value="Czas trwania:"/>
                                                 <p:outputLabel value="#{coachplayerview.selectedEventInfo.duration}"/>
@@ -104,23 +99,82 @@
                                                 <p:outputLabel value="#{coachplayerview.selectedEventInfo.link}"/>
 
                                             </p:panelGrid>
+                                        </p:fieldset>                                        
+                                    </div>
+                                </div>
+                                <p:commandButton value="Zapisz" id="zapiszBtn" styleClass="Fs24 GreenButton" update="@all" 
+                                                 rendered="#{coachplayerview.selectedEventInfo.id>0}"/>
+                                <p:commandButton value="Powiadom o aktualizacji" id="powiadomBtn" styleClass="Fs24 PurpleButton" update="@all" 
+                                                 rendered="#{coachplayerview.selectedEventInfo.id>0}"/>
+                                <hr/>
+
+                                <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}"/>     
+
+                            </p:panel> 
 
 
+                        </p:tab>    
 
+                        <p:tab title="Planowanie nowych treningów">
 
-                                        </p:fieldset>
+                            <p:panel id ="planowaniePanel"  >
+                                <p:fieldset legend="Kalendarz" toggleable="false" toggleSpeed="500">
+                                    <div class="Container20 Responsive100">
+                                        <p:panel header="Wybór kalendarza">
+                                            <p:selectOneRadio id ="czyNowyR"  required="true" value="#{coachplayerview.nowyKalendarz}"   >                                                
+                                                <f:selectItem itemLabel="Chce wybrac istniejący" itemValue="0" /> 
+                                                <f:selectItem itemLabel="Chce dodać nowy" itemValue="1" />
+                                                <p:ajax  update="@([id$=leftPanel])" />
+                                            </p:selectOneRadio> 
+                                        </p:panel>
+
                                     </div>
 
 
-                                </div>
-                                <p:fieldset legend="Komentarz" toggleable="true" toggleSpeed="500">
+                                    <div class="Container80 Responsive100">
+                                        <p:panel id ="leftPanel"  >
+                                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">        
+                                                <p:inputText id="nowyKalendarzNazwaTxt" value="#{coachplayerview.kalendarz.name}" 
+                                                             rendered="#{coachplayerview.nowyKalendarz>0}"
+                                                             styleClass="Fs25 FontRalewaySemiBold"
+                                                             style="width: 400px;"
+                                                             required="true"
+                                                             >
+                                                    <p:watermark for="nowyKalendarzNazwaTxt" value="Wprowadź nazwę nowego kalendarza"/>
+                                                </p:inputText> 
+                                                <p:commandButton id="nowyKalendarzBtn" value="Utwórz nowy kalendarz"  styleClass="Fs24 PurpleButton" 
+                                                                 rendered="#{coachplayerview.nowyKalendarz>0}"
+                                                                 update="@([id$=planowaniePanel])" />
+                                            </p:panelGrid>
+                                            
+                                            <p:panel visible="#{coachplayerview.nowyKalendarz==0}" >
+                                                <h:selectOneMenu id="calSelectM" value="#{coachplayerview.kalendarz}">
+                                                    <f:selectItems value="#{coachplayerview.getUserCalendars()}" var="calendars"
+                                                                   itemValue="#{calendars.name}"
+                                                                   itemLabel="#{calendars.name}"
+                                                                   />
+                                                </h:selectOneMenu>
+                                            </p:panel>
+                                            
+                                        </p:panel>
+                                        
+                                    </div>
 
-                                    <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}"/>     
 
-                                </p:fieldset>
-                            </p:panel> 
-                       
-                    </div>
+
+                                </p:fieldset>    
+
+                            </p:panel>   
+
+
+
+
+
+                        </p:tab>
+                        <p:tab title="Informacje podstawowe">
+                        </p:tab>
+                    </p:tabView>
+
                 </div>
             </div>
         </h:form>
