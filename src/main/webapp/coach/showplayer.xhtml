@@ -13,188 +13,271 @@
         <h:form>
             <div class="Container100">
                 <div class="ContainerIndent">
-                    <p:tabView>
-                        <p:tab title="Treningi">
+                    <div class="Card ShadowEffect RedBorderedBox ui-fluid">
+                        <div class="Container20 Responsive50">
+                            <div class="ContainerIndent">
+                                <p:accordionPanel multiple="false">
+                                    <p:tab title="Informacje o osobie">
+                                        <p:panel id="playerVcard" footer="Ala (ala@costam.com)">
+                                            <p:panelGrid styleClass="ui-panelgrid-blank"
+                                                         columnClasses="ui-grid-col-10,ui-grid-col-2">
+                                                <p:row>
+                                                    <p:column>
+                                                <p:graphicImage library="images" name="ala_avatar.jpg" 
+                                                                cache="false" width="350px" height="350px"                                                
+                                                                alt="Brak zdjęcia"
+                                                                />
+                                                </p:column>
+                                                    <p:column>
+                                                    <p:commandButton type="button"                                                                       
+                                                                     icon="fa fa-envelope-o Fs50 White" 
+                                                                     styleClass="PurpleButton RaisedButton"                                                                     
+                                                                     />    
+                                                    <br/>  <div class="EmptyBox10"></div>
+                                                    <p:commandButton type="button"                                                                       
+                                                                     icon="fa fa-plus Fs50 White" 
+                                                                     styleClass="OrangeButton RaisedButton"                                                                     
+                                                                     />
+                                                    <br/>  <div class="EmptyBox10"></div>
+                                                    <p:commandButton type="button"                                                                       
+                                                                     icon="fa fa-line-chart Fs50 White" 
+                                                                     styleClass="CyanButton RaisedButton"                                                                     
+                                                                     />
+                                                </p:column>
+                                                    
+                                                 </p:row>    
+                                                
 
-                            <div class="Container40 Responsive100">
-                                <div class="ContainerIndent">                           
-                                    <p:dataTable value="#{coachplayerview.eventyUzytkownika}" 
-                                                 var="displayeventinfo" 
-                                                 widgetVar="usereventsWidget"
-                                                 id="eventsTable"
-                                                 paginator="true"
-                                                 selection="#{coachplayerview.selectedEventInfo}"
-                                                 rowKey="#{displayeventinfo.id}"
-                                                 selectionMode="single"                                                 
-                                                 paginatorPosition="top"
-                                                 rows="10"> 
-                                        <p:ajax event="rowSelect" 
-                                                listener="#{coachplayerview.onRowSelect}" 
-                                                update="@([id$=opisTreninguW])" />
-
-                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
-                                            #{displayeventinfo.id}                                          
-                                        </p:column> 
-
-                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
-                                            #{displayeventinfo.calendarname} 
-                                        </p:column>
-                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
-                                            <f:facet name="filter">
-                                                <p:selectOneListbox onchange="PF('usereventsWidget').filter()">                                                
-                                                    <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
-                                                    <f:selectItem itemLabel="Pływanie" itemValue="2" />
-                                                    <f:selectItem itemLabel="Bieganie" itemValue="3" />
-                                                    <f:selectItem itemLabel="Dowolne" itemValue="" />
-                                                </p:selectOneListbox>   
-                                            </f:facet>
-
-                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
-                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
-                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
-                                        </p:column>
-                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
-                                                  filterMatchMode="contains">
-                                            #{displayeventinfo.eventTitle} 
-                                        </p:column>
-
-                                        <p:column headerText="Dystans" >
-                                            #{displayeventinfo.dystans} 
-                                        </p:column>
-
-                                        <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
-                                            <h:outputText value="#{displayeventinfo.dataod}">
-                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
-                                            </h:outputText>
-                                        </p:column>
-
-                                    </p:dataTable>   
-                                </div>
+                                            </p:panelGrid>
+                                        </p:panel>       
+                                    </p:tab>
+                                    <p:tab title="Cele treningowe">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:inputTextarea rows="30" cols="50" disabled="true" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Rekordy osobiste">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:inputTextarea rows="30" cols="50" disabled="true" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
 
                             </div>
+                        </div>
+                        <div class="Container80 Responsive50">
+                            <div class="ContainerIndent">
+
+                                <p:tabView>
+                                    <p:tab title="Treningi">
+                                        <div class="ContainerIndent">
+                                            <div class="Card ShadowEffect RedBorderedBox ui-fluid">
+                                                <div class="Container60 Responsive50">
+                                                    <p:dataTable value="#{coachplayerview.eventyUzytkownika}"
+                                                                 var="displayeventinfo" 
+                                                                 widgetVar="usereventsWidget"
+                                                                 id="eventsTable"
+                                                                 paginator="true"
+                                                                 selection="#{coachplayerview.selectedEventInfo}"
+                                                                 rowKey="#{displayeventinfo.id}"
+                                                                 selectionMode="single"                                                 
+                                                                 paginatorPosition="top"
+                                                                 rows="10"> 
+                                                        <p:ajax event="rowSelect" 
+                                                                listener="#{coachplayerview.onRowSelect}" 
+                                                                update="@([id$=opisTreninguW])" />
+
+                                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
+                                                            #{displayeventinfo.id}                                          
+                                                        </p:column> 
+
+                                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
+                                                            #{displayeventinfo.calendarname} 
+                                                        </p:column>
+                                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                                            <f:facet name="filter">
+                                                                <p:selectOneListbox onchange="PF('usereventsWidget').filter()">                                                
+                                                                    <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
+                                                                    <f:selectItem itemLabel="Pływanie" itemValue="2" />
+                                                                    <f:selectItem itemLabel="Bieganie" itemValue="3" />
+                                                                    <f:selectItem itemLabel="Dowolne" itemValue="" />
+                                                                </p:selectOneListbox>   
+                                                            </f:facet>
+
+                                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
+                                                                  filterMatchMode="contains">
+                                                            #{displayeventinfo.eventTitle} 
+                                                        </p:column>
+
+                                                        <p:column headerText="Dystans" >
+                                                            #{displayeventinfo.dystans} 
+                                                        </p:column>
+
+                                                        <p:column headerText="Data treningu" sortBy="#{displayeventinfo.dataod}" >
+                                                            <h:outputText value="#{displayeventinfo.dataod}">
+                                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                                                            </h:outputText>
+                                                        </p:column>
+
+                                                    </p:dataTable>       
+                                                </div> 
+                                                <div class="Container40 Responsive50">
+                                                    <p:panel id ="opisTreninguW"  >  
+                                                        <div class="ContainerIndent">
+                                                            <div class="Wid100 MarAuto">
+                                                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
+                                                                             columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                                                    <p:commandButton type="button1"  
+                                                                                     value="Aktualizuj"
+                                                                                     icon="fa fa-mail-forward Fs22 White" 
+                                                                                     styleClass="LeadenGreenBack RaisedButton"                                                     
+                                                                                     />
+                                                                    <p:commandButton type="button1"  
+                                                                                     value="Aktualizuj i powiadom"
+                                                                                     icon="fa fa-mail-forward Fs22 White" 
+                                                                                     styleClass="LeadenGreenBack RaisedButton"                                                     
+                                                                                     />    
+                                                                </p:panelGrid> 
+
+                                                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
+                                                                             columnClasses="ui-grid-col-2,ui-grid-col-10">
+
+                                                                    <p:outputLabel for="event_title" value="Tytuł:" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputText id="event_title" 
+                                                                                 value="#{coachplayerview.selectedEventInfo.eventTitle}"
+                                                                                 styleClass="Wid80 WidAutoOnMobile TexAlLeft Fs30"
+
+                                                                                 />
+
+                                                                    <p:outputLabel value="Opis" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputTextarea value="#{coachplayerview.selectedEventInfo.eventOpis}" 
+                                                                                     styleClass="Wid80 WidAutoOnMobile TexAlLeft Fs20"/>
+                                                                </p:panelGrid>   
+                                                                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
+                                                                             columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+
+                                                                    <p:outputLabel value="Czas trwania:" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.duration}" disabled="true"/>
+
+                                                                    <p:outputLabel value="Rzeczywisty dystans" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.dystans}" disabled="true"/>
+
+                                                                    <p:outputLabel value="Spalone kalorie" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.kalorie}" disabled="true"/>
+
+                                                                    <p:outputLabel value="Link (Garmin, Strava)" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
+                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.link}" disabled="true"/>
+                                                                </p:panelGrid>   
 
 
-                            <p:panel id ="opisTreninguW"  >  
-                                <div class="ContainerIndent">
-                                    <div class="Wid100 MarAuto">       
-                                        <p:fieldset legend="Szczegóły" toggleable="true" toggleSpeed="500">
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                        <p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
+                                                                     columnClasses="ui-grid-col-12">
 
-                                            <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                                <p:outputLabel value="Tytuł:"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.eventTitle}"/>
-
-                                                <p:outputLabel value="Opis"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.eventOpis}"/>
-
-                                                <p:outputLabel value="Czas trwania:"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.duration}"/>
-
-                                                <p:outputLabel value="Rzeczywisty dystans"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.dystans}"/>
-
-                                                <p:outputLabel value="Spalone kalorie"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.kalorie}"/>
-
-                                                <p:outputLabel value="Link (Garmin, Strava)"/>
-                                                <p:outputLabel value="#{coachplayerview.selectedEventInfo.link}"/>
-
-                                            </p:panelGrid>
-                                        </p:fieldset>                                        
-                                    </div>
-                                </div>
-                                <p:commandButton value="Zapisz" id="zapiszBtn" styleClass="Fs24 GreenButton" update="@all" 
-                                                 rendered="#{coachplayerview.selectedEventInfo.id>0}"/>
-                                <p:commandButton value="Powiadom o aktualizacji" id="powiadomBtn" styleClass="Fs24 PurpleButton" update="@all" 
-                                                 rendered="#{coachplayerview.selectedEventInfo.id>0}"/>
-                                <hr/>
-
-                                <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}"/>     
-
-                            </p:panel> 
+                                                            <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}">
+                                                                <p:watermark for="uwagiDoTreningu" value="Uwagi do treningu"/>
+                                                            </p:editor>
+                                                        </p:panelGrid>
+                                                    </p:panel>
+                                                </div> 
+                                            </div> 
+                                        </div>     
 
 
-                        </p:tab>    
+                                    </p:tab>    
 
-                        <p:tab title="Planowanie nowych treningów">
+                                    <p:tab title="Planowanie nowych treningów">
 
-                            <p:panel id ="planowaniePanel"  >
-                               
-                                    <div class="Container20 Responsive100">
-                                        <p:panel header="Wybór kalendarza">
-                                            <p:selectOneRadio id ="czyNowyR"  required="true" value="#{coachplayerview.nowyKalendarz}"   >                                                
-                                                <f:selectItem itemLabel="Chce wybrac istniejący" itemValue="0" /> 
-                                                <f:selectItem itemLabel="Chce dodać nowy" itemValue="1" />
-                                                <p:ajax  update="@([id$=leftPanel])" />
-                                            </p:selectOneRadio> 
-                                        </p:panel>
+                                        <p:panel id ="planowaniePanel"  >
 
-                                    </div>
+                                            <div class="Container20 Responsive100">
+                                                <p:panel header="Wybór kalendarza">
+                                                    <p:selectOneRadio id ="czyNowyR"  required="true" value="#{coachplayerview.nowyKalendarz}"   >                                                
+                                                        <f:selectItem itemLabel="Chce wybrac istniejący" itemValue="0" /> 
+                                                        <f:selectItem itemLabel="Chce dodać nowy" itemValue="1" />
+                                                        <p:ajax  update="@([id$=leftPanel])" />
+                                                    </p:selectOneRadio> 
+                                                </p:panel>
 
-
-                                    <div class="Container80 Responsive100">
-                                        <p:panel id ="leftPanel"  >
-                                            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">        
-                                                <p:inputText id="nowyKalendarzNazwaTxt" value="#{coachplayerview.kalendarz.name}" 
-                                                             rendered="#{coachplayerview.nowyKalendarz>0}"
-                                                             styleClass="Fs25 FontRalewaySemiBold"
-                                                             style="width: 400px;"
-                                                             required="true"
-                                                             >
-                                                    <p:watermark for="nowyKalendarzNazwaTxt" value="Wprowadź nazwę nowego kalendarza"/>
-                                                </p:inputText> 
-                                                <p:commandButton id="nowyKalendarzBtn" value="Utwórz nowy kalendarz"  styleClass="Fs24 PurpleButton" 
-                                                                 rendered="#{coachplayerview.nowyKalendarz>0}"
-                                                                 update="@([id$=planowaniePanel])" />
-                                            </p:panelGrid>
-                                            
-                                            <p:panel visible="#{coachplayerview.nowyKalendarz==0}" >
-                                                <p:selectOneMenu id="calSelectM" value="#{coachplayerview.kalendarz}"  style="width: 400px;">
-                                                    <f:selectItems value="#{coachplayerview.getUserCalendars()}" var="calendars"
-                                                                   itemValue="#{calendars.name}"
-                                                                   itemLabel="#{calendars.name}"
-                                                                   />                                                    
-                                                </p:selectOneMenu>                                                
-                                            </p:panel>
-                                            
-                                        </p:panel>
-                                        
-                                    </div>
-                                    <HR/>    
-                                    <div class="Container100 Responsive100">
-                                        <p:panel header="Tworzenie grafiku">
-                                        <p:schedule id="playerSchedule"   value="#{coachplayerview.eventModel}" widgetVar="myschedule" timeZone="GMT+1">                                           
-                                            <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                            <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails2" oncomplete="PF('eventDialog2').show();" />                              
-                                       </p:schedule>  
-                                     
-                                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                                             <h:panelGrid id="eventDetails" columns="2">                                                 
-                                                 lalalaal
-                                             </h:panelGrid>
-                                         </p:dialog>    
-                                        
-                                        <p:dialog widgetVar="eventDialog2" header="Event Details" showEffect="clip" hideEffect="clip">
-                                             <h:panelGrid id="eventDetails2" columns="2">                                                 
-                                                 lililili
-                                             </h:panelGrid>
-                                         </p:dialog>
-                                            </p:panel>
-                                    </div>
+                                            </div>
 
 
-                            </p:panel>   
+                                            <div class="Container80 Responsive100">
+                                                <p:panel id ="leftPanel"  >
+                                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">        
+                                                        <p:inputText id="nowyKalendarzNazwaTxt" value="#{coachplayerview.kalendarz.name}" 
+                                                                     rendered="#{coachplayerview.nowyKalendarz>0}"
+                                                                     styleClass="Fs25 FontRalewaySemiBold"
+                                                                     style="width: 400px;"
+                                                                     required="true"
+                                                                     >
+                                                            <p:watermark for="nowyKalendarzNazwaTxt" value="Wprowadź nazwę nowego kalendarza"/>
+                                                        </p:inputText> 
+                                                        <p:commandButton id="nowyKalendarzBtn" value="Utwórz nowy kalendarz"  styleClass="Fs24 PurpleButton" 
+                                                                         rendered="#{coachplayerview.nowyKalendarz>0}"
+                                                                         update="@([id$=planowaniePanel])" />
+                                                    </p:panelGrid>
+
+                                                    <p:panel visible="#{coachplayerview.nowyKalendarz==0}" >
+                                                        <p:selectOneMenu id="calSelectM" value="#{coachplayerview.kalendarz}"  style="width: 400px;">
+                                                            <f:selectItems value="#{coachplayerview.getUserCalendars()}" var="calendars"
+                                                                           itemValue="#{calendars.name}"
+                                                                           itemLabel="#{calendars.name}"
+                                                                           />                                                    
+                                                        </p:selectOneMenu>                                                
+                                                    </p:panel>
+
+                                                </p:panel>
+
+                                            </div>
+                                            <HR/>    
+                                            <div class="Container100 Responsive100">
+                                                <p:panel header="Tworzenie grafiku">
+                                                    <p:schedule id="playerSchedule"   value="#{coachplayerview.eventModel}" widgetVar="myschedule" timeZone="GMT+1">                                           
+                                                        <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                                        <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails2" oncomplete="PF('eventDialog2').show();" />                              
+                                                    </p:schedule>  
+
+                                                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                                        <h:panelGrid id="eventDetails" columns="2">                                                 
+                                                            lalalaal
+                                                        </h:panelGrid>
+                                                    </p:dialog>    
+
+                                                    <p:dialog widgetVar="eventDialog2" header="Event Details" showEffect="clip" hideEffect="clip">
+                                                        <h:panelGrid id="eventDetails2" columns="2">                                                 
+                                                            lililili
+                                                        </h:panelGrid>
+                                                    </p:dialog>
+                                                </p:panel>
+                                            </div>
+
+
+                                        </p:panel>   
 
 
 
 
 
-                        </p:tab>
-                        <p:tab title="Informacje podstawowe">
-                        </p:tab>
-                    </p:tabView>
+                                    </p:tab>
+                                    <p:tab title="Informacje podstawowe">
+                                    </p:tab>
+                                </p:tabView>
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
         </h:form>
     </ui:define>
 
