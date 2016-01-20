@@ -118,7 +118,7 @@
                         <p:tab title="Planowanie nowych treningów">
 
                             <p:panel id ="planowaniePanel"  >
-                                <p:fieldset legend="Kalendarz" toggleable="false" toggleSpeed="500">
+                               
                                     <div class="Container20 Responsive100">
                                         <p:panel header="Wybór kalendarza">
                                             <p:selectOneRadio id ="czyNowyR"  required="true" value="#{coachplayerview.nowyKalendarz}"   >                                                
@@ -133,7 +133,7 @@
 
                                     <div class="Container80 Responsive100">
                                         <p:panel id ="leftPanel"  >
-                                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">        
+                                            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">        
                                                 <p:inputText id="nowyKalendarzNazwaTxt" value="#{coachplayerview.kalendarz.name}" 
                                                              rendered="#{coachplayerview.nowyKalendarz>0}"
                                                              styleClass="Fs25 FontRalewaySemiBold"
@@ -148,21 +148,39 @@
                                             </p:panelGrid>
                                             
                                             <p:panel visible="#{coachplayerview.nowyKalendarz==0}" >
-                                                <h:selectOneMenu id="calSelectM" value="#{coachplayerview.kalendarz}">
+                                                <p:selectOneMenu id="calSelectM" value="#{coachplayerview.kalendarz}"  style="width: 400px;">
                                                     <f:selectItems value="#{coachplayerview.getUserCalendars()}" var="calendars"
                                                                    itemValue="#{calendars.name}"
                                                                    itemLabel="#{calendars.name}"
-                                                                   />
-                                                </h:selectOneMenu>
+                                                                   />                                                    
+                                                </p:selectOneMenu>                                                
                                             </p:panel>
                                             
                                         </p:panel>
                                         
                                     </div>
+                                    <HR/>    
+                                    <div class="Container100 Responsive100">
+                                        <p:panel header="Tworzenie grafiku">
+                                        <p:schedule id="playerSchedule"   value="#{coachplayerview.eventModel}" widgetVar="myschedule" timeZone="GMT+1">                                           
+                                            <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                            <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails2" oncomplete="PF('eventDialog2').show();" />                              
+                                       </p:schedule>  
+                                     
+                                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                             <h:panelGrid id="eventDetails" columns="2">                                                 
+                                                 lalalaal
+                                             </h:panelGrid>
+                                         </p:dialog>    
+                                        
+                                        <p:dialog widgetVar="eventDialog2" header="Event Details" showEffect="clip" hideEffect="clip">
+                                             <h:panelGrid id="eventDetails2" columns="2">                                                 
+                                                 lililili
+                                             </h:panelGrid>
+                                         </p:dialog>
+                                            </p:panel>
+                                    </div>
 
-
-
-                                </p:fieldset>    
 
                             </p:panel>   
 

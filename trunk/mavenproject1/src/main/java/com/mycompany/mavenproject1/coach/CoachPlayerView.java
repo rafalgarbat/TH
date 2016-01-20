@@ -21,6 +21,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 /**
  *
@@ -42,23 +45,39 @@ public class CoachPlayerView extends SimpleView{
     private Userevents rezultatTreningu;
     private Events myEvent;
     
+    /*Model treningow playera*/
+    private ScheduleModel eventModel;
+    
     private String nowyKalendarz="0";
     private Calendars kalendarz;
     
     @PostConstruct
     public void init() {
     
-        kalendarz = new Calendars();
+        kalendarz = new Calendars(); //todo: zmienic na pobirany pierwszy z kolekcji 
+        eventModel = getEvents();
     }
     
+      public ScheduleModel getEvents() {
+        Users pPlayer = eventFacade.getUserById(2); //todo - pobranie id z parametru
+        ScheduleModel myModel = new DefaultScheduleModel();
+
+        List<Events> pTmp = getEventFacade().getUserEvents(pPlayer.getUname());
+        for (Events pU : pTmp) {
+            DefaultScheduleEvent pD = new DefaultScheduleEvent(pU.getOpis(), pU.getDataod(), pU.getDataod(), pU);
+            pD.setStyleClass("runpublic-event");
+            myModel.addEvent(pD);
+        }
+        return myModel;
+    }
     
     public List<DisplayEventInfo> getEventyUzytkownika() {
-        Users pPlayer = eventFacade.getUserById(2);
+        Users pPlayer = eventFacade.getUserById(2);//todo - pobranie id z parametru
         return eventFacade.getEventyUzytkownika(pPlayer.getUname());
     }
     
     public List<Calendars> getUserCalendars() {
-         Users pPlayer = eventFacade.getUserById(2);
+         Users pPlayer = eventFacade.getUserById(2);//todo - pobranie id z parametru
         return eventFacade.getUserCalendars(pPlayer.getUname());
     }
     
@@ -127,6 +146,22 @@ public class CoachPlayerView extends SimpleView{
 
     public void setKalendarz(Calendars kalendarz) {
         this.kalendarz = kalendarz;
+    }
+
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+
+    public EventFacade getEventFacade() {
+        return eventFacade;
+    }
+
+    public void setEventFacade(EventFacade eventFacade) {
+        this.eventFacade = eventFacade;
     }
 
            
