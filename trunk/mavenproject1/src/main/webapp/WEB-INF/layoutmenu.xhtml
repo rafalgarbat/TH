@@ -30,38 +30,33 @@
         <div class="Separator"></div>
 
         <pr:menu>
-            <p:menuitem id="rm_dashboard" value="Treningi" icon="icon-tick7" outcome="/trainig/todaytraining.xhtml"/>
+            <p:menuitem id="rm_aktualnosci" value="Aktualności" icon="icon-tick7" outcome="/empty/emptypage.xhtml"/>
             <p:menuitem id="rm_kalendarz" value="Kalendarz" icon="icon-calendar" outcome="/kalendarz/usercalendar.xhtml"/>
-            <p:submenu id="rm_theme1" label="Moje aktywności" icon="icon-mountains14" >
-                <p:menuitem value="Kalendarz" outcome="/kalendarz/workoutcalendar.xhtml" icon="icon-calendar" />
-                <p:menuitem value="Statystyki" outcome="/kalendarz/workoutcalendar.xhtml" icon="icon-calculator" />
-                <p:menuitem value="Mapa" outcome="/kalendarz/compcaledar.xhtml" icon="icon-map103" />
-            </p:submenu>
-            <p:submenu id="rm_theme2" label="Szukaj wydarzeń" icon="icon-search">
+            <p:submenu id="rm_wydarzenia" label="Wydarzenia" icon="icon-search">
                 <p:menuitem value="Lista" outcome="/kalendarz/mycalendar.xhtml" icon="icon-grid-alt"  />
                 <p:menuitem value="Mapa" outcome="/kalendarz/mymap.xhtml" icon="icon-map103"  />
+                <p:menuitem value="Moje wydarzenia" outcome="/empty/emptypage.xhtml" icon="icon-tick7"  />
+                <p:separator/>
                 <p:menuitem value="Dodaj wydarzenie" outcome="/kalendarz/dodaj.xhtml" icon="icon-add182"  />    
             </p:submenu>
-            <p:submenu id="rm_theme3" label="Społeczność" icon="icon-circles23">
-                <p:menuitem value="Wiadomości" outcome="/empty/emptypage.xhtml" icon="icon-grid-alt"  />
-                <p:submenu id="rm_theme4" label="Zdjęcia" icon="icon-users25">
-                    <p:menuitem value="Galeria" outcome="/empty/emptypage.xhtml" icon="icon-add182"  />    
-                    <p:menuitem value="Dodaj zdjęcia" outcome="/photos/uploadphotos.xhtml" icon="icon-add182"  />    
-                </p:submenu>
-                <p:submenu id="rm_theme5" label="Znajomi" icon="icon-users">
+            
+            <p:menuitem value="Moje aktywności" outcome="/trainig/todaytraining.xhtml" icon="icon-tick7"  />
+            
+            <p:submenu id="rm_theme3" label="Społeczność" icon="icon-circles23">                
                     <p:menuitem value="Znajomi" outcome="/empty/emptypage.xhtml" icon="icon-users"  />    
-                    <p:menuitem value="Szukaj" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
-                </p:submenu>
-                <p:submenu id="rm_theme6" label="Grupy sportowe" icon="icon-users25">
-                    
-                </p:submenu>
-                <p:menuitem value="Osiągnięcia" outcome="/empty/emptypage.xhtml" icon="icon-exclamation"  />
-                
+                    <p:menuitem value="Grupy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
+                    <p:menuitem value="Trenerzy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
+                    <p:menuitem value="Organizatorzy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
             </p:submenu>
-           <p:menuitem id="rm_coachdb" value="Coach dashboard" icon="icon-calendar" outcome="/coach/dashboard.xhtml"/> 
+           
+            <p:menuitem id ="rm_wiadomosci" value="Wiadomości" outcome="/empty/emptypage.xhtml" icon="icon-tick7"  />
+            
+           
         </pr:menu>
-
-
+        <div class="Separator"></div>
+        <pr:menu>
+           <p:menuitem id="rm_coachdb" value="Coach dashboard" icon="icon-calendar" outcome="/coach/dashboard.xhtml"/>  
+        </pr:menu>
 
     </div>
 
