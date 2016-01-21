@@ -10,37 +10,63 @@
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect TexAlCenter">
 
-                    <h:form id="form">
-                        <p:dataGrid var="users" value="#{coachview.getCoachPlayers()}" columns="4" layout="grid"
+                    <h:form id="form">                        
+                        
+                        <p:dataGrid var="users" value="#{coachview.getCoachPlayers()}" columns="6" layout="grid"
                                     rows="12" paginator="true" id="users"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                     >
 
                             <f:facet name="header">
-                                HEADER
+                                Zawodnicy
                             </f:facet>
            
                             
-                             <p:panel rendered="#{users.uid%3!=1}">
+                            <p:panel rendered="#{users.uid%3!=1}" header="#{users.uname}, #{users.email}, #{users.city}" footer="Grupa XXX">
                                 <div class="ContainerIndent" >
-                                    <div class="Card ShadowEffect  GrayBack TexAlCenter HoverEffect">
+                                    <div class="Card ShadowEffect  SoftGrayBack TexAlCenter HoverEffect">
                                         <div class="EmptyBox5"></div>
-                                        <i class="icon icon-user158 Fs50"></i>
+                                        <i class="icon icon-user158 White Fs50"></i>
                                         <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16 GrayBack DispBlock ClearBoth">
-                                         <p:button href="/faces/coach/showplayer.xhtml?playerId=4" value="#{users.uname}" />
+                                        <div class="FontRobotoLight Fs16 SoftGrayBack DispBlock ClearBoth">                                          
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-search Fs30 White" 
+                                                                         styleClass="BlueButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-envelope Fs30 White" 
+                                                                         styleClass="GreenButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-plus-square Fs30 White" 
+                                                                         styleClass="PurpleButton RaisedButton"                                                                     
+                                                                         />  
                                         
                                         </div>
                                     </div>
                                 </div>
                             </p:panel>
-                            <p:panel rendered="#{users.uid%3==1}">
-                                <div class="ContainerIndent" >
+                            <p:panel rendered="#{users.uid%3==1}" header="#{users.uname}, #{users.email}, #{users.city}" footer="Grupa XXX">
+                               <div class="ContainerIndent" >
                                     <div class="Card ShadowEffect  SoftGreenBack TexAlCenter HoverEffect">
                                         <div class="EmptyBox5"></div>
-                                        <i class="icon icon-user158 Fs50"></i>
+                                        <i class="icon icon-user158 White Fs50"></i>
                                         <div class="EmptyBox5"></div>
-                                        <div class="FontRobotoLight Fs16 SoftGreenBack DispBlock ClearBoth">#{users.uname}</div>
+                                        <div class="FontRobotoLight Fs16 SoftGreenBack DispBlock ClearBoth">                                          
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-search Fs30 White" 
+                                                                         styleClass="BlueButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-envelope Fs30 White" 
+                                                                         styleClass="GreenButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-plus-square Fs30 White" 
+                                                                         styleClass="PurpleButton RaisedButton"                                                                     
+                                                                         />  
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </p:panel>

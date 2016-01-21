@@ -19,8 +19,16 @@
                         <div class="Container100 Responsive100">
 
                             <p:tabView>
-                                <p:tab title="Kalendarz">
-
+                                <p:tab title="Kalendarze">
+                                    <p:fieldset legend="Aktywny kalendarz" toggleable="true" toggleSpeed="500">
+                                    <p:selectOneRadio id="calSelectxx" value="#{usercalendar.selectedCalendarName}">
+                                        <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
+                                                       itemValue="#{calendars.name}"
+                                                       itemLabel="#{calendars.name}"
+                                                       />
+                                        <f:selectItem itemLabel="Wyświetl wszystkie" itemValue="0" />
+                                    </p:selectOneRadio>
+                                    </p:fieldset>
 
                                     <div class="ContainerIndent">  
                                         <p:growl id="messages" showDetail="true" />
@@ -95,13 +103,13 @@
                                     </p:fieldset>    
 
 
-                                     <p:dialog widgetVar="timelineDialog" header="Event Details"  showEffect="clip" hideEffect="clip">
-                                         <h:panelGrid id="timelineDetails" columns="2">
-                                              
-                                             <h:outputText value="#{usercalendar.selectedTimelineEvent.tytul}"/>  
-                                             xx<h:outputText value="#{usercalendar.selectedTimelineEvent}"/>  
-                                         </h:panelGrid>    
-                                     </p:dialog>       
+                                    <p:dialog widgetVar="timelineDialog" header="Event Details"  showEffect="clip" hideEffect="clip">
+                                        <h:panelGrid id="timelineDetails" columns="2">
+
+                                            <h:outputText value="#{usercalendar.selectedTimelineEvent.tytul}"/>  
+                                            xx<h:outputText value="#{usercalendar.selectedTimelineEvent}"/>  
+                                        </h:panelGrid>    
+                                    </p:dialog>       
                                 </p:tab>
                             </p:tabView>
                         </div>
