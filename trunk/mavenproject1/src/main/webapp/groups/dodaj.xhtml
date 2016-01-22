@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <script src="http://maps.google.com/maps/api/js?sensor=false&amp;v=3.4" type="text/javascript"></script>
+        <h:form id="addNewGroupForm">
+
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <p:commandButton value="Zapisz" id="zapiszBtn"
+                                     icon="fa fa-plus-square Fs16 White" iconPos="right"
+                                     styleClass="OrangeButton RaisedButton"
+                                     action="#{creategroup.utworzGrupe}"
+                                     update="@all"  />
+                    <p:commandButton value="Anuluj" id="anulujBtn"
+                                     icon="fa  fa-remove Fs16 White" iconPos="right"
+                                     styleClass="RedButton RaisedButton"
+                                     update="@all"  />
+                    <p:commandButton value="Zapisz i powiadom o wydarzeniu" id="zapisziPowiadomBtn"
+                                     icon="fa fa-share-square Fs16 White" iconPos="right"
+                                     styleClass="PurpleButton RaisedButton"
+                                     update="@all"  />
+
+
+                    <div class="Card ShadowEffect whiteback">
+                        <div class="Container100 Responsive100">
+                            <div class="Container25 Responsive100">
+                                <div class="ContainerIndent">                                   
+    
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">                                     
+
+                                        <p:inputText id="nazwaGrupy" value="#{creategroup.newGroup.tytul}" style="width: 500px;" required="true">
+                                            <p:watermark value="Nazwa grupy" for="nazwaGrupy" />
+                                        </p:inputText>    
+                                        <p:message for="nazwaGrupy" style="width: 500px;"/>
+                                        <p:inputText id="opis" value="#{creategroup.newGroup.opis}" style="width: 500px;" required="true" >
+                                            <p:watermark value="Opis" for="opis" />
+                                        </p:inputText>
+                                        <p:message for="opis" style="width: 500px;"/>
+                                       
+
+                                       
+                                    </p:panelGrid>
+
+                                </div>
+                            </div>                            
+                        </div>                                               
+                    </div>
+                </div>
+            </div>
+
+                       
+
+
+
+
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
