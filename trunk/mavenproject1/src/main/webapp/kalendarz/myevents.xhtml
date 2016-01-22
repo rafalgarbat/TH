@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                
+                
+                <div class="Card">
+                    <p:panel id ="opisWydarzeniaP"  >
+                        xxxx
+                    </p:panel>
+                    <p:dataTable value="#{myeventsview.getMojeEventy()}" 
+                                                 var="events" 
+                                                 widgetVar="usereventsNWidget"
+                                                 id="eventsTableN"
+                                                 paginator="true"
+                                                 selection="#{myeventsview.selectedEvent}"
+                                                 rowKey="#{events.id}"
+                                                 selectionMode="single"                                                 
+                                                 paginatorPosition="top"
+                                                 rows="30"> 
+                                        <p:ajax event="rowSelect" 
+                                                listener="#{myeventsview.onRowSelect2}" 
+                                                update="@([id$=opisWydarzeniaP])" />
+
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{events.id}" >
+                                            #{events.id}
+                                        </p:column> 
+                                        <p:column headerText="tytul" style="width:100px;" filterBy="#{events.tytul}" >
+                                            #{events.tytul}
+                                        </p:column> 
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{events.dataod}" >
+                                            #{events.dataod}
+                                        </p:column>
+                                        
+                                         <p:column headerText="Zakończone" style="width:5px;"  >
+                                             <p:panelGrid styleClass="ui-panelgrid-blank"  columnClasses="ui-grid-col-1,ui-grid-col-11">
+                                                <p:panel style="border-style: hidden !important; background: transparent"
+                                                 visible="#{myeventsview.currentDate > events.dataod }" >
+                                                 <i id="customheader" class="fa fa-check-circle Green Fs30 "/>                                                 
+                                                  #{events.dataod}
+                                                </p:panel>
+                                                 #{events.dataod}
+                                             </p:panelGrid>    
+                                             
+                                             
+                                             
+                                        </p:column> 
+                                        
+                    </p:dataTable>                                        
+                </div>
+                <div class="Card ShadowEffect TexAlCenter">
+
+                    <h:form>
+                        <p:messages showDetail="true" autoUpdate="true" closable="true" />
+                        <div class="Card ShadowEffect TexAlLeft">
+                            <p:commandButton icon="fa fa-question Fs16 White"  actionListener="#{messagesView.info}" styleClass="BlueButton"/>
+                            <p:commandButton icon="fa fa-exclamation Fs16 White"  actionListener="#{messagesView.info('czekolada')}" styleClass="RedButton"/>
+                        </div>
+                    </h:form>
+                    
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

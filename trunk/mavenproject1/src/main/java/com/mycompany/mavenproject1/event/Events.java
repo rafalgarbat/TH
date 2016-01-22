@@ -7,6 +7,7 @@ package com.mycompany.mavenproject1.event;
 
 import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.Klient;
+import com.mycompany.mavenproject1.auth.Users;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -54,6 +55,7 @@ import org.eclipse.persistence.annotations.Cache;
     @NamedQuery(name = "Events.findByGmapCords", query = "SELECT e FROM Events e WHERE e.gmapCords = :gmapCords"),
     @NamedQuery(name = "Events.findByKeywords", query = "SELECT e FROM Events e WHERE e.keywords = :keywords"),
     @NamedQuery(name = "Events.findByEventId", query = "SELECT e FROM Events e WHERE e.eventId = :eventId"),    
+    @NamedQuery(name = "Events.findByOwnerId", query = "SELECT e FROM Events e WHERE e.owner_id = :owner_id"),  
     @NamedQuery(name = "Events.findByCdate", query = "SELECT e FROM Events e WHERE e.cdate = :cdate"),
     @NamedQuery(name = "Events.findByMdate", query = "SELECT e FROM Events e WHERE e.mdate = :mdate")})
 public class Events implements Serializable {
@@ -138,6 +140,11 @@ public class Events implements Serializable {
     @Column(name = "rejestracja_date")
     @Temporal(TemporalType.DATE)
     private Date rejestracja_date;
+    
+    
+    @JoinColumn(name = "owner_id", referencedColumnName = "uid")
+    @ManyToOne
+    private Users owner_id;
     
     
     @JoinColumn(name = "klient_id", referencedColumnName = "id")
@@ -309,6 +316,14 @@ public class Events implements Serializable {
 
     public void setRejestracja_date(Date rejestracja_date) {
         this.rejestracja_date = rejestracja_date;
+    }
+
+    public Users getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(Users owner_id) {
+        this.owner_id = owner_id;
     }
     
     
