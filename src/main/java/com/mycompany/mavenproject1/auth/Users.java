@@ -10,6 +10,7 @@ import com.mycompany.mavenproject1.coach.CoachPlayers;
 import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
 import com.mycompany.mavenproject1.event.Userevents;
+import com.mycompany.mavenproject1.grups.Usergrups;
 import com.mycompany.mavenproject1.news.Msg;
 import com.mycompany.mavenproject1.photos.ob.Photos;
 import java.io.Serializable;
@@ -74,6 +75,9 @@ public class Users implements Serializable {
     
     @OneToMany(mappedBy = "userid")
     private Collection<Usercalendars> usercalendarsCollection;
+    
+    @OneToMany(mappedBy = "userId")
+    private Collection<Usergrups> userGrupsCollection;
     
     @Size(max = 2147483647)
     @Column(name = "hashcode")
@@ -281,6 +285,15 @@ public class Users implements Serializable {
 
     public void setUsercalendarsCollection(Collection<Usercalendars> usercalendarsCollection) {
         this.usercalendarsCollection = usercalendarsCollection;
+    }
+    
+    @XmlTransient
+    public Collection<Usergrups> getUserGrupsCollection() {
+        return userGrupsCollection;
+    }
+
+    public void setUserGrupsCollection(Collection<Usergrups> userGrupsCollection) {
+        this.userGrupsCollection = userGrupsCollection;
     }
 
     @XmlTransient

@@ -44,7 +44,10 @@
             
             <p:submenu id="rm_theme3" label="Społeczność" icon="icon-circles23">                
                     <p:menuitem value="Znajomi" outcome="/empty/emptypage.xhtml" icon="icon-users"  />    
-                    <p:menuitem value="Grupy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
+                    <p:submenu id="rm_grupy" label="Grupy" icon="icon-search">
+                        <p:menuitem value="Lista grup" outcome="/groups/groups.xhtml" icon="icon-grid-alt"  /> 
+                        <p:menuitem value="Dodaj grupę" outcome="/groups/dodaj.xhtml" icon="icon-add182"  />  
+                    </p:submenu>   
                     <p:menuitem value="Trenerzy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
                     <p:menuitem value="Organizatorzy" outcome="/empty/emptypage.xhtml" icon="icon-search"  />    
             </p:submenu>
