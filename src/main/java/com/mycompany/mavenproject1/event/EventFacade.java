@@ -11,7 +11,7 @@ import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.calendar.ob.Calendars;
 import com.mycompany.mavenproject1.calendar.EventInfo;
 import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
-import com.mycompany.mavenproject1.coach.CoachPlayers;
+import com.mycompany.mavenproject1.coach.ob.CoachPlayers;
 import com.mycompany.mavenproject1.todaytraining.DisplayEventInfo;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,7 +60,16 @@ public class EventFacade extends AbstractFacade<Events> {
         em.persist(ca);        
         em.flush();                
     }
-
+    
+    
+public List<Events> getMojeEventy(String aUname) {
+        Users pUser = (Users) getUser(aUname);
+        Query pQuery = getEntityManager().createNamedQuery("Events.findByOwnerId").setParameter("owner_id",pUser);
+        
+        List<Events> wartosci=  pQuery.getResultList();        
+        return wartosci;
+        
+}
     /***
      * Zwraca liste zrealizowanych eventow uzytkownika na potrzeby trainig/todaytraining.xhtml
      */
