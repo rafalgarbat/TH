@@ -18,7 +18,8 @@
                     <p:tabView>
                         <p:tab title="Nadchodzące"> 
                             <h:form id="form1" >
-                                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
+                                <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
+                                             styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
 
 
 
@@ -31,6 +32,7 @@
                                                  rowKey="#{displayeventinfo.id}"
                                                  selectionMode="single"                                                 
                                                  paginatorPosition="top"
+                                                 emptyMessage="Nie znaleziono żadnych wydarzeań"
                                                  rows="30"> 
                                         <p:ajax event="rowSelect" 
                                                 listener="#{todayTrainingController.onRowSelect2}" 
@@ -39,8 +41,15 @@
                                         <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}" >
                                             #{displayeventinfo.id}
                                         </p:column> 
-                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
-                                            #{displayeventinfo.calendarname} 
+                                        <p:column headerText="Data rozpoczęcia" style="width:150px;" >
+                                            <h:outputText value="#{displayeventinfo.dataod}" styleClass="Fs22">
+                                                <f:convertDateTime type="date" pattern="dd-MM-yyyy EEEEEEEE" />
+
+
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Nazwa kalendarza" style="width:100px;" filterBy="#{displayeventinfo.calendarname}" >
+                                            <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
                                         <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
@@ -51,121 +60,145 @@
                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
                                                 </p:selectOneListbox>   
                                             </f:facet>
+                                            <div class="TexAlCenter"> 
+                                                <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                                <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                                <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                            </div>
+                                        </p:column>
+                                        <p:column headerText="Tytuł" filterBy="#{displayeventinfo.eventTitle}" style="width:200px;" 
+                                                  filterMatchMode="contains"  styleClass="Fs22">
+                                            <h:outputText value="#{displayeventinfo.eventTitle}"/> 
+                                        </p:column>
 
-                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
-                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
-                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
-                                        </p:column>
-                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
-                                                  filterMatchMode="contains">
-                                            #{displayeventinfo.eventTitle} 
-                                        </p:column>
+                                        <p:column headerText="Dystans" style="width:100px;" >
+                                            <h:outputText value="#{displayeventinfo.dystans}"/> 
 
-                                        <p:column headerText="Dystans" >
-                                            #{displayeventinfo.dystans} 
                                         </p:column>
-                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" 
+                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:400px;" 
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventOpis} 
                                         </p:column>
-                                        <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
-                                            <h:outputText value="#{displayeventinfo.dataod}">
-                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
-                                            </h:outputText>
+
+                                        <p:column headerText="Kalendarz publiczny?" style="width:65px;"  >                                            
+                                            <div class="TexAlCenter"> 
+                                                <p:panel style="border-style: hidden !important; background: transparent" 
+                                                         visible="#{displayeventinfo.isCalendarPublic==true}">
+                                                    <i id="customheader" class="fa fa-check-circle Blue Fs30 "/>                                                 
+                                                </p:panel>
+                                                <p:panel style="border-style: hidden !important; background: transparent" 
+                                                         visible="#{displayeventinfo.isCalendarPublic==false}">
+                                                    <i id="customheader" class="fa fa-check-circle Blue Fs30 "/>                                                 
+                                                </p:panel>
+                                            </div>
                                         </p:column>
-                                        <p:column headerText="Kalendarz publiczny?" >                                            
-                                            <p:inputSwitch value="#{displayeventinfo.isCalendarPublic}" 
-                                                           offLabel="Nie" onLabel="Tak"
-                                                           disabled="true"
-                                                           />
-                                        </p:column>
-                                        <p:column headerText="Wydarzenie publiczne?" >                                           
-                                            <p:inputSwitch value="#{displayeventinfo.isEventPublic}" 
-                                                           offLabel="Nie" onLabel="Tak"
-                                                           disabled="true"
-                                                           />
+                                        <p:column headerText="Wydarzenie publiczne?" style="width:65px;">  
+                                            <div class="TexAlCenter"> 
+                                                <p:panel style="border-style: hidden !important; background: transparent" 
+                                                         visible="#{displayeventinfo.isEventPublic==true}">
+                                                    <i id="customheader" class="fa fa-check-circle Blue Fs30 "/>                                                 
+                                                </p:panel>                                            
+                                                <p:panel style="border-style: hidden !important; background: transparent" 
+                                                         visible="#{displayeventinfo.isEventPublic==false}">
+                                                    <i id="customheader" class="fa fa-close Red Fs30 "/>                                                 
+                                                </p:panel>   
+                                            </div>
                                         </p:column>
 
                                     </p:dataTable> 
 
 
-                                    <p:panel id ="opisTreninguPG"   style="width:700px;border:0px none;">
-                                        <div class="Card ShadowEffect ui-fluid"> 
-                                            <p:commandButton value="Oznacz jako publiczne wydarzenie" id="publiczneBtn"
-                                                             icon="fa fa-external-link Fs30  White"
-                                                             styleClass="Fs30  LeadenGreenBack RaisedButton"                                                                                 
-                                                             actionListener="#{todayTrainingController.oznaczJakoPubliczne()}" update="@all"  />                                                       
+                                    <p:panel id ="opisTreninguPG"   style="width:700px;border:0px none;" visible="#{todayTrainingController.selectedEventInfo !=null}">
+                                        <div class=" ShadowEffect ui-fluid"> 
+
+                                            <p:panelGrid styleClass="ui-panelgrid-blank" columns="3"
+                                                         columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+
+                                                <p:commandButton value="Zapisz trening" id="zapiszBtn"
+                                                                 icon="fa fa-save  Fs20 White"
+                                                                 styleClass="Fs30 PurpleButton RaisedButton"
+                                                                 actionListener="#{todayTrainingController.zapiszZmiany()}"
+                                                                 update="@all"  />
+
+                                                <p:commandButton value="Zaproś znajomych" id="zapiszBt333"
+                                                                 icon="fa fa-save  Fs20 White"
+                                                                 styleClass="Fs30 CyanButton RaisedButton"
+                                                                 actionListener="#{todayTrainingController.zapiszZmiany()}"
+                                                                 update="@all"  />
+                                                <p:commandButton value="Oznacz jako wydarzenie" id="publiczneBtn"
+                                                                 icon="fa fa-external-link Fs20  White"
+                                                                 styleClass="Fs30  BrownButton RaisedButton"                                                                                 
+                                                                 actionListener="#{todayTrainingController.oznaczJakoPubliczne()}" update="@all"  /> 
+
+                                            </p:panelGrid>    
+
+
+
+
 
                                         </div>
                                         <div class="Card ShadowEffect ui-fluid">   
-                                            <p:tabView widgetVar="mywidgetvar" >
-                                                <p:tab title="Trening">
-                                                    <p:panelGrid  id="opisTren" styleClass="ui-panelgrid-blank"
-                                                                  style="border:0px none; background-color:transparent;">
-                                                        <p:row>
-                                                            <p:column colspan="2"><p:commandButton value="Zapisz zmiany" id="zapiszBtn"
-                                                                                                   icon="fa fa-save  Fs30 White"
-                                                                                                   styleClass="Fs30 LeadenGreenBack RaisedButton"
-                                                                                                   actionListener="#{todayTrainingController.zapiszZmiany()}"
-                                                                                                   update="@all"  />
-                                                            </p:column>
-                                                        </p:row>
+
+                                            <p:panelGrid  id="opisTren" styleClass="ui-panelgrid-blank"
+                                                          style="border:0px none; background-color:transparent;">
 
 
-                                                        <p:row>
-                                                            <p:column>
-                                                                <p:outputLabel for="completedBB" value="Wykonanie" />                                                  
-                                                            </p:column>
-                                                            <p:column>                                                               
-                                                                <p:inputSwitch id="completedBB"  value="#{todayTrainingController.rezultatTreningu.completed}" 
-                                                                               offLabel="Nie" onLabel="Tak"/>                                                                
-                                                            </p:column>
-                                                        </p:row>
+
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel for="completedBB" value="Wykonanie" styleClass="Fs30"/>                                                  
+                                                    </p:column>
+                                                    <p:column>                                                               
+                                                        <p:inputSwitch id="completedBB"  value="#{todayTrainingController.rezultatTreningu.completed}" 
+                                                                       offLabel="Nie" onLabel="Tak"/>                                                                
+                                                    </p:column>
+                                                </p:row>
 
 
-                                                        <p:row>
-                                                            <p:column><p:outputLabel for="link" value="Ling do treningu" /></p:column>
-                                                            <p:column><p:inputText id="link" value="#{todayTrainingController.rezultatTreningu.link}">
-                                                                    <p:watermark for="link" value="Link do treningu z zewnętrznego serwisu np Strava" />
-                                                                </p:inputText></p:column>
-                                                        </p:row>
+                                                <p:row>
 
-                                                        <p:row>
-                                                            <p:column><p:outputLabel for="uwagi" value="Uwagi" /></p:column>
-                                                            <p:column><p:editor id="uwagi" value="#{todayTrainingController.rezultatTreningu.uwagi}"/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column colspan="2"><h3>Dodatkowe informacje</h3><hr/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column><p:outputLabel for="duration" value="Czas trwania" /></p:column>
-                                                            <p:column><p:inputText id="duration" value="#{todayTrainingController.rezultatTreningu.duration}"/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column>  <p:outputLabel for="distance" value="Dystans" /></p:column>
-                                                            <p:column><p:outputLabel id="distance" value="#{todayTrainingController.rezultatTreningu.distance}"/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column> <p:outputLabel for="kalorie" value="Spalone kalorie" /></p:column>
-                                                            <p:column><p:inputText id="kalorie"  value="#{todayTrainingController.rezultatTreningu.kalorie}"/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column colspan="2"><h3>Podgląd treningu</h3><hr/></p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column colspan="2"><p:editor id="uwagi2" 
-                                                                                            value="#{todayTrainingController.myEvent.opis}"
-                                                                                            disabled="true"
-                                                                                            /></p:column>
-                                                        </p:row>
+                                                    <p:column colspan="2"><p:inputText id="link" value="#{todayTrainingController.rezultatTreningu.link}">
+                                                            <p:watermark for="link" value="Link do treningu z zewnętrznego serwisu np Strava" />
+                                                        </p:inputText></p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column colspan="2"><h3>Uwagi i komentarze</h3><hr/></p:column>
+                                                </p:row>    
+                                                <p:row>                                                                                                                         
+                                                    <p:column colspan="2">
+                                                        <p:editor id="uwagi" value="#{todayTrainingController.rezultatTreningu.uwagi}"/>                                                                                                                                    
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column colspan="2"><h3>Dodatkowe informacje</h3><hr/></p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column><p:outputLabel for="duration" value="Czas trwania" styleClass="Fs30"/></p:column>
+                                                    <p:column>
+                                                        <p:spinner id="duration" value="#{todayTrainingController.rezultatTreningu.duration}" suffix="min" stepFactor="5" min="0" /> 
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>  <p:outputLabel for="distance" value="Dystans" styleClass="Fs30"/></p:column>
+                                                    <p:column><p:spinner id="distance" value="#{todayTrainingController.rezultatTreningu.distance}" stepFactor="0.10" min="0" suffix=" km"  /></p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column> <p:outputLabel for="kalorie" value="Spalone kalorie" styleClass="Fs30"/></p:column>
+                                                    <p:column><p:spinner id="kalorie"  value="#{todayTrainingController.rezultatTreningu.kalorie}" stepFactor="5" min="0" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column colspan="2"><h3>Zadanie treningowe</h3><hr/></p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column colspan="2"><p:editor id="uwagi2" 
+                                                                                    value="#{todayTrainingController.myEvent.opis}"
+                                                                                    disabled="true"
+                                                                                    /></p:column>
+                                                </p:row>
 
-                                                    </p:panelGrid>   
-                                                </p:tab>
-                                                <p:tab title="Zaproś znajomych">
+                                            </p:panelGrid>   
 
-                                                </p:tab>
-
-                                            </p:tabView>
                                         </div>
                                     </p:panel>
 
@@ -174,8 +207,11 @@
                         </p:tab>
                         <p:tab title="Zrealizowane">
                             <h:form id="zrealizowaneFrm"> 
-                                <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
-                                             styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
+                                <h:panelGrid columns="2"                                              
+                                             columnClasses="ui-grid-col-10,ui-grid-col-2"
+                                             styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;"
+                                             >
+
                                     <p:dataTable value="#{todayTrainingController.getEventyUzytkownika(loginbean.uname)}" 
                                                  var="displayeventinfo"
                                                  selection="#{todayTrainingController.selectedEventInfo}"
@@ -195,9 +231,14 @@
                                         <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
                                             #{displayeventinfo.id}                                          
                                         </p:column> 
-
-                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
-                                            #{displayeventinfo.calendarname} 
+                                        <p:column headerText="Data rozpoczęcia" style="width:100px;" >
+                                            <h:outputText value="#{displayeventinfo.dataod}" styleClass="Fs22">
+                                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Kalendarz" style="width:100px;">
+                                        
+                                                <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
                                         <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
@@ -208,74 +249,36 @@
                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
                                                 </p:selectOneListbox>   
                                             </f:facet>
-
+                                            <div class="TexAlCenter"> 
                                             <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
                                             <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
                                             <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                            </div>
                                         </p:column>
-                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
+                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}"  style="width:200px;"
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventTitle} 
                                         </p:column>
 
-                                        <p:column headerText="Dystans" >
+                                        <p:column headerText="Dystans" style="width:65px;" >
                                             #{displayeventinfo.dystans} 
                                         </p:column>
-                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" 
+                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:600px;"
                                                   filterMatchMode="contains">
-                                            #{displayeventinfo.eventOpis} 
+                                            <p:inputTextarea value="#{displayeventinfo.eventOpis}" 
+                                                             cols="90" rows="3"
+                                                             disabled="true"/> 
                                         </p:column>
-                                        <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
-                                            <h:outputText value="#{displayeventinfo.dataod}">
-                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Czas trwania" sortBy="#{displayeventinfo.duration}" >
-                                            <h:outputText value="#{displayeventinfo.duration}">                                            
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Rzeczywisty dystans" sortBy="#{displayeventinfo.dystans}" >
-                                            <h:outputText value="#{displayeventinfo.dystans}">                                            
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Spalone kalorie" sortBy="#{displayeventinfo.kalorie}" >
-                                            <h:outputText value="#{displayeventinfo.kalorie}">                                            
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Link" sortBy="#{displayeventinfo.link}" >
-                                            <h:outputText value="#{displayeventinfo.link}">                                            
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Kalendarz publiczny?" >                                            
-                                            <p:inputSwitch value="#{displayeventinfo.isCalendarPublic}" 
-                                                           offLabel="Nie" onLabel="Tak"
-                                                           disabled="true"
-                                                           />
-                                        </p:column>
-                                        <p:column headerText="Wydarzenie publiczne?" >                                           
-                                            <p:inputSwitch value="#{displayeventinfo.isEventPublic}" 
-                                                           offLabel="Nie" onLabel="Tak"
-                                                           disabled="true"
-                                                           />
-                                        </p:column>
+                                      
                                     </p:dataTable>
+                                    <p:panel id ="opisTreninguWP"  >
+                                        <p:button href="#{todayTrainingController.selectedEventInfo.publicUrl}" 
+                                                  value="Przejdź na strone wydarzenia" 
+                                                  icon="fa fa-external-link Fs20  White"
+                                                  styleClass="Fs30  BrownButton RaisedButton"  
+                                                  rendered="#{todayTrainingController.selectedEventInfo.id>0}"/>
+                                    </p:panel> 
 
-                                    <p:panel id ="opisTreninguWP" header="Uwagi"  style="width:700px;border:0px none;">
-                                        <p:editor id="uwagiDoTreningu" value="#{todayTrainingController.selectedEventInfo.uwagiDoTreningu}"                                                       
-                                                  disabled="true"/>     
-                                        <hr/>                             
-                                        <h:form id="form2" >
-                                            <p:button href="#{todayTrainingController.selectedEventInfo.publicUrl}" value="Przejdź na strone wydarzenia" rendered="#{todayTrainingController.selectedEventInfo.id>0}"/>
-                                        </h:form>
-
-
-
-                                    </p:panel>       
 
 
 
@@ -284,8 +287,9 @@
                         </p:tab>
                         <p:tab title="Zaproszenia">
                             <h:form id="zaproszeniaFrm">
-                                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
-                                              styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
+                                <h:panelGrid columns="2" columnClasses="ui-grid-col-10,ui-grid-col-2"
+                                             styleClass="ui-panelgrid-blank" 
+                                             style="width: 100%; border:0px ; background-color:transparent;">
 
                                     <p:dataTable value="#{todayTrainingController.getEventyWplanie(loginbean.uname)}" 
                                                  var="displayeventinfo" 
@@ -300,15 +304,15 @@
                                         <p:ajax event="rowSelect" 
                                                 listener="#{todayTrainingController.onRowSelect2}" 
                                                 update="@([id$=opisTreninguIG])" />
-                                        
+
                                         <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}"  >
                                             #{displayeventinfo.id}
                                         </p:column> 
-                                       
-                                         <p:column headerText="Organizator" style="width:80px;" >
+
+                                        <p:column headerText="Organizator" style="width:80px;" >
                                             #{displayeventinfo.eventCreateUserInfo}
                                         </p:column>                                         
-                                        
+
                                         <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
                                                 <p:selectOneListbox onchange="PF('usereventsNWidget').filter()">                                                
@@ -331,28 +335,28 @@
                                         <p:column headerText="Treść zaproszenia" >
                                             #{displayeventinfo.eventInvitation}
                                         </p:column> 
-                                        
+
                                         <p:column headerText="Dystans" >
                                             #{displayeventinfo.dystans} 
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" 
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventOpis}                                  
-                                           />
+                                            />
                                         </p:column>
-                                        
-                                           <p:column headerText="Zapisy od" sortBy="#{displayeventinfo.dataod}" >
+
+                                        <p:column headerText="Zapisy od" sortBy="#{displayeventinfo.dataod}" >
                                             <h:outputText value="#{displayeventinfo.dataod}">
                                                 <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
                                         </p:column>
-                                        
+
                                         <p:column headerText="Data rozpoczęcia" sortBy="#{displayeventinfo.dataod}" >
                                             <h:outputText value="#{displayeventinfo.dataod}">
                                                 <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
                                         </p:column>
-                                        
+
                                         <p:column headerText="Wydarzenie publiczne?" >                                           
                                             <p:inputSwitch value="#{displayeventinfo.isEventPublic}" 
                                                            offLabel="Nie" onLabel="Tak"
@@ -361,7 +365,7 @@
                                         </p:column>
 
                                     </p:dataTable> 
-                                  <p:panel id ="opisTreninguIG" style="width:300px;border:0px none;">
+                                    <p:panel id ="opisTreninguIG" style="width:300px;border:0px none;">
                                         <h:form id="form4" >
                                             <p:button href="#{todayTrainingController.selectedEventInfo.publicUrl}" 
                                                       styleClass="GreenButton Fs24"
