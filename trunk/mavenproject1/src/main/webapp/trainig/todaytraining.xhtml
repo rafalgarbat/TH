@@ -3,6 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
@@ -17,11 +18,9 @@
                 <div class="Card ShadowEffect"> 
                     <p:tabView>
                         <p:tab title="Nadchodzące"> 
-                            <h:form id="form1" >
+                            <h:form id="form1" >                                
                                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop"
                                              styleClass="ui-panelgrid-blank" style="width: 100%; border:0px ; background-color:transparent;">
-
-
 
                                     <p:dataTable value="#{todayTrainingController.getEventyWplanie(loginbean.uname)}" 
                                                  var="displayeventinfo" 
@@ -38,27 +37,28 @@
                                                 listener="#{todayTrainingController.onRowSelect2}" 
                                                 update="@([id$=opisTreninguPG])" />
 
-                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}" >
+                                        <p:column style="width:16px" headerText="">
+                                            <p:rowToggler />
+                                        </p:column>
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}" styleClass="Fs22">
                                             #{displayeventinfo.id}
                                         </p:column> 
-                                        <p:column headerText="Data rozpoczęcia" style="width:150px;" >
+                                        <p:column headerText="Data rozpoczęcia" style="width:150px;" styleClass="Fs22" >
                                             <h:outputText value="#{displayeventinfo.dataod}" styleClass="Fs22">
                                                 <f:convertDateTime type="date" pattern="dd-MM-yyyy EEEEEEEE" />
-
-
                                             </h:outputText>
                                         </p:column>
-                                        <p:column headerText="Nazwa kalendarza" style="width:100px;" filterBy="#{displayeventinfo.calendarname}" >
+                                        <p:column headerText="Kalendarz" style="width:100px;" filterBy="#{displayeventinfo.calendarname}" styleClass="Fs22">
                                             <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
-                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                        <p:column headerText="Dyscyplina" styleClass="Fs22" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
-                                                <p:selectOneListbox onchange="PF('usereventsNWidget').filter()">                                                
+                                                <p:selectOneMenu onchange="PF('usereventsNWidget').filter()">                                                
                                                     <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
                                                     <f:selectItem itemLabel="Pływanie" itemValue="2" />
                                                     <f:selectItem itemLabel="Bieganie" itemValue="3" />
                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
-                                                </p:selectOneListbox>   
+                                                </p:selectOneMenu>   
                                             </f:facet>
                                             <div class="TexAlCenter"> 
                                                 <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
@@ -71,11 +71,11 @@
                                             <h:outputText value="#{displayeventinfo.eventTitle}"/> 
                                         </p:column>
 
-                                        <p:column headerText="Dystans" style="width:100px;" >
+                                        <p:column headerText="Dystans" style="width:100px;" styleClass="Fs22" >
                                             <h:outputText value="#{displayeventinfo.dystans}"/> 
 
                                         </p:column>
-                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:400px;" 
+                                        <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:400px;" styleClass="Fs22"
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventOpis} 
                                         </p:column>
@@ -104,6 +104,16 @@
                                                 </p:panel>   
                                             </div>
                                         </p:column>
+
+                                        <p:rowExpansion>
+                                            <p:panelGrid  columns="2" columnClasses="ui-grid-col-12"
+                                                          style="width: 100%; border:0px ; background-color:transparent;">              
+                                                <p:inputTextarea value="#{displayeventinfo.eventOpis}" class="Fs25 " />
+
+                                            </p:panelGrid>
+                                        </p:rowExpansion>
+
+
 
                                     </p:dataTable> 
 
@@ -228,6 +238,8 @@
                                                 listener="#{todayTrainingController.onRowSelect}" 
                                                 update="@([id$=opisTreninguWP])" />
 
+
+
                                         <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
                                             #{displayeventinfo.id}                                          
                                         </p:column> 
@@ -237,22 +249,22 @@
                                             </h:outputText>
                                         </p:column>
                                         <p:column headerText="Kalendarz" style="width:100px;">
-                                        
-                                                <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
+
+                                            <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
-                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                        <p:column headerText="Dyscypliny" styleClass="Fs22" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
-                                                <p:selectOneListbox onchange="PF('usereventsNWidget').filter()">                                                
+                                                <p:selectOneMenu onchange="PF('usereventsNWidget').filter()">                                                
                                                     <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
                                                     <f:selectItem itemLabel="Pływanie" itemValue="2" />
                                                     <f:selectItem itemLabel="Bieganie" itemValue="3" />
                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
-                                                </p:selectOneListbox>   
+                                                </p:selectOneMenu>   
                                             </f:facet>
                                             <div class="TexAlCenter"> 
-                                            <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
-                                            <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
-                                            <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                                <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
+                                                <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
+                                                <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
                                             </div>
                                         </p:column>
                                         <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}"  style="width:200px;"
@@ -265,11 +277,13 @@
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:600px;"
                                                   filterMatchMode="contains">
-                                            <p:inputTextarea value="#{displayeventinfo.eventOpis}" 
+                                            <p:inputTextarea id="itaopis_1" value="#{displayeventinfo.eventOpis}" 
                                                              cols="90" rows="3"
-                                                             disabled="true"/> 
+                                                             disabled="true">                                            
+                                            </p:inputTextarea>
+
                                         </p:column>
-                                      
+
                                     </p:dataTable>
                                     <p:panel id ="opisTreninguWP"  >
                                         <p:button href="#{todayTrainingController.selectedEventInfo.publicUrl}" 
@@ -390,6 +404,22 @@
 
                                 </h:panelGrid>
                             </h:form>
+                        </p:tab>
+                        <p:tab title="Oś czasu">
+                            <pe:timeline id="timelineFirst" value="#{todayTrainingController.modelFirst}" var="task"  
+                                         height="900px" widgetVar="timelineFirstWdgt" >  
+
+                                <p:panel styleClass="#{task.style}">
+                                <h:panelGroup layout="block" rendered="#{not task.period}" style="padding-bottom:5px" >  
+                                    <h:outputText value="#{task.title}" />  
+                                </h:panelGroup>  
+                                <p:graphicImage library="images" name="#{task.imagePath}"
+                                                width="75px" height="75px"  />  
+                                <h:panelGroup rendered="#{task.period}" style="padding:8px" >  
+                                    <h:outputText value="#{task.title}"/>  
+                                </h:panelGroup>
+                              </p:panel>
+                            </pe:timeline>  
                         </p:tab>
                     </p:tabView>    
 

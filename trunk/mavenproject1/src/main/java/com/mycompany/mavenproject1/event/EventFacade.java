@@ -202,7 +202,7 @@ public List<Events> getMojeEventy(String aUname) {
     }
 
     public void zapiszUserEvent(Userevents ue) {
-        em.persist(ue);
+        em.merge(ue);
     }
 
     public void zapiszEvent(Events e) {

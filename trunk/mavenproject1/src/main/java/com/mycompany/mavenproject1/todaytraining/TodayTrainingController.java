@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.extensions.model.timeline.TimelineEvent;
+import org.primefaces.extensions.model.timeline.TimelineModel;
 
 /**
  *
@@ -48,12 +51,20 @@ public class TodayTrainingController implements Serializable {
     private Userevents rezultatTreningu;
 
     private Date dateFrom;
-    private Date dateTo;    
+    private Date dateTo;
+    
+    
+     private TimelineModel modelFirst; 
+    
 
     public List<DisplayEventInfo> getEventyUzytkownika(String aUname) {
         return eventFacade.getEventyUzytkownika(aUname);
     }
 
+    public String show(String aUrl){
+    return aUrl;
+    }
+    
     public Events getEvent(int aUserEventId) {
         Query pQ = eventFacade.getEntityManager().createNamedQuery("Userevents.findByUid").setParameter("uid", aUserEventId);
         pQ.setParameter("orderBy", "last_update_dt");
@@ -63,14 +74,18 @@ public class TodayTrainingController implements Serializable {
 
     // todo: przeniesc do fasady!
     public List<DisplayEventInfo> getEventyWplanie(String aUname) {
+        modelFirst = new TimelineModel(); 
+        Calendar cal = Calendar.getInstance();
+            
+        
         List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
-        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c " +
-"            where uc.userid = ? " +
-"                and ce.calenarid = uc.uid " +
-"                and ce.eventid =  e.id " +
-"                and c.uid = uc.calendarid " +
-"                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id and completed =true )" +
-"                order by e.dataod ";
+        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
+                + "            where uc.userid = ? "
+                + "                and ce.calenarid = uc.uid "
+                + "                and ce.eventid =  e.id "
+                + "                and c.uid = uc.calendarid "
+                + "                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id and completed =true )"
+                + "                order by e.dataod ";
         List<Object[]> results = eventFacade.getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
         DisplayEventInfo pD;
         for (Object[] ob : results) {
@@ -84,6 +99,19 @@ public class TodayTrainingController implements Serializable {
             pD.setEventOpis((String) ob[4]);
             pD.setPublicUrl("/trainig/show.xhtml?eventId=18");
             pWyniki.add(pD);
+            
+            cal.setTime(pD.getDataod());
+           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("1")){
+               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "bike.png", false,"SoftGreenBack"), cal.getTime()));  
+           }
+           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("2")){
+               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "swim.png", false,"SoftRedBack"), cal.getTime()));  
+           }
+           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("3")){
+               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "run.png", false,"SoftOrangeBack"), cal.getTime()));  
+           }
+            
+            
         }
         return pWyniki;
     }
@@ -111,9 +139,11 @@ public class TodayTrainingController implements Serializable {
         selectedUserEvent.getEventId().setCzycalydzien(Boolean.TRUE);
         eventFacade.zapiszUserEvent(selectedUserEvent);
     }
-    
-    public void zapiszZmiany() {        
-        eventFacade.zapiszUserEvent(selectedUserEvent);
+
+    public void zapiszZmiany() {
+
+        eventFacade.zapiszUserEvent(rezultatTreningu);
+
     }
 
     public void loadEvent(int aUserEventId) {
@@ -156,14 +186,29 @@ public class TodayTrainingController implements Serializable {
         DisplayEventInfo d = (DisplayEventInfo) event.getObject();
         myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
         //todo: setParameter("user_id", 2). 
-        rezultatTreningu = new Userevents();
-        rezultatTreningu.setEventId(myEvent);
-        
+        List pWynik = eventFacade.getEntityManager().createNativeQuery("select * from Userevents where user_id= ? and event_id= ?", Userevents.class)
+                .setParameter(1, 2)
+                .setParameter(2, myEvent.getId()).getResultList();
+
+        if (pWynik.isEmpty()) {
+            rezultatTreningu = new Userevents();
+            rezultatTreningu.setEventId(myEvent);
+        } else {
+            rezultatTreningu = (Userevents) pWynik.get(0);
+        }
+
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    
+    public TimelineModel getModelFirst() {
+        return modelFirst;
+    }
+
+    public void setModelFirst(TimelineModel modelFirst) {
+        this.modelFirst = modelFirst;
+    }
+
     public void onRowSelect(SelectEvent event) {
         DisplayEventInfo d = (DisplayEventInfo) event.getObject();
         myEvent = (Events) eventFacade.getEntityManager().createNamedQuery("Events.findById").setParameter("id", d.getId()).getResultList().get(0);
@@ -180,8 +225,6 @@ public class TodayTrainingController implements Serializable {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
-  
 
     public Date getDateFrom() {
         return dateFrom;
@@ -215,5 +258,4 @@ public class TodayTrainingController implements Serializable {
         this.rezultatTreningu = rezultatTreningu;
     }
 
-   
 }
