@@ -37,7 +37,31 @@ public class GrupsFacade extends AbstractFacade<Grups> {
         super(Grups.class);
     }
 
-
+    public List<Grups> getUserGrups(String aUname) {
+        Users pUser = (Users) getUser(aUname);
+        List<Grups> pWyniki = new ArrayList<Grups>();
+        String pQuery ="SELECT " +
+"  grups.tytul, " +
+"  grups.opis " +
+"  FROM " +
+"  public.usergrups, " +
+"  public.grups " +
+"  WHERE " +
+"  grups.id = usergrups.grup_id AND " +
+"  usergrups.user_id = ? ";
+        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, pUser.getUid()).getResultList();
+        Grups pD;
+        for (Object[] ob : results) {
+            pD = new Grups();
+            pD.setTytul((String) ob[0]);
+            pD.setOpis((String) ob[1]);
+            
+            //pD.setStan((Integer) ob[15]);
+            pWyniki.add(pD);
+        }                
+        return pWyniki;
+    }
+    
 
     
     public List<Usergrups> getGrupyUzytkownika(String aUname) {
