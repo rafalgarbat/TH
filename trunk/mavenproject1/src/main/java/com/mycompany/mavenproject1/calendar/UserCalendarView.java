@@ -64,6 +64,9 @@ public class UserCalendarView extends SimpleView {
     private TimelineModel model_kolarstwo;
     private TimelineModel model_triathlon;
 
+    
+    private Events newEvent;
+    
     @EJB
     private EventFacade eventFacade;
 
@@ -152,6 +155,7 @@ public class UserCalendarView extends SimpleView {
         eventFacade.zapiszDefaultScheduleEvent(getUserUname(), event, getSelectedCalendarName());
 
         event = new DefaultScheduleEvent();
+        
     }
 
     public List<Date> getDates() {
@@ -227,4 +231,15 @@ public class UserCalendarView extends SimpleView {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected event:","coś tam");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
+
+    public Events getNewEvent() {
+        return newEvent;
+    }
+
+    public void setNewEvent(Events newEvent) {
+        this.newEvent = newEvent;
+    }
+    
+    
+    
 }

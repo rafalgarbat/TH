@@ -5,7 +5,8 @@
                 xmlns:p="http://primefaces.org/ui"                
                 template="/WEB-INF/template.xhtml"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                >
+                    
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content">
         <f:facet name="last">
@@ -20,53 +21,97 @@
 
                             <p:tabView>
                                 <p:tab title="Kalendarze">
-                                    <p:fieldset legend="Aktywny kalendarz" toggleable="true" toggleSpeed="500">
-                                    <p:selectOneRadio id="calSelectxx" value="#{usercalendar.selectedCalendarName}">
-                                        <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
-                                                       itemValue="#{calendars.name}"
-                                                       itemLabel="#{calendars.name}"
-                                                       />
-                                        <f:selectItem itemLabel="Wyświetl wszystkie" itemValue="0" />
-                                    </p:selectOneRadio>
-                                    </p:fieldset>
-
-                                    <div class="ContainerIndent">  
-                                        <p:growl id="messages" showDetail="true" />
-
-                                        <p:schedule id="schedule"   value="#{usercalendar.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
-                                            <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                            <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />                              
-                                        </p:schedule>
-
-                                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                                            <h:panelGrid id="eventDetails" columns="2">
-
-                                                <p:outputLabel for="calSelect" value="Kalendarz:" />
-                                                <h:selectOneMenu id="calSelect" value="#{usercalendar.selectedCalendarName}">
-                                                    <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
-                                                                   itemValue="#{calendars.name}"
-                                                                   itemLabel="#{calendars.name}"
-                                                                   />
-                                                </h:selectOneMenu>
 
 
-                                                <p:outputLabel for="title" value="Titles:" />
-                                                <p:inputText id="title" value="#{usercalendar.event.title}" required="true" />
+                                    <div class="ContainerIndent"> 
 
-                                                <p:outputLabel for="from" value="From:" />
-                                                <p:calendar id="from" value="#{usercalendar.event.startDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+                                        <div class="Card ShadowEffect RedBorderedBox ui-fluid">
+                                            <div class="Container70 Responsive50">
+                                                <p:growl id="messages" showDetail="true" />
 
-                                                <p:outputLabel for="to" value="To:" />
-                                                <p:calendar id="to" value="#{usercalendar.event.endDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+                                                <p:schedule id="schedule"   value="#{usercalendar.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
+                                                    <p:ajax event="dateSelect" listener="#{usercalendar.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                                    <p:ajax event="eventSelect" listener="#{usercalendar.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />                              
+                                                </p:schedule>
 
+                                                <p:dialog widgetVar="eventDialog" header="Event Details" 
+                                                          showEffect="clip" hideEffect="clip"
+                                                          styleClass="SoftGrayBack  Fs30 ">
+                                                    
+                                                    <p:commandButton id="addButton" value="Zapisz" 
+                                                                         actionListener="#{usercalendar.addEvent}"
+                                                                         styleClass="GreenButton Fs30"
+                                                                         oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  />
+                                                    <div class="EmptyBox20"></div>
+                                                    <p:panelGrid id="eventDetails" columns="2" layout="grid" style="border:3px !important; background:none;" styleClass="ui-panelgrid-blank"
+                                                                             columnClasses="ui-grid-col-2,ui-grid-col-10">
+                                                                                                                
+                                                        <p:outputLabel for="calSelect" value="Kalendarz:" styleClass="Fs25"/>
+                                                        <p:selectOneMenu id="calSelect" value="#{usercalendar.selectedCalendarName}">
+                                                            <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
+                                                                           itemValue="#{calendars.name}"
+                                                                           itemLabel="#{calendars.name}"
+                                                                           />
+                                                        </p:selectOneMenu>
+                                                       
+                                                            
+                                                        <p:outputLabel for="title" value="Tytuł wydarzenia" styleClass="Fs25" />
+                                                        <p:inputText id="title" value="#{usercalendar.event.title}" 
+                                                                     required="true" />
+                                                                                                                
+                                                        <p:outputLabel for="opis" value="Opis" />
+                                                        <p:editor id="opis" value="#{usercalendar.event.description}"/>
 
-                                                <p:commandButton type="reset" value="Reset" />
-                                                <p:commandButton id="addButton" value="Save" actionListener="#{usercalendar.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  />
+                                                        <p:outputLabel for="dystans" value="Dystans" styleClass="Fs25"/>
+                                                        <p:selectOneMenu id="dystans" value="#{usercalendar.newEvent.dystans}">
+                                                            <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
+                                                                           itemValue="#{wartosci.nazwa}"
+                                                                           itemLabel="#{wartosci.nazwa}"
+                                                                           />
+                                                        </p:selectOneMenu>
+                                                        
+                                                        
+                                                        
+                                                        <p:outputLabel for="czyPubliczne" value="Czy jest to wydarzenie publiczne?" styleClass="Fs25"/>
+                                                        <p:inputSwitch id="czyPubliczne" value="#{usercalendar.newEvent.czypubliczne}"/>
+                                                                                                                
+                                                        <p:outputLabel for="fromDate" value="Data rozpoczęcia:" styleClass="Fs25"/>
+                                                        <p:calendar id="fromDate" value="#{usercalendar.event.startDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
 
+                                                        <p:outputLabel for="adres" value="Adres" styleClass="Fs25" />
+                                                        <p:inputText id="adres" value="#{usercalendar.newEvent.adres}" styleClass="Fs25"/>
 
+                                                        <p:outputLabel for="rejestracja" value="Informacje o rejestracji" styleClass="Fs25"/>
+                                                        <p:editor id="rejestracja" value="#{usercalendar.newEvent.rejestracja_info}" styleClass="Fs25"/>
+                                                        
+                                                        <p:outputLabel for="rejestracjaDate" value="Data rejestracji" styleClass="Fs25" />
+                                                        <p:calendar id="rejestracjaDate" value="#{usercalendar.newEvent.rejestracja_date}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
 
-                                            </h:panelGrid>
-                                        </p:dialog>    
+                                                        
+                                                        
+                                                        <p:outputLabel for="adresWWW" value="Adres www" styleClass="Fs25" />
+                                                        <p:inputText id="adresWWW" value="#{usercalendar.newEvent.adreswww}"/>
+                                                        
+                                                        <p:outputLabel for="to" value="Data zakończenia" styleClass="Fs25"/>
+                                                        <p:calendar id="to" value="#{usercalendar.event.endDate}" timeZone="GMT+1" pattern="dd/MM/yyyy HH:mm"/>
+
+                                                    </p:panelGrid>
+                                                </p:dialog> 
+                                            </div>
+                                            <div class="Container30 Responsive50">
+                                                <p:fieldset legend="Aktywny kalendarz" toggleable="true" toggleSpeed="500">
+                                                    <p:selectOneListbox id="calSelectxx" value="#{usercalendar.selectedCalendarName}">
+                                                        <f:selectItems value="#{usercalendar.getUserCalendars(loginbean.currentUser.uname)}" var="calendars"
+                                                                       itemValue="#{calendars.name}"
+                                                                       itemLabel="#{calendars.name}"
+                                                                       />
+                                                        <f:selectItem itemLabel="Wyświetl wszystkie" itemValue="0" />
+                                                    </p:selectOneListbox>
+                                                </p:fieldset> 
+                                                
+                                                
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </p:tab>
