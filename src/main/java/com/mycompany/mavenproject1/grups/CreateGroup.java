@@ -10,7 +10,6 @@ import com.mycompany.mavenproject1.event.EventFacade;
 import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.grups.Grups;
 import com.mycompany.mavenproject1.grups.GrupsFacade;
-import com.mycompany.mavenproject1.slowniki.Wartosci;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

@@ -17,7 +17,6 @@ import com.mycompany.mavenproject1.event.Userevents;
 import com.mycompany.mavenproject1.grups.Grups;
 import com.mycompany.mavenproject1.grups.GrupsFacade;
 import com.mycompany.mavenproject1.news.News;
-import com.mycompany.mavenproject1.slowniki.Wartosci;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -18,4 +18,8 @@ public class SlownikStalych {
     public final static String EVENT_SWIMMING = "3";
     public final static String EVENT_BIKE = "4";
     
+    
+    
+    public final static int SLOWNIK_DYSTANSE = 1;
+    
 }

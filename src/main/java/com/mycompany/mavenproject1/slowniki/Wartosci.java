@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.mavenproject1.slowniki;
 
 import java.io.Serializable;
@@ -36,6 +32,10 @@ public class Wartosci implements Serializable {
     @Column(name = "nazwa")
     private String nazwa;
 
+    @Column(name = "slownik_id")
+    private Integer slownik_id;    
+
+    
     public Integer getId() {
         return id;
     }
@@ -44,6 +44,17 @@ public class Wartosci implements Serializable {
         this.id = id;
     }       
 
+    public Integer getSlownik_id() {
+        return slownik_id;
+    }
+
+    public void setSlownik_id(Integer slownik_id) {
+        this.slownik_id = slownik_id;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

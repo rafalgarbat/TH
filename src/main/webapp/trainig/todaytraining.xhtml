@@ -71,9 +71,18 @@
                                             <h:outputText value="#{displayeventinfo.eventTitle}"/> 
                                         </p:column>
 
-                                        <p:column headerText="Dystans" style="width:100px;" styleClass="Fs22" >
-                                            <h:outputText value="#{displayeventinfo.dystans}"/> 
-
+                                         <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
+                                            <f:facet name="filter">
+                                                
+                                                <p:selectOneMenu id="dystansSelect" >
+                                                    <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
+                                                                   itemValue="#{wartosci.nazwa}"
+                                                                   itemLabel="#{wartosci.nazwa}"
+                                                                           />
+                                                        </p:selectOneMenu>
+                                                
+                                            </f:facet>
+                                            #{displayeventinfo.dystans} 
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" style="width:400px;" styleClass="Fs22"
                                                   filterMatchMode="contains">
@@ -241,7 +250,7 @@
                                         <p:column style="width:16px" headerText="">
                                             <p:rowToggler />
                                         </p:column>
-                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
+                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}" styleClass="Fs22">
                                             #{displayeventinfo.id}                                          
                                         </p:column> 
                                         <p:column headerText="Data rozpoczęcia" style="width:100px;" styleClass="Fs22">
@@ -272,15 +281,22 @@
                                             #{displayeventinfo.eventTitle} 
                                         </p:column>
 
-                                        <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" >
+                                        <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
+                                            <f:facet name="filter">
+                                                
+                                                <p:selectOneMenu id="dystansSelect" >
+                                                    <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
+                                                                   itemValue="#{wartosci.nazwa}"
+                                                                   itemLabel="#{wartosci.nazwa}"
+                                                                           />
+                                                        </p:selectOneMenu>
+                                                
+                                            </f:facet>
                                             #{displayeventinfo.dystans} 
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" styleClass="Fs22" style="width:600px;"
                                                   filterMatchMode="contains">
-                                            <p:inputTextarea id="itaopis_1" value="#{displayeventinfo.eventOpis}" 
-                                                             cols="90" 
-                                                             disabled="true">                                            
-                                            </p:inputTextarea>
+                                           #{displayeventinfo.eventOpis} 
 
                                         </p:column>
 
@@ -364,16 +380,26 @@
                                             <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
                                             <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
                                         </p:column>
-                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" styleClass="Fs22" 
+                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" style="width:200px;" styleClass="Fs22" 
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventTitle} 
                                         </p:column>
 
-                                        <p:column headerText="Treść zaproszenia" styleClass="Fs22" >
+                                        <p:column headerText="Treść zaproszenia" styleClass="Fs22" style="width:250px;">
                                             #{displayeventinfo.eventInvitation}
                                         </p:column> 
 
-                                        <p:column headerText="Dystans" styleClass="Fs22" >
+                                        <p:column headerText="Dystans" style="width:130px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
+                                            <f:facet name="filter">
+                                                
+                                                <p:selectOneMenu id="dystansSelect" >
+                                                    <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
+                                                                   itemValue="#{wartosci.nazwa}"
+                                                                   itemLabel="#{wartosci.nazwa}"
+                                                                           />
+                                                        </p:selectOneMenu>
+                                                
+                                            </f:facet>
                                             #{displayeventinfo.dystans} 
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" styleClass="Fs22" 
@@ -382,7 +408,7 @@
                                             />
                                         </p:column>
 
-                                        <p:column headerText="Zapisy od" sortBy="#{displayeventinfo.dataod}" styleClass="Fs22"  >
+                                        <p:column headerText="Zapisy od"  styleClass="Fs22"  >
                                             <h:outputText value="#{displayeventinfo.dataod}">
                                                 <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
