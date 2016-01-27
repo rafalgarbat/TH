@@ -22,26 +22,24 @@
                                             <p:panelGrid styleClass="ui-panelgrid-blank"
                                                          columnClasses="ui-grid-col-12">
                                                 <p:row>
-                                                    <p:column>
+                                                    <p:column colspan="2">
                                                         <p:graphicImage library="images" name="ala_avatar.jpg" 
                                                                         cache="false" width="350px" height="350px"                                                
                                                                         alt="Brak zdjęcia"
                                                                         />
                                                     </p:column>
-                                                </p:row><p:row>    
+                                                </p:row>
+                                                <p:row>    
                                                     <p:column>
                                                         <p:commandButton type="button"                                                                       
-                                                                         icon="fa fa-envelope-o Fs50 White" 
+                                                                         icon="fa fa-envelope-o Fs20 White" 
+                                                                         value="Wyślij Wiadomość"
                                                                          styleClass="PurpleButton RaisedButton"                                                                     
-                                                                         />    
-                                                       
+                                                                         />   </p:column>                                                          
+  <p:column>
                                                         <p:commandButton type="button"                                                                       
-                                                                         icon="fa fa-plus Fs50 White" 
-                                                                         styleClass="OrangeButton RaisedButton"                                                                     
-                                                                         />
-                                                       
-                                                        <p:commandButton type="button"                                                                       
-                                                                         icon="fa fa-line-chart Fs50 White" 
+                                                                         icon="fa fa-line-chart Fs20 White" 
+                                                                         value="Zobacz statystyki"
                                                                          styleClass="CyanButton RaisedButton"                                                                     
                                                                          />
                                                     </p:column>
@@ -69,11 +67,11 @@
                         <div class="Container80 Responsive50">
                             <div class="ContainerIndent">
 
-                                <p:tabView>
+                                <p:accordionPanel>
                                     <p:tab title="Treningi">
                                         <div class="ContainerIndent">
                                             <div class="Card ShadowEffect RedBorderedBox ui-fluid">
-                                                <div class="Container60 Responsive50">
+                                                <div class="Container100 Responsive50">
                                                     <p:dataTable value="#{coachplayerview.eventyUzytkownika}"
                                                                  var="displayeventinfo" 
                                                                  widgetVar="usereventsWidget"
@@ -84,109 +82,76 @@
                                                                  selectionMode="single"                                                 
                                                                  paginatorPosition="top"
                                                                  rows="10"> 
-                                                        <p:ajax event="rowSelect" 
-                                                                listener="#{coachplayerview.onRowSelect}" 
-                                                                update="@([id$=opisTreninguW])" />
 
-                                                        <p:column headerText="ID" style="width:40px;" filterBy="#{displayeventinfo.id}">
+                                                        <p:column style="width:16px" headerText="">
+                                                            <p:rowToggler />
+                                                        </p:column>
+                                                        <p:column headerText="Id" style="width:40px;" styleClass="Fs22"  filterBy="#{displayeventinfo.id}">
                                                             #{displayeventinfo.id}                                          
                                                         </p:column> 
 
-                                                        <p:column headerText="Nazwa kalendarza" style="width:100px;">
+                                                        <p:column headerText="Kalendarz" style="width:100px;" styleClass="Fs22" >
                                                             #{displayeventinfo.calendarname} 
                                                         </p:column>
-                                                        <p:column filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                                        <p:column headerText="Data treningu" styleClass="Fs22"  >
+                                                            <h:outputText value="#{displayeventinfo.dataod}">
+                                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
+                                                            </h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="" style="width:20px;" >
+                                                            <i class="fa fa-info-circle Fs30 Blue"></i>
+                                                        </p:column>
+                                                        <p:column headerText="Dysycplina" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals" styleClass="Fs22" >
                                                             <f:facet name="filter">
-                                                                <p:selectOneListbox onchange="PF('usereventsWidget').filter()">                                                
+                                                                <p:selectOneMenu onchange="PF('usereventsWidget').filter()">                                                
                                                                     <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
                                                                     <f:selectItem itemLabel="Pływanie" itemValue="2" />
                                                                     <f:selectItem itemLabel="Bieganie" itemValue="3" />
                                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
-                                                                </p:selectOneListbox>   
+                                                                </p:selectOneMenu>   
                                                             </f:facet>
 
                                                             <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
                                                             <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
                                                             <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
                                                         </p:column>
-                                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" 
+                                                        <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" styleClass="Fs22"  
                                                                   filterMatchMode="contains">
                                                             #{displayeventinfo.eventTitle} 
                                                         </p:column>
 
-                                                        <p:column headerText="Dystans" >
+                                                        <p:column headerText="Cel" styleClass="Fs22"  >
                                                             #{displayeventinfo.dystans} 
                                                         </p:column>
 
-                                                        <p:column headerText="Data treningu" sortBy="#{displayeventinfo.dataod}" >
-                                                            <h:outputText value="#{displayeventinfo.dataod}">
-                                                                <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
-                                                            </h:outputText>
+                                                        <p:column headerText="Wykonanie" styleClass="Fs22"  >
+                                                            #{displayeventinfo.stan} 
+                                                            <i class="fa fa-circle Fs30 Green"></i>
+                                                            <i class="fa fa-adjust Fs30 Green"></i>
+                                                            <i class="fa fa-circle-o Fs30 Gray"></i>
+                                                            <i class="fa fa-ban Fs30 Red"></i>
                                                         </p:column>
+                                                        <p:column headerText="Link"  >
+                                                            #{displayeventinfo.link} 
+                                                        </p:column>
+                                                        <p:column headerText="Czas trwania" styleClass="Fs22"  >
+                                                            #{displayeventinfo.duration} 
+                                                        </p:column>
+                                                        <p:column headerText="Czas trwania" styleClass="Fs22"  >
+                                                            #{displayeventinfo.uwagiDoTreningu} 
+                                                        </p:column>
+
+                                                        <p:rowExpansion>
+                                                            <p:panelGrid  
+                                                                style="width: 100%; border:0px ; background-color:transparent;">                                                               
+                                                                xxx
+                                                            </p:panelGrid>
+                                                        </p:rowExpansion>
+
 
                                                     </p:dataTable>       
                                                 </div> 
-                                                <div class="Container40 Responsive50">
-                                                    <p:panel id ="opisTreninguW"  >  
-                                                        <div class="ContainerIndent">
-                                                            <div class="Wid100 MarAuto">
-                                                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
-                                                                             columnClasses="ui-grid-col-6,ui-grid-col-6">
-                                                                    <p:commandButton type="button1"  
-                                                                                     value="Aktualizuj"
-                                                                                     icon="fa fa-mail-forward Fs22 White" 
-                                                                                     styleClass="LeadenGreenBack RaisedButton"                                                     
-                                                                                     />
-                                                                    <p:commandButton type="button1"  
-                                                                                     value="Aktualizuj i powiadom"
-                                                                                     icon="fa fa-mail-forward Fs22 White" 
-                                                                                     styleClass="LeadenGreenBack RaisedButton"                                                     
-                                                                                     />    
-                                                                </p:panelGrid> 
 
-                                                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
-                                                                             columnClasses="ui-grid-col-2,ui-grid-col-10">
-
-                                                                    <p:outputLabel for="event_title" value="Tytuł:" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputText id="event_title" 
-                                                                                 value="#{coachplayerview.selectedEventInfo.eventTitle}"
-                                                                                 styleClass="Wid80 WidAutoOnMobile TexAlLeft Fs30"
-
-                                                                                 />
-
-                                                                    <p:outputLabel value="Opis" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputTextarea value="#{coachplayerview.selectedEventInfo.eventOpis}" 
-                                                                                     styleClass="Wid80 WidAutoOnMobile TexAlLeft Fs20"/>
-                                                                </p:panelGrid>   
-                                                                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
-                                                                             columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
-
-                                                                    <p:outputLabel value="Czas trwania:" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.duration}" disabled="true"/>
-
-                                                                    <p:outputLabel value="Rzeczywisty dystans" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.dystans}" disabled="true"/>
-
-                                                                    <p:outputLabel value="Spalone kalorie" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.kalorie}" disabled="true"/>
-
-                                                                    <p:outputLabel value="Link (Garmin, Strava)" class="Wid80 WidAutoOnMobile TexAlCenter Fs30"/>
-                                                                    <p:inputText value="#{coachplayerview.selectedEventInfo.link}" disabled="true"/>
-                                                                </p:panelGrid>   
-
-
-                                                            </div>
-                                                        </div>
-                                                        <hr/>
-                                                        <p:panelGrid columns="1" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank"
-                                                                     columnClasses="ui-grid-col-12">
-
-                                                            <p:editor id="uwagiDoTreningu" value="#{coachplayerview.selectedEventInfo.uwagiDoTreningu}">
-                                                                <p:watermark for="uwagiDoTreningu" value="Uwagi do treningu"/>
-                                                            </p:editor>
-                                                        </p:panelGrid>
-                                                    </p:panel>
-                                                </div> 
                                             </div> 
                                         </div>     
 
@@ -269,7 +234,7 @@
                                     </p:tab>
                                     <p:tab title="Informacje podstawowe">
                                     </p:tab>
-                                </p:tabView>
+                                </p:accordionPanel>
 
                             </div>
                         </div>
