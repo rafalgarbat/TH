@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.primefaces.model.DefaultScheduleModel;
 
 /**
@@ -49,6 +50,16 @@ public class GrupList implements Serializable {
       
     public void setService(GrupService service){
         this.service = service;
+    }
+    
+      public void buttonAction(ActionEvent actionEvent) {
+
+        addMessage("Dodano do grupy !!");
+    }
+     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }

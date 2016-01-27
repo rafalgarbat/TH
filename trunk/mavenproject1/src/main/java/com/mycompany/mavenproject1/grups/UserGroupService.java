@@ -33,27 +33,26 @@ import javax.faces.bean.ManagedBean;
  *
  * @author Jaroslaw.Skrzydlo eventFacade.getEntityManager().refresh(eve);
  */
-@ManagedBean(name = "grupService")
+@ManagedBean(name = "userGroupService")
 @ApplicationScoped
-public class GrupService {
+public class UserGroupService {
 
     @EJB
     private GrupsFacade grupsFacade;
 
     @EJB
     private LoginFacade loginFacade;
-    
-
 
     private List<Grups> myGrups;
     private List<Grups> allGrups;
 
-    /**
+     /**
      * Zwraca liste wszystkich grup z danej osoby
      */
-    public List<Grups> getUserGrups(String aUname) {
+    public List<Grups> getUserGroups(String aUname) {
         Users pUser = loginFacade.getUser(aUname);
         myGrups = new ArrayList<>();         
+        myGrups = getGrupsFacade().getUserGrups(aUname);
         return myGrups;
     }
 

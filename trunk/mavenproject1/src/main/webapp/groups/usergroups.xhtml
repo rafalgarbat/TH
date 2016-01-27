@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">
+
+                    <h:form id="form">                        
+                        
+                        <p:dataGrid var="users" value="#{groupview.getCoachPlayers()}" columns="6" layout="grid"
+                                    rows="12" paginator="true" id="users"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
+
+                            <f:facet name="header">
+                                Zawodnicy
+                            </f:facet>
+           
+                            
+                            <p:panel  header="#{users.opis}, #{users.opis}, #{users.tytul}" footer="Grupa XXX">
+                                <div class="ContainerIndent" >
+                                    <div class="Card ShadowEffect  SoftGrayBack TexAlCenter HoverEffect">
+                                        <div class="EmptyBox5"></div>
+                                        <i class="icon icon-user158 White Fs50"></i>
+                                        <div class="EmptyBox5"></div>
+                                        <div class="FontRobotoLight Fs16 SoftGrayBack DispBlock ClearBoth">                                          
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-search Fs30 White" 
+                                                                         styleClass="BlueButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-envelope Fs30 White" 
+                                                                         styleClass="GreenButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-plus-square Fs30 White" 
+                                                                         styleClass="PurpleButton RaisedButton"                                                                     
+                                                                         />  
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                            <p:panel header="#{users.opis}, #{users.opis}, #{users.tytul}" footer="Grupa XXX">
+                               <div class="ContainerIndent" >
+                                    <div class="Card ShadowEffect  SoftGreenBack TexAlCenter HoverEffect">
+                                        <div class="EmptyBox5"></div>
+                                        <i class="icon icon-user158 White Fs50"></i>
+                                        <div class="EmptyBox5"></div>
+                                        <div class="FontRobotoLight Fs16 SoftGreenBack DispBlock ClearBoth">                                          
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-search Fs30 White" 
+                                                                         styleClass="BlueButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-envelope Fs30 White" 
+                                                                         styleClass="GreenButton RaisedButton"                                                                     
+                                                                         />
+                                             <p:commandButton action="/faces/coach/showplayer.xhtml?playerId=4"                                                                       
+                                                                         icon="fa fa-plus-square Fs30 White" 
+                                                                         styleClass="PurpleButton RaisedButton"                                                                     
+                                                                         />  
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+
+                        </p:dataGrid>
+
+                    </h:form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

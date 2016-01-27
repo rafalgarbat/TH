@@ -13,10 +13,12 @@
                    <div class="Container100">
                         <div class="ContainerIndent">
                             <h:form id="dtform"> 
-                                
+                             <p:growl id="growl" life="2000" />   
     <p:dataTable var="DTgrup" value="#{dtgrupList.getGrups()}" >                          
                                     
-                                  
+                                  <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
 
                                     <p:column headerText="Nazwa grupy" style="width:350px;"  filterMatchMode="contains">
                                         <h:outputText value="#{DTgrup.tytul}" />
@@ -26,7 +28,24 @@
                                     <p:column headerText="Opis"  style="width:200px;"  filterMatchMode="contains">
                                         <h:outputText value="#{DTgrup.opis}" />
                                     </p:column>  
-                               
+                                 <p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                <f:facet name="header">
+                    <p:graphicImage library="images" name="run.jpg" width="75px" height="75px" /> 
+                </f:facet>
+ 
+                <h:outputText value="Opis:" />
+                <h:outputText value="#{DTgrup.opis}" />
+ 
+                <h:outputText value="Tytul" />
+                <h:outputText value="#{DTgrup.tytul}" />
+                
+                <h:outputText value="Dodaj mnie" />
+                <p:commandButton value="Dodaj mnie " id="ajax" update="growl" actionListener="#{buttonView.buttonAction}" styleClass="ui-priority-primary" />
+ 
+   
+            </p:panelGrid>
+        </p:rowExpansion>
                                 </p:dataTable>                    
                               
 
