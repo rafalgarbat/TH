@@ -9,7 +9,9 @@ import com.mycompany.mavenproject1.calendar.ob.Usercalendars;
 import com.mycompany.mavenproject1.coach.ob.CoachPlayers;
 import com.mycompany.mavenproject1.contacts.Contact;
 import com.mycompany.mavenproject1.contacts.ob.Usercontacts;
+import com.mycompany.mavenproject1.event.Events;
 import com.mycompany.mavenproject1.event.Userevents;
+import com.mycompany.mavenproject1.event.ob.EventsInvitations;
 import com.mycompany.mavenproject1.grups.Usergrups;
 import com.mycompany.mavenproject1.news.Msg;
 import com.mycompany.mavenproject1.photos.ob.Photos;
@@ -367,5 +369,6 @@ public class Users implements Serializable {
     public void setCoachPlayersCollection1(Collection<CoachPlayers> coachPlayersCollection1) {
         this.coachPlayersCollection1 = coachPlayersCollection1;
     }
+   
     
 }

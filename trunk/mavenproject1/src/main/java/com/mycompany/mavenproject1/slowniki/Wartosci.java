@@ -31,7 +31,7 @@ public class Wartosci implements Serializable {
 
     @Column(name = "nazwa")
     private String nazwa;
-
+    
     @Column(name = "slownik_id")
     private Integer slownik_id;    
 

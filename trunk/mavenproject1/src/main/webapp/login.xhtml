@@ -23,34 +23,29 @@
 
 
     <h:body >
-        <div id="d1" style="background-image: url('/mavenproject1/faces/javax.faces.resource/login1.png?ln=images');background-size:100% 100%; width: 100%; height: 100%; ">
-            <div class="EmptyBox100"></div>
-            <div class="Wid90 DispBlock MarAuto  TexAlCenter">
-                <center>
-                    <p:panelGrid columns="4" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
+        <div class="Container100  ui-fluid">
+            <div class="ContainerIndent" style="background-color: black; height: 50px; ">
+                <i class="icon icon-twitter47  White Fs50" ></i>                       
 
-                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="O aplikacji"
-                                          style=" background: rgba(255, 255, 255, 0.2); width: 250px; font-size: 20px;
-                                          border-style: solid; border-width: 1px; border-color: whitesmoke;"
-                                          />
-                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="O nas"
-                                          style=" background: rgba(255, 255, 255, 0.2); width: 250px; font-size: 20px;
-                                          border-style: solid; border-width: 1px; border-color: whitesmoke;"
-                                          />
-                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Śledź nas"
-                                          style="background: rgba(255, 255, 255, 0.2); width: 250px; font-size: 20px;
-                                          border-style: solid; border-width: 1px; border-color: whitesmoke;"
-                                          />
+                <i class="icon icon-facebook56 White Fs50" ></i>
 
-                    </p:panelGrid> 
-                </center>
+                <i class="icon icon-help19 White Fs50" ></i>
+
+                <i class="icon icon-user158 White Fs50" ></i>
             </div>
+        </div>   
+        <div id="d1" style="background-image: url('/mavenproject1/faces/javax.faces.resource/login1.png?ln=images');background-size:100% 100%; width: 100%; height: 100%; ">
+
+
+            <div class="EmptyBox100"></div>
+
             <div class="EmptyBox100"></div>
 
 
             <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
                 <h:form> 
                     <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                       
                         <div class="Wid33 MarAuto WidAutoOnMobile">
 
                             <div class="Container100">
@@ -73,12 +68,12 @@
                                     <div class="EmptyBox10"></div>
 
 
-                                   
+
                                     <p:inputText  id="username" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.uname}" >
                                         <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
                                     </p:inputText>
-                                        
-                                 
+
+
                                     <div class="EmptyBox30"></div>
                                     <p:password id="password" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.pwd}"  >
                                         <p:watermark for="password" value="Hasło" id="password_watermark" /> 
@@ -86,30 +81,30 @@
 
                                     <div class="EmptyBox30"></div>
                                     <div>
-                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                      icon="fa fa-lock"
-                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 GreenButton"                                                      
-                                                      value="Zaloguj"/> 
+                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                          icon="fa fa-lock"
+                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 GreenButton"                                                      
+                                                          value="Zaloguj"/> 
 
-                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj przez Facebook"
-                                                      icon="fa fa-facebook-f " 
-                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 BlueButton"                                                      
-                                                      />
+                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj przez Facebook"
+                                                          icon="fa fa-facebook-f " 
+                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 BlueButton"                                                      
+                                                          />
                                     </div>
                                     <div class="EmptyBox30"></div>
                                     <div>
-                                    <p:commandButton  action="register.xhtml?faces-redirect=true"
-                                                      icon="fa fa-sign-in"
-                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 OrangeButton"
-                                                      
-                                                      value="Rejestracja"/>
-                                    <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                      icon="fa fa-lock"                                                      
-                                                      class="Wid40 WidAutoOnMobile TexAlCenter Fs24 RedButton"                                                      
-                                                      value="Zapomniałeś hasła?"/>
+                                        <p:commandButton  action="register.xhtml?faces-redirect=true"
+                                                          icon="fa fa-sign-in"
+                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 OrangeButton"
+
+                                                          value="Rejestracja"/>
+                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                          icon="fa fa-lock"                                                      
+                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 RedButton"                                                      
+                                                          value="Zapomniałeś hasła?"/>
                                     </div>
-                                    
-                                     
+
+
 
 
                                 </div> </div>
@@ -125,31 +120,7 @@
 
         </div>
 
-        <div id="d1" style="background-image: url('/mavenproject1/faces/javax.faces.resource/login2.png?ln=images');background-size:100% 100%; width: 100%; height: 100%; ">
-
-            <div class="EmptyBox100"></div>
-            <div class="EmptyBox100"></div>
-            <div class="EmptyBox100"></div>
-            <div class="EmptyBox100"></div>
-            <div class="Wid90 DispBlock MarAuto  TexAlCenter">
-                <center>
-                    <p:panelGrid columns="2" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-
-                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="O aplikacji"
-                                          style=" background-color: Transparent; width: 350px; font-size: 20px;
-                                          border-style: solid; border-width: 1px; border-color: white;"
-                                          />
-                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="O nas"
-                                          style=" background-color: Transparent; width: 350px; font-size: 20px;
-                                          border-style: solid; border-width: 1px; border-color: white;"
-                                          />
-                    </p:panelGrid>
-                </center>
-            </div>
-
-
-        </div>
-
+      
 
         <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
         <h:outputStylesheet name="css/animate.css" library="rio-layout" />

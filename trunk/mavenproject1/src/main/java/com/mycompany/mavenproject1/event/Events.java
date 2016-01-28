@@ -8,6 +8,7 @@ package com.mycompany.mavenproject1.event;
 import com.mycompany.mavenproject1.calendar.ob.Calendarevents;
 import com.mycompany.mavenproject1.Klient;
 import com.mycompany.mavenproject1.auth.Users;
+import com.mycompany.mavenproject1.event.ob.EventsInvitations;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -59,10 +60,17 @@ import org.eclipse.persistence.annotations.Cache;
     @NamedQuery(name = "Events.findByCdate", query = "SELECT e FROM Events e WHERE e.cdate = :cdate"),
     @NamedQuery(name = "Events.findByMdate", query = "SELECT e FROM Events e WHERE e.mdate = :mdate")})
 public class Events implements Serializable {
-    
-    
+   
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "rating")
+    private BigDecimal rating;
+    @Size(max = 2147483647)
+    @Column(name = "rodzaj_wydarzenia")
+    private String rodzajWydarzenia;
     @OneToMany(mappedBy = "eventid")
-    private Collection<Calendarevents> calendareventsCollection;
+    private Collection<EventsInvitations> eventsInvitationsCollection;
+    @OneToMany(mappedBy = "eventid")
+    private Collection<Calendarevents> calendareventsCollection;   
     @OneToMany(mappedBy = "eventId")
     private Collection<Userevents> usereventsCollection;
     private static final long serialVersionUID = 1L;
@@ -116,8 +124,6 @@ public class Events implements Serializable {
     private String adres;
     @Column(name = "typ_wydarzenia")
     private String typ_wydarzenia;
-    @Column(name = "rating")
-    private Integer rating;
     
     @Column(name = "dystans")
     private String  dystans;
@@ -131,8 +137,6 @@ public class Events implements Serializable {
     @Column(name = "rejestracja_info")
     private String  rejestracja_info;
 
-    @Column(name = "rodzaj_wydarzenia")
-    private Integer rodzaj_wydarzenia;
     
     @Column(name = "adreswww")
     private String adreswww;
@@ -294,13 +298,6 @@ public class Events implements Serializable {
         this.typ_wydarzenia = typ_wydarzenia;
     }
 
-    public Integer getRodzaj_wydarzenia() {
-        return rodzaj_wydarzenia;
-    }
-
-    public void setRodzaj_wydarzenia(Integer rodzaj_wydarzenia) {
-        this.rodzaj_wydarzenia = rodzaj_wydarzenia;
-    }
 
     public String getAdreswww() {
         return adreswww;
@@ -361,16 +358,6 @@ public class Events implements Serializable {
         this.usereventsCollection = usereventsCollection;
     }
 
-    public int getRating() {
-        if (this.rating ==null){
-        return 0;
-        }
-        return this.rating.intValue();
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
 
     @XmlTransient
     public Collection<Calendarevents> getCalendareventsCollection() {
@@ -411,6 +398,31 @@ public class Events implements Serializable {
 
     public void setRejestracja_info(String rejestracja_info) {
         this.rejestracja_info = rejestracja_info;
+    }
+
+    public BigDecimal getRating() {
+        return rating;
+    }
+
+    public void setRating(BigDecimal rating) {
+        this.rating = rating;
+    }
+
+    public String getRodzajWydarzenia() {
+        return rodzajWydarzenia;
+    }
+
+    public void setRodzajWydarzenia(String rodzajWydarzenia) {
+        this.rodzajWydarzenia = rodzajWydarzenia;
+    }
+
+    @XmlTransient
+    public Collection<EventsInvitations> getEventsInvitationsCollection() {
+        return eventsInvitationsCollection;
+    }
+
+    public void setEventsInvitationsCollection(Collection<EventsInvitations> eventsInvitationsCollection) {
+        this.eventsInvitationsCollection = eventsInvitationsCollection;
     }
     
 }
