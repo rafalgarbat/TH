@@ -26,6 +26,12 @@ public class WartosciView extends SimpleView {
         return getWartosciFacade().getWartosciSlownikowe(aIdSlownika);
     }
 
+    public String getWartoscSlownikowa(int aIdSlownika, int aIdWartosci) {
+         Wartosci w = (Wartosci)getWartosciFacade().getWartosclownikowa(aIdSlownika,aIdWartosci);
+         return w.getNazwa();
+    }
+
+    
     public WartosciFacade getWartosciFacade() {
         return wartosciFacade;
     }

@@ -38,4 +38,10 @@ public class WartosciFacade extends AbstractFacade<Wartosci> {
         List<Wartosci> results = getEntityManager().createNativeQuery(pQuery, Wartosci.class).setParameter(1, aIdSlownika).getResultList();        
         return results;
     }
+    
+    public Wartosci getWartosclownikowa(int aIdSlownika, int aIdWartosci) {        
+        String pQuery = "select * from wartosci where slownik_id = ? and id = ?";
+        return (Wartosci)getEntityManager().createNativeQuery(pQuery, Wartosci.class).setParameter(1, aIdSlownika).setParameter(2, aIdWartosci).getResultList().get(0);        
+        
+    }
 }

@@ -5,7 +5,13 @@
  */
 package com.mycompany.mavenproject1.todaytraining;
 
+import com.mycompany.mavenproject1.event.EventFacade;
+import com.mycompany.mavenproject1.event.ob.EventsInvitations;
+import com.mycompany.mavenproject1.forum.ForumFacade;
+import com.mycompany.mavenproject1.forum.ob.Forum;
 import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -16,20 +22,33 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean(name = "showtrainingcontroller")
 @ViewScoped
-public class ShowTrainingController implements Serializable{
+public class ShowTrainingController implements Serializable {
+
+    @EJB
+    private EventFacade eventFacade;
+    
+    @EJB
+    private ForumFacade forumFacade;
     
     private String eventId;
 
     private String eventId2;
+
+    public List<EventsInvitations> podajListeZaproszonych() {
+        return eventFacade.getEntityManager().createNativeQuery("select * from events_invitations where eventid = ? ", EventsInvitations.class).setParameter(1, 61).getResultList();
+    }
+
+    public List<Forum> getListaWiadomosci(){
+        return forumFacade.getWiadomosciZForum(61);
+    }
     
-    public void attrListener(ActionEvent event){
-		 
-		eventId2 = (String)event.getComponent().getAttributes().get("eventId");
-		
-	}
-	
     
-    
+    public void attrListener(ActionEvent event) {
+
+        eventId2 = (String) event.getComponent().getAttributes().get("eventId");
+
+    }
+
     public String getEventId() {
         return eventId;
     }
@@ -46,6 +65,5 @@ public class ShowTrainingController implements Serializable{
         this.eventId2 = eventId2;
     }
     
-      
-    
+
 }

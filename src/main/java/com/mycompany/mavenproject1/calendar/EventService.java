@@ -113,7 +113,7 @@ public class EventService {
             def.setAdreswww(eve.getAdreswww());
             //  def.setAllDay(eve.getCzycalydzien());
             def.setGmap_cords(eve.getGmapCords());
-            def.setRating(eve.getRating());
+          //  def.setRating(eve.getRating());
             if (eve.getDystans() != null){
                 def.setDystans((String)pSlownik.get(Integer.parseInt(eve.getDystans())));
             }

@@ -12,13 +12,13 @@
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect TexAlCenter">
-                    
-                    
+
+
                     <br/>
-                        <div class="Container100 Responsive100">
+                    <div class="Container100 Responsive100">
                         <div class="ContainerIndent">
                             <h2 class="BigTopic">Informacje o #{showtrainingcontroller.eventId}
-                            <p:button href="/faces/trainig/todaytraining.xhtml" value="Wróć" /></h2>
+                                <p:button href="/faces/trainig/todaytraining.xhtml" value="Wróć" /></h2>
                             <h:form>
                                 <p:tabView>
                                     <p:tab title="Wydarzenie">
@@ -27,21 +27,69 @@
                                             <p:panel>
                                                 <h:outputText value="Informacje o wydarzeniu lalalalalal lalala lalala lalala" />
                                             </p:panel>
-                                            
+
                                             <i class="icon-sms5 Fs60 Green"></i>
                                             <h:outputText
                                                 value="A tu mozliwośc pisania i wrzucania komentarzy - coś jak forum" />
-                                            
-                                            
+
+
                                         </h:panelGrid>
+                                        
+                                     
+                                            
+                                            <p:panel>
+                                                 <i class="icon-sms5 Fs60 Green"></i>
+                                                    <h:outputText value="A tu mozliwośc pisania i wrzucania komentarzy - coś jak forum" />
+                                            </p:panel>
+                                            <p:panel>
+                                                 <i class="icon-sms5 Fs60 Green"></i>
+                                                    <h:outputText value="A tu mozliwośc pisania i wrzucania komentarzy - coś jak forum" />
+                                            </p:panel>
+                                            <p:panel>
+                                                 <i class="icon-sms5 Fs60 Green"></i>
+                                                    <h:outputText value="A tu mozliwośc pisania i wrzucania komentarzy - coś jak forum" />
+                                            </p:panel>
+                                            
+                                     
+                                        
                                     </p:tab>
                                     <p:tab title="Zaproszeni">
-                                        <h:panelGrid columns="2" cellpadding="10">
-                                            <h:outputText value="Francis Ford Coppola's legendary. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                          Aenean blandit tortor a ipsum vehicula, in semper sapien auctor. Nulla tempor eget est non consequat." />
-                                        </h:panelGrid>
+                                        <p:dataGrid var="eventsinvitations" value="#{showtrainingcontroller.podajListeZaproszonych()}" columns="6" layout="grid"
+                                                    rows="12" paginator="true" id="eventsinvitationsDG"
+                                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                            <p:panel header="#{eventsinvitations.userid.uname}, #{eventsinvitations.userid.email}, #{eventsinvitations.userid.city}"
+                                                     rendered="#{eventsinvitations.stan ==1002}"     
+                                                     footer="#{wartosciview.getWartoscSlownikowa(1000, eventsinvitations.stan)}  ">
+                                                <div class="ContainerIndent" >
+                                                    <div class="Card ShadowEffect  SoftGrayBack TexAlCenter HoverEffect">
+                                                        <div class="EmptyBox5"></div>
+                                                        <i class="icon icon-user158 White Fs50"></i>
+                                                        <div class="EmptyBox5"></div>
+
+                                                    </div>
+                                                </div>
+                                            </p:panel> 
+
+                                            <p:panel header="#{eventsinvitations.userid.uname}, #{eventsinvitations.userid.email}, #{eventsinvitations.userid.city}"                                                    
+                                                     rendered="#{eventsinvitations.stan ==1001}"       
+                                                     footer="#{wartosciview.getWartoscSlownikowa(1000, eventsinvitations.stan)}  ">
+                                                <div class="ContainerIndent "   >
+                                                    <div class="Card ShadowEffect  SoftGreenBack TexAlCenter HoverEffect">
+                                                        <div class="EmptyBox5"></div>
+                                                        <i class="icon icon-user158 White Fs50"></i>
+                                                        <div class="EmptyBox5"></div>
+
+                                                    </div>
+                                                </div>
+                                            </p:panel> 
+
+                                        </p:dataGrid>
+
+
+
                                     </p:tab>
-                                    
+
                                 </p:tabView>
                             </h:form>
                         </div>
