@@ -71,16 +71,16 @@
                                             <h:outputText value="#{displayeventinfo.eventTitle}"/> 
                                         </p:column>
 
-                                         <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
+                                        <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
                                             <f:facet name="filter">
-                                                
+
                                                 <p:selectOneMenu id="dystansSelect" >
                                                     <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
                                                                    itemValue="#{wartosci.nazwa}"
                                                                    itemLabel="#{wartosci.nazwa}"
-                                                                           />
-                                                        </p:selectOneMenu>
-                                                
+                                                                   />
+                                                </p:selectOneMenu>
+
                                             </f:facet>
                                             #{displayeventinfo.dystans} 
                                         </p:column>
@@ -283,20 +283,20 @@
 
                                         <p:column headerText="Dystans" style="width:65px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
                                             <f:facet name="filter">
-                                                
+
                                                 <p:selectOneMenu id="dystansSelect" >
                                                     <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
                                                                    itemValue="#{wartosci.nazwa}"
                                                                    itemLabel="#{wartosci.nazwa}"
-                                                                           />
-                                                        </p:selectOneMenu>
-                                                
+                                                                   />
+                                                </p:selectOneMenu>
+
                                             </f:facet>
                                             #{displayeventinfo.dystans} 
                                         </p:column>
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" styleClass="Fs22" style="width:600px;"
                                                   filterMatchMode="contains">
-                                           #{displayeventinfo.eventOpis} 
+                                            #{displayeventinfo.eventOpis} 
 
                                         </p:column>
 
@@ -362,11 +362,19 @@
                                                 <f:convertDateTime type="date" pattern="EEEEEEEE, dd-MM-yyyy"/>
                                             </h:outputText>
                                         </p:column>
+                                            <p:column headerText="Miejsce" styleClass="Fs22" style="width:150px;"  >
+                                                <h:outputText value="#{displayeventinfo.adres}">                                               
+                                            </h:outputText>
+                                        </p:column>
                                         <p:column headerText="Organizator" style="width:100px;" styleClass="Fs22"  >
                                             #{displayeventinfo.eventCreateUserInfo}
+                                            <p:graphicImage library="images" name="ala_avatar.jpg" 
+                                                            cache="false" width="100px" height="100px" 
+                                                                        alt="Brak zdjęcia"
+                                                                        />
                                         </p:column>                                         
 
-                                        <p:column headerText="Dyscypliny" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals" styleClass="Fs22" >
+                                        <p:column headerText="Dyscyplina" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals" styleClass="Fs22" >
                                             <f:facet name="filter">
                                                 <p:selectOneMenu onchange="PF('usereventsNWidget').filter()">                                                
                                                     <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
@@ -375,30 +383,27 @@
                                                     <f:selectItem itemLabel="Dowolne" itemValue="" />
                                                 </p:selectOneMenu>   
                                             </f:facet>
-
+                                            <div class="TexAlCenter"> 
                                             <p:graphicImage library="images" name="bike.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==1}"/>
                                             <p:graphicImage library="images" name="swim.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==2}"/>
                                             <p:graphicImage library="images" name="run.png" width="75px" height="75px" rendered="#{displayeventinfo.typWydarzenia==3}"/>
+                                            </div>
                                         </p:column>
                                         <p:column headerText="Tytul" filterBy="#{displayeventinfo.eventTitle}" style="width:200px;" styleClass="Fs22" 
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventTitle} 
                                         </p:column>
 
-                                        <p:column headerText="Treść zaproszenia" styleClass="Fs22" style="width:250px;">
-                                            #{displayeventinfo.eventInvitation}
-                                        </p:column> 
-
                                         <p:column headerText="Dystans" style="width:130px;" styleClass="Fs22" filterBy="#{displayeventinfo.dystans}" filterMatchMode="equals" >
                                             <f:facet name="filter">
-                                                
+
                                                 <p:selectOneMenu id="dystansSelect" >
                                                     <f:selectItems value="#{wartosciview.getWartosciSlownikowe(1)}" var="wartosci"
                                                                    itemValue="#{wartosci.nazwa}"
                                                                    itemLabel="#{wartosci.nazwa}"
-                                                                           />
-                                                        </p:selectOneMenu>
-                                                
+                                                                   />
+                                                </p:selectOneMenu>
+
                                             </f:facet>
                                             #{displayeventinfo.dystans} 
                                         </p:column>
@@ -429,48 +434,46 @@
                                         </p:column>
 
                                         <p:rowExpansion>
-                                            <p:panelGrid  
-                                                style="width: 100%; border:0px ; background-color:transparent;">                                                               
-                                                <p:row>
-                                                    <p:column styleClass="ui-grid-col-1">
-                                                        <p:button href="#{displayeventinfo.publicUrl}"                                                   
-                                                                  id="przejdzDoWydarzeniaBtn1"
-                                                                  icon="fa fa-share-square-o  Fs20"
-                                                                  value=" www"
-                                                                  styleClass="CyanButton RaisedButton Fs20">
-                                                            <p:tooltip id="toolTipFade1" for="przejdzDoWydarzeniaBtn1" 
-                                                                       value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
-                                                        </p:button>
+                                            <p:panel header="xxx">
+                                                <p:outputLabel value="#{displayeventinfo.eventOpis}" styleClass="Fs30"/>
 
-                                                        <p:button href="#{displayeventinfo.publicUrl}"                                                   
-                                                                  id="przejdzDoWydarzeniaBtn2"
-                                                                  icon="fa fa-share-square-o  Fs20"
-                                                                  value="Potwierdź"
-                                                                  styleClass="OrangeButton RaisedButton Fs20"
-                                                                  >
-                                                            <p:tooltip id="toolTipFade2" for="przejdzDoWydarzeniaBtn2" 
-                                                                       value="Zaakceptuj wydarzenie i dodaj je do swojego kalendarza" />
-                                                        </p:button>                                                     
-
-                                                        <p:button href="#{displayeventinfo.publicUrl}"                                                   
-                                                                  id="przejdzDoWydarzeniaBtn4"
-                                                                  icon="fa fa-share-square-o  Fs20"
-                                                                  value="Odrzuć"
-                                                                  styleClass="RedButton RaisedButton Fs20"
-                                                                  >
-                                                            <p:tooltip id="toolTipFade4" for="przejdzDoWydarzeniaBtn4" 
-                                                                       value="Odrzuć zaproszenie wzięcia udziału w wydarzeniu" />
-                                                        </p:button>
-                                                    </p:column>
-                                                    <p:column styleClass="ui-grid-col-10">
-                                                        <p:inputTextarea value="#{displayeventinfo.eventOpis}" class="Fs25 " />                                                          
-                                                    </p:column>
-                                                </p:row>
+                                                <f:facet name="header">
+                                                    <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn1"
+                                                              icon="fa fa-check-circle Fs20"
+                                                              styleClass="GreenButton">                                                              
+                                                        <p:tooltip id="toolTipFade1" for="przejdzDoWydarzeniaBtn1" 
+                                                                   value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
+                                                    </p:button>
+                                                       <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn3"
+                                                              icon="fa fa-info Fs20"
+                                                              styleClass="OrangeButton">                                                              
+                                                        <p:tooltip id="toolTipFade3" for="przejdzDoWydarzeniaBtn3" 
+                                                                   value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
+                                                    </p:button>
+                                                    <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn2"
+                                                              icon="fa fa-close Fs20"
+                                                              styleClass="RedButton">                                                              
+                                                        <p:tooltip id="toolTipFade2" for="przejdzDoWydarzeniaBtn2" 
+                                                                   value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
+                                                    </p:button>
+                                                    <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn4"
+                                                              icon="fa fa-link Fs20"
+                                                              styleClass="BlueButton">                                                              
+                                                        <p:tooltip id="toolTipFade4" for="przejdzDoWydarzeniaBtn4" 
+                                                                   value="Przejdź na zewnętrzną stronę wydarzenia" />
+                                                    </p:button>
+                                                    Otrzymałeś zaproszenie do udziału w wydarzeniu
+                                                </f:facet>
 
 
 
 
-                                            </p:panelGrid>
+
+                                            </p:panel>
 
                                         </p:rowExpansion>
 
