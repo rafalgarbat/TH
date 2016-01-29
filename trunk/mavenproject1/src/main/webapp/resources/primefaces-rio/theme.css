@@ -5818,6 +5818,13 @@ hr.ui-widget-header {
 .CyanButton.ui-state-focus {
   background-color: #26C6DA !important;
 }
+.BlackButton {
+  background-color: #000000;
+}
+.BlackButton.ui-state-hover,
+.BlackButton.ui-state-focus {
+  background-color: #003D50 !important;
+}
 .BrownButton {
   background-color: #6D4C41;
 }

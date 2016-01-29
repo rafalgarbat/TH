@@ -23,8 +23,12 @@
 
 
     <h:body >
+
+
+
         <div class="Container100  ui-fluid">
             <div class="ContainerIndent" style="background-color: black; height: 50px; ">
+                
                 <i class="icon icon-twitter47  White Fs50" ></i>                       
 
                 <i class="icon icon-facebook56 White Fs50" ></i>
@@ -35,92 +39,73 @@
             </div>
         </div>   
         <div id="d1" style="background-image: url('/mavenproject1/faces/javax.faces.resource/login1.png?ln=images');background-size:100% 100%; width: 100%; height: 100%; ">
-
-
             <div class="EmptyBox100"></div>
-
             <div class="EmptyBox100"></div>
+            <div class="EmptyBox100"></div>
+            <h:form> 
 
-
-            <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
-                <h:form> 
-                    <div class="Wid100 DispBlock MarAuto MarTopPerc5 TexAlCenter">
-                       
-                        <div class="Wid33 MarAuto WidAutoOnMobile">
-
-                            <div class="Container100">
-                                <div class="ContainerIndent">
-                                    <div class="Card ShadowEffect " 
-                                         style=" background-color: Transparent; "
-                                         >
-                                        <div class="Container100 Responsive100">
-                                            <div class="Wid100 White Fs30"><i class="icon-users White Fs40"></i>Training hub</div>
-                                        </div>
-                                    </div>
+                <div class="Container100" >
+                    <div class="ContainerIndent" >
+                        <div class="Card  " style="background-color: transparent">
+                            <div class="Container60 Responsive100" >
+                                <div class="ContainerIndent" >
                                 </div>
                             </div>
 
+                            <div class="Container30 Responsive100 ShadowEffect">
+                                <div class="ContainerIndent Responsive100">
+                                    <div  class="Card ShadowEffect Responsive100" style="background: rgba(255, 255, 255, 0.3);">
+
+                                        <p:panel style="background: rgba(255, 255, 255, 0.3);">
+                                            <f:facet name="header">
+                                                <p:button icon="fa fa-twitter Fs16 White"/>
+
+                                                <p:button icon="fa fa-facebook Fs16 White"/>
+
+                                                <p:commandButton icon="fa fa-google Fs16 Black " styleClass="RedButton" />                                                                                                 
+
+                                            </f:facet>
+                                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank" layout="grid">
+
+                                                <p:inputText  id="username" class="Wid90 WidAutoOnMobile TexAlLeft " value="#{loginbean.uname}" >
+                                                    <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
+                                                </p:inputText>
+
+                                                <p:password id="password" class="Wid90 WidAutoOnMobile TexAlLeft " value="#{loginbean.pwd}"  >
+                                                    <p:watermark for="password" value="Hasło" id="password_watermark" /> 
+                                                </p:password>
+                                                
+                                                <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
+                                                                  icon="fa fa-lock"                                                      
+                                                                  class="Wid50 WidAutoOnMobile TexAlLeft Fs20 BlackButton" 
+                                                                  value="Zaloguj"
+                                                                  /> 
+                                                
+                                                <p:commandButton  action="register.xhtml?faces-redirect=true"
+                                                                  icon="fa fa-sign-in"   
+                                                                  class="Wid50 WidAutoOnMobile TexAlLeft Fs20 BlackButton" 
+                                                                  value="Zarejestruj"  
+                                                                  />
+                                            </p:panelGrid>
 
 
+                                        </p:panel>
 
-                            <div class="Container100 ContainerIndent">
-                                <div class="Card ShadowEffect TexAlCenter" style="background: rgba(255, 255, 255, 0.3);">
-                                    <div class="EmptyBox10"></div>
-
-
-
-                                    <p:inputText  id="username" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.uname}" >
-                                        <p:watermark for="username" value="Nazwa użytkownika" id="username_watermark" />
-                                    </p:inputText>
-
-
-                                    <div class="EmptyBox30"></div>
-                                    <p:password id="password" class="Wid80 WidAutoOnMobile TexAlCenter Fs30" value="#{loginbean.pwd}"  >
-                                        <p:watermark for="password" value="Hasło" id="password_watermark" /> 
-                                    </p:password>
-
-                                    <div class="EmptyBox30"></div>
-                                    <div>
-                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                          icon="fa fa-lock"
-                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 GreenButton"                                                      
-                                                          value="Zaloguj"/> 
-
-                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}"  value="Zaloguj przez Facebook"
-                                                          icon="fa fa-facebook-f " 
-                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 BlueButton"                                                      
-                                                          />
-                                    </div>
-                                    <div class="EmptyBox30"></div>
-                                    <div>
-                                        <p:commandButton  action="register.xhtml?faces-redirect=true"
-                                                          icon="fa fa-sign-in"
-                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 OrangeButton"
-
-                                                          value="Rejestracja"/>
-                                        <p:commandButton  action="#{loginbean.validateUsernamePassword}" 
-                                                          icon="fa fa-lock"                                                      
-                                                          class="Wid40 WidAutoOnMobile TexAlCenter Fs24 RedButton"                                                      
-                                                          value="Zapomniałeś hasła?"/>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="Container10 Responsive100 ShadowEffect">
+                                
+                            </div>
 
-
-
-                                </div> </div>
                         </div>
-                        <div class="EmptyBox100"></div>
-
                     </div>
-
-
-                </h:form>    
-            </div>
-
-
+                </div>
+            </h:form>    
         </div>
 
-      
+
 
         <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
         <h:outputStylesheet name="css/animate.css" library="rio-layout" />
