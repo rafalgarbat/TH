@@ -16,6 +16,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -34,12 +38,24 @@ public class CreateEventView {
     
     private Wartosci wartDystans;
     
+    
+    private double lat;     
+    private double lng;
+    private MapModel emptyModel;
+    
+    
     @PostConstruct
     public void init() {
         czyCykliczne=false;
         newEvent = new Events();
+        emptyModel = new DefaultMapModel();
     }
 
+     public void addMarker() {
+        Marker marker = new Marker(new LatLng(lat, lng), "xxxx");
+        emptyModel.addOverlay(marker);          
+     
+    }
     
     public List<Wartosci> getWartosciDystansow(){
         List <Wartosci> pTmpDystanse = new ArrayList<>();
@@ -91,6 +107,30 @@ public class CreateEventView {
 
     public void setWartDystans(Wartosci wartDystans) {
         this.wartDystans = wartDystans;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public MapModel getEmptyModel() {
+        return emptyModel;
+    }
+
+    public void setEmptyModel(MapModel emptyModel) {
+        this.emptyModel = emptyModel;
     }
     
     

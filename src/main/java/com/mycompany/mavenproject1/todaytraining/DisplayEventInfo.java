@@ -24,6 +24,8 @@ public class DisplayEventInfo {
     private Date dataod;
     private String typWydarzenia;
     private int dystans;    
+    private String adres;
+    private String gmapCords;
     
     /*Informacje o zrealizowanym*/
     private String uwagiDoTreningu;
@@ -191,6 +193,22 @@ public class DisplayEventInfo {
 
     public void setEventInvitation(String eventInvitation) {
         this.eventInvitation = eventInvitation;
+    }
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
+
+    public String getGmapCords() {
+        return gmapCords;
+    }
+
+    public void setGmapCords(String gmapCords) {
+        this.gmapCords = gmapCords;
     }
 
     

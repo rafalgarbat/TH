@@ -78,40 +78,18 @@ public class TodayTrainingController implements Serializable {
         Calendar cal = Calendar.getInstance();
             
         
-        List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
-        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
-                + "            where uc.userid = ? "
-                + "                and ce.calenarid = uc.uid "
-                + "                and ce.eventid =  e.id "
-                + "                and c.uid = uc.calendarid "
-                + "                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id and completed =true )"
-                + "                order by e.dataod ";
-        List<Object[]> results = eventFacade.getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
-        DisplayEventInfo pD;
-        for (Object[] ob : results) {
-            pD = new DisplayEventInfo();
-            pD.setCalendarname((String) ob[0]);
-            pD.setIsCalendarPublic((Boolean) ob[1]);
-            pD.setId(Long.parseLong(String.valueOf(ob[2])));
-            pD.setEventTitle((String) ob[3]);
-            pD.setDataod((Date) ob[7]);
-            pD.setTypWydarzenia((String) ob[8]);
-            pD.setEventOpis((String) ob[4]);
-            pD.setPublicUrl("/trainig/show.xhtml?eventId=18");
-            pWyniki.add(pD);
-            
-            cal.setTime(pD.getDataod());
-           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("1")){
-               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "bike.png", false,"SoftGreenBack"), cal.getTime()));  
+        List<DisplayEventInfo> pWyniki = eventFacade.getEventyWplanie(aUname);
+        for (DisplayEventInfo ob : pWyniki) {            
+            cal.setTime(ob.getDataod());
+           if (ob.getTypWydarzenia() != null && ob.getTypWydarzenia().equals("1")){
+               modelFirst.add(new TimelineEvent(new Task(ob.getEventTitle(), "bike.png", false,"SoftGreenBack"), cal.getTime()));  
            }
-           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("2")){
-               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "swim.png", false,"SoftRedBack"), cal.getTime()));  
+           if (ob.getTypWydarzenia() != null && ob.getTypWydarzenia().equals("2")){
+               modelFirst.add(new TimelineEvent(new Task(ob.getEventTitle(), "swim.png", false,"SoftRedBack"), cal.getTime()));  
            }
-           if (pD.getTypWydarzenia() != null && pD.getTypWydarzenia().equals("3")){
-               modelFirst.add(new TimelineEvent(new Task(pD.getEventTitle(), "run.png", false,"SoftOrangeBack"), cal.getTime()));  
-           }
-            
-            
+           if (ob.getTypWydarzenia() != null && ob.getTypWydarzenia().equals("3")){
+               modelFirst.add(new TimelineEvent(new Task(ob.getEventTitle(), "run.png", false,"SoftOrangeBack"), cal.getTime()));  
+           }                        
         }
         return pWyniki;
     }

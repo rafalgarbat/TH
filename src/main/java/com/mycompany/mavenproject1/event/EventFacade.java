@@ -107,6 +107,33 @@ public List<Events> getMojeEventy(String aUname) {
         return pWyniki;
     }
     
+    public List<DisplayEventInfo> getEventyWplanie(String aUname) {     
+        List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
+        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
+                + "            where uc.userid = ? "
+                + "                and ce.calenarid = uc.uid "
+                + "                and ce.eventid =  e.id "
+                + "                and c.uid = uc.calendarid "
+                + "                and not exists(select 1 from userevents ue where ue.user_id= uc.userid and ue.event_id= e.id and completed =true )"
+                + "                order by e.dataod ";
+        List<Object[]> results = getEntityManager().createNativeQuery(pQuery).setParameter(1, 2).getResultList();
+        DisplayEventInfo pD;
+        for (Object[] ob : results) {
+            pD = new DisplayEventInfo();
+            pD.setCalendarname((String) ob[0]);
+            pD.setIsCalendarPublic((Boolean) ob[1]);
+            pD.setId(Long.parseLong(String.valueOf(ob[2])));
+            pD.setEventTitle((String) ob[3]);
+            pD.setDataod((Date) ob[7]);
+            pD.setTypWydarzenia((String) ob[8]);
+            pD.setEventOpis((String) ob[4]);
+            pD.setPublicUrl("/faces/trainig/show.xhtml?eventId="+pD.getId());
+            pWyniki.add(pD);            
+        }
+         return pWyniki;
+    }
+    
+    
     public List<DisplayEventInfo> getEventyZaproszenia(String aUname) {
         Users pUser = (Users) getUser(aUname);
         List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
