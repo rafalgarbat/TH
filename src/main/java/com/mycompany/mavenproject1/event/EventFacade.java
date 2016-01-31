@@ -76,7 +76,8 @@ public List<Events> getMojeEventy(String aUname) {
     public List<DisplayEventInfo> getEventyUzytkownika(String aUname) {
         Users pUser = (Users) getUser(aUname);
         List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
-        String pQuery ="select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans, ue.uwagi, ue.link, ue.duration, ue.distance, ue.kalorie, ue.stan  from usercalendars uc, calendarevents ce, events e, calendars c , userevents ue " +
+        String pQuery ="select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans, ue.uwagi, ue.link, ue.duration, ue.distance, ue.kalorie, ue.stan, e.adres"
+                + "  from usercalendars uc, calendarevents ce, events e, calendars c , userevents ue " +
 "                where uc.userid = ?" +
 "                and ce.calenarid = uc.uid " +
 "                and ce.eventid =  e.id " +
@@ -94,7 +95,7 @@ public List<Events> getMojeEventy(String aUname) {
             pD.setDataod((Date) ob[7]);
             pD.setTypWydarzenia((String) ob[8]);
             pD.setEventOpis((String) ob[4]);
-            
+            pD.setAdres((String)ob[16]);
             pD.setUwagiDoTreningu((String) ob[10]);
             pD.setLink((String) ob[11]);
             pD.setDuration((String) ob[12]);
@@ -109,7 +110,7 @@ public List<Events> getMojeEventy(String aUname) {
     
     public List<DisplayEventInfo> getEventyWplanie(String aUname) {     
         List<DisplayEventInfo> pWyniki = new ArrayList<DisplayEventInfo>();
-        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans  from usercalendars uc, calendarevents ce, events e, calendars c "
+        String pQuery = "select c.name, c.ispublic, e.id, e.tytul, e.opis, e.czycalydzien, e.czypubliczne, e.dataod, e.typ_wydarzenia, e.dystans, e.adres  from usercalendars uc, calendarevents ce, events e, calendars c "
                 + "            where uc.userid = ? "
                 + "                and ce.calenarid = uc.uid "
                 + "                and ce.eventid =  e.id "
@@ -127,6 +128,7 @@ public List<Events> getMojeEventy(String aUname) {
             pD.setDataod((Date) ob[7]);
             pD.setTypWydarzenia((String) ob[8]);
             pD.setEventOpis((String) ob[4]);
+            pD.setAdres((String)ob[10]);
             pD.setPublicUrl("/faces/trainig/show.xhtml?eventId="+pD.getId());
             pWyniki.add(pD);            
         }
