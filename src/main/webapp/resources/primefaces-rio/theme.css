@@ -962,12 +962,12 @@ label {
 .ui-datatable table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-s {
   background-image: url("#{resource['primefaces-rio:images/downarrow-gray.svg']}");
   background-position: center !important;
-  background-size: 110%;
+  background-size: 260%;  
 }
 .ui-datatable table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-e {
   background-image: url("#{resource['primefaces-rio:images/rightarrow-gray.svg']}");
   background-position: center !important;
-  background-size: 110%;
+  background-size: 260%;
 }
 .ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil {
   background-image: url("#{resource['primefaces-rio:images/pen-blue.svg']}");
