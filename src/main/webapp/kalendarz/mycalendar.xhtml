@@ -13,8 +13,8 @@
                     <div class="Container100">
                         <div class="ContainerIndent">
                             <h:form id="dtform"> 
-                                
-                                    <p:panelGrid columns="4" >
+
+                                <p:panelGrid columns="4" >
                                     <p:row>
                                         <p:column>
                                             <p:outputLabel for="value1" value="Wydarzenia archiwalne: "/>
@@ -29,12 +29,12 @@
                                             <p:calendar id="popupdo" value="#{eventList.maxDate}" />
                                         </p:column>
                                         <p:column>
-                                             <p:commandButton value="Filtruj" icon="fa fa-search Fs16 White"  styleClass="Fright BlueButton" 
+                                            <p:commandButton value="Filtruj" icon="fa fa-search Fs16 White"  styleClass="Fright BlueButton" 
                                                              style="width: 110px;" iconPos="right"/>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
-                                
+
                                 <p:dataTable id ="eventListDT" var="event" value="#{eventList.getEvents()}" 
                                              widgetVar="eventsTable"
                                              rowKey="#{event.dbEventId}"
@@ -44,44 +44,43 @@
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              selectionMode="single" selection="#{eventList.selectedEvent}"                                        
                                              >                          
-                                    
+
                                     <p:column style="width:16px" >
                                         <p:rowToggler/>                                        
                                     </p:column>
+
+
+
                                     <p:rowExpansion>
-                                        <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
-                                            <h:outputText value="Opis" />
-                                            <h:outputText value="#{event.description}" />
-                                            <h:outputText value="Informacje o organizatorze" />
-                                            <h:outputText value="#{event.organizator_info}" />
-
-                                            <h:outputText value="Informacje o rejestracji" />
-                                            <h:outputText value="#{event.rejestracja_info}" />
-
-                                            <h:outputText value="Zapisanych" />
-                                            <h:outputText value="#{event.iloscZapisanych}" />
-
-                                            <h:outputText value="Zapisani" />
-                                            <p:dataTable id="zapisaniListDT" var="userevents" value="#{eventList.selectedEvent.zapisani}">
-                                                <p:column headerText="Zapisani">
-                                                    <h:outputText value="#{userevents.userId.uname}" />
-                                                </p:column>    
-                                            </p:dataTable>                                     
-                                        </p:panelGrid>    
+                                        <p:panel header="">
+                                        <f:facet name="header">
+                                            <p:button href="#"                                                   
+                                                      id="przejdzDoWydarzeniaBtn1"
+                                                      icon="fa fa-info  Fs20"
+                                                      styleClass="GreenButton">                                                              
+                                                <p:tooltip id="toolTipFade1" for="przejdzDoWydarzeniaBtn1" 
+                                                           value="Dołącz" />
+                                            </p:button>                                                  
+                                            <p:button href="#"                                                   
+                                                      id="przejdzDoWydarzeniaBtn2"
+                                                      icon="fa fa-info  Fs20"
+                                                      styleClass="BlueButton">                                                              
+                                                <p:tooltip id="toolTipFade2" for="przejdzDoWydarzeniaBtn2" 
+                                                           value="Dodaj do obserwowanych" />
+                                            </p:button>                                                  
+                                             <p:button href="#"                                                   
+                                                      id="przejdzDoWydarzeniaBtn3"
+                                                      icon="fa fa-info  Fs20"
+                                                      styleClass="OrangeButton">                                                              
+                                                <p:tooltip id="toolTipFade3" for="przejdzDoWydarzeniaBtn3" 
+                                                           value="Powiadom" />
+                                            </p:button>  
+                                            
+                                        </f:facet>    
+                                        
+                                            </p:panel>  
                                     </p:rowExpansion>
-
-                                    <p:column headerText="Akcje" style="width:250px">
-                                        <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="ui-panelgrid-blank">
-                                            <p:commandButton value="Dołącz" icon="fa fa-plus-square-o Fs16 White"  styleClass="Fright PurpleButton" 
-                                                             style="width: 110px;" iconPos="right"/>
-                                            <p:commandButton value="Obserwuj" icon="fa fa-search Fs16 White" styleClass="Fright BlueButton" 
-                                                             style="width: 110px;" iconPos="right"/>                                        
-                                            <p:commandButton value="Komentuj" icon="fa fa-comment-o Fs16 White" styleClass="Fright OrangeButton" 
-                                                             style="width: 110px;" iconPos="right"/>                                                                              
-                                            <p:commandButton value="Powiadom" icon="fa fa-users Fs16 White" styleClass="Fright GreenButton" 
-                                                             style="width: 110px;" iconPos="right"/>                                                                              
-                                        </p:panelGrid>  
-                                    </p:column> 
+                                    
                                     <p:column headerText="Nazwa wydarzenia" style="width:350px;" filterBy="#{event.title}" sortBy="#{event.title}" filterMatchMode="contains">
                                         <h:outputText value="#{event.getCapitalizedTitle()}" />
                                     </p:column>
@@ -110,12 +109,12 @@
                                     </p:column>       
                                     <p:column filterBy="#{event.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                         <f:facet name="filter">
-                                            <p:selectOneListbox onchange="PF('eventsTable').filter()">                                                
+                                            <p:selectOneMenu onchange="PF('eventsTable').filter()">                                                
                                                 <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
                                                 <f:selectItem itemLabel="Pływanie" itemValue="2" />
                                                 <f:selectItem itemLabel="Bieganie" itemValue="3" />
                                                 <f:selectItem itemLabel="Dowolne" itemValue="" />
-                                            </p:selectOneListbox>   
+                                            </p:selectOneMenu>   
                                         </f:facet>
                                         <h:outputLabel value="#{event.typWydarzenia}" rendered="false"/>                                         
                                         <p:graphicImage library="images" name="bike.jpg" width="75px" height="75px" rendered="#{event.typWydarzenia==1}"/>
