@@ -51,6 +51,9 @@
                                         <p:column headerText="Kalendarz" style="width:100px;" filterBy="#{displayeventinfo.calendarname}" styleClass="Fs22">
                                             <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
+                                         <p:column headerText="Adres" style="width:100px;" filterBy="#{displayeventinfo.adres}" styleClass="Fs22">
+                                            <h:outputText value="#{displayeventinfo.adres}" styleClass="Fs22"/>
+                                        </p:column>
                                         <p:column headerText="Dyscyplina" styleClass="Fs22" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
                                                 <p:selectOneMenu onchange="PF('usereventsNWidget').filter()">                                                
@@ -114,15 +117,25 @@
                                             </div>
                                         </p:column>
 
-                                        <p:rowExpansion>
-                                            <p:panelGrid  columns="2" columnClasses="ui-grid-col-12"
-                                                          style="width: 100%; border:0px ; background-color:transparent;">              
-                                                <p:inputTextarea value="#{displayeventinfo.eventOpis}" class="Fs25 " />
+                                 
 
-                                            </p:panelGrid>
+ <p:rowExpansion>
+                                            <p:panel header="">                                            
+                                              <p:outputLabel value="#{displayeventinfo.eventOpis}" styleClass="Fs30"/>     
+                                              <f:facet name="header">
+                                                    <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn1"
+                                                              icon="fa fa-info  Fs20"
+                                                              styleClass="OrangeButton">                                                              
+                                                        <p:tooltip id="toolTipFade1" for="przejdzDoWydarzeniaBtn1" 
+                                                                   value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
+                                                    </p:button>                                                  
+                                              </f:facet>    
+                                            </p:panel>
+                                            
+                                            
+
                                         </p:rowExpansion>
-
-
 
                                     </p:dataTable> 
 
@@ -261,7 +274,14 @@
                                         <p:column headerText="Kalendarz" style="width:100px;" filterBy="#{displayeventinfo.calendarname}" styleClass="Fs22">
                                             <h:outputText value="#{displayeventinfo.calendarname}" styleClass="Fs22"/>
                                         </p:column>
-                                        <p:column headerText="Dyscypliny" styleClass="Fs22" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
+                                        <p:column headerText="Adres" style="width:100px;" filterBy="#{displayeventinfo.adres}" styleClass="Fs22">
+                                            <h:outputText value="#{displayeventinfo.adres}" styleClass="Fs22"/>
+                                        </p:column>
+                                        <p:column headerText="Link" styleClass="Fs22" style="width: 20px;">                                        
+                                            <li class="icon-map103 Fs50 Green" 
+                                                onclick="location.href='#{displayeventinfo.link}';"></li>
+                                        </p:column>
+                                        <p:column headerText="Dyscyplina" styleClass="Fs22" filterBy="#{displayeventinfo.typWydarzenia}" style="width:150px;" filterMatchMode="equals">
                                             <f:facet name="filter">
                                                 <p:selectOneMenu onchange="PF('usereventsNWidget').filter()">                                                
                                                     <f:selectItem itemLabel="Kolarstwo" itemValue="1" />
@@ -297,27 +317,25 @@
                                         <p:column headerText="Opis"  filterBy="#{displayeventinfo.eventOpis}" styleClass="Fs22" style="width:600px;"
                                                   filterMatchMode="contains">
                                             #{displayeventinfo.eventOpis} 
-
                                         </p:column>
 
 
 
                                         <p:rowExpansion>
-                                            <p:panelGrid  columns="2" columnClasses="ui-grid-col-1,ui-grid-col-11"
-                                                          style="width: 100%; border:0px ; background-color:transparent;">                                                               
-                                                <p:button href="#{displayeventinfo.publicUrl}"                                                   
-                                                          id="przejdzDoWydarzeniaBtn"
-                                                          icon="fa fa-share-square-o  Fs20"
-                                                          value=" www"
-                                                          styleClass="CyanButton RaisedButton Fs20"
-                                                          >
-                                                    <p:tooltip id="toolTipFade" for="przejdzDoWydarzeniaBtn" 
-                                                               value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
-                                                </p:button>
-
-                                                <p:inputTextarea value="#{displayeventinfo.eventOpis}" class="Fs25 " />                                                
-
-                                            </p:panelGrid>
+                                            <p:panel header="">                                            
+                                              <p:outputLabel value="#{displayeventinfo.eventOpis}" styleClass="Fs30"/>     
+                                              <f:facet name="header">
+                                                    <p:button href="#{displayeventinfo.publicUrl}"                                                   
+                                                              id="przejdzDoWydarzeniaBtn1"
+                                                              icon="fa fa-info  Fs20"
+                                                              styleClass="OrangeButton">                                                              
+                                                        <p:tooltip id="toolTipFade1" for="przejdzDoWydarzeniaBtn1" 
+                                                                   value="Przejdź na stronę wydarzenia aby zobaczyć wiecej informacji" />
+                                                    </p:button>                                                  
+                                              </f:facet>    
+                                            </p:panel>
+                                            
+                                            
 
                                         </p:rowExpansion>
 
